@@ -1,2 +1,29 @@
-%h1 Users#settings
-%p Find me in app/views/users/settings.html.haml
+.error_messages
+	- if @user.errors.full_messages
+		- @user.errors.full_messages.each do |error_message| 
+			=error_message 
+			%br/
+
+= form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+	.field
+		= f.hidden_field :id, :value => @user.id
+		= f.label :email
+		= f.text_field :email
+	.field
+		= f.label :full_name
+		= f.text_field :full_name
+	.field
+		= f.label :address
+		= f.text_field :address
+	.field
+		= f.label :city
+		= f.text_field :city
+	.field
+		= f.label :bio
+		= f.text_area :bio
+	.field
+		= f.label :phone
+		= f.text_field :phone
+	.actions
+		= f.submit "Update"
+

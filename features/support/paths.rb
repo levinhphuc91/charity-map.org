@@ -17,8 +17,11 @@ module NavigationHelpers
     when /^the users settings page$/
       '/users/settings'
 
-    when /^the artworks page$/
-      '/artworks'
+    when /^the login page$/
+      '/users/sign_in'
+
+    when /^the dashboard$/
+      '/dashboard'
 
     else
       begin

@@ -1,2 +1,2 @@
-%h1 Users#dashboard
-%p Find me in app/views/users/dashboard.html.haml
+- if current_user.donations.empty?
+  %p No statistics about your donation history yet.

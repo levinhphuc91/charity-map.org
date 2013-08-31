@@ -1,5 +1,6 @@
 CharityMap::Application.routes.draw do
   get "users/dashboard"
+  match "dashboard", to: 'users#dashboard', via: :all
   get "users/profile"
   get "users/settings"
   post "users/update_settings"

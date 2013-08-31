@@ -22,4 +22,5 @@ class Project < ActiveRecord::Base
   has_many :project_updates
   has_many :project_comments
   has_many :donations
+  belongs_to :user
 end

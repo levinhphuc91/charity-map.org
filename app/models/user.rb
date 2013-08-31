@@ -34,4 +34,5 @@ class User < ActiveRecord::Base
 
   has_many :project_comments
   has_many :donations
+  has_many :projects 
 end

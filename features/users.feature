@@ -32,3 +32,18 @@ Feature: User
     When I go to the dashboard
     Then I should see "500000"
       And I should see "COD"
+
+  Scenario: Visit dashboard, as a project creator
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+      And there is a donation with the user id "2" and the amount "250000" and the collection method "COD" and the project id "1"
+      And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" and the project id "1"
+      And there is a project with the id "1" and the user id "1" and the funding_goal "1000000" and the title "Hello World !"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I press "Sign in"
+    When I go to the dashboard
+    Then I should see "Hello World !"
+      And I should see "1000000"
+      And I should see "50"
+      And I should see "2"

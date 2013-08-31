@@ -1,5 +1,4 @@
-/ - if current_user.donations.empty?
-/   %p No statistics about your donation history yet.
+/ BACKER
 - if current_user.donations.empty?
 	%p No statistics about your donation history yet.
 - else 
@@ -8,3 +7,13 @@
 			%p = key.to_s
 			%p = value.to_s
 
+/ PROJECT CREATOR
+- if current_user.projects.empty?
+	%p You have n't created any project.
+- else
+	= current_user.projects.each do |project|
+		%p= project.title
+		%p= project.funding_goal
+		%p= project.users.count
+		%p= project.donations.sum('amount') / project.funding_goal * 100 
+/ CHARITY MAP STAFF

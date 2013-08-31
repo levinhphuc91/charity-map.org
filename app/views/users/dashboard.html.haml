@@ -1,2 +1,10 @@
+/ - if current_user.donations.empty?
+/   %p No statistics about your donation history yet.
 - if current_user.donations.empty?
-  %p No statistics about your donation history yet.
+	%p No statistics about your donation history yet.
+- else 
+	=	current_user.donations.each do |donation|
+		=	donation.attributes.each do |key, value|
+			%p = key.to_s
+			%p = value.to_s
+

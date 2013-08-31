@@ -22,13 +22,13 @@ Feature: User
     When I go to the dashboard
     Then I should see "No statistics about your donation history yet."
 
-  # Scenario: Visit dashboard, as a backer, without donations 
-  #   Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-  #     And there is a donation with the user id "1" and the amount "500000" and the collection method "COD"
-  #   When I go to the login page
-  #     And I fill in "Email" with "vumanhcuong01@gmail.com"
-  #     And I fill in "Password" with "12345678"
-  #     And I press "Sign in"
-  #   When I go to the dashboard
-  #   Then I should see "500000"
-  #     And I should see "COD"
+  Scenario: Visit dashboard, as a backer having donations 
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+      And there is a donation with the user id "1" and the amount "500000" and the collection method "COD"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I press "Sign in"
+    When I go to the dashboard
+    Then I should see "500000"
+      And I should see "COD"

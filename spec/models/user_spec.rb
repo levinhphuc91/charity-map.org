@@ -15,6 +15,11 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  full_name              :string(255)
+#  address                :string(255)
+#  city                   :string(255)
+#  bio                    :text
+#  phone                  :string(255)
 #
 
 require 'spec_helper'

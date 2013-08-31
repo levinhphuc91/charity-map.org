@@ -1,4 +1,7 @@
 CharityMap::Application.routes.draw do
+  get "users/dashboard"
+  get "users/profile"
+  get "users/settings"
   devise_for :users
   get "pages/home"
   get "pages/about"

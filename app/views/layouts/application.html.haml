@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title= Configuration[:site_name]
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    #header
+      .container
+        .pull-left= image_tag "logo.png"
+        .pull-right
+          .navigation-box 
+            .navigation-text Các Dự Án
+          .navigation-box 
+            .navigation-text Giới Thiệu
+          .navigation-box 
+            .navigation-text Đăng Nhập
+          .navigation-box 
+            .navigation-text Đăng Ký
+          .language-bar
+            .language-bar--text
+              %span.active VN&nbsp
+              %span.inactive / EN
+    %p.notice= notice
+    %p.alert= alert
+    .body-container
+      = yield

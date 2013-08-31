@@ -31,4 +31,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone
+
+  has_many :project_comments
+  has_many :donations
 end

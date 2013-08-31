@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130831034856) do
+ActiveRecord::Schema.define(version: 20130831154217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,68 @@ ActiveRecord::Schema.define(version: 20130831034856) do
     t.datetime "updated_at"
   end
 
+  create_table "donations", force: true do |t|
+    t.string   "euid"
+    t.string   "status"
+    t.integer  "user_id"
+    t.float    "amount"
+    t.text     "note"
+    t.string   "collection_method"
+    t.integer  "project_reward_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donations", ["project_id"], name: "index_donations_on_project_id", using: :btree
+  add_index "donations", ["project_reward_id"], name: "index_donations_on_project_reward_id", using: :btree
+  add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
+
+  create_table "project_comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_comments", ["project_id"], name: "index_project_comments_on_project_id", using: :btree
+  add_index "project_comments", ["user_id"], name: "index_project_comments_on_user_id", using: :btree
+
+  create_table "project_rewards", force: true do |t|
+    t.float    "amount"
+    t.text     "description"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_rewards", ["project_id"], name: "index_project_rewards_on_project_id", using: :btree
+
+  create_table "project_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_updates", ["project_id"], name: "index_project_updates_on_project_id", using: :btree
+
   create_table "projects", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.float    "funding_goal"
+    t.string   "location"
+    t.string   "thumbnail"
+    t.integer  "user_id"
+    t.string   "status"
   end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

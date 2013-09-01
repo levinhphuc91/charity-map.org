@@ -1,11 +1,13 @@
 #header
   .container
-    .pull-left= image_tag "logo.png"
+    .pull-left
+      = link_to root_path do
+        = image_tag "logo.png"
     .pull-right
       .navigation-box 
-        .navigation-text Các Dự Án
+        .navigation-text= link_to "Các Dự Án", projects_path
       .navigation-box 
-        .navigation-text Giới Thiệu
+        .navigation-text= link_to "Giới Thiệu", pages_about_path
       - unless signed_in?
         .navigation-box 
           .navigation-text= link_to "Đăng Nhập", new_user_session_path

@@ -49,7 +49,7 @@ p
     padding: 18px
     float: left
     &:hover
-      border-bottom: 4px solid lighten($green, 15%)
+      border-bottom: 4px solid lighten($blue, 35%)
       cursor: pointer
   .navigation-text
     font-size: 14px
@@ -82,7 +82,10 @@ p
 .homepage--project-container
   width: 260px
   height: 390px
+  max-height: 390px
+  overflow: hidden
   padding: 10px
+  border: 1px solid $light_grey
   .project-title
     font-size: 18px
     color: $blue
@@ -92,23 +95,29 @@ p
     line-height: 18px
     color: $grey
   .project-description
-    line-height: 24px
+    line-height: 20px
+    font-size: 14px
   .project-progressbar
+    margin-top: 5px
     width: 260px
     border-radius: 5px
     height: 10px
+    float: left 
     background-color: $light_grey
   .project-progressbar--green
+    z-index: 5
+    font-size: 2px
+    height: 10px
+    width: 100px
     display: block
-    float:left
+    float: left
     border-radius: 5px
     background-color: $green
   .project-progressbar--red
     display: block
-    float:left
+    float: left
     border-radius: 5px
     background-color: $red
-
 
   .project-metric
     font-weight: bold
@@ -118,6 +127,7 @@ p
     font-size: 9px
     text-transform: uppercase
     color: $grey
+    font-weight: bold
 
 .homepage--headline
   font-weight: bold
@@ -161,7 +171,7 @@ a
     color: $blue
   &:hover
     text-decoration: none
-    color: $green
+    color: $blue
   &:active
     text-decoration: none
     color: $green
@@ -179,3 +189,6 @@ a
 .alert
   border-bottom: 3px solid darken($red, 5%)
   background-color: lighten($red, 13%)
+
+.giving-space
+  margin-top: 5px

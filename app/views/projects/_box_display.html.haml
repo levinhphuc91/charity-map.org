@@ -1,0 +1,19 @@
+.homepage--project-container
+  = image_tag "ph_project-thumbnail.jpg"
+  .giving-space
+    .project-title= project.title
+    .project-info= "#{project.user.full_name} / #{project.location}"
+  .project-description.giving-space= project.description[0..200]
+  .row-fluid.giving-space
+    .project-progressbar
+      .project-progressbar--green 15%
+  .row-fluid.giving-space
+    .pull-left{style: "width: 70px;"}
+      .project-metric 30%
+      .project-metric--description Hoàn Thành
+    .pull-left{style: "width: 120px;"}
+      .project-metric 3.000.000 VND
+      .project-metric--description Đã Kêu Gọi
+    .pull-left{style: "width: 70px;"}
+      .project-metric= project.end_date - Time.now
+      .project-metric--description Ngày Còn Lại

@@ -12,5 +12,17 @@
   .field
     = f.label :description
     = f.text_area :description
+  .field
+    = f.label :start_date
+    = f.text_field :start_date
+  .field
+    = f.label :end_date
+    = f.text_field :end_date
+  .field
+    = f.label :funding_goal
+    = f.text_field :funding_goal
+  .field
+    = f.label :location
+    = f.text_field :location
   .actions
     = f.submit 'Save'

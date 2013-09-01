@@ -1,0 +1,26 @@
+#header
+  .container
+    .pull-left
+      = link_to root_path do
+        = image_tag "logo.png"
+    .pull-right
+      .navigation-box 
+        .navigation-text= link_to "Các Dự Án", projects_path
+      .navigation-box 
+        .navigation-text= link_to "Giới Thiệu", pages_about_path
+      - unless signed_in?
+        .navigation-box 
+          .navigation-text= link_to "Đăng Nhập", new_user_session_path
+        .navigation-box 
+          .navigation-text= link_to "Đăng Ký", new_user_registration_path
+      - else
+        .navigation-box 
+          .navigation-text= link_to "Quản Lý", users_dashboard_path
+        .navigation-box 
+          .navigation-text= link_to "Hồ Sơ", users_settings_path
+        .navigation-box 
+          .navigation-text= link_to "Đăng Xuất", destroy_user_session_path, method: :delete
+      .language-bar
+        .language-bar--text
+          %span.active VN&nbsp
+          %span.inactive / EN

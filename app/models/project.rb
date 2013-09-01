@@ -17,10 +17,14 @@
 #
 
 class Project < ActiveRecord::Base
-
+  attr_accessible :title, :description, :start_date, :end_date, 
+    :funding_goal, :location, :thumbnail, :user_id, :status
   has_many :project_rewards
   has_many :project_updates
   has_many :project_comments
+  
   has_many :donations
-  belongs_to :user
+  has_many :users, through: :donations
+
+  belongs_to :user # admin relationship
 end

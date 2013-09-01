@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def profile
+    @user = User.find(params[:id]) || current_user
   end
 
   def settings
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Updated Successfully."
   	else
   		render :action => :settings
-      flash[:notice] = "Unsuccessful Update."
+      flash[:alert] = "Unsuccessful Update."
   	end
   end
 

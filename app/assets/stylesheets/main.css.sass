@@ -16,7 +16,7 @@ html
 body
   margin: 0
   padding: 0
-  height: 100%
+  // height: 100%
   // float: left
   // background: #C0DEED url('map_show/bg.jpg') repeat-x top fixed
   // -webkit-background-size: cover
@@ -45,15 +45,21 @@ p
     margin: 0 auto
   .navigation-box
     width: auto
-    height: 14px
+    height: 10px
     padding: 18px
     float: left
+    &:hover
+      border-bottom: 4px solid lighten($blue, 35%)
+      cursor: pointer
   .navigation-text
     font-size: 14px
     color: $black
     text-transform: uppercase
   .language-bar
-    @extend .navigation-box
+    width: auto
+    height: 14px
+    padding: 18px
+    float: left
     display: inline-block
     border-left: 1px solid $light_grey
   .language-bar--text
@@ -76,7 +82,10 @@ p
 .homepage--project-container
   width: 260px
   height: 390px
+  max-height: 390px
+  overflow: hidden
   padding: 10px
+  border: 1px solid $light_grey
   .project-title
     font-size: 18px
     color: $blue
@@ -86,23 +95,29 @@ p
     line-height: 18px
     color: $grey
   .project-description
-    line-height: 24px
+    line-height: 20px
+    font-size: 14px
   .project-progressbar
+    margin-top: 5px
     width: 260px
     border-radius: 5px
     height: 10px
+    float: left 
     background-color: $light_grey
   .project-progressbar--green
+    z-index: 5
+    font-size: 2px
+    height: 10px
+    width: 100px
     display: block
-    float:left
+    float: left
     border-radius: 5px
     background-color: $green
   .project-progressbar--red
     display: block
-    float:left
+    float: left
     border-radius: 5px
     background-color: $red
-
 
   .project-metric
     font-weight: bold
@@ -112,6 +127,7 @@ p
     font-size: 9px
     text-transform: uppercase
     color: $grey
+    font-weight: bold
 
 .homepage--headline
   font-weight: bold
@@ -145,3 +161,34 @@ p
   padding: 40px auto 60px auto
   border-bottom: 1px solid $light_grey
   background-color:rgba(251,251,251,0.9)
+
+a
+  &:link
+    text-decoration: none
+    color: $blue
+  &:visited
+    text-decoration: none
+    color: $blue
+  &:hover
+    text-decoration: none
+    color: $blue
+  &:active
+    text-decoration: none
+    color: $green
+
+.notice, .alert
+  height: 20px
+  line-height: 20px
+  padding: 10px
+  text-align: center
+  text-shadow: 0px 1px 1px #fff
+  border-radius: 2px
+.notice
+  border-bottom: 3px solid darken($green, 5%)
+  background-color: lighten($green, 13%)
+.alert
+  border-bottom: 3px solid darken($red, 5%)
+  background-color: lighten($red, 13%)
+
+.giving-space
+  margin-top: 5px

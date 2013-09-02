@@ -62,7 +62,7 @@ Feature: User
   Scenario: Sign up successfully
     When I go to the signup page
       And I fill in "Email" with "vumanhcuong0103@gmail.com"
-      And I fill in "Password" with "12345678"
+      And I fill in "user_password" with "12345678"
       And I fill in "Password confirmation" with "12345678"
       And I press "Sign up"
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
@@ -71,18 +71,18 @@ Feature: User
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the signup page
       And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
+      And I fill in "user_password" with "12345678"
       And I fill in "Password confirmation" with "12345678"
       And I press "Sign up"
-    Then I should see "Email đã có"
+    Then I should see "đã có"
 
   Scenario: Sign up with short password (< 8 characters)
     When I go to the signup page
       And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12348"
+      And I fill in "user_password" with "12348"
       And I fill in "Password confirmation" with "12348"
       And I press "Sign up"
-    Then I should see "Password quá ngắn (tối thiểu 8 ký tự)"
+    Then I should see "quá ngắn (tối thiểu 8 ký tự)"
 
   Scenario: Create a new project successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

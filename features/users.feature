@@ -76,7 +76,7 @@ Feature: User
       And I fill in "Password" with "12345678"
       And I fill in "Password confirmation" with "12345678"
       And I press "Sign up"
-    Then I should see "Email has already been taken"
+    Then I should see "Email đã có"
 
   Scenario: Sign up with short password (< 8 characters)
     When I go to the signup page

@@ -4,26 +4,33 @@
 			=error_message 
 			%br/
 
-= form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-	.field
-		= f.hidden_field :id, :value => @user.id
-		= f.label :email
-		= f.text_field :email
-	.field
-		= f.label :full_name
-		= f.text_field :full_name
-	.field
-		= f.label :address
-		= f.text_field :address
-	.field
-		= f.label :city
-		= f.text_field :city
-	.field
-		= f.label :bio
-		= f.text_area :bio
-	.field
-		= f.label :phone
-		= f.text_field :phone
-	.actions
-		= f.submit "Update"
+/ = form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+/ 	.field
+/ 		= f.hidden_field :id, :value => @user.id
+/ 		= f.label :email
+/ 		= f.text_field :email
+/ 	.field
+/ 		= f.label :full_name
+/ 		= f.text_field :full_name
+/ 	.field
+/ 		= f.label :address
+/ 		= f.text_field :address
+/ 	.field
+/ 		= f.label :city
+/ 		= f.text_field :city
+/ 	.field
+/ 		= f.label :bio
+/ 		= f.text_area :bio
+/ 	.field
+/ 		= f.label :phone
+/ 		= f.text_field :phone
+/ 	.actions
+/ 		= f.submit "Update"
 
+.update-user-profile
+	= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+		= f.input  :id, :as => :hidden
+		= f.inputs :email, :full_name, :address
+		= f.input  :city,  :as => :select, :collection => ["Ho Chi Minh", "Ha Noi"]
+		= f.inputs :bio, :phone 
+		= f.actions :submit,  :as => :button

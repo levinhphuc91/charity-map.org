@@ -17,6 +17,9 @@
 #
 
 class Project < ActiveRecord::Base
+  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "REVIEWED", Time.now, Time.now) }
+  scope :finished, -> { where(status: "FINISHED") }
+
   attr_accessible :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :thumbnail, :user_id, :status
   has_many :project_rewards

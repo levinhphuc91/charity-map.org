@@ -17,6 +17,7 @@ gem 'time_difference'
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'
 gem 'protected_attributes'
+gem 'awesome_print', :require => 'ap'
 
 group :development do
   gem 'better_errors'

@@ -1,2 +1,27 @@
-- if Project.count > 0
-  = render "projects/box_display", :project => Project.last
+.row-fluid
+  .homepage--headline Giving has never been this easy with Charity Map
+  .bttn.bttn-green Đọc Thêm
+
+%hr/ 
+.row-fluid
+  .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
+  .pull-right
+    .bttn.bttn-green Xem tất cả  
+.row-fluid
+  - if Project.funding.count > 0
+    - Project.funding.each do |project|
+      = render "projects/box_display", :project => project
+  - else
+    Hiện chưa có dự án nào đang gây quỹ.
+
+%hr/ 
+.row-fluid
+  .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
+  .pull-right
+    .bttn.bttn-green Xem tất cả  
+.row-fluid
+  - if Project.finished.count > 0
+    - Project.finished.each do |project|
+      = render "projects/box_display", :project => project
+  - else 
+    Hiện chưa có dự án nào được hoàn thành.

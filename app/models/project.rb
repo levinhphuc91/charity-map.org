@@ -28,9 +28,10 @@ class Project < ActiveRecord::Base
 
   belongs_to :user # admin relationship
 
-  validates :title, :description, :start_date, :end_date, :funding_goal, :location, :status,
+  validates :title, :description, :start_date, :end_date, 
+    :funding_goal, :location, :status, :user_id,
     presence: true
-  validates :funding_goal, numericality: true, greater_than_or_equal_to: 100000
+  validates :funding_goal, numericality: { greater_than: 99999 }
 
   before_validation :assign_status
 
@@ -38,8 +39,6 @@ class Project < ActiveRecord::Base
     def assign_status
       self.status = "DRAFT"
     end
-
-  # funding goal needs to be > 0
 end
 
 # ===== PROJECT STATUSES =====

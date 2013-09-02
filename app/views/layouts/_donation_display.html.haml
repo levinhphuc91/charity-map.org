@@ -1,26 +1,9 @@
 .row-fluid
   .span1= donation.euid
-  .span3= donation.project.title
-  .span1= donation.created_at
-  .span1= donation.updated_at
-  .span2= donation.amount
-  .span2= donation.collection_method
+  .span4= donation.project.title
+  .span2= human_time(donation.updated_at)
+  .span3
+    = human_currency donation.amount
+    %br/ 
+    = donation.collection_method
   .span2= donation.status
-
-
-
-
-  / .span4
-  /   = image_tag "ph_project-thumbnail.jpg"
-  / .span5
-  /   .project-title= link_to project.title, project_path(project)
-  /   .project-info= project.location
-  /   .project-description= project.description
-  / .span3
-  /   #{number_to_currency project.donations.sum(:amount), precision: 0, unit: "đ"} / #{number_to_currency project.funding_goal, precision: 0, unit: "đ"}
-  /   %br/ 
-  /   #{project.donations.count} MTQ
-  /   %br/
-  /   Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
-  /   %br/ 
-  /   = link_to "Đến Trang Dự Án", project_path(project)

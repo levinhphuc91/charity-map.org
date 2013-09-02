@@ -14,7 +14,7 @@
       .project-metric= number_to_percentage project.donations.sum(:amount) / project.funding_goal, precision: 0
       .project-metric--description Hoàn Thành
     .pull-left{style: "width: 110px;"}
-      .project-metric= number_to_currency project.donations.sum(:amount), delimiter: ".", precision: 0, unit: "đ"
+      .project-metric= human_currency project.donations.sum(:amount)
       .project-metric--description Đã Kêu Gọi
     .pull-left{style: "width: 70px;"}
       .project-metric= (TimeDifference.between(Time.now, project.end_date).in_days).to_i

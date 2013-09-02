@@ -29,6 +29,10 @@ module NavigationHelpers
     when /^the new project page$/
       '/projects/new'
 
+    when /^the project page with slug 01$/
+      '/projects/push-the-world/edit'
+    when /^the project page with slug 02$/
+      '/projects/kick-the-school/edit'
     else
       begin
         page_name =~ /the (.*) page/

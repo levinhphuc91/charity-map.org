@@ -44,3 +44,44 @@ Feature: User
       And I should see "5000000"
       And I should see "50"
       And I should see "2"
+
+  Scenario: User sign in Charity Map successfully
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I press "Sign in" 
+    Then I should see "Signed in successfully."
+
+  Scenario: User sign in Charity Map with invalid email & password
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuon@gmail.com"
+      And I fill in "Password" with "12345"
+      And I press "Sign in" 
+    Then I should see "Invalid email or password."
+
+  Scenario: User sign up successfully
+    When I go to the signup page
+      And I fill in "Email" with "vumanhcuong0103@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I fill in "Password confirmation" with "12345678"
+      And I press "Sign up"
+    Then I should see "Welcome! You have signed up successfully."
+  
+  Scenario: User sign up with existed Email 
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the signup page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I fill in "Password confirmation" with "12345678"
+      And I press "Sign up"
+    Then I should see "Email has already been taken"
+
+  Scenario: User sign up with short password ( < 8 characters)
+    When I go to the signup page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12348"
+      And I fill in "Password confirmation" with "12348"
+      And I press "Sign up"
+    Then I should see "Password is too short (minimum is 8 characters)"

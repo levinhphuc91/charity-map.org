@@ -1,7 +1,7 @@
 .homepage--project-container
   = image_tag "ph_project-thumbnail.jpg"
   .giving-space
-    .project-title= project.title
+    .project-title= link_to project.title, project_path(project)
     .project-info= "#{project.user.full_name} / #{project.location}"
   .project-description.giving-space= project.description[0..200]
   .row-fluid.giving-space

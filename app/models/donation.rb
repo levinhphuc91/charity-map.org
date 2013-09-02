@@ -21,6 +21,16 @@ class Donation < ActiveRecord::Base
   belongs_to :project
   belongs_to :project_reward
 
-  validates :user_id, :project_id,
+  validates :user_id, :project_id, :euid,
     presence: true
+
+  before_validation :assign_euid
+
+  private
+    def generate_random_string
+      (0...5).map{ ('0'..'9').to_a[rand(10)] }.join
+    end
+    def assign_euid
+      self.euid = generate_random_string if euid == nil
+    end
 end

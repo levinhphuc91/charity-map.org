@@ -43,7 +43,7 @@ class Project < ActiveRecord::Base
 
   private
     def assign_status
-      self.status = "DRAFT"
+      self.status = "DRAFT" if status == nil
     end
 
   # TODO: check for user's full name and address and bio before create

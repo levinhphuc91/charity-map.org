@@ -15,29 +15,3 @@
 //= require jquery.ui.datepicker
 //= require turbolinks
 //= require_tree .
-
-$( document ).ready(function() {
-	$(".start_date").datepicker({
-		defaultDate: "+1w",
-		changeMonth: true,
-		dateFormat: 'yy-mm-dd',
-		onClose: function( selectedDate ) {
-			$( ".end_date" ).datepicker( "option", "minDate", selectedDate );
-		}
-	});
-	$(".end_date").datepicker({
-		defaultDate: "+1w",
-		changeMonth: true,
-		dateFormat: 'yy-mm-dd',
-		onClose: function( selectedDate ) {
-			$(".start_date").datepicker( "option", "maxDate", selectedDate );
-		}
-	});
-	$(".start_date").click(function(){
-		console.log('asasdasd')
-		$(".start_date").datepicker();
-	});
-	$(".end_date").click(function(){
-		$(".end_date").datepicker();
-	});
-});

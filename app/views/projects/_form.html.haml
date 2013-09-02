@@ -1,20 +1,3 @@
-/ = semantic_form_for @project do |f|
-/   - if @project.errors.any?
-/     #error_explanation
-/       %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-/       %ul
-/         - @project.errors.full_messages.each do |msg|
-/           %li= msg
-/   = f.input       :user_id, :as => :hidden, :value => current_user.id
-/   = f.inputs      :title, :description
-/   = f.label       :start_date
-/   = f.text_field  :start_date, :class => "start_date"
-/   = f.label       :end_date
-/   = f.text_field  :end_date, :class => "end_date"
-/   = f.input       :funding_goal, :as => :number
-/   = f.input       :location
-/   = f.actions     :submit,      :as => :button
-= javascript_include_tag "application" 
 = simple_form_for @project do |f|
   - if @project.errors.any?
     #error_explanation
@@ -30,3 +13,30 @@
   = f.input       :funding_goal
   = f.input       :location
   = f.submit "Create Project"
+
+:javascript
+  $( document ).ready(function() {
+    $(".start_date").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',
+      onClose: function( selectedDate ) {
+        $( ".end_date" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $(".end_date").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',
+      onClose: function( selectedDate ) {
+        $(".start_date").datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+    $(".start_date").click(function(){
+      console.log('asasdasd')
+      $(".start_date").datepicker();
+    });
+    $(".end_date").click(function(){
+      $(".end_date").datepicker();
+    });
+  });

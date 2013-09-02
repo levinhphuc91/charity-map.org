@@ -9,9 +9,12 @@
   %body
     = render "layouts/header"
     .body-container
-      - if notice
-        %p.notice= notice
-      - if alert
-        %p.alert= alert
+      - if notice || alert
+        .body-container--plain-row
+          .body-container--content
+            - if notice
+              %p.notice= notice
+            - if alert
+              %p.alert= alert
       = yield
     = render "layouts/footer"

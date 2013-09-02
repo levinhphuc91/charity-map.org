@@ -20,4 +20,7 @@ class Donation < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
   belongs_to :project_reward
+
+  validates :user_id, :project_id,
+    presence: true
 end

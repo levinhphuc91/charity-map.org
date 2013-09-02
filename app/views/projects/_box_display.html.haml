@@ -12,7 +12,8 @@
       .project-metric 30%
       .project-metric--description Hoàn Thành
     .pull-left{style: "width: 120px;"}
-      .project-metric 3.000.000 VND
+      .project-metric= project.funding_goal
+      / TODO: better display funding_goal
       .project-metric--description Đã Kêu Gọi
     .pull-left{style: "width: 70px;"}
       .project-metric= project.end_date - Time.now

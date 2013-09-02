@@ -1,16 +1,32 @@
-= semantic_form_for @project do |f|
+/ = semantic_form_for @project do |f|
+/   - if @project.errors.any?
+/     #error_explanation
+/       %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+/       %ul
+/         - @project.errors.full_messages.each do |msg|
+/           %li= msg
+/   = f.input       :user_id, :as => :hidden, :value => current_user.id
+/   = f.inputs      :title, :description
+/   = f.label       :start_date
+/   = f.text_field  :start_date, :class => "start_date"
+/   = f.label       :end_date
+/   = f.text_field  :end_date, :class => "end_date"
+/   = f.input       :funding_goal, :as => :number
+/   = f.input       :location
+/   = f.actions     :submit,      :as => :button
+= javascript_include_tag "application" 
+= simple_form_for @project do |f|
   - if @project.errors.any?
     #error_explanation
       %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
       %ul
         - @project.errors.full_messages.each do |msg|
           %li= msg
-  = f.input       :user_id, :as => :hidden, :value => current_user.id
-  = f.inputs      :title, :description
-  = f.label       :start_date
-  = f.text_field  :start_date, :class => "start_date"
-  = f.label       :end_date
-  = f.text_field  :end_date, :class => "end_date"
-  = f.input       :funding_goal, :as => :number
+  = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+  = f.input       :title
+  = f.input       :description
+  = f.input       :start_date, :as => :string, :input_html => {:class => "start_date"}
+  = f.input       :end_date,   :as => :string, :input_html => {:class => "end_date"}
+  = f.input       :funding_goal
   = f.input       :location
-  = f.actions     :submit,      :as => :button
+  = f.submit "Save"

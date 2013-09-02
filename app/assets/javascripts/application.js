@@ -33,4 +33,11 @@ $( document ).ready(function() {
 			$(".start_date").datepicker( "option", "maxDate", selectedDate );
 		}
 	});
+	$(".start_date").click(function(){
+		console.log('asasdasd')
+		$(".start_date").datepicker();
+	});
+	$(".end_date").click(function(){
+		$(".end_date").datepicker();
+	});
 });

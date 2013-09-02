@@ -17,6 +17,11 @@
 #
 
 class Project < ActiveRecord::Base
+  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "DRAFT", Time.now, Time.now) }
+  # :funding to be revise on platform >> DRAFT >> REVIEWED
+  scope :finished, -> { where(status: "FINISHED") }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
+
   attr_accessible :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :thumbnail, :user_id, :status
   has_many :project_rewards
@@ -32,6 +37,7 @@ class Project < ActiveRecord::Base
     :funding_goal, :location, :status, :user_id,
     presence: true
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
+  validates :user_id, numericality: { greater_than: 0 }
 
   before_validation :assign_status
 
@@ -39,6 +45,8 @@ class Project < ActiveRecord::Base
     def assign_status
       self.status = "DRAFT"
     end
+
+  # TODO: check for user's full name and address and bio before create
 end
 
 # ===== PROJECT STATUSES =====

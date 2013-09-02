@@ -1,21 +1,18 @@
-%h1 Listing projects
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .pull-left
+        - if params[:filter] && params[:filter] == "FUNDING"
+          %h1 Các Dự Án Đang Gây Quỹ
+        - elsif params[:filter] == "FINISHED"
+          %h1 Các Dự Án Đã Qua Đợt Gây Quỹ
+        - else
+          %h1 Các Dự Án Trên Hệ Thống
+      .pull-right
+        = link_to new_project_path do
+          .bttn.bttn-blue Đăng Ký Dự Án
 
-%table
-  %tr
-    %th Title
-    %th Description
-    %th
-    %th
-    %th
-
-  - @projects.each do |project|
-    %tr
-      %td= project.title
-      %td= project.description
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Project', new_project_path
+    .row-fluid
+      - @projects.each do |project|
+        .pull-left
+          = render "projects/box_display", :project => project

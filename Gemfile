@@ -12,11 +12,13 @@ gem 'simple_form'
 gem 'json'
 gem 'formtastic'
 gem "jquery-ui-rails", "~> 4.0.1"
+gem 'time_difference'
 
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'
 gem 'protected_attributes'
+gem 'awesome_print', :require => 'ap'
 
 group :development do
   gem 'better_errors'

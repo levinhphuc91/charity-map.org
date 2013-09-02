@@ -1,11 +1,13 @@
-%p#notice= notice
+.body-container--plain-row
+  .body-container--content
+    %p#notice= notice
 
-%p
-  %b Title:
-  = @project.title
-%p
-  %b Description:
-  = @project.description
+    %p
+      %b Title:
+      = @project.title
+    %p
+      %b Description:
+      = @project.description
 
-- if current_user && current_user.projects.exists?(@project)
-  = link_to 'Edit', edit_project_path(@project)
+    - if current_user && current_user.projects.exists?(@project)
+      = link_to 'Edit', edit_project_path(@project)

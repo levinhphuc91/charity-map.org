@@ -7,14 +7,15 @@
   .row-fluid.giving-space
     .project-progressbar
       .project-progressbar--green 15%
+      / TODO: set div width using jquery
+
   .row-fluid.giving-space
-    .pull-left{style: "width: 70px;"}
-      .project-metric 30%
+    .pull-left{style: "width: 80px;"}
+      .project-metric= number_to_percentage project.donations.sum(:amount) / project.funding_goal, precision: 0
       .project-metric--description Hoàn Thành
-    .pull-left{style: "width: 120px;"}
-      .project-metric= project.funding_goal
-      / TODO: better display funding_goal
+    .pull-left{style: "width: 110px;"}
+      .project-metric= number_to_currency project.donations.sum(:amount), delimiter: ".", precision: 0, unit: "đ"
       .project-metric--description Đã Kêu Gọi
     .pull-left{style: "width: 70px;"}
-      .project-metric= project.end_date - Time.now
+      .project-metric= (TimeDifference.between(Time.now, project.end_date).in_days).to_i
       .project-metric--description Ngày Còn Lại

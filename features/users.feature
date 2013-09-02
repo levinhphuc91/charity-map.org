@@ -83,3 +83,39 @@ Feature: User
       And I fill in "Password confirmation" with "12348"
       And I press "Sign up"
     Then I should see "Password quá ngắn (tối thiểu 8 ký tự)"
+
+  Scenario: Create a new project successfully
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I press "Sign in"
+    When I go to the new project page
+      And I fill in "Title" with "Push the world"
+      And I fill in "Description" with "World is bullshit"
+      And I fill in "Start date" with "2013-09-10"
+      And I fill in "End date" with "2013-09-24"
+      And I fill in "Funding goal" with "9999999"
+      And I fill in "Location" with "227 Nguyen Van Cu"
+      And I press "Create Project"
+    Then  I should see "Title: Push the world"
+      And I should see "Description: World is bullshit"
+      And I should see "Edit"
+
+  Scenario: Create a new project unsuccessfully
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the login page
+      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "Password" with "12345678"
+      And I press "Sign in"
+    When I go to the new project page
+      And I fill in "Title" with ""
+      And I fill in "Description" with "World is bullshit"
+      And I fill in "Start date" with "2013-09-10"
+      And I fill in "End date" with "2013-09-24"
+      And I fill in "Funding goal" with ""
+      And I fill in "Location" with "227 Nguyen Van Cu"
+      And I press "Create Project"
+    Then  I should see "errors prohibited"
+      And I should see "Title không thể để trắng"
+      And I should see "Funding goal không thể để trắng"

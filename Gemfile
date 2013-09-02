@@ -11,6 +11,7 @@ gem 'inherited_resources'
 gem 'simple_form'
 gem 'json'
 gem 'formtastic'
+gem "jquery-ui-rails", "~> 4.0.1"
 
 # Model gems
 gem 'has_defaults'

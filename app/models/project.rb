@@ -31,7 +31,7 @@ class Project < ActiveRecord::Base
   validates :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :status, :user_id,
     presence: true
-  validates :funding_goal, numericality: { greater_than: 99999 }
+  validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
 
   before_validation :assign_status
 

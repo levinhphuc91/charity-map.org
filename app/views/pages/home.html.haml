@@ -18,11 +18,12 @@
           %b Chỉ tốn 1 phút
           %br/ 
           để đăng ký và bắt đầu ủng hộ
-      .span4
-        %input{:type => "text", :class => "homepage--email-box", :placeholder => "email@example.com"}/ 
-      .span2
-        .pull-right
-          .bttn.bttn-green Đăng Ký
+      = form_tag(new_user_registration_path, :method => :get) do
+        .span4
+          = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
+        .span2
+          .pull-right
+            #homepage-registration-by-email.bttn.bttn-green Đăng Ký
 
 .body-container--plain-row
   .body-container--content
@@ -31,6 +32,7 @@
       .pull-right
         = link_to projects_path(:filter => "funding") do
           .more Xem tất cả  
+    %p 
     .row-fluid
       - if Project.funding.count > 0
         - Project.funding.each do |project|
@@ -46,6 +48,18 @@
         .pull-right
           = link_to projects_path(:filter => "finished") do
             .bttn.bttn-green Xem tất cả
+      %p 
       .row-fluid
         - Project.finished.each do |project|
           = render "projects/box_display", :project => project
+
+:javascript
+  $('#homepage-registration-by-email').click(function() {
+    if ($('input#email')[0].value.length > 0) {
+      $('form').submit();
+      return false;  
+    } else {
+      alert("Mời bạn điền email vào khung kế bên.");
+    }
+    
+  });

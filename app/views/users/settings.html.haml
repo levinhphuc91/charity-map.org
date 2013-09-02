@@ -6,10 +6,10 @@
 					=error_message 
 					%br/
 
-.update-user-profile
-	= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-		= f.input  :id, :as => :hidden
-		= f.inputs :email, :full_name, :address
-		= f.input  :city,  :as => :select, :collection => ["Ho Chi Minh", "Ha Noi"], :include_blank => false
-		= f.inputs :bio, :phone 
-		= f.actions :submit,  :as => :button
+		.update-user-profile
+			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+				= f.input  :id, :as => :hidden
+				= f.inputs :email, :full_name, :address
+				= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+				= f.inputs :bio, :phone 
+				= f.actions :submit,  :as => :button

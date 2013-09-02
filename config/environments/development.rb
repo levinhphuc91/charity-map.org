@@ -29,5 +29,4 @@ CharityMap::Application.configure do
 
   # Devise Settings
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.i18n.available_locales = :vi
 end

@@ -51,7 +51,7 @@ Feature: User
       And I fill in "Email" with "vumanhcuong01@gmail.com"
       And I fill in "Password" with "12345678"
       And I press "Sign in" 
-    Then I should see "Signed in successfully."
+    Then I should see "Đăng nhập thành công."
 
   Scenario: Sign in Charity Map with invalid email & password
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
@@ -59,7 +59,7 @@ Feature: User
       And I fill in "Email" with "vumanhcuon@gmail.com"
       And I fill in "Password" with "12345"
       And I press "Sign in" 
-    Then I should see "Invalid email or password."
+    Then I should see "Email hoặc mật khẩu không chính xác."
 
   Scenario: Sign up successfully
     When I go to the signup page
@@ -67,7 +67,7 @@ Feature: User
       And I fill in "Password" with "12345678"
       And I fill in "Password confirmation" with "12345678"
       And I press "Sign up"
-    Then I should see "Welcome! You have signed up successfully."
+    Then I should see "Xin chào! Bạn đã đăng ký thành công."
   
   Scenario: Sign up with existing email 
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
@@ -84,4 +84,4 @@ Feature: User
       And I fill in "Password" with "12348"
       And I fill in "Password confirmation" with "12348"
       And I press "Sign up"
-    Then I should see "Password is too short (minimum is 8 characters)"
+    Then I should see "Password quá ngắn (tối thiểu 8 ký tự)"

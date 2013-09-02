@@ -2,6 +2,7 @@
 %html
   %head
     %title= Configuration[:site_name]
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags

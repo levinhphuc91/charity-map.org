@@ -61,6 +61,7 @@ describe ProjectsController do
     it "assigns the requested project as @project" do
       project = Project.create! valid_attributes
       get :edit, {:id => project.to_param}, valid_session
+      # TODO: now fail because a user can only edit his project
       assigns(:project).should eq(project)
     end
   end

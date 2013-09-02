@@ -15,7 +15,6 @@ gem 'json'
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'
 gem 'protected_attributes'
-gem 'rails-i18n', '~> 4.0.0.pre'
 
 group :development do
   gem 'better_errors'

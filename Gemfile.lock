@@ -183,9 +183,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
-    rails-i18n (4.0.0.pre2)
-      i18n (~> 0.6)
-      rails (~> 4.0.0)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -298,7 +295,6 @@ DEPENDENCIES
   protected_attributes
   quiet_assets
   rails (= 4.0.0)
-  rails-i18n (~> 4.0.0.pre)
   rb-fsevent
   rspec-rails
   sass-rails (~> 4.0.0)

@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "DRAFT", Time.now, Time.now) }
   # :funding to be revise on platform >> DRAFT >> REVIEWED
   scope :finished, -> { where(status: "FINISHED") }
-  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED", "DRAFT"]) }
 
   attr_accessible :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :thumbnail, :user_id, :status

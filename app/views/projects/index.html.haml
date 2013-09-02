@@ -1,12 +1,18 @@
 .body-container--plain-row
   .body-container--content
-    %h1 Listing projects
-
     .row-fluid
-      = link_to 'New Project', new_project_path
+      .pull-left
+        - if params[:filter] && params[:filter] == "FUNDING"
+          %h1 Các Dự Án Đang Gây Quỹ
+        - elsif params[:filter] == "FINISHED"
+          %h1 Các Dự Án Đã Qua Đợt Gây Quỹ
+        - else
+          %h1 Các Dự Án Trên Hệ Thống
+      .pull-right
+        = link_to new_project_path do
+          .bttn.bttn-blue Đăng Ký Dự Án
 
     .row-fluid
       - @projects.each do |project|
         .pull-left
           = render "projects/box_display", :project => project
-

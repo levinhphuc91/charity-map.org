@@ -9,7 +9,22 @@
       .span6
         = image_tag "ph_homepage-banner.jpg"
 
-.body-container--dark-row
+.body-container--dark-row{:style => "height: 50px;"}
+  .body-container--content
+    .row-fluid
+      .span6
+        %p 
+          = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
+          %b Chỉ tốn 1 phút
+          %br/ 
+          để đăng ký và bắt đầu ủng hộ
+      .span4
+        %input{:type => "text", :class => "homepage--email-box", :placeholder => "email@example.com"}/ 
+      .span2
+        .pull-right
+          .bttn.bttn-green Đăng Ký
+
+.body-container--plain-row
   .body-container--content
     .row-fluid
       .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
@@ -23,16 +38,14 @@
       - else
         Hiện chưa có dự án nào đang gây quỹ.
 
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
-      .pull-right
-        = link_to projects_path(:filter => "finished") do
-          .bttn.bttn-green Xem tất cả
-    .row-fluid
-      - if Project.finished.count > 0
+- if Project.finished.count > 0
+  .body-container--plain-row
+    .body-container--content
+      .row-fluid
+        .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
+        .pull-right
+          = link_to projects_path(:filter => "finished") do
+            .bttn.bttn-green Xem tất cả
+      .row-fluid
         - Project.finished.each do |project|
           = render "projects/box_display", :project => project
-      - else 
-        Hiện chưa có dự án nào được hoàn thành.

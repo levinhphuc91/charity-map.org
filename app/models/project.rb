@@ -32,6 +32,7 @@ class Project < ActiveRecord::Base
     :funding_goal, :location, :status, :user_id,
     presence: true
   validates :funding_goal, numericality: { greater_than: 99999 }
+  validates :user_id, numericality: { greater_than: 0 }
 
   before_validation :assign_status
 
@@ -39,6 +40,8 @@ class Project < ActiveRecord::Base
     def assign_status
       self.status = "DRAFT"
     end
+
+  # TODO: check for user's full name and address and bio before create
 end
 
 # ===== PROJECT STATUSES =====

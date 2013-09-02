@@ -11,6 +11,7 @@ gem 'inherited_resources'
 gem 'simple_form'
 gem 'json'
 gem 'formtastic'
+gem 'time_difference'
 
 # Model gems
 gem 'has_defaults'

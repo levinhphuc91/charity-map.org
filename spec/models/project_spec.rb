@@ -19,5 +19,11 @@
 require 'spec_helper'
 
 describe Project do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  
+  it "should have a defaulted status before_create" do
+    project = Project.create(:title => "Test", :description => "Help me to put something here",
+      start_date: Time.parse('2013-05-23'), end_date: Time.parse('2013-05-30'), funding_goal: 3000000,
+      location: "Ho Chi Minh", user_id: 1)
+    project.status.should eq("DRAFT")
+  end
 end

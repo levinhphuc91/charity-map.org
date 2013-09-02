@@ -27,4 +27,24 @@ class Project < ActiveRecord::Base
   has_many :users, through: :donations
 
   belongs_to :user # admin relationship
+
+  validates :title, :description, :start_date, :end_date, :funding_goal, :location, :status,
+    presence: true
+  validates :funding_goal, numericality: true, greater_than_or_equal_to: 100000
+
+  before_validation :assign_status
+
+  private
+    def assign_status
+      self.status = "DRAFT"
+    end
+
+  # funding goal needs to be > 0
 end
+
+# ===== PROJECT STATUSES =====
+# DRAFT: default
+# PENDING: project creator submitted for admin review
+# REVIEWED: well, was reviewed, ready for public show
+# FINISHED: done
+# DELETED: deleted by project creators

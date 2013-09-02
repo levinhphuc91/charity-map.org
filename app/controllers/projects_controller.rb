@@ -20,4 +20,9 @@ class ProjectsController < InheritedResources::Base
     end
     # TODO: test project edit without permission
   end
+
+  def to_param
+    # [id, title.parameterize].join("-")
+    [title, id.parameterize].join("-")
+  end
 end

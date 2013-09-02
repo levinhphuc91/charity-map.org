@@ -86,10 +86,7 @@ Feature: User
 
   Scenario: Create a new project successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-    When I go to the login page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
-      And I press "Sign in"
+      And I am a new, authenticated user
     When I go to the new project page
       And I fill in "Title" with "Push the world"
       And I fill in "Description" with "World is bullshit"
@@ -104,10 +101,7 @@ Feature: User
 
   Scenario: Create a new project unsuccessfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-    When I go to the login page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
-      And I press "Sign in"
+      And I am a new, authenticated user
     When I go to the new project page
       And I fill in "Title" with ""
       And I fill in "Description" with "World is bullshit"

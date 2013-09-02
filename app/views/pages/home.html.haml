@@ -2,7 +2,7 @@
   .body-container--content
     .row-fluid
       .span6{style: "padding-top: 40px;"}
-        .homepage--headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
+        .headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
         %p 
         = link_to pages_about_path do
           .bttn.bttn-green Đọc Thêm
@@ -27,7 +27,7 @@
 .body-container--plain-row
   .body-container--content
     .row-fluid
-      .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
+      .pull-left.headline Các Dự Án Đang Gây Quỹ
       .pull-right
         = link_to projects_path(:filter => "funding") do
           .bttn.bttn-green Xem tất cả  
@@ -42,7 +42,7 @@
   .body-container--plain-row
     .body-container--content
       .row-fluid
-        .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
+        .pull-left.headline Các Dự Án Đã Hoàn Thành
         .pull-right
           = link_to projects_path(:filter => "finished") do
             .bttn.bttn-green Xem tất cả

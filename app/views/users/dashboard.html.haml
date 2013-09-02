@@ -1,21 +1,21 @@
 .body-container--plain-row
 	.body-container--content
-		/ BACKER
-		- if current_user.donations.empty?
-			%p No statistics about your donation history yet.
-		- else 
-			=	current_user.donations.each do |donation|
-				=	donation.attributes.each do |key, value|
-					%p = key.to_s
-					%p = value.to_s
+		.row-fluid
+			.headline
+				Đóng Góp Của Bạn
+			- if current_user.donations.empty?
+				%p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
+			- else 
+				=	current_user.donations.each do |donation|
+					=	donation.attributes.each do |key, value|
+						%p = key.to_s
+						%p = value.to_s
 
-		/ PROJECT CREATOR
-		- if current_user.projects.empty?
-			%p You have n't created any project.
-		- else
-			= current_user.projects.each do |project|
-				%p= project.title
-				%p= project.funding_goal
-				%p= project.users.count
-				%p= project.donations.sum('amount') / project.funding_goal * 100 
-		/ CHARITY MAP STAFF
+		.row-fluid
+			.headline
+				Dự Án Của Bạn
+			- if current_user.projects.empty?
+				%p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
+			- else
+				- current_user.projects.each do |project|
+					= render "projects/bar_display", :project => project

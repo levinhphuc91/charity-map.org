@@ -17,6 +17,8 @@
 #
 
 class Project < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: :slugged
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "DRAFT", Time.now, Time.now) }
   # :funding to be revise on platform >> DRAFT >> REVIEWED
   scope :finished, -> { where(status: "FINISHED") }

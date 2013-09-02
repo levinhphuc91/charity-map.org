@@ -85,7 +85,7 @@ Feature: User
     Then I should see "quá ngắn (tối thiểu 8 ký tự)"
 
   Scenario: Create a new project successfully
-    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "10" and the password "12345678" and the password confirmation "12345678"
       And I am a new, authenticated user
     When I go to the new project page
       And I fill in "Title" with "Push the world"
@@ -113,3 +113,23 @@ Feature: User
     Then  I should see "errors prohibited"
       And I should see "Title không thể để trắng"
       And I should see "Funding goal không thể để trắng"
+
+  Scenario: Create a new project with right slug
+    Given there is a project with the title "Push The World" and the slug "push-the-world" and the user id "1" and the description "test slug" and the Start date "2013-09-11" and the End date "2013-09-12" and the funding goal "234234" and the location "HCM"
+      And there is a user with the email "vumanhcuong@gmail.com" and the id "1"
+      And I am a new, authenticated user
+      And I go to the project page with slug 01
+    Then the "Title" field should contain "Push The World"
+
+  
+  Scenario: Update the project and check slug
+    Given there is a project with the title "Push The World" and the slug "push-the-world" and the user id "1" and the description "test slug" and the Start date "2013-09-11" and the End date "2013-09-12" and the funding goal "234234" and the location "HCM"
+      And there is a user with the email "vumanhcuong@gmail.com" and the id "1"
+      And I am a new, authenticated user
+      # push-the-world
+      And I go to the project page with slug 01 
+      And I fill in "Title" with "Kick The School"
+      And I press "Create Project"
+      # kick-the-school
+    Then  I go to the project page with slug 02  
+      And the "Title" field should contain "Kick The School"

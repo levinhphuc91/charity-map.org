@@ -10,6 +10,7 @@ gem 'haml-rails'
 gem 'inherited_resources'
 gem 'simple_form'
 gem 'json'
+gem 'formtastic'
 
 # Model gems
 gem 'has_defaults'
@@ -81,5 +82,3 @@ end
 
 # Use debugger
 gem 'debugger', group: [:development, :test]
-
-gem 'formtastic'

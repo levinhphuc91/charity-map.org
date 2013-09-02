@@ -14,18 +14,19 @@ Feature: User
   Scenario: Visit dashboard, as a backer, without donations 
     Given I am a new, authenticated user
     When I go to the dashboard
-    Then I should see "No statistics about your donation history yet."
+    Then I should see "Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp."
 
   Scenario: Visit dashboard, as a backer having donations 
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-      And there is a project with the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2013-05-23" and the end date "2013-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the user id "1"
+      And there is a project with the id "1" title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2013-05-23" and the end date "2013-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the user id "1"
       And there is a donation with the user id "1" and the project id "1" and the amount "500000" and the collection method "COD"
     When I go to the login page
       And I fill in "Email" with "vumanhcuong01@gmail.com"
       And I fill in "Password" with "12345678"
       And I press "Sign in"
     When I go to the dashboard
-    Then I should see "500000"
+    
+    Then I should see "500.000"
       And I should see "COD"
 
   Scenario: Visit dashboard, as a project creator
@@ -39,9 +40,8 @@ Feature: User
       And I press "Sign in"
     When I go to the dashboard
     Then I should see "Books from Heart"
-      And I should see "5000000"
-      And I should see "50"
-      And I should see "2"
+      And I should see "5.000.000"
+      # TODO: revise test to test more precise info
 
   Scenario: Sign in Charity Map successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

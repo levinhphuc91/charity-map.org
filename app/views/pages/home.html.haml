@@ -4,7 +4,8 @@
       .span6{style: "padding-top: 40px;"}
         .homepage--headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
         %p 
-        .bttn.bttn-green Đọc Thêm
+        = link_to pages_about_path do
+          .bttn.bttn-green Đọc Thêm
       .span6
         = image_tag "ph_homepage-banner.jpg"
 
@@ -13,7 +14,8 @@
     .row-fluid
       .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
       .pull-right
-        .bttn.bttn-green Xem tất cả  
+        = link_to projects_path(:filter => "funding") do
+          .bttn.bttn-green Xem tất cả  
     .row-fluid
       - if Project.funding.count > 0
         - Project.funding.each do |project|
@@ -26,7 +28,8 @@
     .row-fluid
       .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
       .pull-right
-        .bttn.bttn-green Xem tất cả  
+        = link_to projects_path(:filter => "finished") do
+          .bttn.bttn-green Xem tất cả
     .row-fluid
       - if Project.finished.count > 0
         - Project.finished.each do |project|

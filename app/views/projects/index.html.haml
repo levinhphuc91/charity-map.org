@@ -1,10 +1,12 @@
-%h1 Listing projects
+.body-container--plain-row
+  .body-container--content
+    %h1 Listing projects
 
-.row-fluid
-  = link_to 'New Project', new_project_path
+    .row-fluid
+      = link_to 'New Project', new_project_path
 
-.row-fluid
-  - @projects.each do |project|
-    .pull-left
-      = render "projects/box_display", :project => project
+    .row-fluid
+      - @projects.each do |project|
+        .pull-left
+          = render "projects/box_display", :project => project
 

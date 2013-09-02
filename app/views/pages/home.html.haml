@@ -1,27 +1,35 @@
-.row-fluid
-  .homepage--headline Giving has never been this easy with Charity Map
-  .bttn.bttn-green Đọc Thêm
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .span6{style: "padding-top: 40px;"}
+        .homepage--headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
+        %p 
+        .bttn.bttn-green Đọc Thêm
+      .span6
+        = image_tag "ph_homepage-banner.jpg"
 
-%hr/ 
-.row-fluid
-  .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
-  .pull-right
-    .bttn.bttn-green Xem tất cả  
-.row-fluid
-  - if Project.funding.count > 0
-    - Project.funding.each do |project|
-      = render "projects/box_display", :project => project
-  - else
-    Hiện chưa có dự án nào đang gây quỹ.
+.body-container--dark-row
+  .body-container--content
+    .row-fluid
+      .pull-left.homepage--headline Các Dự Án Đang Gây Quỹ
+      .pull-right
+        .bttn.bttn-green Xem tất cả  
+    .row-fluid
+      - if Project.funding.count > 0
+        - Project.funding.each do |project|
+          = render "projects/box_display", :project => project
+      - else
+        Hiện chưa có dự án nào đang gây quỹ.
 
-%hr/ 
-.row-fluid
-  .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
-  .pull-right
-    .bttn.bttn-green Xem tất cả  
-.row-fluid
-  - if Project.finished.count > 0
-    - Project.finished.each do |project|
-      = render "projects/box_display", :project => project
-  - else 
-    Hiện chưa có dự án nào được hoàn thành.
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .pull-left.homepage--headline Các Dự Án Đã Hoàn Thành
+      .pull-right
+        .bttn.bttn-green Xem tất cả  
+    .row-fluid
+      - if Project.finished.count > 0
+        - Project.finished.each do |project|
+          = render "projects/box_display", :project => project
+      - else 
+        Hiện chưa có dự án nào được hoàn thành.

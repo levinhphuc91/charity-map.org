@@ -1,7 +1,9 @@
-%h1 Editing project
+.body-container--plain-row
+  .body-container--content
+    %h1 Editing project
 
-= render 'form'
+    = render 'form'
 
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+    = link_to 'Show', @project
+    \|
+    = link_to 'Back', projects_path

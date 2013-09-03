@@ -1,13 +1,10 @@
 .body-container--plain-row
   .body-container--content
-    %p#notice= notice
+    
+    - @project.attributes.each do |key, value|
+      %p 
+        %b= key.humanize
+        = value
 
-    %p
-      %b Title:
-      = @project.title
-    %p
-      %b Description:
-      = @project.description
-
-    - if current_user && current_user.projects.exists?(@project)
+    - if p
       = link_to 'Edit', edit_project_path(@project)

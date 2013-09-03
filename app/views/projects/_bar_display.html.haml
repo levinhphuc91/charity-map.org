@@ -14,4 +14,11 @@
         %br/
         Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
     .row-fluid
-      .pull-right= link_to "Đến Trang Dự Án", project_path(project)
+      .pull-left 
+        Trạng Thái:
+        = human_status(project.status)
+      .pull-right
+        - if project.status == "DRAFT"
+          = link_to "Chỉnh Sửa", edit_project_path(project)
+        - else
+          = link_to "Đến Trang Dự Án", project_path(project)

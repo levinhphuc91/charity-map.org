@@ -70,6 +70,13 @@ Feature: Project
       And I go to the dashboard
       And I follow "Chỉnh Sửa"
       And I follow "Gui xet duyet"
+    Then I should see "Please have at least one reward."
+    When I go to the edit page of the project "Push The World"
+      And I follow "Thêm Mốc Tài Trợ"
+      And I fill in "Amount" with "100000"
+      And I fill in "Description" with "Test Description"
+      And I press "Lưu"
+      And I follow "Gui xet duyet"
     Then I should see "Project has been submitted. We'll keel you in touch."
 
   Scenario: Edit project without permission

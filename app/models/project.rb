@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED", "DRAFT"]) }
 
   attr_accessible :title, :description, :start_date, :end_date, 
-    :funding_goal, :location, :photo, :user_id, :status
+    :funding_goal, :location, :photo, :photo_cache, :user_id, :status
   has_many :project_rewards
   has_many :project_updates
   has_many :project_comments

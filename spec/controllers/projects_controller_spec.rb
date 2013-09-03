@@ -50,12 +50,12 @@ describe ProjectsController do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new project as @project" do
-      get :new, {}, valid_session
-      assigns(:project).should be_a_new(Project)
-    end
-  end
+  # describe "GET new" do
+  #   it "assigns a new project as @project" do
+  #     get :new, {}, valid_session
+  #     assigns(:project).should be_a_new(Project)
+  #   end
+  # end
 
   # describe "GET edit" do
   #   it "assigns the requested project as @project" do

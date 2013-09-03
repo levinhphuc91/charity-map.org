@@ -12,6 +12,14 @@ class ProjectsController < InheritedResources::Base
     @drafts = Project.draft
   end
 
+  def new
+    @project = Project.new
+    if current_user.full_name.blank? || current_user.address.blank?
+      redirect_to users_settings_path
+      flash[:notice] = "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
+    end
+  end
+
   def show
     @project = Project.find(params[:id])
     if @project.status == "DRAFT" || @project.status == "PENDING"
@@ -39,7 +47,6 @@ class ProjectsController < InheritedResources::Base
 
   def submit
     @project = Project.find(params[:id])
-    # TODO: write a check-filled-fields method
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
       if @project.project_rewards.empty?
         redirect_to edit_project_path(@project)
@@ -50,7 +57,7 @@ class ProjectsController < InheritedResources::Base
           flash[:notice] = "Project has been submitted. We'll keel you in touch."
         else
           redirect_to edit_project_path(@project)
-          flash[:notice] = "#{@project.errors.full_messages}"
+          flash[:notice] = "#{@project.errors.full_messages.join(' ')}"
         end
       end
     else

@@ -60,10 +60,6 @@ class Project < ActiveRecord::Base
       errors.add(:end_date, "can't be more than 6 months from start date") if
         !start_date.blank? and !end_date.blank? and TimeDifference.between(end_date, start_date).in_days > 180
     end
-  
-  # TODO: test :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
-  # localize :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
-  # TODO: check for user's full name and address and bio before create
 end
 
 # ===== PROJECT STATUSES =====

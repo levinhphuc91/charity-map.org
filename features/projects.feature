@@ -6,6 +6,15 @@ Feature: Project
     Then I should see "Books from Heart"
       And I should see "Giving away libraries for suburban schools."
 
+  Scenario: To be unable to create a project without full_name or address
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    When I go to the login page
+      And I fill in "Email" with "testing@man.net"
+      And I fill in "Password" with "secretpass"
+      And I press "Sign in"
+    When I go to the new project page
+      Then I should see "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
+
   Scenario: To be created successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "10" and the password "12345678" and the password confirmation "12345678"
       And I am a new, authenticated user

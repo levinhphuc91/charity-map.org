@@ -6,8 +6,7 @@
   .project-description.giving-space= project.description[0..200]
   .row-fluid.giving-space
     .project-progressbar
-      .project-progressbar--green
-      / TODO: set div width using jquery
+      .project-progressbar--green{:data_percentage => "#{number_with_precision project.donations.sum(:amount) / project.funding_goal, precision: 0}"}
 
   .row-fluid.giving-space
     .pull-left{style: "width: 80px;"}

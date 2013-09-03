@@ -69,4 +69,9 @@ CharityMap::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  scope ':locale' do
+    resources :projects
+  end
+  
 end

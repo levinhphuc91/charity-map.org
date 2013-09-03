@@ -22,5 +22,5 @@
           .navigation-text= link_to "Đăng Xuất", destroy_user_session_path, method: :delete
       .language-bar
         .language-bar--text
-          %span.active VN&nbsp
-          %span.inactive / EN
+          %span.active= link_to "VN", :locale=>'vi'
+          %span.inactive= link_to "/EN", :locale => "en"

@@ -9,6 +9,7 @@ class ProjectsController < InheritedResources::Base
     else
       @projects = Project.public_view
     end
+    @drafts = Project.draft
   end
 
   # TODO: conditional :show for DRAFT,Pending,  REVIEWED and FINISHED projects

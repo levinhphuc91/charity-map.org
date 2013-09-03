@@ -21,10 +21,10 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
   mount_uploader :photo, PhotoUploader
-  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "DRAFT", Time.now, Time.now) }
-  # :funding to be revise on platform >> DRAFT >> REVIEWED
+  scope :draft, -> { where(status: "DRAFT") }
+  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "REVIEWED", Time.now, Time.now) }
   scope :finished, -> { where(status: "FINISHED") }
-  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED", "DRAFT"]) }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
 
   attr_accessible :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status

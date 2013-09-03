@@ -20,6 +20,7 @@
 #  city                   :string(255)
 #  bio                    :text
 #  phone                  :string(255)
+#  staff                  :boolean
 #
 
 require 'spec_helper'

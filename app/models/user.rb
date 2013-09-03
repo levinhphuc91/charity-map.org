@@ -20,6 +20,7 @@
 #  city                   :string(255)
 #  bio                    :text
 #  phone                  :string(255)
+#  staff                  :boolean
 #
 
 class User < ActiveRecord::Base
@@ -37,4 +38,5 @@ class User < ActiveRecord::Base
   has_many :projects, through: :donations
 
   has_many :projects # admin relationship
+  has_defaults staff: false
 end

@@ -14,7 +14,8 @@ class ProjectsController < InheritedResources::Base
   # TODO: conditional :show for DRAFT,Pending,  REVIEWED and FINISHED projects
 
   def edit
-    if current_user.projects.exists?(@project) != nil
+    @project = Project.find(params[:id])
+    if (current_user.projects.exists?(@project) != nil)
       edit!
     else
       redirect_to :dashboard

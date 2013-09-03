@@ -33,6 +33,9 @@ module NavigationHelpers
       p = Project.find_by_title($1)
       project_path(p)
 
+    when /^the forgot password page$/
+      '/users/password/new'
+
     else
       begin
         page_name =~ /the (.*) page/

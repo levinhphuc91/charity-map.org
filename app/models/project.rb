@@ -42,6 +42,7 @@ class Project < ActiveRecord::Base
     presence: true
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
   validates :user_id, numericality: { greater_than: 0 }
+  validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
 
   before_validation :assign_status
 
@@ -50,6 +51,18 @@ class Project < ActiveRecord::Base
       self.status = "DRAFT" if status == nil
     end
 
+    def start_date_cannot_be_in_the_past
+      errors.add(:start_date, "can't be in the past") if
+        !start_date.blank? and start_date < Date.today
+    end
+
+    def funding_duration_to_be_less_than_six_months
+      errors.add(:end_date, "can't be more than 6 months from start date") if
+        !start_date.blank? and !end_date.blank? and TimeDifference.between(end_date, start_date).in_days > 180
+    end
+  
+  # TODO: test :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
+  # localize :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
   # TODO: check for user's full name and address and bio before create
 end
 

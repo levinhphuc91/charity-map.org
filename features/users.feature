@@ -31,17 +31,18 @@ Feature: User
 
   Scenario: Visit dashboard, as a project creator
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-      And there is a donation with the user id "2" and the amount "250000" and the collection method "COD" and the project id "1"
-      And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" and the project id "1"
-      Given there is a project with the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2014-05-23" and the end date "2014-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the user id "1"
+      And there is a project with the id "1" and the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2014-05-23" and the end date "2014-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" with the user above
+      And there is a donation with the user id "2" and the amount "250000" and the collection method "COD" with the project above
+      And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" with the project above
     When I go to the login page
       And I fill in "Email" with "vumanhcuong01@gmail.com"
       And I fill in "Password" with "12345678"
       And I press "Sign in"
     When I go to the dashboard
     Then I should see "Books from Heart"
-      And I should see "5.000.000"
-      # TODO: revise test to test more precise info
+      And I should see "5.000.000 đ"
+      And I should see "500.000 đ"
+      And I should see "2 MTQ"
 
   Scenario: Sign in Charity Map successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

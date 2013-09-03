@@ -1,8 +1,8 @@
 .body-container--plain-row
   .body-container--content
 
-    - if @project.status == "PENDING"
-      .alert PENDING
+    - if @project.status == "DRAFT" || @project.status == "PENDING"
+      .notice Trạng thái: #{human_status @project.status}
     
     - @project.attributes.each do |key, value|
       %p 

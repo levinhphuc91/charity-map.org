@@ -48,7 +48,7 @@ Feature: Project
 
   Scenario: To be given an updated slug after edit
     Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
+      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
     When I go to the login page
       And I fill in "Email" with "testing@man.net"
       And I fill in "Password" with "secretpass"
@@ -62,7 +62,7 @@ Feature: Project
 
   Scenario: To be submitted for review
     Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
+      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
     When I go to the login page
       And I fill in "Email" with "testing@man.net"
       And I fill in "Password" with "secretpass"

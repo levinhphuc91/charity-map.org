@@ -12,7 +12,15 @@ class ProjectsController < InheritedResources::Base
     @drafts = Project.draft
   end
 
-  # TODO: conditional :show for DRAFT,Pending,  REVIEWED and FINISHED projects
+  def show
+    @project = Project.find(params[:id])
+    if @project.status == "DRAFT" || @project.status == "PENDING"
+      if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil) && (!current_user.staff))
+        redirect_to pages_home_path
+        flash[:notice] = "Permission denied."
+      end
+    end
+  end
 
   def edit
     @project = Project.find(params[:id])
@@ -22,7 +30,6 @@ class ProjectsController < InheritedResources::Base
       redirect_to :dashboard
       flash[:alert] = "Permission denied."
     end
-    # TODO: test project edit without permission
   end
 
   def to_param
@@ -38,14 +45,17 @@ class ProjectsController < InheritedResources::Base
         redirect_to edit_project_path(@project)
         flash[:notice] = "Please have at least one reward."
       else
-        @project.update status: "PENDING"
-        redirect_to @project
-        flash[:notice] = "Project has been submitted. We'll keel you in touch."
+        if @project.update status: "PENDING"
+          redirect_to @project
+          flash[:notice] = "Project has been submitted. We'll keel you in touch."
+        else
+          redirect_to edit_project_path(@project)
+          flash[:notice] = "#{@project.errors.full_messages}"
+        end
       end
     else
       flash[:notice] = "Permission denid"
       redirect_to :dashboard
     end
   end
-  # TODO: viet test
 end

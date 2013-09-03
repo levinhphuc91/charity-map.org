@@ -83,3 +83,18 @@ Feature: User
       And I fill in "Password confirmation" with "12348"
       And I press "Sign up"
     Then I should see "quá ngắn (tối thiểu 8 ký tự)"
+
+  Scenario: Get a new password successfully
+    Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the forgot password page
+      And I fill in "Email" with "vumanhcuong@gmail.com"
+      And I press "Send me reset password instructions"
+    Then I should see "Bạn sẽ nhận được email hướng dẫn thiết lập lại mật khẩu trong vài phút nữa."
+
+  Scenario: Get a new password with non-existing email
+    Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+    When I go to the forgot password page
+      And I fill in "Email" with "cuong@gmail.com"
+      And I press "Send me reset password instructions"
+    Then  I should see "Some errors were found, please take a look"
+      And I should see "không tìm thấy"

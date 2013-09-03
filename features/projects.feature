@@ -1,14 +1,10 @@
-# TODO: revise test to reflect changes in homepage
-
 Feature: Project
-#   Scenario: To be displayed in a box
-#     Given there is a project with the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2013-05-23" and the end date "2013-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the user id "1" and the status "REVIEWED"
-#       And there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"
-#       # TODO: change sentence to express association
-#     When I go to the home page
-#     Then I should see "Books from Heart"
-#       And I should see "Giving away libraries for suburban schools."
-#       And I should see "5000000"
+  Scenario: To be displayed in a box
+    Given there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"
+      And there is a project with the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above
+    When I go to the home page
+    Then I should see "Books from Heart"
+      And I should see "Giving away libraries for suburban schools."
 
   Scenario: To be created successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "10" and the password "12345678" and the password confirmation "12345678"
@@ -41,7 +37,7 @@ Feature: Project
       And I should see "Funding goal không thể để trắng"
 
   Scenario: To be given a slug
-    Given there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM"
+    Given there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" and the status "REVIEWED"
       And I am a new, authenticated user
     When I go to the project page of "Push The World"
     Then the URL should contain "push-the-world"

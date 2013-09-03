@@ -71,3 +71,10 @@ Feature: Project
       And I follow "Chỉnh Sửa"
       And I follow "Gui xet duyet"
     Then I should see "Project has been submitted. We'll keel you in touch."
+
+  Scenario: Edit project without permission
+    Given I am a new, authenticated user
+      And there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
+      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" 
+    When I go to the edit page of the project "Push The World"
+    Then I should see "Permission denied."

@@ -33,6 +33,10 @@ module NavigationHelpers
       p = Project.find_by_title($1)
       project_path(p)
 
+    when /the edit page of the project "(.+)"/
+      p = Project.find_by_title($1)
+      edit_project_path(p)
+
     when /^the forgot password page$/
       '/users/password/new'
 

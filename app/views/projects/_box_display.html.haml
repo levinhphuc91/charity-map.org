@@ -1,5 +1,8 @@
 .homepage--project-container
-  = image_tag "ph_project-thumbnail.jpg"
+  - if project.photo?
+    = image_tag project.photo_url(:thumb)
+  - else
+    = image_tag "ph_project-thumbnail.jpg"
   .giving-space
     .project-title= link_to project.title, project_path(project)
     .project-info= "#{project.user.full_name} / #{project.location}"

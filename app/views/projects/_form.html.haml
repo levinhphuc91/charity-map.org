@@ -5,7 +5,7 @@
       %ul
         - @project.errors.full_messages.each do |msg|
           %li= msg
-  = image_tag(@project.photo_url) if @project.photo?
+  = image_tag(@project.photo_url(:banner)) if @project.photo?
   = f.file_field :photo
   = f.hidden_field :photo_cache
   = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}

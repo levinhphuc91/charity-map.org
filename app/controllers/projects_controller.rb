@@ -30,10 +30,16 @@ class ProjectsController < InheritedResources::Base
 
   def submit
     @project = Project.find(params[:id])
+    # TODO: write a check-filled-fields method
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
-      @project.update status: "PENDING"
-      redirect_to @project
-      flash[:notice] = "Project has been submitted. We'll keel you in touch."
+      if @project.project_rewards.empty?
+        redirect_to edit_project_path(@project)
+        flash[:notice] = "Please have at least one reward."
+      else
+        @project.update status: "PENDING"
+        redirect_to @project
+        flash[:notice] = "Project has been submitted. We'll keel you in touch."
+      end
     else
       flash[:notice] = "Permission denid"
       redirect_to :dashboard

@@ -24,9 +24,9 @@
         .language-bar--text
           - if params[:locale] == "en"
             %span.active= link_to "VN", locale: "vi"
-            &nbsp;&nbsp;/&nbsp;
+            &nbsp;/
             EN
           - else
+            %span.active= link_to "EN", locale: "en"
+            &nbsp;/
             VN
-            &nbsp;&nbsp;/&nbsp;
-            %span.inactive= link_to "EN", locale: "en"

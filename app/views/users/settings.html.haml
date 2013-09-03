@@ -1,15 +1,17 @@
 .body-container--plain-row
 	.body-container--content
-		.error_messages
-			- if @user.errors.full_messages
-				- @user.errors.full_messages.each do |error_message| 
-					=error_message 
-					%br/
+		.row-fluid
+			.span8
+				.error_messages
+					- if @user.errors.full_messages
+						- @user.errors.full_messages.each do |error_message| 
+							=error_message 
+							%br/
 
-		.update-user-profile
-			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-				= f.input  :id, :as => :hidden
-				= f.inputs :email, :full_name, :address
-				= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
-				= f.inputs :bio, :phone 
-				= f.actions :submit,  :as => :button
+				.update-user-profile
+					= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+						= f.input  :id, :as => :hidden
+						= f.inputs :email, :full_name, :address
+						= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+						= f.inputs :bio, :phone 
+						= f.actions :submit,  :as => :button

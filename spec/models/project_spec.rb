@@ -11,9 +11,10 @@
 #  end_date     :datetime
 #  funding_goal :float
 #  location     :string(255)
-#  thumbnail    :string(255)
+#  photo        :string(255)
 #  user_id      :integer
 #  status       :string(255)
+#  slug         :string(255)
 #
 
 require 'spec_helper'

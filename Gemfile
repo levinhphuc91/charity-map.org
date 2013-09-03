@@ -11,15 +11,18 @@ gem 'inherited_resources'
 gem 'simple_form'
 gem 'json'
 gem 'formtastic'
-gem "jquery-ui-rails", "~> 4.0.1"
+gem 'jquery-ui-rails', '~> 4.0.1'
 gem 'time_difference'
-gem "friendly_id4", "4.0.0.beta3", :require => "friendly_id"
+gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
 
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'
 gem 'protected_attributes'
 gem 'awesome_print', :require => 'ap'
+gem 'carrierwave'
+gem 'fog'
+gem 'rmagick', :require => 'RMagick'
 
 group :development do
   gem 'better_errors'

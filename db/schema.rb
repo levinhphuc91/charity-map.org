@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130902165728) do
+ActiveRecord::Schema.define(version: 20130903100907) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "uuid-ossp"
 
   create_table "configurations", force: true do |t|
     t.string   "name"
@@ -76,7 +81,7 @@ ActiveRecord::Schema.define(version: 20130902165728) do
     t.datetime "end_date"
     t.float    "funding_goal"
     t.string   "location"
-    t.string   "thumbnail"
+    t.string   "photo"
     t.integer  "user_id"
     t.string   "status"
     t.string   "slug"

@@ -11,21 +11,23 @@
 #  end_date     :datetime
 #  funding_goal :float
 #  location     :string(255)
-#  thumbnail    :string(255)
+#  photo        :string(255)
 #  user_id      :integer
 #  status       :string(255)
+#  slug         :string(255)
 #
 
 class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
+  mount_uploader :photo, PhotoUploader
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "DRAFT", Time.now, Time.now) }
   # :funding to be revise on platform >> DRAFT >> REVIEWED
   scope :finished, -> { where(status: "FINISHED") }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED", "DRAFT"]) }
 
   attr_accessible :title, :description, :start_date, :end_date, 
-    :funding_goal, :location, :thumbnail, :user_id, :status
+    :funding_goal, :location, :photo, :user_id, :status
   has_many :project_rewards
   has_many :project_updates
   has_many :project_comments

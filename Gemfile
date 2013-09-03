@@ -22,7 +22,7 @@ gem 'protected_attributes'
 gem 'awesome_print', :require => 'ap'
 gem 'carrierwave'
 gem 'fog'
-gem 'rmagick', :require => 'RMagick'
+gem 'mini_magick'
 
 group :development do
   gem 'better_errors'

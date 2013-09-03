@@ -1,9 +1,23 @@
 .body-container--plain-row
   .body-container--content
     %h1 Editing project
+    = link_to 'Show', @project
+    %hr/ 
 
     = render 'form'
 
-    = link_to 'Show', @project
-    \|
-    = link_to 'Back', projects_path
+    %hr/
+    .headline Rewards
+
+    - @project.project_rewards.each do |reward|
+      %p
+        - reward.attributes.each do |key, value|
+          %b= key.humanize
+          = value
+          |
+    
+    = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
+
+    %hr/ 
+    .headline Hoan thanh
+    = link_to "Gui xet duyet", projects_submit_path(id: @project.id)

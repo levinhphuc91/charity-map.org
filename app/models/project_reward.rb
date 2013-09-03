@@ -11,6 +11,12 @@
 #
 
 class ProjectReward < ActiveRecord::Base
+  default_scope order('amount')
+
   belongs_to :project
   has_many :donations
+  attr_accessible :amount, :description, :project_id
+
+  validates :amount, :description, :project_id,
+    presence: true
 end

@@ -11,6 +11,8 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
+  # TODO: conditional :show for DRAFT,Pending,  REVIEWED and FINISHED projects
+
   def edit
     if current_user.projects.exists?(@project) != nil
       edit!
@@ -25,4 +27,17 @@ class ProjectsController < InheritedResources::Base
     # [id, title.parameterize].join("-")
     [title, id.parameterize].join("-")
   end
+
+  def submit
+    @project = Project.find(params[:id])
+    if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
+      @project.update_attributes status: "PENDING"
+      redirect_to @project
+      flash[:notice] = "Project has been submitted. We'll keel you in touch."
+    else
+      flash[:notice] = "Permission denid"
+      redirect_to :dashboard
+    end
+  end
+  # TODO: viet test
 end

@@ -1,0 +1,12 @@
+= simple_form_for [@project, @project_reward] do |f|
+  - if @project_reward.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
+      %ul
+        - @project_reward.errors.full_messages.each do |msg|
+          %li= msg
+  
+  = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
+  = f.input       :amount
+  = f.input       :description
+  = f.submit "Lưu"

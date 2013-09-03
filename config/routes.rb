@@ -9,7 +9,11 @@ CharityMap::Application.routes.draw do
   get "pages/about"
   get "pages/faqs"
   get "pages/guidelines"
-  resources :projects
+  get "projects/submit"
+  
+  resources :projects do
+    resources :project_rewards
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

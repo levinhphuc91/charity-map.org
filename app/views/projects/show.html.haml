@@ -1,10 +1,21 @@
 .body-container--plain-row
   .body-container--content
+
+    - if @project.status == "PENDING"
+      .alert PENDING
     
     - @project.attributes.each do |key, value|
       %p 
         %b= key.humanize
         = value
+    
+    .headline Reward 
 
-    - if p
+    - @project.project_rewards.each do |reward|
+      - reward.attributes.each do |key, value|
+        %p
+          %b= key.humanize
+          = value
+
+    - if current_user && current_user.projects.exists?(@project)
       = link_to 'Edit', edit_project_path(@project)

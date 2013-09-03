@@ -59,3 +59,17 @@ Feature: Project
       And I press "Create Project"
       And I go to the project page of "Kick The School"
       Then the URL should contain "kick-the-school"
+
+  Scenario: To be submitted for review
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
+    When I go to the login page
+      And I fill in "Email" with "testing@man.net"
+      And I fill in "Password" with "secretpass"
+      And I press "Sign in"
+      And I go to the dashboard
+      And I follow "Chỉnh Sửa"
+      And I follow "Gui xet duyet"
+      And show me the page
+    When I go to the project page of "Push The World"
+    Then I should see "Project has been submitted. We'll keel you in touch."

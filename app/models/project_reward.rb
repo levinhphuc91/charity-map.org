@@ -11,7 +11,7 @@
 #
 
 class ProjectReward < ActiveRecord::Base
-  default_scope order('amount')
+  default_scope { order('amount') }
 
   belongs_to :project
   has_many :donations
@@ -19,4 +19,5 @@ class ProjectReward < ActiveRecord::Base
 
   validates :amount, :description, :project_id,
     presence: true
+  validates :amount, numericality: { greater_than_equal_to: 10000 }
 end

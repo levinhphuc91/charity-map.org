@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def update_settings
   	@user = User.find(params[:user][:id])
-  	if @user.update_attributes params[:user]
+  	if @user.update params[:user]
   		redirect_to users_settings_path
       flash[:notice] = "Updated Successfully."
   	else

@@ -31,7 +31,7 @@ class ProjectsController < InheritedResources::Base
   def submit
     @project = Project.find(params[:id])
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
-      @project.update_attributes status: "PENDING"
+      @project.update status: "PENDING"
       redirect_to @project
       flash[:notice] = "Project has been submitted. We'll keel you in touch."
     else

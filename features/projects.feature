@@ -20,9 +20,9 @@ Feature: Project
       And I fill in "End date" with "2013-09-24"
       And I fill in "Funding goal" with "9999999"
       And I fill in "Location" with "227 Nguyen Van Cu"
-      And I press "Create Project"
-    Then  I should see "Title: Push the world"
-      And I should see "Description: World is bullshit"
+      And I press "Lưu"
+    Then  I should see "Push the world"
+      And I should see "World is bullshit"
       And I should see "Edit"
 
   Scenario: To be created unsuccessfully
@@ -35,7 +35,7 @@ Feature: Project
       And I fill in "End date" with "2013-09-24"
       And I fill in "Funding goal" with ""
       And I fill in "Location" with "227 Nguyen Van Cu"
-      And I press "Create Project"
+      And I press "Lưu"
     Then  I should see "errors prohibited"
       And I should see "Title không thể để trắng"
       And I should see "Funding goal không thể để trắng"
@@ -56,7 +56,7 @@ Feature: Project
       And I go to the project page of "Push The World"
       And I follow "Edit"
       And I fill in "Title" with "Kick The School"
-      And I press "Create Project"
+      And I press "Lưu"
       And I go to the project page of "Kick The School"
       Then the URL should contain "kick-the-school"
 
@@ -70,6 +70,4 @@ Feature: Project
       And I go to the dashboard
       And I follow "Chỉnh Sửa"
       And I follow "Gui xet duyet"
-      And show me the page
-    When I go to the project page of "Push The World"
     Then I should see "Project has been submitted. We'll keel you in touch."

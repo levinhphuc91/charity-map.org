@@ -14,7 +14,7 @@ puts 'Updating Configurations'
   email_contact: 'team@charity-map.org',
 }.each do |name, value|
   conf = Configuration.find_or_initialize_by_name name
-  conf.update_attributes({
+  conf.update({
     value: value
   })
 end

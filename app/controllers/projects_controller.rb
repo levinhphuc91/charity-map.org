@@ -37,11 +37,6 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
-  def to_param
-    # [id, title.parameterize].join("-")
-    [title, id.parameterize].join("-")
-  end
-
   def submit
     @project = Project.find(params[:id])
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"

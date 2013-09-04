@@ -11,4 +11,6 @@
 
 class ProjectUpdate < ActiveRecord::Base
   belongs_to :project
+  attr_accessible :content, :project_id
+  validates :content, :project_id, presence: true
 end

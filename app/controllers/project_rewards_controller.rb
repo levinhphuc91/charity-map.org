@@ -12,7 +12,7 @@ class ProjectRewardsController < InheritedResources::Base
   end
 
   def create
-    @project = Project.find(params[:project_reward][:project_id])
+    @project = Project.find(params[:project_id])
     @project_reward = ProjectReward.new(params[:project_reward])
     if @project_reward.save
       redirect_to edit_project_path(@project), notice: "New reward has been added"

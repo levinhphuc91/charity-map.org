@@ -1,0 +1,11 @@
+= simple_form_for [@project, @project_update] do |f|
+  - if @project_update.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@project_update.errors.count, "error")} prohibited this project from being saved:"
+      %ul
+        - @project_update.errors.full_messages.each do |msg|
+          %li= msg
+  
+  = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
+  = f.input       :content
+  = f.submit "Cập Nhật"

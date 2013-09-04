@@ -14,12 +14,20 @@
         = value
     
     .headline Reward 
-
+    %hr/ 
     - @project.project_rewards.each do |reward|
       - reward.attributes.each do |key, value|
         %p
           %b= key.humanize
           = value
 
+    .headline Updates
+    %hr/
+    - @project.project_updates.each do |update|
+      - update.attributes.each do |key, value|
+        %p
+          %b= key.humanize
+          = value
+          
     - if current_user && current_user.projects.exists?(@project)
       = link_to 'Edit', edit_project_path(@project)

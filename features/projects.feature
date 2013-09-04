@@ -87,6 +87,25 @@ Feature: Project
   Scenario: Edit project without permission
     Given I am a new, authenticated user
       And there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" 
+      And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM"
     When I go to the edit page of the project "Push The World"
     Then I should see "Permission denied."
+
+  Scenario: Add updates successfully
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I follow "Thêm Cập Nhật"
+      And I fill in "Content" with "Test Content"
+      And I press "Cập Nhật"
+    Then I should see "Content Test Content"
+
+  Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "DRAFT" with the user above 
+    When I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I follow "Thêm Cập Nhật"
+    Then I should see "Permission denied."
+    # TODO: add rake task to change STATUS to FINISHED after funding time

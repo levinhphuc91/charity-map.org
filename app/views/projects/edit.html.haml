@@ -18,6 +18,18 @@
     
     = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
 
+    %hr/
+    .headline Cập Nhật Dự Án (sẽ được email tới MTQ)
+
+    - @project.project_updates.each do |update|
+      %p
+        - update.attributes.each do |key, value|
+          %b= key.humanize
+          = value
+          |
+    
+    = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
+
     %hr/ 
     .headline Hoan thanh
     = link_to "Gui xet duyet", projects_submit_path(id: @project.id)

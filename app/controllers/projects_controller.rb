@@ -31,6 +31,7 @@ class ProjectsController < InheritedResources::Base
   def edit
     @project = Project.find(params[:id])
     if (current_user.projects.exists?(@project) != nil)
+      @project_reward = ProjectReward.new
       edit!
     else
       redirect_to :dashboard, alert: "Permission denied."

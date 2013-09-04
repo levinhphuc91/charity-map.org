@@ -8,15 +8,27 @@
 
     %hr/
     .headline Rewards
+    .project_rewards
+      - @project.project_rewards.each do |reward|
+        %p
+          - reward.attributes.each do |key, value|
+            %b= key.humanize
+            = value
+            |
+    = render 'project_rewards/form'
+    = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
 
-    - @project.project_rewards.each do |reward|
+    %hr/
+    .headline Updates
+
+    - @project.project_updates.each do |update|
       %p
-        - reward.attributes.each do |key, value|
+        - update.attributes.each do |key, value|
           %b= key.humanize
           = value
           |
     
-    = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
+    = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
 
     %hr/
     .headline Cập Nhật Dự Án (sẽ được email tới MTQ)
@@ -33,3 +45,17 @@
     %hr/ 
     .headline Hoan thanh
     = link_to "Gui xet duyet", projects_submit_path(id: @project.id)
+
+:javascript
+  $(document).ready(function() {
+    return $("#new_project_reward").bind("ajax:success", function(data, status, xhr) {
+      var str;
+      str = "";
+      $.each(status, function(key, value) {
+        return str = str + "<b>" + key + "</b>" + " " + value + " | ";
+      });
+      return $(".project_rewards").append(str + "</br>");
+    }).bind("ajax:failure", function(xhr, status, error) {
+      return alert("Action failed.");
+    });
+  });

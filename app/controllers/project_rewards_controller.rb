@@ -15,7 +15,10 @@ class ProjectRewardsController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @project_reward = ProjectReward.new(params[:project_reward])
     if @project_reward.save
-      redirect_to edit_project_path(@project), notice: "New reward has been added"
+      respond_to do |format|
+        format.json { render :json => @project_reward }
+        format.html { redirect_to edit_project_path(@project), notice: "New reward has been added" }
+      end
     else
       render :new, notice: "Unsuccessful. Try again"
     end

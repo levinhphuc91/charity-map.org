@@ -19,18 +19,6 @@
     = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
 
     %hr/
-    .headline Updates
-
-    - @project.project_updates.each do |update|
-      %p
-        - update.attributes.each do |key, value|
-          %b= key.humanize
-          = value
-          |
-    
-    = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
-
-    %hr/
     .headline Cập Nhật Dự Án (sẽ được email tới MTQ)
 
     - @project.project_updates.each do |update|

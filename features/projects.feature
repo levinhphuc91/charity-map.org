@@ -61,7 +61,7 @@ Feature: Project
       And I go to the project page of "Push The World"
       And I follow "Edit"
       And I fill in "Title" with "Kick The School"
-      And I press "Lưu"
+      And I press "Lưu" within ".project"
       And I go to the project page of "Kick The School"
       Then the URL should contain "kick-the-school"
 

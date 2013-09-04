@@ -109,3 +109,13 @@ Feature: Project
       And I follow "Thêm Cập Nhật"
     Then I should see "Permission denied."
     # TODO: add rake task to change STATUS to FINISHED after funding time
+
+  Scenario: Add new reward on edit project page
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    When I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I fill in "Amount" with "99999" within ".project_reward"
+      And I fill in "Description" with "Bla Bla" within ".project_reward"
+      And I press "Lưu" within ".project_reward"
+    Then I should see "Amount 99999.0"

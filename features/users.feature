@@ -1,4 +1,10 @@
 Feature: User
+
+  Scenario: To have a profile
+    Given there is a user with the id "1" and the email "tu@charity-map.org" and the password "12345678" and the password confirmation "12345678"
+    When I go to the profile of user "1"
+    Then the URL should contain "/user/1"
+
   Scenario: Update their profile settings
     Given I am a new, authenticated user
       And I am on the users settings page

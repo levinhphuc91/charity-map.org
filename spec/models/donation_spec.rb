@@ -19,7 +19,10 @@ require 'spec_helper'
 
 describe Donation do
   it "should have euid before_validation" do
-    donation = Donation.create(user_id: 1, project_id: 1)
+    project = Project.create(:title => "Test", :description => "Help me to put something here",
+      start_date: '2014-05-23', end_date: '2014-05-30', funding_goal: 3000000,
+      location: "Ho Chi Minh", user_id: 1)
+    donation = Donation.create(user_id: 1, project_id: project.id)
     donation.euid.length.should eq(5)
   end
 end

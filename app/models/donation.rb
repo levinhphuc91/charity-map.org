@@ -32,7 +32,7 @@ class Donation < ActiveRecord::Base
 
     def amount_can_not_be_smaller_than_least_reward
       errors.add(:amount, "can't be smaller than least reward") if
-        !amount.blank? and amount < self.project.project_rewards[0].amount
+        !(self.project.project_rewards.empty?) and !amount.blank? and (amount < self.project.project_rewards[0].amount)
     end
     # viet test TODO
 

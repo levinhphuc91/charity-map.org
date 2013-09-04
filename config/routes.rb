@@ -1,25 +1,28 @@
 CharityMap::Application.routes.draw do
-  get "users/dashboard"
-  match "dashboard", to: 'users#dashboard', via: :all, as: :dashboard
-  get "users/profile"
-  get "users/settings"
-  post "users/update_settings"
-  devise_for :users
-  get "pages/home"
-  get "pages/about"
-  get "pages/faqs"
-  get "pages/guidelines"
-  get "projects/submit"
+  get   'users/dashboard'
+  get   'users/profile'
+  get   'users/settings'
+  post  'users/update_settings'
+  get   'user/:id', to: 'users#profile', as: :user_profile
+  match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard
   
+  devise_for :users
+  get   'pages/home'
+  get   'pages/about'
+  get   'pages/faqs'
+  get   'pages/guidelines'
+
+  get   'projects/submit'
+
   resources :projects do
     resources :project_rewards
     resources :donations
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  # See how all your routes lay out with 'rake routes'.
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   root 'pages#home'
 
   # Example of regular route:

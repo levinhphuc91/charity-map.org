@@ -52,7 +52,7 @@
       var str;
       str = "";
       $.each(status, function(key, value) {
-        return str = str + "<b>" + key + "</b>" + " " + value + " | ";
+        return str = str + "<b>" + key + ":</b>" + " " + value + " | ";
       });
       return $(".project_rewards").append(str + "</br>");
     }).bind("ajax:failure", function(xhr, status, error) {

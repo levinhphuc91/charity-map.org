@@ -34,6 +34,8 @@ class Project < ActiveRecord::Base
   has_many :users, through: :donations
   belongs_to :user # admin relationship
 
+  before_validation :assign_status
+  
   validates :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :status, :user_id,
     presence: true

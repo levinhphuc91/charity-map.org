@@ -2,8 +2,12 @@
   .body-container--content
 
     - if @project.status == "DRAFT" || @project.status == "PENDING"
-      .notice Trạng thái: #{human_status @project.status}
+      .notice Trạng thái: #{human_status @project}
     
+    .row-fluid
+      = link_to new_project_donation_path(@project) do
+        .bttn.bttn-blue Ủng Hộ
+
     - @project.attributes.each do |key, value|
       %p 
         %b= key.humanize

@@ -1,0 +1,14 @@
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .headline #{@project.title}
+    .row-fluid 
+      %i.icon-user
+      #{@project.user.full_name}
+      %i.icon-map-marker
+      #{@project.location}
+
+    %hr/ 
+
+    .row-fluid
+      = render 'form'

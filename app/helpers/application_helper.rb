@@ -1,24 +1,28 @@
 module ApplicationHelper
   def human_time(time)
-    time.strftime("%d/%m/%y %H:%M")
+    time.strftime("%d/%m/%Y")
   end
 
   def human_currency(amount)
     number_to_currency amount, delimiter: ".", precision: 0, unit: "đ"
   end
 
-  def human_status(status)
-    case status
+  def human_status(project)
+    case project.status
     when "DRAFT"
-      return "Bản Nháp"
+      "Bản Nháp"
     when "PENDING"
-      return "Đã Gửi Lên Hệ Thống"
+      "Đang Đợi Xét"
     when "REVIEWED"
-      return "Được Duyệt Để Gây Quỹ"
+      if project.start_date < Date.today && project.end_date > Date.today
+        "Đang Gây Quỹ"
+      else
+        "Được Duyệt Để Gây Quỹ"
+      end
     when "FINISHED"
-      return "Hoàn Thành"
+      "Hoàn Thành"
     else
-      return status
+      status
     end
   end
 end

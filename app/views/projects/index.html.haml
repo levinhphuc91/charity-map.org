@@ -17,9 +17,10 @@
         .pull-left
           = render "projects/box_display", :project => project
 
-    - if (current_user && current_user.staff)
-      .headline Bản Nháp (chỉ dành cho admin)
+    - if (current_user && current_user.staff && !@pending.empty?)
+      .headline Đang Đợi Xét Duyệt (admin only)
+      %hr/ 
       .row-fluid
-        - @drafts.each do |draft|
+        - @pending.each do |pending|
           .pull-left
-            = render "projects/box_display", :project => draft
+            = render "projects/box_display", :project => pending

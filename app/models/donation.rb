@@ -16,20 +16,30 @@
 #
 
 class Donation < ActiveRecord::Base
-  attr_accessible :euid, :status, :user_id, :amount, :note, :collection_method, :project_reward_id, :project_id
+  attr_accessible :euid, :status, :user_id, :amount, :note,
+    :collection_method, :project_reward_id, :project_id
+
   belongs_to :user
   belongs_to :project
   belongs_to :project_reward
 
-  validates :user_id, :project_id, :euid,
-    presence: true
-
   before_validation :assign_euid
 
+  validates :user_id, :project_id, :euid, presence: true
+  validate :amount_can_not_be_smaller_than_least_reward
+
   private
+
+    def amount_can_not_be_smaller_than_least_reward
+      errors.add(:amount, "can't be smaller than least reward") if
+        !amount.blank? and amount < self.project.project_rewards[0].amount
+    end
+    # viet test TODO
+
     def generate_random_string
       (0...5).map{ ('0'..'9').to_a[rand(10)] }.join
     end
+
     def assign_euid
       self.euid = generate_random_string if euid == nil
     end

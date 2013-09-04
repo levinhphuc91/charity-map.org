@@ -15,9 +15,9 @@ class ProjectReward < ActiveRecord::Base
 
   belongs_to :project
   has_many :donations
+  
   attr_accessible :amount, :description, :project_id
 
-  validates :amount, :description, :project_id,
-    presence: true
+  validates :amount, :description, :project_id, presence: true
   validates :amount, numericality: { greater_than_equal_to: 10000 }
 end

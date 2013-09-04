@@ -19,7 +19,7 @@
     .row-fluid
       .pull-left 
         Trạng Thái:
-        = human_status(project.status)
+        = human_status(project)
       .pull-right
         - if project.status == "DRAFT"
           = link_to "Chỉnh Sửa", edit_project_path(project)

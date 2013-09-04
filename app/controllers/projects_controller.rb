@@ -9,7 +9,7 @@ class ProjectsController < InheritedResources::Base
     else
       @projects = Project.public_view
     end
-    @drafts = Project.draft
+    @pending = Project.pending
   end
 
   def new

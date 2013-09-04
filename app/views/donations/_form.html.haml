@@ -1,0 +1,22 @@
+.row-fluid
+  .span6
+    = simple_form_for [@project, @donation] do |f|
+      - if @donation.errors.any?
+        #error_explanation
+          %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+          %ul
+            - @donation.errors.full_messages.each do |msg|
+              %li= msg
+      
+      = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+      = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+      = f.input :amount
+      = f.input :note
+      = f.input :collection_method, as: :select, collection: ["COD", "Chuyển khoản ngân hàng"], include_blank: false
+      = f.submit "Tiếp Tục"
+
+  .span6
+    - @project.project_rewards.each do |reward|
+      .row-fluid
+        - reward.attributes.each do |key, value|
+          #{key.to_s}: #{value} /

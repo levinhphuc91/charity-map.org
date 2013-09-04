@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many :project_comments
   has_many :donations
   has_many :projects, through: :donations
-
   has_many :projects # admin relationship
+  
   has_defaults staff: false
 end

@@ -18,23 +18,20 @@
 #
 
 class Project < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :title, use: :slugged
-  mount_uploader :photo, PhotoUploader
-  scope :draft, -> { where(status: "DRAFT") }
-  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?", "REVIEWED", Time.now, Time.now) }
+  scope :pending, -> { where(status: "PENDING") }
+  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?",
+    "REVIEWED", Time.now, Time.now) }
   scope :finished, -> { where(status: "FINISHED") }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
 
   attr_accessible :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status
+
   has_many :project_rewards
   has_many :project_updates
   has_many :project_comments
-  
   has_many :donations
   has_many :users, through: :donations
-
   belongs_to :user # admin relationship
 
   validates :title, :description, :start_date, :end_date, 
@@ -44,7 +41,13 @@ class Project < ActiveRecord::Base
   validates :user_id, numericality: { greater_than: 0 }
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
 
-  before_validation :assign_status
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+  mount_uploader :photo, PhotoUploader
+
+  def accepting_donation?
+    status == "REVIEWED" && start_date < Date.today && end_date > Date.today
+  end
 
   private
     def assign_status
@@ -61,10 +64,3 @@ class Project < ActiveRecord::Base
         !start_date.blank? and !end_date.blank? and TimeDifference.between(end_date, start_date).in_days > 180
     end
 end
-
-# ===== PROJECT STATUSES =====
-# DRAFT: default
-# PENDING: project creator submitted for admin review
-# REVIEWED: well, was reviewed, ready for public show
-# FINISHED: done
-# DELETED: deleted by project creators

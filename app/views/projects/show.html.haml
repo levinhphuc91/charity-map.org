@@ -17,17 +17,25 @@
     %hr/ 
     - @project.project_rewards.each do |reward|
       - reward.attributes.each do |key, value|
-        %p
-          %b= key.humanize
-          = value
+        %b= key.humanize
+        = value
+      %br/ 
 
     .headline Updates
     %hr/
     - @project.project_updates.each do |update|
       - update.attributes.each do |key, value|
-        %p
-          %b= key.humanize
-          = value
+        %b= key.humanize
+        = value
+      %br/ 
+
+    .headline Donations
+    %hr/
+    - @project.donations.each do |update|
+      - update.attributes.each do |key, value|
+        %b= key.humanize
+        = value
+      %br/ 
           
     - if current_user && current_user.projects.exists?(@project)
       = link_to 'Edit', edit_project_path(@project)

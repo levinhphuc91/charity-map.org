@@ -1,5 +1,5 @@
 class DonationsController < InheritedResources::Base
-
+  include DonationsHelper
   before_filter :authenticate_user!
 
   def index

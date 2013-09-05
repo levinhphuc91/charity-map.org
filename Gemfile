@@ -23,6 +23,7 @@ gem 'awesome_print', :require => 'ap'
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
+gem 'delayed_job_active_record'
 
 group :development do
   gem 'better_errors'

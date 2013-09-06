@@ -9,3 +9,25 @@
         = @user.full_name
       .span6
         = @user.bio
+
+    .row-fluid
+      .headline Project
+      %hr/ 
+      - @user.projects.each do |project|
+        %p
+          - project.attributes.each do |key, value|
+            = link_to project_path(project) do
+              %b= key.humanize
+              = value
+              |
+
+    .row-fluid
+      .headline Donation History
+      %hr/ 
+      - @user.donations.each do |donation|
+        %p
+          - donation.attributes.each do |key, value|
+            = link_to project_donation_path(donation.project, donation) do
+              %b= key.humanize
+              = value
+              |

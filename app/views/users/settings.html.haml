@@ -15,3 +15,6 @@
 						= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
 						= f.inputs :bio, :phone 
 						= f.actions :submit,  :as => :button
+			.span4.pull-right
+				= link_to user_profile_path(current_user) do
+					.bttn.bttn-blue Xem Trang Cá Nhân

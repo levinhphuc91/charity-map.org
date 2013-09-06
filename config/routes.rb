@@ -20,6 +20,7 @@ CharityMap::Application.routes.draw do
     resources :project_rewards
     resources :donations
     resources :project_updates
+    resources :recommendations
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

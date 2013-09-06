@@ -32,6 +32,7 @@ class Project < ActiveRecord::Base
   has_many :project_comments
   has_many :donations
   has_many :users, through: :donations
+  has_many :recommendations
   belongs_to :user # admin relationship
 
   before_validation :assign_status

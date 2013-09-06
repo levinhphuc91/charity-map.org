@@ -1,0 +1,8 @@
+= semantic_form_for [@project, @recommendation] do |f|
+  = f.inputs do
+    = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+    = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+    = f.input :content
+
+  = f.actions do
+    = f.action :submit, :as => :input

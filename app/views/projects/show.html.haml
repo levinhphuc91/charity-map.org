@@ -1,7 +1,7 @@
 .body-container--plain-row
   .body-container--content
 
-    - if current_user.projects.exists?(@project)
+    - if current_user && current_user.projects.exists?(@project)
       .notice Trạng thái: #{human_project_status @project}
 
     .row-fluid
@@ -36,6 +36,19 @@
         %b= key.humanize
         = value
       %br/ 
-          
+
+    .headline Recommendations (#{@project.recommendations.count})
+    %hr/
+    - @project.recommendations.each do |recommendation|
+      - recommendation.attributes.each do |key, value|
+        %b= key.humanize
+        = value
+      - if (current_user) && (recommendation.user == current_user)
+        = link_to "[Edit]", edit_project_recommendation_path(@project, recommendation), class: "edit_recommendation"
+      %br/
+    = link_to "Write recommendation", new_project_recommendation_path(@project)
+
+    %hr/ 
+
     - if current_user && current_user.projects.exists?(@project)
       = link_to 'Edit', edit_project_path(@project)

@@ -39,8 +39,8 @@ Feature: User
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
       And there is a project with the id "1" and the title "Books from Heart" and the description "Giving away libraries for suburban schools." and the start date "2014-05-23" and the end date "2014-05-30" and the funding goal "5000000" and the location "Ho Chi Minh City" with the user above
       And there is a project reward with the amount "100000" and the description "Test Note" with the project above
-      And there is a donation with the user id "2" and the amount "250000" and the collection method "COD" with the project above and the project reward above
-      And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" with the project above and the project reward above
+      And there is a donation with the user id "2" and the amount "250000" and the status "SUCCESSFUL" and the collection method "COD" with the project above and the project reward above
+      And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" and the status "SUCCESSFUL" with the project above and the project reward above
     When I go to the login page
       And I fill in "Email" with "vumanhcuong01@gmail.com"
       And I fill in "Password" with "12345678"

@@ -119,3 +119,15 @@ Feature: Project
       And I fill in "Description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
     Then I should see "Amount 99999.0"
+
+  Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    When I login as "testing@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Write recommendation"
+      And I fill in "Content" with "This is such a good project"
+      And I press "Create Recommendation"
+    Then I should see "Thank you. New recommendation has been added."
+      And I should see "This is such a good project"
+      And I should see "[Edit]" within ".edit_recommendation"

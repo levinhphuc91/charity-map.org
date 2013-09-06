@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   has_many :donations
   has_many :projects, through: :donations
   has_many :projects # admin relationship
+  has_many :recommendations
   
   has_defaults staff: false, verified_by_phone: false
 end

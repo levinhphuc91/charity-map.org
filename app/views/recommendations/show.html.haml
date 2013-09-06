@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Project:
+  = @recommendation.project
+%p
+  %b User:
+  = @recommendation.user
+%p
+  %b Content:
+  = @recommendation.content
+
+= link_to 'Edit', edit_recommendation_path(@recommendation)
+\|
+= link_to 'Back', recommendations_path

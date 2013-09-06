@@ -19,5 +19,5 @@ class ProjectReward < ActiveRecord::Base
   attr_accessible :amount, :description, :project_id
 
   validates :amount, :description, :project_id, presence: true
-  validates :amount, numericality: { greater_than_equal_to: 10000 }
+  validates :amount, numericality: { :greater_than_or_equal_to => 10000 }
 end

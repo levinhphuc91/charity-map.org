@@ -18,7 +18,6 @@ module DonationsHelper
         end
       end
     end
-    # TODO: viet cucumber test
   end
 
 end

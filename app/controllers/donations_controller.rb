@@ -27,8 +27,8 @@ class DonationsController < InheritedResources::Base
   end
 
   def request_verification
-    @donation = Donation.find_by_euid params[:euid]
-    if (current_user.donations.exists?(@donation) != nil) && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
+    @donation = Donation.find_by_euid(params[:euid])
+    if (current_user.donations.exists?(@donation) != nil) && @donation && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
       @donation.update status: "REQUEST_VERIFICATION"
       UserMailer.email_to_project_creator(@donation).deliver
       redirect_to :dashboard, notice: "The project creator will check their bank statement and let you know soon."

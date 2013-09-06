@@ -21,6 +21,8 @@
 #  bio                    :text
 #  phone                  :string(255)
 #  staff                  :boolean
+#  avatar                 :string(255)
+#  verified_by_phone      :boolean
 #
 
 require 'spec_helper'

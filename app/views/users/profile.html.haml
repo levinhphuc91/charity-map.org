@@ -2,7 +2,7 @@
   .body-container--content
     .row-fluid
       .span12
-        Placeholding Image
+        = image_tag(@user.avatar_url(:medium)) if @user.avatar?
 
     .row-fluid
       .span6.pull-right

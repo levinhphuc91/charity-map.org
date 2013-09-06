@@ -21,22 +21,26 @@
 #  bio                    :text
 #  phone                  :string(255)
 #  staff                  :boolean
+#  avatar                 :string(255)
+#  verified_by_phone      :boolean
 #
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  mount_uploader :avatar, AvatarUploader
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :id, :email, :password, :password_confirmation,
-    :full_name, :address, :city, :bio, :phone
+    :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
+    :verified_by_phone
 
   has_many :project_comments
   has_many :donations
   has_many :projects, through: :donations
   has_many :projects # admin relationship
   
-  has_defaults staff: false
+  has_defaults staff: false, verified_by_phone: false
 end

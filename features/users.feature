@@ -33,7 +33,7 @@ Feature: User
       And I press "Sign in"
     When I go to the dashboard
     Then I should see "500.000"
-      And I should see "COD"
+      And I should see "Thu Tiền Mặt"
 
   Scenario: Visit dashboard, as a project creator
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

@@ -2,7 +2,7 @@
   .body-container--content
 
     - if @project.status == "DRAFT" || @project.status == "PENDING"
-      .notice Trạng thái: #{human_status @project}
+      .notice Trạng thái: #{human_project_status @project}
     
     .row-fluid
       = link_to new_project_donation_path(@project) do

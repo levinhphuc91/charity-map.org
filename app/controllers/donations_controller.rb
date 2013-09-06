@@ -36,5 +36,4 @@ class DonationsController < InheritedResources::Base
       redirect_to :dashboard, alert: "Permission denied."
     end
   end
-
 end

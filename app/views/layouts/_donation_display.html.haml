@@ -1,12 +1,13 @@
 .row-fluid
-	.span1= donation.euid
-	.span4= donation.project.title
-	.span2= human_time(donation.updated_at)
-	.span3
-		= human_currency donation.amount
-		%br/ 
-		= donation.collection_method
-	.span2
-		= donation.status
-		- if(donation.status == "PENDING" && donation.collection_method == "BANK_TRANSFER")
-			= link_to "Request Verification", request_verification_path(donation.euid)
+  .span1= donation.euid
+  .span4= donation.project.title
+  .span2= human_time(donation.updated_at)
+  .span3
+    = human_currency donation.amount
+    %br/ 
+    = human_donation_type(donation.collection_method)
+  .span2
+    = human_donation_status(donation)
+    - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING"
+      = link_to "Request Verification", donations_request_verification_path(id: donation.id)
+%hr/

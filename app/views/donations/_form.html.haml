@@ -12,7 +12,7 @@
       = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
       = f.input :amount
       = f.input :note
-      = f.input :collection_method, as: :select, collection: ["COD", "Chuyển khoản ngân hàng"], include_blank: false
+      = f.input :collection_method, as: :select, collection: [["Thu tiền tại nhà", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false
       = f.submit "Tiếp Tục"
 
   .span6

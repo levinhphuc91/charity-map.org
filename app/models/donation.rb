@@ -16,6 +16,8 @@
 #
 
 class Donation < ActiveRecord::Base
+  scope :successful, -> { where(status: "SUCCESSFUL") }
+
   attr_accessible :euid, :status, :user_id, :amount, :note,
     :collection_method, :project_reward_id, :project_id
 

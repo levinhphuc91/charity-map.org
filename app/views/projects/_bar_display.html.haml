@@ -8,7 +8,7 @@
         .project-info= project.location
         .project-description= project.description
       .span5
-        #{human_currency project.donations.sum(:amount)} / #{human_currency project.funding_goal}
+        #{human_currency project.donations.successful.sum(:amount)} / #{human_currency project.funding_goal}
         %br/ 
         #{project.donations.count} MTQ
         %br/

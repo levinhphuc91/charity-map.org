@@ -7,7 +7,7 @@ module ApplicationHelper
     number_to_currency amount, delimiter: ".", precision: 0, unit: "đ"
   end
 
-  def human_status(project)
+  def human_project_status(project)
     case project.status
     when "DRAFT"
       "Bản Nháp"
@@ -23,6 +23,30 @@ module ApplicationHelper
       "Hoàn Thành"
     else
       status
+    end
+  end
+
+  def human_donation_type(method)
+    case method
+    when "COD"
+      "Thu Tiền Mặt"
+    when "BANK_TRANSFER"
+      "Chuyển Khoản Ngân Hàng"
+    end
+  end
+
+  def human_donation_status(donation)
+    case donation.status
+    when "PENDING"
+      if donation.collection_method == "COD"
+        "Đợi Liên Hệ"
+      elsif donation.collection_method == "BANK_TRANSFER"
+        "Chờ MTQ Gửi Tiền"
+      end
+    when "REQUEST_VERIFICATION"
+      "Đợi Xác Nhận"
+    when "SUCCESSFUL"
+      "Thành Công"
     end
   end
 end

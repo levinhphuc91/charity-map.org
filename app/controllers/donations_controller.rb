@@ -25,4 +25,12 @@ class DonationsController < InheritedResources::Base
       end
     end
   end
+
+  def request_verification
+    @donation = Donation.find(params[:id])
+    if current_user.donations.exists?(@donation) && @donation.collection_method == "BANK_TRANSFER" && @donation.status == "PENDING"
+      @donation.update status: "REQUEST_VERIFICATION"
+      # UserMailer.gui email den project creator
+    end
+  end
 end

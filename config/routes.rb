@@ -14,6 +14,8 @@ CharityMap::Application.routes.draw do
 
   get   'projects/submit'
 
+  get   'donations/request_verification'
+
   resources :projects do
     resources :project_rewards
     resources :donations

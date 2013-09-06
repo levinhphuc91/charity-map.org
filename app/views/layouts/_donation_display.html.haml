@@ -5,5 +5,9 @@
   .span3
     = human_currency donation.amount
     %br/ 
-    = donation.collection_method
-  .span2= donation.status
+    = human_donation_type(donation.collection_method)
+  .span2
+    = human_donation_status(donation)
+    - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING"
+      = link_to "Request Verification", donations_request_verification_path(id: donation.id)
+%hr/

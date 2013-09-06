@@ -4,6 +4,7 @@ CharityMap::Application.routes.draw do
   get   'users/settings'
   post  'users/update_settings'
   get   'user/:id', to: 'users#profile', as: :user_profile
+  get   'donations/request_verification/:euid', to: 'donations#request_verification', as: :request_verification
   match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard
   
   devise_for :users

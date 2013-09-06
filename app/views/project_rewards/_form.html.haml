@@ -1,4 +1,4 @@
-= simple_form_for [@project, @project_reward], remote: true do |f|
+= simple_form_for [@project, @project_reward], remote: false do |f|
   - if @project_reward.errors.any?
     #error_explanation
       %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"

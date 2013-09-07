@@ -8,10 +8,15 @@ class DonationsController < InheritedResources::Base
 
   def new
     @project = Project.find(params[:project_id])
-    if @project.accepting_donation?
-      new!
+    if current_user.blank_contact?
+      redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
-      redirect_to @project, alert: "Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau."
+    # TODO: viet test, add redirect_back
+      if @project.accepting_donation?
+        new!
+      else
+        redirect_to @project, alert: "Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau."
+      end
     end
   end
 

@@ -49,7 +49,8 @@ class Project < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
 
   def accepting_donation?
-    status == "REVIEWED" && start_date < Date.today && end_date > Date.today
+    status == "REVIEWED" 
+    # && start_date < Date.today && end_date > Date.today
   end
 
   private

@@ -17,6 +17,14 @@
 
   .span6
     - @project.project_rewards.each do |reward|
-      .row-fluid
+      .row-fluid.reward{:"data-amount" => reward.amount.to_i}
         - reward.attributes.each do |key, value|
           #{key.to_s}: #{value} /
+
+:javascript
+  $('.reward').on('click', function() {
+    console.log($(this).data('amount'));
+    $('.reward').css('background-color', '#fff');
+    $(this).css('background-color', '#ccc');
+    $('#donation_amount').val($(this).data('amount'));
+  });

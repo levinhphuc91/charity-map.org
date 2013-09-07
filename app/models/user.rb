@@ -44,4 +44,9 @@ class User < ActiveRecord::Base
   has_many :recommendations
   
   has_defaults staff: false, verified_by_phone: false
+
+  def blank_contact?
+    return true if (self.phone.nil? || self.phone.empty?) || (self.address.nil? || self.address.empty?)
+    false
+  end
 end

@@ -38,6 +38,11 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
+  def update
+    @project_reward = ProjectReward.new
+    update!
+  end
+
   def submit
     @project = Project.find(params[:id])
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"

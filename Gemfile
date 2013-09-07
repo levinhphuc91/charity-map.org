@@ -44,6 +44,8 @@ group :test, :development do
   gem 'guard-cucumber'
   gem 'spreewald'
   gem 'launchy'
+  gem 'timecop'
+  gem 'email_spec'
 
   gem 'spork'
   gem 'guard-spork'

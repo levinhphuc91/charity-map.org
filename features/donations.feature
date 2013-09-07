@@ -1,4 +1,26 @@
-Feature: User
+Feature: Donation
+
+	Scenario: Email with bank account info to be sent for Bank Transfer donations
+		Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong"
+			And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
+	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass"
+	 	Given the date is "2013-09-13"
+	 	When I login as "donor@man.net"
+	 		And I go to the project page of "Push The World"
+	 		And I follow "Ủng Hộ"
+	 		And I fill in "Amount" with "12345"
+	 		And I fill in "Note" with "Nothing"
+	 		And I select "Chuyển khoản ngân hàng" from "Collection method"
+	 		And I press "Tiếp Tục"
+	 	# Then "donor@man.net" should receive an email with subject "Thông tin tài khoản NH đóng góp cho dự án Push The World"
+	 	Then an email should have been sent with:
+		  """
+		  From: tu@charity-map.org
+		  To: donor@man.net
+		  """
+		When I follow the first link in the email
+		Then I should see "The project creator will check their bank statement and let you know soon."
 
 	Scenario: Get a email to request verification
 	  Given there is a project with the title "Push The World" and the id "1" and the user id "2" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" and the status "REVIEWED"

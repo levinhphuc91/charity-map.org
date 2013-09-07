@@ -28,7 +28,8 @@ class Donation < ActiveRecord::Base
   has_defaults status: "PENDING"
   before_validation :assign_euid
 
-  validates :user_id, :project_id, :euid, :status, :project_reward_id, presence: true
+  validates :user_id, :project_id, :euid, :status, :project_reward_id,
+    :amount, :collection_method, presence: true
   validate :amount_can_not_be_smaller_than_least_reward
 
   private

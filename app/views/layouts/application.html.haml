@@ -17,5 +17,9 @@
               %p.notice= notice
             - if alert
               %p.alert= alert
+      - if (current_user) && (!current_user.verified?) && (!current_user.verifications.empty?)
+        .body-container--dark-row
+          .body-container--content
+            = render "layouts/verify_code_via_phone"
       = yield
     = render "layouts/footer"

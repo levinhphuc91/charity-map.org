@@ -1,0 +1,7 @@
+.row-fluid
+  Hoàn tất xác nhận danh tính bằng cách điền mã code vào ô bên dưới:
+.row-fluid
+  = form_tag(users_verification_code_via_phone_path, :method => :post) do
+    %p 
+      = text_field_tag :phone_code
+      = submit_tag "Verify code"

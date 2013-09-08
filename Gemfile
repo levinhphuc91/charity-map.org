@@ -15,6 +15,7 @@ gem 'jquery-ui-rails', '~> 4.0.1'
 gem 'time_difference'
 gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
 gem 'twilio-ruby' # SMS
+gem 'redcarpet' # Markdown support
 
 # Model gems
 gem 'has_defaults'

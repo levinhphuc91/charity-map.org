@@ -27,3 +27,16 @@ end
 Then(/^the URL should contain "(.*?)"$/) do |string|
   current_url.should include(string)
 end
+
+Given /^I login via Facebook$/ do 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    :provider => 'facebook',
+    :uid => '123545',
+    :info => {
+      "email" => "user@man.net"
+    }
+  })
+  visit('/users/sign_in')
+  click_link_or_button 'Sign in with Facebook'
+end

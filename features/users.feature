@@ -106,3 +106,9 @@ Feature: User
       And I press "Send me reset password instructions"
     Then  I should see "Some errors were found, please take a look"
       And I should see "không tìm thấy"
+
+  Scenario: To be able to login using Facebook
+    When I login via Facebook
+    Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    When I go to the users settings page
+    Then the "Email" field should contain "user@man.net"

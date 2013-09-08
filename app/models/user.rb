@@ -23,6 +23,8 @@
 #  staff                  :boolean
 #  avatar                 :string(255)
 #  verified_by_phone      :boolean
+#  provider               :string(255)
+#  uid                    :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -31,11 +33,12 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   mount_uploader :avatar, AvatarUploader
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:facebook]
 
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :verified_by_phone
+    :verified_by_phone, :provider, :uid
 
   has_many :project_comments
   has_many :donations
@@ -48,5 +51,24 @@ class User < ActiveRecord::Base
   def blank_contact?
     return true if (self.phone.nil? || self.phone.empty?) || (self.address.nil? || self.address.empty?)
     false
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create(provider:auth.provider,
+        uid:auth.uid,
+        email:auth.info.email,
+        password:Devise.friendly_token[0,20])
+    end
+    user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
   end
 end

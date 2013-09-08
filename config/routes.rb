@@ -7,7 +7,8 @@ CharityMap::Application.routes.draw do
   get   'donations/request_verification/:euid', to: 'donations#request_verification', as: :request_verification
   match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard
   
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   get   'pages/home'
   get   'pages/about'
   get   'pages/faqs'

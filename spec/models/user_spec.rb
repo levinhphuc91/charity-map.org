@@ -23,6 +23,8 @@
 #  staff                  :boolean
 #  avatar                 :string(255)
 #  verified_by_phone      :boolean
+#  provider               :string(255)
+#  uid                    :string(255)
 #
 
 require 'spec_helper'

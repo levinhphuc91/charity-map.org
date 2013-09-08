@@ -16,9 +16,9 @@ Feature: Project
       Then I should see "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
 
   Scenario: To be created successfully
-    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "10" and the password "12345678" and the password confirmation "12345678"
-      And I am a new, authenticated user
-    When I go to the new project page
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "vumanhcuong01@gmail.com"
+      And I go to the new project page
       And I fill in "Title" with "Push the world"
       And I fill in "Description" with "World is bullshit"
       And I fill in "Start date" with "2013-09-10"
@@ -31,9 +31,9 @@ Feature: Project
       And I should see "Edit"
 
   Scenario: To be created unsuccessfully
-    Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
-      And I am a new, authenticated user
-    When I go to the new project page
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "vumanhcuong01@gmail.com"
+      And I go to the new project page
       And I fill in "Title" with ""
       And I fill in "Description" with "World is bullshit"
       And I fill in "Start date" with "2013-09-10"

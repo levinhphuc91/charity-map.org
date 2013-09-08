@@ -14,8 +14,10 @@ class ProjectsController < InheritedResources::Base
 
   def new
     @project = Project.new
-    if current_user.full_name.blank? || current_user.address.blank?
+    if current_user.blank_contact?
       redirect_to users_settings_path, notice: "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
+    else 
+      new!
     end
   end
 

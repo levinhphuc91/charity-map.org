@@ -1,3 +1,8 @@
+- if (current_user) && (!current_user.verified?) && (!current_user.verifications.empty?)
+	.body-container--dark-row
+		.body-container--content
+			= render "layouts/verify_code_via_phone"
+
 .body-container--plain-row
 	.body-container--content
 		.row-fluid

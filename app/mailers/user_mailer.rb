@@ -9,16 +9,18 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Thông tin tài khoản NH đóng góp cho dự án #{@project.title}")
   end
 
-  def send_donation_remider(donation)
+  def bank_transfer_donation_reminder(donation)
   	@donation = donation
-    @user = donation.user
-    mail(to: @user.email, subject: 'Email request verification')
+    @user = @donation.user
+    @project = @donation.project
+    mail(to: @user.email, subject: "Tin nhắn: bạn đã chuyển khoản cho dự án #{@project.title}?")
   end
 
-  def email_to_project_creator(donation)
+  def bank_transfer_request_verification(donation)
   	@donation = donation
-  	@user = User.where(:id => @donation.project.user_id).first;
-  	mail(to: @user.email, subject: "Confirm bank statement")
+    @project = @donation.project
+  	@user = @project.user
+  	mail(to: @user.email, subject: "Tin nhắn: Mời xác nhận giao dịch CKNH cho dự án  #{@project.title}")
   end
 
 end

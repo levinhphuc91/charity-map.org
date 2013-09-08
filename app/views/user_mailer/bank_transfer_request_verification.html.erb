@@ -1,0 +1,13 @@
+Xin chào<%= " #{@user.full_name.split.last}" if @user.full_name %>,
+
+Hệ thống vừa ghi nhận một yêu cầu xác nhận tiền đã được gửi đến tài khoản của dự án <%= @project.title %> vào ngày <%= human_time(@donation.updated_at) %>.
+
+Thông tin chi tiết như sau:
+== Ngày gửi yêu cầu: <%= human_time(@donation.updated_at) %>
+== Dự án: <%= @project.title %>
+== Mã ủng hộ: <%= @donation.euid %>
+== Số tiền ủng hộ: <%= human_currency @donation.amount %>
+== Số ĐT người ủng hộ: <%= @donation.user.phone %>
+
+Vui lòng truy cập <%= link_to "dashboard", dashboard_url %> để xác nhận với hệ thống.
+www.charity-map.org

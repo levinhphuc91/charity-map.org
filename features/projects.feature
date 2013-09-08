@@ -121,7 +121,7 @@ Feature: Project
     Then I should see "Amount 99999.0"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
     And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the project page of "Push The World"

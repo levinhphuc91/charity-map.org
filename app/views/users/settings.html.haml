@@ -21,3 +21,13 @@
 			.span4.pull-right
 				= link_to user_profile_path(current_user) do
 					.bttn.bttn-blue Xem Trang Cá Nhân
+				%hr/ 
+				- unless current_user.verified_by_phone?
+					- if current_user.verifications.empty?
+						= form_tag(users_verification_code_via_phone_path, :method => :post) do
+							= text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx"
+							= submit_tag "Send code"
+					- else
+						= form_tag(users_verification_code_via_phone_path, :method => :post) do
+							= text_field_tag :phone_code
+							= submit_tag "Verify code"

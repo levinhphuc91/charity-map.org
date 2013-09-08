@@ -3,6 +3,7 @@ CharityMap::Application.routes.draw do
   get   'users/profile'
   get   'users/settings'
   post  'users/update_settings'
+  post  'users/verification_code_via_phone'
   get   'user/:id', to: 'users#profile', as: :user_profile
   get   'donations/request_verification/:euid', to: 'donations#request_verification', as: :request_verification
   match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard

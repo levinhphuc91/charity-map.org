@@ -41,7 +41,7 @@ class Donation < ActiveRecord::Base
     # viet test TODO
 
     def generate_random_string
-      (0...5).map{ ('0'..'9').to_a[rand(10)] }.join
+      (0..4).map{ ('0'..'9').to_a[rand(10)] }.join
     end
 
     def assign_euid

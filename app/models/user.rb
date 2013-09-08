@@ -45,12 +45,17 @@ class User < ActiveRecord::Base
   has_many :projects, through: :donations
   has_many :projects # admin relationship
   has_many :recommendations
+  has_many :verifications
   
   has_defaults staff: false, verified_by_phone: false
 
   def blank_contact?
     return true if (self.phone.nil? || self.phone.empty?) || (self.address.nil? || self.address.empty?)
     false
+  end
+
+  def verified?
+    self.verified_by_phone
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

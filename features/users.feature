@@ -112,3 +112,20 @@ Feature: User
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
     When I go to the users settings page
     Then the "Email" field should contain "user@man.net"
+
+  Scenario: To be sent verification code via phone
+    Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "vumanhcuong@gmail.com"
+      And I go to the users settings page
+      And I fill in "phone_number" with "0908230591"
+      And I press "Send code"
+    Then I should see "Mã xác nhận vừa được gửi tới số +840908230591. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+
+  Scenario: To submit verification code
+    Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a verification with the code "123456" and the user above
+    When I login as "vumanhcuong@gmail.com"
+      And I go to the users settings page
+      And I fill in "phone_code" with "123456"
+      And I press "Verify code"
+    Then I should see "Xác nhận danh tính bằng số điện thoại hoàn tất."

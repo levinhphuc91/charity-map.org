@@ -7,7 +7,11 @@ class RecommendationsController < InheritedResources::Base
 
   def new
     @project = Project.find(params[:project_id])
-    new!
+    if current_user.verified?
+      new!
+    else
+      redirect_to users_settings_path, alert: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT hoặc CMND) trước khi viết giới thiệu cho dự án #{@project.title}."
+    end
   end
 
   def create

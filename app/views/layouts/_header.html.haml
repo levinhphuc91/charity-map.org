@@ -27,6 +27,9 @@
             &nbsp;/
             EN
           - else
-            %span.active= link_to "EN", locale: "en"
+            / %span.active= link_to "EN", locale: "en"
+            / &nbsp;/
+            / VN
+            %span.inactive{:"data-toggle" => "tooltip", :title => "first tooltip"} EN
             &nbsp;/
             VN

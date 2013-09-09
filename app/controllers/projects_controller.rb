@@ -53,6 +53,7 @@ class ProjectsController < InheritedResources::Base
       else
         if @project.update status: "PENDING"
           redirect_to @project, notice: "Project has been submitted. We'll keel you in touch."
+          # TODO: add AdminMailer
         else
           redirect_to edit_project_path(@project), notice: "#{@project.errors.full_messages.join(' ')}"
         end

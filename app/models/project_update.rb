@@ -10,6 +10,7 @@
 #
 
 class ProjectUpdate < ActiveRecord::Base
+  default_scope { order('updated_at') }
   belongs_to :project
   attr_accessible :content, :project_id
   validates :content, :project_id, presence: true

@@ -1,57 +1,86 @@
-.body-container--plain-row
-  .body-container--content
-
-    - if current_user && current_user.projects.exists?(@project)
+- if current_user && current_user.projects.exists?(@project)
+  .body-container--plain-row
+    .body-container--content
       .notice Trạng thái: #{human_project_status @project}
 
-    .row-fluid
-      = link_to new_project_donation_path(@project) do
-        .bttn.bttn-blue Ủng Hộ
+.project-show
+  .body-container--plain-row
+    .body-container--content
+      %p
+        .pull-right
+          - if current_user && current_user.projects.exists?(@project)
+            = link_to edit_project_path(@project) do
+              .more Chỉnh Sửa
+        .top-title.centered= @project.title
+        .top-creator-and-location.centered thực hiện bởi <b>#{@project.user.full_name}</b> tại <b>#{@project.location}</b>
 
-    - @project.attributes.each do |key, value|
-      %p 
-        %b= key.humanize
-        = value
+  .body-container--plain-row
+    .body-container--content
+      .side-bar
+        .container 
+          .figure.righted
+            .number= human_currency @project.funding_goal
+            .description Mục tiêu
+          .figure.righted
+            .number= human_currency @project.donations.successful.sum(:amount)
+            .description Số tiền nhận được
+          .figure.righted 
+            - if @project.start_date < Date.today && @project.end_date > Date.today
+              .number #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày
+              .description Thời gian gây quỹ
+            - else
+              .number #{human_time(@project.start_date)} &mdash; #{human_time(@project.end_date)}
+              .description Thời gian gây quỹ
+          .row-fluid
+            = link_to new_project_donation_path(@project) do
+              .span12.donate-bttn Ủng Hộ Dự Án
+        .container
+          .sub-headline Đề Mục Ủng Hộ
+          - @project.project_rewards.each do |reward|
+            .row-fluid
+              = link_to new_project_donation_path(@project) do
+                %h4 Ủng hộ #{human_currency reward.amount} hoặc hơn
+              %p= reward.description
+        .container
+          .sub-headline Lời Giới Thiệu (#{@project.recommendations.count})
+          - @project.recommendations.each do |rec|
+            .row-fluid
+              %h4 #{link_to rec.user.full_name, user_profile_path(rec.user)}
+              %p 
+                #{rec.content}
+                - if (current_user) && (rec.user == current_user)
+                  = link_to "[Edit]", edit_project_recommendation_path(@project, rec), class: "edit_recommendation"
+            %hr/ 
+            .row-fluid
+              .pull-right
+                = link_to new_project_recommendation_path(@project) do
+                  .more Viết Lời Giới Thiệu
+            .cleared
 
-    %p
-      = markdown @project.description
-    
-    .headline Reward 
-    %hr/ 
-    - @project.project_rewards.each do |reward|
-      - reward.attributes.each do |key, value|
-        %b= key.humanize
-        = value
-      %br/ 
+        .container
+          .sub-headline Cập Nhật (#{@project.project_updates.count})
+          - @project.project_updates.each do |update|
+            .row-fluid
+              %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+              %p 
+                #{update.content}
+                - if current_user && current_user.projects.exists?(@project)
+                  = link_to "[Edit]", edit_project_project_update_path(@project, update)
+            - if current_user && current_user.projects.exists?(@project)
+              .row-fluid
+                .pull-right
+                  = link_to new_project_project_update_path(@project) do
+                    .more Thêm Cập Nhật
+            .cleared
 
-    .headline Updates
-    %hr/
-    - @project.project_updates.each do |update|
-      - update.attributes.each do |key, value|
-        %b= key.humanize
-        = value
-      %br/ 
+        .container
+          .sub-headline Ủng Hộ (#{@project.donations.count})
+          - @project.donations.each do |donation|
+            %p #{human_time donation.created_at} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
+                
 
-    .headline Donations
-    %hr/
-    - @project.donations.each do |update|
-      - update.attributes.each do |key, value|
-        %b= key.humanize
-        = value
-      %br/ 
-
-    .headline Recommendations (#{@project.recommendations.count})
-    %hr/
-    - @project.recommendations.each do |recommendation|
-      - recommendation.attributes.each do |key, value|
-        %b= key.humanize
-        = value
-      - if (current_user) && (recommendation.user == current_user)
-        = link_to "[Edit]", edit_project_recommendation_path(@project, recommendation), class: "edit_recommendation"
-      %br/
-    = link_to "Write recommendation", new_project_recommendation_path(@project)
-
-    %hr/ 
-
-    - if current_user && current_user.projects.exists?(@project)
-      = link_to 'Edit', edit_project_path(@project)
+        
+      .photo-box
+        = image_tag @project.photo_url(:banner), size: "658x210"
+      .bordered-box
+        %p= markdown @project.description

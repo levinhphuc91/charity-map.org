@@ -3,7 +3,7 @@
   .span4= donation.project.title
   .span2= human_time(donation.updated_at)
   .span3
-    = human_currency donation.amount
+    = whuman_currency donation.amount
     %br/ 
     = human_donation_type(donation.collection_method)
   .span2

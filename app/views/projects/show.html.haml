@@ -45,12 +45,17 @@
           .sub-headline Lời Giới Thiệu (#{@project.recommendations.count})
           - @project.recommendations.each do |rec|
             .row-fluid
-              %h4 #{link_to rec.user.full_name, user_profile_path(rec.user)}
+              .recommendation--user-info
+                .avatar.pull-left
+                  = image_tag(rec.user.avatar_url(:small)) if rec.user.avatar? 
+                .user-info.pull-left
+                  .full_name= link_to rec.user.full_name, user_profile_path(rec.user)
+                  .sub-headline= human_time rec.updated_at
+              .cleared
               %p 
                 #{rec.content}
                 - if (current_user) && (rec.user == current_user)
                   = link_to "[Edit]", edit_project_recommendation_path(@project, rec), class: "edit_recommendation"
-            %hr/ 
             .row-fluid
               .pull-right
                 = link_to new_project_recommendation_path(@project) do

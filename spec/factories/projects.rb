@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :project do
     title "MyString"
     description "MyText"
+    brief "This is a short brief"
   end
 end

@@ -56,11 +56,11 @@
                 #{rec.content}
                 - if (current_user) && (rec.user == current_user)
                   = link_to "[Edit]", edit_project_recommendation_path(@project, rec), class: "edit_recommendation"
-            .row-fluid
-              .pull-right
-                = link_to new_project_recommendation_path(@project) do
-                  .more Viết Lời Giới Thiệu
-            .cleared
+          .row-fluid
+            .pull-right
+              = link_to new_project_recommendation_path(@project) do
+                .more Viết Lời Giới Thiệu
+          .cleared
 
         .container
           .sub-headline Cập Nhật (#{@project.project_updates.count})

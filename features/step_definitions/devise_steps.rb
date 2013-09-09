@@ -13,7 +13,7 @@ Given /^I am a new, authenticated user$/ do
   visit '/users/sign_in'
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
-  click_button "Sign in"
+  click_button "Đăng Nhập"
 end
 
 Given /^I login as "(.*?)"$/ do |email|
@@ -21,7 +21,7 @@ Given /^I login as "(.*?)"$/ do |email|
   visit '/users/sign_in'
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
-  click_button "Sign in"
+  click_button "Đăng Nhập"
 end
 
 Then(/^the URL should contain "(.*?)"$/) do |string|
@@ -38,5 +38,5 @@ Given /^I login via Facebook$/ do
     }
   })
   visit('/users/sign_in')
-  click_link_or_button 'Sign in with Facebook'
+  click_link_or_button 'Đăng Nhập Bằng Facebook'
 end

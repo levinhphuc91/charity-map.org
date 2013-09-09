@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DonationsHelper do
 
-  let(:valid_attributes) { { "title" => "MyString", "description" => "My description",
+  let(:valid_attributes) { { "title" => "MyString", "brief" => "This is a forkingggg Brief", "description" => "My description",
     "start_date" => "2014-05-23", "end_date" => "2014-05-30", "funding_goal" => 3000000,
     "user_id" => 1, "location" => "Ho Chi Minh" } }
 

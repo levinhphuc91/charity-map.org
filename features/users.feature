@@ -8,7 +8,7 @@ Feature: User
   Scenario: Update their profile settings
     Given I am a new, authenticated user
       And I am on the users settings page
-      And I fill in "Email" with "saidrebyn@gmail.com"
+      And I fill in "user_email" with "saidrebyn@gmail.com"
       And I fill in "Full name" with "Hoang Minh Tu"
       And I fill in "Address" with "10.5B D5 Binh Thanh"
       And I select "Hồ Chí Minh" from "City"
@@ -28,9 +28,9 @@ Feature: User
       And there is a project reward with the amount "100000" and the description "Test Note" with the project above
       And there is a donation with the user id "1" and the project id "1" and the amount "500000" and the collection method "COD" with the project reward above
     When I go to the login page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
-      And I press "Sign in"
+      And I fill in "user_email" with "vumanhcuong01@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I press "Đăng Nhập"
     When I go to the dashboard
     Then I should see "500.000"
       And I should see "Thu Tiền Mặt"
@@ -42,67 +42,68 @@ Feature: User
       And there is a donation with the user id "2" and the amount "250000" and the status "SUCCESSFUL" and the collection method "COD" with the project above and the project reward above
       And there is a donation with the user id "3" and the amount "250000" and the collection method "COD" and the status "SUCCESSFUL" with the project above and the project reward above
     When I go to the login page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
-      And I press "Sign in"
+      And I fill in "user_email" with "vumanhcuong01@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I press "Đăng Nhập"
     When I go to the dashboard
     Then I should see "Books from Heart"
-      And I should see "5.000.000 đ"
-      And I should see "500.000 đ"
-      And I should see "2 MTQ"
+      And I should see "500.000 đ được ủng hộ"
+      And I should see "0% hoàn thành"
+      And I should see "2 mạnh thường quân"
+      And I should see "0 giới thiệu"
 
   Scenario: Sign in Charity Map successfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the login page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
-      And I fill in "Password" with "12345678"
-      And I press "Sign in" 
+      And I fill in "user_email" with "vumanhcuong01@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I press "Đăng Nhập" 
     Then I should see "Đăng nhập thành công."
 
   Scenario: Sign in Charity Map with invalid email & password
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the login page
-      And I fill in "Email" with "vumanhcuon@gmail.com"
-      And I fill in "Password" with "12345"
-      And I press "Sign in" 
+      And I fill in "user_email" with "vumanhcuon@gmail.com"
+      And I fill in "user_password" with "12345"
+      And I press "Đăng Nhập" 
     Then I should see "Email hoặc mật khẩu không chính xác."
 
   Scenario: Sign up successfully
     When I go to the signup page
-      And I fill in "Email" with "vumanhcuong0103@gmail.com"
+      And I fill in "user_email" with "vumanhcuong0103@gmail.com"
       And I fill in "user_password" with "12345678"
-      And I fill in "Password confirmation" with "12345678"
-      And I press "Sign up"
+      And I fill in "user_password_confirmation" with "12345678"
+      And I press "Đăng Ký"
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
   
   Scenario: Sign up with existing email 
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the signup page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "user_email" with "vumanhcuong01@gmail.com"
       And I fill in "user_password" with "12345678"
-      And I fill in "Password confirmation" with "12345678"
-      And I press "Sign up"
+      And I fill in "user_password_confirmation" with "12345678"
+      And I press "Đăng Ký"
     Then I should see "đã có"
 
   Scenario: Sign up with short password (< 8 characters)
     When I go to the signup page
-      And I fill in "Email" with "vumanhcuong01@gmail.com"
+      And I fill in "user_email" with "vumanhcuong01@gmail.com"
       And I fill in "user_password" with "12348"
-      And I fill in "Password confirmation" with "12348"
-      And I press "Sign up"
+      And I fill in "user_password_confirmation" with "12348"
+      And I press "Đăng Ký"
     Then I should see "quá ngắn (tối thiểu 8 ký tự)"
 
   Scenario: Get a new password successfully
     Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the forgot password page
-      And I fill in "Email" with "vumanhcuong@gmail.com"
+      And I fill in "user_email" with "vumanhcuong@gmail.com"
       And I press "Send me reset password instructions"
     Then I should see "Bạn sẽ nhận được email hướng dẫn thiết lập lại mật khẩu trong vài phút nữa."
 
   Scenario: Get a new password with non-existing email
     Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the forgot password page
-      And I fill in "Email" with "cuong@gmail.com"
+      And I fill in "user_email" with "cuong@gmail.com"
       And I press "Send me reset password instructions"
     Then  I should see "Some errors were found, please take a look"
       And I should see "không tìm thấy"

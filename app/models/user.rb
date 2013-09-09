@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   has_defaults staff: false, verified_by_phone: false
 
   def blank_contact?
-    return true if (self.phone.nil? || self.phone.empty?) || (self.address.nil? || self.address.empty?)
+    return true if (self.phone.blank?) || (self.address.blank?) || (self.full_name.blank?)
     false
   end
 

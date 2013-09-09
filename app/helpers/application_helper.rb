@@ -15,7 +15,7 @@ module ApplicationHelper
       "Đang Đợi Xét"
     when "REVIEWED"
       if project.start_date < Date.today && project.end_date > Date.today
-        "Đang Gây Quỹ"
+        "Đang Gây Quỹ, Còn #{TimeDifference.between(project.end_date, Time.now).in_days.to_i} Ngày"
       else
         "Được Duyệt Để Gây Quỹ"
       end

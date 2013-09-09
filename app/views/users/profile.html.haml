@@ -11,15 +11,10 @@
         = @user.bio
 
     .row-fluid
-      .headline Project
+      .headline Dự Án (#{@user.projects.public_view.count})
       %hr/ 
-      - @user.projects.each do |project|
-        %p
-          - project.attributes.each do |key, value|
-            = link_to project_path(project) do
-              %b= key.humanize
-              = value
-              |
+      - @user.projects.public_view.each do |project|
+        = render "projects/bar_display", :project => project
 
     .row-fluid
       .headline Donation History

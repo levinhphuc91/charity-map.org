@@ -1,27 +1,40 @@
-.row-fluid
-  .span4
-    = image_tag "ph_project-thumbnail.jpg"
-  .span8
-    .row-fluid.bottom-dashed
-      .span7
-        .project-title= link_to project.title, project_path(project)
-        .project-info= project.location
-        .project-description= project.brief.html_safe
-      .span5
-        #{human_currency project.donations.successful.sum(:amount)} / #{human_currency project.funding_goal}
-        %br/ 
-        #{project.donations.count} MTQ
-        %br/
-        - if project.start_date < Date.today && project.end_date > Date.today
-          Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
-        - else
-          #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
-    .row-fluid
-      .pull-left 
-        Trạng Thái:
-        = human_project_status(project)
-      .pull-right
+.body-container--plain-row
+  .body-container--content
+    .bar-display
+      .top-bar
+        = link_to project_path(project) do
+          .project-title.pull-left #{project.title} &mdash; #{project.user.full_name}
+        .project-location.pull-left.righted
+          = project.location
+      .middle-bar
+        .square-box.pull-left
+          .upper-part.centered= human_currency project.donations.successful.sum(:amount)
+          .lower-part.centered được ủng hộ
+        .square-box.pull-left
+          .upper-part.centered= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal, precision: 0
+          .lower-part.centered hoàn thành
+        .square-box.pull-left
+          .upper-part.centered= project.donations.successful.count
+          .lower-part.centered mạnh thường quân
+        .square-box.pull-left
+          .upper-part.centered= project.recommendations.count
+          .lower-part.centered giới thiệu
+        .rectangle-box.pull-left
+          .upper-part.centered= image_tag "ph_donation-bar.jpg"
+          .lower-part.centered thống kê lượng ủng hộ
+      .bottom-bar.righted
+        = human_project_status project
         - if project.status == "DRAFT"
-          = link_to "Chỉnh Sửa", edit_project_path(project)
+          = link_to "— Chỉnh Sửa", edit_project_path(project)
         - else
-          = link_to "Đến Trang Dự Án", project_path(project)
+          = link_to "— Đến Trang Dự Án", project_path(project)
+      .hover-black-box= project.brief
+        
+:javascript
+  // $('.bar-display').hover(
+  //   function() {
+  //     $(this).find('.hover-black-box').show();
+  //   },
+  //   function() {
+  //     $(this).find('.hover-black-box').hide();
+  //   });

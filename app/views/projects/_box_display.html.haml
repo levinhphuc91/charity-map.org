@@ -6,7 +6,7 @@
   .giving-space
     .project-title= link_to project.title, project_path(project)
     .project-info= "#{project.user.full_name} / #{project.location}"
-  .project-description.giving-space= project.description[0..200]
+  .project-description.giving-space= project.brief.html_safe
   .project-footer-bar
     .row-fluid.giving-space
       .project-progressbar

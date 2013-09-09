@@ -51,11 +51,14 @@ p
     padding: 18px
     float: left
     &:hover
-      border-bottom: 4px solid lighten($blue, 35%)
+      .navigation-text
+        color: $white !important
+      background-color: $blue
+      border-bottom: 4px solid darken($blue, 10%)
       cursor: pointer
   .navigation-text
     font-size: 14px
-    color: $black
+    color: $darker_grey
     text-transform: uppercase
   .language-bar
     width: auto

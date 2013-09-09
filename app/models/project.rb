@@ -15,6 +15,7 @@
 #  user_id      :integer
 #  status       :string(255)
 #  slug         :string(255)
+#  brief        :text
 #
 
 class Project < ActiveRecord::Base
@@ -24,7 +25,7 @@ class Project < ActiveRecord::Base
   scope :finished, -> { where(status: "FINISHED") }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
 
-  attr_accessible :title, :description, :start_date, :end_date, 
+  attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status
 
   has_many :project_rewards
@@ -38,12 +39,13 @@ class Project < ActiveRecord::Base
   before_validation :assign_status
   
   validates :title, :description, :start_date, :end_date, 
-    :funding_goal, :location, :status, :user_id,
+    :funding_goal, :location, :status, :user_id, :brief,
     presence: true
+  validates_length_of :brief, :minimum => 20, :maximum => 200, :allow_blank => true
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
   validates :user_id, numericality: { greater_than: 0 }
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
-
+  
   extend FriendlyId
   friendly_id :title, use: :slugged
   mount_uploader :photo, PhotoUploader

@@ -10,6 +10,7 @@
   = f.hidden_field :photo_cache
   = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
   = f.input       :title
+  = f.input       :brief
   = f.input       :description
   = f.input       :start_date, :as => :string, :input_html => {:class => "start_date"}
   = f.input       :end_date,   :as => :string, :input_html => {:class => "end_date"}

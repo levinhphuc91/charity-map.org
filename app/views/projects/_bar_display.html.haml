@@ -6,7 +6,7 @@
       .span7
         .project-title= link_to project.title, project_path(project)
         .project-info= project.location
-        .project-description= project.description
+        .project-description= project.brief.html_safe
       .span5
         #{human_currency project.donations.successful.sum(:amount)} / #{human_currency project.funding_goal}
         %br/ 

@@ -15,6 +15,7 @@
 #  user_id      :integer
 #  status       :string(255)
 #  slug         :string(255)
+#  brief        :text
 #
 
 require 'spec_helper'

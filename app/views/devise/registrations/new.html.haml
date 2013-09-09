@@ -1,12 +1,26 @@
 .body-container--plain-row
   .body-container--content
-    %h2 Sign up
-    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-      = f.error_notification
-      .form-inputs
-        = f.input :email, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}
-        = f.input :password, :required => true
-        = f.input :password_confirmation, :required => true
-      .form-actions
-        = f.button :submit, "Sign up"
-    = render "devise/shared/links"
+    .devise--container
+      .heading-bar.centered
+        %h1 Đăng ký
+        %p Đã có tài khoản? <strong>#{link_to "Đăng nhập", new_user_session_path}</strong>.
+      .body-bar.centered
+        - resource_class.omniauth_providers.each do |provider|
+          = link_to omniauth_authorize_path(resource_name, provider) do
+            .facebook-login Đăng Ký Bằng Facebook
+      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+        .body-bar{:style => "border-top: 1px solid #ccc;"}
+          %p= f.error_notification
+          .form-inputs
+            %p 
+              %b Email
+              = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}
+            %p 
+              %b Password / Mật Khẩu
+              = f.input :password, label: false, :required => true
+            %p 
+              %b Password Confirmation / Xác Nhận Mật Khẩu
+              = f.input :password_confirmation, label: false, :required => true
+        .cleared
+        .body-bar
+          = f.button :submit, "Đăng Ký", :class => "submit"

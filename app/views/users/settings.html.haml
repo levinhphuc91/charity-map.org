@@ -3,31 +3,40 @@
 		.body-container--content
 			= render "layouts/verify_code_via_phone"
 
-.body-container--plain-row
-	.body-container--content
-		.row-fluid
-			.span8
-				.error_messages
-					- if @user.errors.full_messages
-						- @user.errors.full_messages.each do |error_message| 
-							=error_message 
-							%br/
-
-				.update-user-profile
-					= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-						= f.input  :id, :as => :hidden
-						= f.inputs :email, :full_name, :address
-						= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
-						= f.inputs :bio, :phone 
-						= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
-						= f.file_field :avatar 
-						= f.hidden_field :avatar_cache 
-						= f.actions :submit,  :as => :button
-			.span4.pull-right
-				= link_to user_profile_path(current_user) do
-					.bttn.bttn-blue Xem Trang Cá Nhân
+.project-show
+	.body-container--plain-row
+		.body-container--content
+			.side-bar
+				.container
+					.sub-headline Xác Nhận Bằng Điện Thoại
+					%p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại.
+					.row-fluid
+						- if (!current_user.verified_by_phone) && (current_user.verifications.empty?)
+							= form_tag(users_verification_code_via_phone_path, :method => :post) do
+								= text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "span12"
+								= submit_tag "Send code", :class => "submit"
+			.bordered-box
+				.row-fluid
+					.pull-right
+						= link_to user_profile_path(current_user) do
+							.more Xem Trang Cá Nhân
 				%hr/ 
-				- if (!current_user.verified_by_phone) && (current_user.verifications.empty?)
-					= form_tag(users_verification_code_via_phone_path, :method => :post) do
-						= text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx"
-						= submit_tag "Send code"
+				.row-fluid
+					.span12
+						.error_messages
+							- if @user.errors.full_messages
+								- @user.errors.full_messages.each do |error_message| 
+									=error_message 
+									%br/
+
+						.update-user-profile
+							= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+								= f.input  :id, :as => :hidden
+								= f.inputs :email, :full_name, :address
+								= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+								= f.input :bio, :input_html => { :cols => 50, :rows => 3 }
+								= f.input :phone
+								= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+								= f.file_field :avatar 
+								= f.hidden_field :avatar_cache 
+								= f.actions :submit,  :as => :button

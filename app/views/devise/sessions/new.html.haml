@@ -1,11 +1,22 @@
 .body-container--plain-row
   .body-container--content
-    %h2 Sign in
-    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-      .form-inputs
-        = f.input :email, :required => false, :autofocus => true
-        = f.input :password, :required => false
-        = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-      .form-actions
-        = f.button :submit, "Sign in"
-    = render "devise/shared/links"
+    .devise--container
+      .heading-bar.centered
+        %h1 Đăng nhập
+        %p Chưa có tài khoản? <strong>#{link_to "Đăng ký", new_user_registration_path}</strong>.
+      .body-bar.centered
+        .facebook-login Đăng Nhập Bằng Facebook
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        .body-bar{:style => "border-top: 1px solid #ccc;"}
+          .form-inputs
+            %p 
+              %b Email
+              = f.input :email, :required => false, :autofocus => true, label: false
+            %p 
+              %b Password
+              = f.input :password, :required => false, label: false
+            / = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+        .cleared
+        .body-bar
+          = f.button :submit, "Đăng Nhập", :class => "submit"
+      / = render "devise/shared/links"

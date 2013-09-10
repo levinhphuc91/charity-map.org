@@ -43,8 +43,9 @@
     = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
 
     %hr/ 
-    .headline Hoan thanh
-    = link_to "Gui xet duyet", projects_submit_path(id: @project.id)
+    - if @project.status == "PENDING"
+      .headline Hoan thanh
+      = link_to "Gui xet duyet", projects_submit_path(id: @project.id)
 
 :javascript
   $(document).ready(function() {

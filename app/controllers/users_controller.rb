@@ -28,12 +28,16 @@ class UsersController < ApplicationController
 
   def verification_code_via_phone
     if params[:phone_number]
-      @phone_number = params[:phone_number].gsub(/\D/, '')
+      @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
-        SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
-        current_user.update(phone: @phone_number) if current_user.phone.blank?  
-        redirect_to users_settings_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+        sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        if sms
+          current_user.update(phone: @phone_number) if current_user.phone.blank?  
+          redirect_to users_settings_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+        else
+          redirect_to users_settings_path, notice: "Gửi tin nhắn không thành công. Vui lòng kiểm tra lại số điện thoại, không thêm mã quốc gia và quốc tế vào."
+        end
       else
         redirect_to users_settings_path, alert: "Errors occurred. Please try again later."
       end

@@ -14,12 +14,12 @@ gem 'formtastic'
 gem 'jquery-ui-rails', '~> 4.0.1'
 gem 'time_difference'
 gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
-gem 'twilio-ruby' # SMS
 gem 'redcarpet' # Markdown support
 
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'newrelic_rpm'
+gem 'nexmo'
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'

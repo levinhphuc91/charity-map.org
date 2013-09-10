@@ -1,0 +1,30 @@
+%p Xin chào #{" #{@user.full_name.split.last}" if @user.full_name},
+
+%p Bạn vừa đăng ký ủng hộ dự án #{@project.title} (do #{@project.user.full_name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
+
+%p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
+
+%p 
+  \== Ngân hàng:     TMCP Vietcombank (Bank for Foreign Trade of Vietnam)
+  %br/ 
+  \== Chi nhánh:     Tp. Hồ Chí Minh (Ho Chi Minh City)
+  %br/ 
+  \== Địa chỉ:       29 Bến Chương Dương, Quận 1, TP. Hồ Chí Minh, Việt Nam
+  %br/ 
+  \== SWIFT CODE:    BFTVVNVX007
+
+%p 
+  \== Chủ tài khoản: Hoàng Minh Tú
+  %br/ 
+  \== Số tài khoản:  0071000707388
+
+%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản. Mã đặc biệt: #{@donation.euid}.
+
+%p Khi bạn đã chuyển khoản, vui lòng click vào #{link_to "link", request_verification_url(euid: @donation.euid)} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map:
+
+%p 
+  Cảm ơn bạn đã sử dụng Charity Map,
+  %br/ 
+  www.charity-map.org
+
+%p Lưu ý: hệ thống sẽ tự động hủy giao dịch ủng hộ sau mười ngày nếu bạn không gửi yêu cầu xác nhận đã chuyển tiền cho chúng tôi.

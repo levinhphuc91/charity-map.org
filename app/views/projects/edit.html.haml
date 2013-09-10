@@ -43,7 +43,7 @@
     = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
 
     %hr/ 
-    - if @project.status == "PENDING"
+    - if @project.status == "DRAFT"
       .headline Hoan thanh
       = link_to "Gui xet duyet", projects_submit_path(id: @project.id)
 

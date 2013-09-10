@@ -39,4 +39,5 @@
 								= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
 								= f.file_field :avatar 
 								= f.hidden_field :avatar_cache 
-								= f.actions :submit,  :as => :button
+								%hr/ 
+								= f.submit "Cập nhật Thông Tin", class: "submit"

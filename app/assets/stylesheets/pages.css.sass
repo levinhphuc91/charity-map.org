@@ -1,5 +1,44 @@
 @import "main"
 
+input.custom-fields
+  font-family: 'Helvetica Neue', sans-serif
+  font-weight: bold
+  font-size: 20px !important
+  height: 40px !important
+  float: left
+  line-height: 30px !important
+  padding: 0 10px 0 10px !important
+  border-radius: 5px !important
+  width: 100%
+  border: 2px solid $grey !important
+
+textarea.custom-fields
+  font-family: 'Helvetica Neue', sans-serif
+  font-weight: bold
+  float: left
+  padding: 0 10px 0 10px !important
+  border-radius: 5px !important
+  width: 100%
+  border: 2px solid $grey !important
+
+input.submit
+  clear: both
+  background-color: $blue
+  border: none
+  margin: 10px auto 10px 0
+  padding: 0px 20px 0px 20px
+  width: auto
+  font-size: 15px
+  line-height: 40px
+  font-weight: bold
+  text-transform: uppercase
+  color: $white
+  border-radius: 3px
+  border-bottom: 2px solid darken($blue, 10%)
+  &:hover
+    background-color: lighten($blue, 5%)
+    cursor: pointer
+
 .homepage--email-box
   font-family: 'Helvetica Neue', sans-serif
   font-weight: bold

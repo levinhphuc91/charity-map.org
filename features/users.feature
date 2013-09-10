@@ -14,7 +14,7 @@ Feature: User
       And I select "Hồ Chí Minh" from "City"
       And I fill in "Bio" with "Charity Map co-founders"
       And I fill in "Phone" with "0908 230 591"
-      And I press "Update"
+      And I press "Cập nhật Thông Tin"
     Then I should see "Updated Successfully."
 
   Scenario: Visit dashboard, as a backer, without donations 

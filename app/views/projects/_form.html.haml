@@ -10,7 +10,8 @@
   = f.hidden_field :photo_cache
   = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
   = f.input       :title
-  = f.input       :brief
+  = f.input       :brief, :input_html => {:class => "brief"}
+  .brief-length 
   = f.input       :description
   = f.input       :start_date, :as => :string, :input_html => {:class => "start_date"}
   = f.input       :end_date,   :as => :string, :input_html => {:class => "end_date"}
@@ -42,5 +43,17 @@
     });
     $(".end_date").click(function(){
       $(".end_date").datepicker();
+    });
+
+    $('.project .brief').keyup(function () {
+      var max = 200;
+      var min = 20;
+      var len = $(this).val().length;
+      if (len >= max) {
+        $('.project .brief-length').text('Tối đa 200 ký tự.');
+      } else {
+        var char = max - len;
+        $('.project .brief-length').text('Còn ' + char + ' ký tự.');
+      }
     });
   });

@@ -19,7 +19,7 @@ gem 'redcarpet' # Markdown support
 
 gem 'omniauth'
 gem 'omniauth-facebook'
-
+gem 'newrelic_rpm'
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'

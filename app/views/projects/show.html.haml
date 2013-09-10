@@ -17,7 +17,7 @@
   .body-container--plain-row
     .body-container--content
       .side-bar
-        .container 
+        #donation-box.container
           .figure.righted
             .number= human_currency @project.funding_goal
             .description Mục tiêu
@@ -89,3 +89,8 @@
         = image_tag @project.photo_url(:banner), size: "658x230"
       .bordered-box
         %p= markdown @project.description
+
+:javascript
+  $(document).ready(function(){
+    $("#donation-box").sticky({topSpacing:0});
+  });

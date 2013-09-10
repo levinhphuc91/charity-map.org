@@ -1,3 +1,5 @@
+require 'sms'
+
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!, except: :profile
@@ -30,7 +32,7 @@ class UsersController < ApplicationController
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
-        sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") # if Rails.env.production?
         if sms
           current_user.update(phone: @phone_number) if current_user.phone.blank?  
           redirect_to users_settings_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."

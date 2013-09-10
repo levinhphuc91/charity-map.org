@@ -15,6 +15,7 @@ gem 'jquery-ui-rails', '~> 4.0.1'
 gem 'time_difference'
 gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
 gem 'redcarpet' # Markdown support
+gem 'activerecord-session_store'
 
 gem 'omniauth'
 gem 'omniauth-facebook'

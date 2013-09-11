@@ -1,51 +1,53 @@
 .body-container--plain-row
   .body-container--content
-    %h1 Editing project
-    = link_to 'Show', @project
-    %hr/ 
+    .devider
+      .item Chỉnh Sửa Thông Tin: #{@project.title}
+      .note
+        #{link_to "Đến Trang Dự Án", @project}
+        - if @project.status == "DRAFT"
+          &sdot;
+          = link_to "Đăng Ký Gây Vốn", projects_submit_path(id: @project.id)
 
     = render 'form'
 
-    %hr/
-    .headline Rewards
-    .project_rewards
-      - @project.project_rewards.each do |reward|
-        %p
-          - reward.attributes.each do |key, value|
-            %b= key.humanize
-            = value
-            |
-    
-    = simple_form_for [@project, @project_reward], remote: true do |f|
-      - if @project_reward.errors.any?
-        #error_explanation
-          %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
-          %ul
-            - @project_reward.errors.full_messages.each do |msg|
-              %li= msg
-      
-      = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-      = f.input       :amount
-      = f.input       :description
-      = f.submit "Lưu"
-    = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
+    .devider
+      .item Các Mức Đóng Góp
+      .note &sdot; thấp nhất 10.000đ
+    .row-fluid
+      .span4.project_rewards
+        - @project.project_rewards.each do |reward|
+          .row-fluid
+            .sub-headline= human_currency reward.amount
+            %p= reward.description
+      .span8
+        = simple_form_for [@project, @project_reward], remote: true do |f|
+          .row-fluid
+            - if @project_reward.errors.any?
+              #error_explanation
+                %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
+                %ul
+                  - @project_reward.errors.full_messages.each do |msg|
+                    %li= msg
+          .row-fluid
+            .span3
+              = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+              .sub-headline Mức Tài Trợ <br/>
+              = f.input :amount, label: false, :input_html => {:class => "span12"}
+            .span9
+              .sub-headline Điều Khoản Tài Trợ <br/>
+              = f.input :description, label: false, :input_html => {:class => "span12"}
+          .row-fluid
+            .pull-right= f.submit "Lưu", class: "submit"
+          / = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
 
-    %hr/
-    .headline Cập Nhật Dự Án (sẽ được email tới MTQ)
+    .devider
+      .item Cập Nhật Dự Án
+      .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
 
     - @project.project_updates.each do |update|
-      %p
-        - update.attributes.each do |key, value|
-          %b= key.humanize
-          = value
-          |
-    
-    = link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)
-
-    %hr/ 
-    - if @project.status == "DRAFT"
-      .headline Hoan thanh
-      = link_to "Gui xet duyet", projects_submit_path(id: @project.id)
+      .row-fluid
+        .sub-headline= human_time update.created_at
+        %p= update.content
 
 :javascript
   $(document).ready(function() {

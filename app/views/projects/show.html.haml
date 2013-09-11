@@ -38,7 +38,7 @@
           .sub-headline Đề Mục Ủng Hộ
           - @project.project_rewards.each do |reward|
             .row-fluid
-              = link_to new_project_donation_path(@project) do
+              = link_to new_project_donation_path(@project, amount: reward.amount.to_i) do
                 %h4 Ủng hộ #{human_currency reward.amount} hoặc hơn
               %p= reward.description
         .container

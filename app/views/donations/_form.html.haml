@@ -12,7 +12,7 @@
       = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
       = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
       .sub-headline Số Tiền (VNĐ)
-      = f.input :amount, :label => false, :input_html => {:class => "span12 custom-fields"}
+      = f.input :amount, :label => false, :input_html => {value: params[:amount] || nil, :class => "span12 custom-fields"}
       .sub-headline Phương Thức Đóng Góp
       = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tại nhà", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12"}
     .span6

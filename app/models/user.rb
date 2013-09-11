@@ -59,12 +59,12 @@ class User < ActiveRecord::Base
     self.verified_by_phone
   end
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+  def self.find_for_facebook_oauth(provider, uid, email, signed_in_resource=nil)
+    user = User.where(:provider => provider, :uid => uid).first
     unless user
-      user = User.create(provider:auth.provider,
-        uid:auth.uid,
-        email:auth.info.email,
+      user = User.create(provider: provider,
+        uid:uid,
+        email:email,
         password:Devise.friendly_token[0,20])
     end
     user

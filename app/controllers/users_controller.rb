@@ -1,7 +1,7 @@
 require 'sms'
 
 class UsersController < ApplicationController
-
+  include SessionsHelper
   before_filter :authenticate_user!, except: :profile
 
   def dashboard
@@ -19,7 +19,11 @@ class UsersController < ApplicationController
   def update_settings
   	@user = User.find(params[:user][:id])
   	if @user.update params[:user]
-  		redirect_to users_settings_path
+      if session_exist
+        redirect_back  		  
+      else
+        redirect_to users_settings_path
+      end
       flash[:notice] = "Updated Successfully."
   	else
   		render :action => :settings
@@ -54,4 +58,11 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to new_user_session_path, alert: "Please sign in."
+      end
+    end
 end

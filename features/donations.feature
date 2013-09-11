@@ -5,7 +5,7 @@ Feature: Donation
 			And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong"
 			And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
 	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
-	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass"
+	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the phone "12345678"
 	 	Given the date is "2013-09-13"
 	 	When I login as "donor@man.net"
 		 	And I go to the project page of "Push The World"
@@ -16,9 +16,7 @@ Feature: Donation
 	 		And I fill in "Phone" with "+123456"
 	 		And I press "Cập nhật Thông Tin"
 	 	Then I should see "Updated Successfully."
- 		When I go to the project page of "Push The World"
-	 		And I follow "Ủng Hộ"
-	 	Then I should see "Vu Manh Cuong"
+	 		And I should see "Đóng Góp Push The World"
 
 	Scenario: Email with bank account info to be sent for Bank Transfer donations
 		Given the date is "2013-09-10"

@@ -34,7 +34,9 @@
       .pull-left.headline Các Dự Án Đang Gây Quỹ
       .pull-right
         = link_to projects_path(:filter => "funding") do
-          .more Xem tất cả  
+          .more
+            %i.icon-list-alt 
+            Xem tất cả  
     %p 
     .row-fluid
       - if Project.funding.count > 0
@@ -50,7 +52,9 @@
         .pull-left.headline Các Dự Án Đã Hoàn Thành
         .pull-right
           = link_to projects_path(:filter => "finished") do
-            .bttn.bttn-green Xem tất cả
+            .bttn.bttn-green
+              %i.icon-list-alt
+              Xem tất cả
       %p 
       .row-fluid
         - Project.finished.each do |project|

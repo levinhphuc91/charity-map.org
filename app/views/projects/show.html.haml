@@ -26,22 +26,27 @@
         #donation-box.container
           .figure.righted
             .number= human_currency @project.funding_goal
-            .description Mục tiêu
+            .description
+              Mục tiêu
           .figure.righted
             .number= human_currency @project.donations.successful.sum(:amount)
-            .description Số tiền nhận được
+            .description
+              Số tiền nhận được
           .figure.righted 
             - if @project.start_date < Date.today && @project.end_date > Date.today
               .number #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày
-              .description Thời gian gây quỹ
+              .description
+                %i.icon-time
+                Thời gian gây quỹ
             - else
               .number #{human_time(@project.start_date)} &mdash; #{human_time(@project.end_date)}
-              .description Thời gian gây quỹ
+              .description
+                %i.icon-time
+                Thời gian gây quỹ
           .row-fluid
             = link_to new_project_donation_path(@project) do
               .span12.donate-bttn
-                %i.icon-money
-                &nbsp; Ủng Hộ Dự Án
+                Ủng Hộ Dự Án
         .container
           .sub-headline Cá Nhân / Tổ Chức
           .row-fluid

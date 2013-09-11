@@ -10,17 +10,17 @@ module ApplicationHelper
   def human_project_status(project)
     case project.status
     when "DRAFT"
-      "<i class='icon-file-text'> Bản Nháp"
+      "<i class='icon-file-text'></i> Bản Nháp"
     when "PENDING"
-      "<i class='icon-code'> Đang Đợi Xét"
+      "<i class='icon-code'></i> Đang Đợi Xét"
     when "REVIEWED"
       if project.start_date < Date.today && project.end_date > Date.today
-        "<i class='icon-credit-card'> Đang Gây Quỹ, Còn #{TimeDifference.between(project.end_date, Time.now).in_days.to_i} Ngày"
+        "<i class='icon-credit-card'></i> Đang Gây Quỹ, Còn #{TimeDifference.between(project.end_date, Time.now).in_days.to_i} Ngày"
       else
-        "<i class='icon-ok-sign'> Được Duyệt Để Gây Quỹ</i>"
+        "<i class='icon-ok-sign'></i> Được Duyệt Để Gây Quỹ</i>"
       end
     when "FINISHED"
-      "<i class='icon-lock'> Hoàn Thành"
+      "<i class='icon-lock'></i> Hoàn Thành"
     else
       status
     end

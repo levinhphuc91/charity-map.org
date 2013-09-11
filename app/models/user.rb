@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
     :verified_by_phone, :provider, :uid
 
-  validates :phone, :uniqueness => true
+  validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
   has_many :donations
   has_many :projects, through: :donations

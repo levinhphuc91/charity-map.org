@@ -48,29 +48,45 @@
               .span12.donate-bttn
                 Ủng Hộ Dự Án
         .container
-          .sub-headline Cá Nhân / Tổ Chức
+          .heading-bar
+            .sub-headline Cá Nhân / Tổ Chức
           .row-fluid
+            .pull-left{:style => "margin: auto 10px auto auto"}
+              - if @user.avatar? 
+                = image_tag(@user.avatar_url(:medium)) 
+              - else
+                = image_tag "ph-avatar.jpg"
             %p
-              <strong>#{link_to @user.full_name, user_profile_path(@user)}</strong> &sdot; #{@user.city} 
+              %b #{link_to @user.full_name, user_profile_path(@user)}
               %br/ 
-              Đã ủng hộ #{@user.donations.successful.count} dự án 
+              #{@user.city} 
+              %br/ 
+              - if @user.donations.successful.count > 0
+                Đã ủng hộ #{@user.donations.successful.count} dự án 
         .container
-          .sub-headline Đề Mục Ủng Hộ
+          .heading-bar
+            .sub-headline Đề Mục Ủng Hộ
           - @project.project_rewards.each do |reward|
             .row-fluid
               = link_to new_project_donation_path(@project, amount: reward.amount.to_i) do
                 %h4 Ủng hộ #{human_currency reward.amount} hoặc hơn
               %p= reward.description
         .container
-          .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
+          .heading-bar
+            .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
           - @project.recommendations.each do |rec|
             .row-fluid
               .recommendation--user-info
                 .avatar.pull-left
-                  = image_tag(rec.user.avatar_url(:small)) if rec.user.avatar? 
+                  - if rec.user.avatar? 
+                    = image_tag(rec.user.avatar_url(:small)) 
+                  - else
+                    = image_tag "ph-avatar.jpg"
                 .user-info.pull-left
-                  .full_name= link_to rec.user.full_name, user_profile_path(rec.user)
-                  .sub-headline= human_time rec.updated_at
+                  .full_name= rec.user.full_name
+                  .sub-headline
+                    %i.icon-time 
+                    = human_time rec.updated_at
               .cleared
               %p 
                 #{rec.content}
@@ -83,7 +99,8 @@
           .cleared
 
         .container
-          .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.count})
+          .heading-bar
+            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.count})
           - @project.donations.each do |donation|
             %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
                 

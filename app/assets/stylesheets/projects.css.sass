@@ -9,8 +9,10 @@
   padding: 10px
   border: 3px solid $light_grey
   background-color: $white
-  margin: auto 30px 30px auto
+  margin: auto 50px 30px auto
   position: relative
+  &:nth-child(3n+0)
+    margin: auto 0px 30px auto
   .project-title
     font-size: 18px
     color: $blue
@@ -98,11 +100,27 @@
     border-bottom-width: 0
     #donation-box
       background-color: $white
+      z-index: 10
     .container
       width: 269px
       padding: 15px
       border-bottom: 1px solid $grey
       border-right: 1px solid $grey
+      position: relative
+      &:first-child
+        border-bottom: 3px solid $blue
+      &:nth-child(n+2)
+        padding-top: 40px
+      .heading-bar
+        position: absolute
+        height: 20px
+        background-color: lighten($light_grey, 3%)
+        border-bottom: 1px solid $light_grey
+        top: 0
+        left: 0
+        width: 270px
+        padding: 5px 15px
+        z-index: -10
   p
     font-size: 13px
     margin: 0

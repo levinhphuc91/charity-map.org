@@ -1,0 +1,31 @@
+.body-container--plain-row
+  .body-container--content
+    .devider
+      .item
+        Ủng hộ số #{@donation.euid} cho dự án #{@project.title}
+      .note
+        = link_to project_path(@project) do
+          %i.icon-retweet 
+          về lại trang dự án
+
+    .donation--container
+      .margin
+      %ul.timeline
+        %li.important
+          .sub-headline= human_time @donation.created_at
+          %p Mạnh thường quân <b>#{@donation.user.full_name || @donation.user.id}</b> đóng góp <b>#{human_currency @donation.amount}</b> cho dự án <b>#{@project.title}</b>.
+        / - if @donation.status == "SUCCESSFUL"
+        %li
+          .sub-headline= human_time @donation.updated_at
+          %p Hệ thống ghi nhận đóng góp và đã nhận được tiền.
+        /- if @project.status == "FINISHED"
+        %li
+          .sub-headline 09/09/2013
+          %p Dự án <b>#{@project.title}</b> nhận được 100% số quỹ mục tiêu vào ngày 09/09/2013.
+        %li.important
+          .sub-headline= human_time @project.end_date
+          %p Dự án #{@project.title} kết thúc đợt gây quỹ kéo dài #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày và nhận được <b>#{human_currency @project.donations.sum(:amount)}</b> tiền ủng hộ
+        - @project.project_updates.each do |update|
+          %li 
+            .sub-headline= human_time update.created_at
+            %p= markdown update.content

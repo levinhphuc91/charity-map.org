@@ -1,0 +1,72 @@
+@import 'main'
+
+.donation--container
+  width: 920px
+  margin: 30px auto
+  overflow: hidden
+  position: relative
+  // /* good for 100% margin child element
+
+.margin
+  height: 100%
+  position: absolute
+  background: $blue
+  left: 50%
+  width: 2px
+  margin-left: -1px
+  // /* make it center
+  bottom: 10px
+  // /* margin-bottom space used by li element
+  z-index: 1000
+
+ul.timeline
+  width: 920px
+  // /* total width and plus 20px for triangles
+  position: relative
+  list-style: none
+  overflow: hidden
+  padding: 0px
+  margin: 0px
+
+.timeline > li
+  width: 420px
+  padding: 15px
+  background: lighten($light_grey, 2%)
+  position: relative
+  border-bottom-left-radius: 5px
+  border-bottom-right-radius: 5px
+  margin: 0px 0px 10px
+  border-top: 5px solid $grey
+  &:before
+    border: 7px solid
+    content: ''
+    display: block
+    position: absolute
+  &:nth-child(even)
+    float: right
+    clear: right
+  &:nth-child(odd)
+    float: left
+    clear: left
+  &:nth-child(even):before
+    // /* lighten($light_grey, 2%) same as li background
+    border-color: #fff lighten($light_grey, 2%) #fff #fff
+    right: 100%
+    top: 15px
+    // /* you can adjust
+  &:nth-child(odd):before
+    // /* lighten($light_grey, 2%) same as li background
+    border-color: #fff #fff #fff lighten($light_grey, 2%)
+    left: 100%
+    top: 15px
+    // /* you can adjust
+  p
+    margin: 10px 0px
+    font-size: 14px
+    margin: 0
+    padding: 0
+    padding-bottom: 10px
+
+.timeline > li.important
+  border-top: 5px solid $blue
+  background-image: url("misc/noise_lines.png") !important

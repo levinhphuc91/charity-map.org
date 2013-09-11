@@ -2,6 +2,12 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   before_filter :authenticate_user!
 
+  def show
+    @donation = Donation.find(params[:id])
+    @project = @donation.project
+    show!
+  end
+  
   def new
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?

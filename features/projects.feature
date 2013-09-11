@@ -16,16 +16,17 @@ Feature: Project
       Then I should see "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
 
   Scenario: To be created successfully
-    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
+    Given the date is 2013-09-10
+      And there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
     When I login as "vumanhcuong01@gmail.com"
       And I go to the new project page
-      And I fill in "Title" with "Push the world"
-      And I fill in "Brief" with "This is a short brief"
-      And I fill in "Description" with "Here comes a description"
-      And I fill in "Start date" with "2013-09-10"
-      And I fill in "End date" with "2013-09-24"
-      And I fill in "Funding goal" with "9999999"
-      And I fill in "Location" with "227 Nguyen Van Cu"
+      And I fill in "project_title" with "Push the world"
+      And I fill in "project_brief" with "This is a short brief"
+      And I fill in "project_description" with "Here comes a description"
+      And I fill in "project_start_date" with "2013-09-10"
+      And I fill in "project_end_date" with "2013-09-24"
+      And I fill in "project_funding_goal" with "9999999"
+      And I fill in "project_location" with "227 Nguyen Van Cu"
       And I press "Lưu"
     Then  I should see "Push the world"
       And I should see "Here comes a description"
@@ -35,26 +36,28 @@ Feature: Project
     Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
     When I login as "vumanhcuong01@gmail.com"
       And I go to the new project page
-      And I fill in "Title" with ""
-      And I fill in "Description" with "World is bullshit"
-      And I fill in "Start date" with "2013-09-10"
-      And I fill in "End date" with "2013-09-24"
-      And I fill in "Funding goal" with ""
-      And I fill in "Location" with "227 Nguyen Van Cu"
+      And I fill in "project_title" with ""
+      And I fill in "project_description" with "World is bullshit"
+      And I fill in "project_start_date" with "2013-09-10"
+      And I fill in "project_end_date" with "2013-09-24"
+      And I fill in "project_funding_goal" with ""
+      And I fill in "project_location" with "227 Nguyen Van Cu"
       And I press "Lưu"
     Then  I should see "errors prohibited"
       And I should see "Title không thể để trắng"
       And I should see "Funding goal không thể để trắng"
 
   Scenario: To be given a slug
-    Given there is a user with the email "creator@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Tu Hoang"
+    Given the date is 2013-09-11
+      And there is a user with the email "creator@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Tu Hoang"
       And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
       And I am a new, authenticated user
     When I go to the project page of "Push The World"
     Then the URL should contain "push-the-world"
 
   Scenario: To be given an updated slug after edit
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
     When I go to the login page
       And I fill in "user_email" with "testing@man.net"
@@ -62,13 +65,14 @@ Feature: Project
       And I press "Đăng Nhập"
       And I go to the project page of "Push The World"
       And I follow "Chỉnh Sửa"
-      And I fill in "Title" with "Kick The School"
+      And I fill in "project_title" with "Kick The School"
       And I press "Lưu" within ".project"
       And I go to the project page of "Kick The School"
       Then the URL should contain "kick-the-school"
 
   Scenario: To be submitted for review
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
     When I go to the login page
       And I fill in "user_email" with "testing@man.net"
@@ -76,17 +80,17 @@ Feature: Project
       And I press "Đăng Nhập"
       And I go to the dashboard
       And I follow "Chỉnh Sửa"
-      And I follow "Gui xet duyet"
+      And I follow "Đăng Ký Gây Vốn"
     Then I should see "Please have at least one reward."
     When I go to the edit page of the project "Push The World"
-      And I follow "Thêm Mốc Tài Trợ"
-      And I fill in "Amount" with "100000"
-      And I fill in "Description" with "Test Description"
-      And I press "Lưu"
-      And I follow "Gui xet duyet"
+      And I fill in "project_reward_amount" with "100000"
+      And I fill in "project_reward_description" with "Test Description"
+      And I press "Lưu" within ".project_reward"
+      And I follow "Đăng Ký Gây Vốn"
     Then I should see "Project has been submitted. We'll keel you in touch."
 
   Scenario: Edit project without permission
+    Given the time is 2013-09-11
     Given I am a new, authenticated user
       And there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
       And there is a project with the title "Push The World" and the user id "1" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM"
@@ -94,17 +98,19 @@ Feature: Project
     Then I should see "Permission denied."
 
   Scenario: Add updates successfully
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
       And I follow "Thêm Cập Nhật"
       And I fill in "Content" with "Test Content"
       And I press "Cập Nhật"
-    Then I should see "Content Test Content"
+    Then I should see "Test Content"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "DRAFT" with the user above 
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
@@ -117,10 +123,10 @@ Feature: Project
     And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
-      And I fill in "Amount" with "99999" within ".project_reward"
-      And I fill in "Description" with "Bla Bla" within ".project_reward"
+      And I fill in "project_reward_amount" with "99999" within ".project_reward"
+      And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
-    Then I should see "Amount 99999.0"
+    Then I should see "99.999 đ"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
     Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"

@@ -119,8 +119,8 @@ Feature: User
     When I login as "vumanhcuong@gmail.com"
       And I go to the users settings page
       And I fill in "phone_number" with "0908230591"
-      And I press "Send code"
-    Then I should see "Mã xác nhận vừa được gửi tới số +840908230591. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+      And I press "Gửi Mã"
+    Then I should see "Mã xác nhận vừa được gửi tới số +84908230591. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
 
   Scenario: To submit verification code
     Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"

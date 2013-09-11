@@ -128,5 +128,5 @@ Feature: User
     When I login as "vumanhcuong@gmail.com"
       And I go to the users settings page
       And I fill in "phone_code" with "123456"
-      And I press "Verify code"
+      And I press "Xác Nhận"
     Then I should see "Xác nhận danh tính bằng số điện thoại hoàn tất."

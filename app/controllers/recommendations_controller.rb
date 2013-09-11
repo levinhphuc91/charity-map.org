@@ -1,10 +1,6 @@
 class RecommendationsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
 
-  def index
-    render nothing: true
-  end
-
   def new
     @project = Project.find(params[:project_id])
     if current_user.verified?

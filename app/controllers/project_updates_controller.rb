@@ -1,7 +1,4 @@
 class ProjectUpdatesController < InheritedResources::Base
-  def index
-    render nothing: true
-  end
 
   def new
     @project = Project.find(params[:project_id])

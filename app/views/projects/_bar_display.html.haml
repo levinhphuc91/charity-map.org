@@ -3,8 +3,13 @@
     .bar-display
       .top-bar
         = link_to project_path(project) do
-          .project-title.pull-left #{project.title} &mdash; #{project.user.full_name}
+          .project-title.pull-left
+            %i.icon-star 
+            #{project.title}   &sdot; 
+            %i.icon-user
+            #{project.user.full_name}
         .project-location.pull-left.righted
+          %i.icon-map-marker
           = project.location
       .middle-bar
         .square-box.pull-left
@@ -23,7 +28,7 @@
           .upper-part.centered= image_tag "ph_donation-bar.jpg"
           .lower-part.centered thống kê lượng ủng hộ
       .bottom-bar.righted
-        = human_project_status project
+        = human_project_status(project).html_safe
         - if project.status == "DRAFT"
           = link_to "— Chỉnh Sửa", edit_project_path(project)
         - else

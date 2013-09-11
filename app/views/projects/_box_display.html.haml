@@ -1,11 +1,16 @@
 .homepage--project-container
-  - if project.photo?
-    = image_tag project.photo_url(:thumb)
-  - else
-    = image_tag "ph_project-thumbnail.jpg"
+  = link_to project_path(project) do
+    - if project.photo?
+      = image_tag project.photo_url(:thumb)
+    - else
+      = image_tag "ph_project-thumbnail.jpg"
   .giving-space
     .project-title= link_to project.title, project_path(project)
-    .project-info= "#{project.user.full_name} / #{project.location}"
+    .project-info
+      %i.icon-user 
+      #{project.user.full_name} / 
+      %i.icon-map-marker 
+      #{project.location}
   .project-description.giving-space= project.brief.html_safe
   .project-footer-bar
     .row-fluid.giving-space

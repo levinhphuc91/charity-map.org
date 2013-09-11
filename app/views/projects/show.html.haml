@@ -1,7 +1,7 @@
 - if current_user && current_user.projects.exists?(@project)
   .body-container--plain-row
     .body-container--content
-      .notice Trạng thái: #{human_project_status @project}
+      .notice Trạng thái: #{human_project_status(@project).html_safe}
 
 .project-show
   .body-container--plain-row
@@ -10,9 +10,15 @@
         .pull-right
           - if current_user && current_user.projects.exists?(@project)
             = link_to edit_project_path(@project) do
-              .more Chỉnh Sửa
+              .more
+                %i.icon-edit-sign
+                Chỉnh Sửa
         .top-title.centered= @project.title
-        .top-creator-and-location.centered thực hiện bởi <b>#{@project.user.full_name}</b> tại <b>#{@project.location}</b>
+        .top-creator-and-location.centered
+          %i.icon-user 
+          <b>#{@project.user.full_name}</b> &nbsp;
+          %i.icon-map-marker 
+          <b>#{@project.location}</b>
 
   .body-container--plain-row
     .body-container--content
@@ -33,7 +39,16 @@
               .description Thời gian gây quỹ
           .row-fluid
             = link_to new_project_donation_path(@project) do
-              .span12.donate-bttn Ủng Hộ Dự Án
+              .span12.donate-bttn
+                %i.icon-money
+                &nbsp; Ủng Hộ Dự Án
+        .container
+          .sub-headline Cá Nhân / Tổ Chức
+          .row-fluid
+            %p
+              <strong>#{link_to @user.full_name, user_profile_path(@user)}</strong> &sdot; #{@user.city} 
+              %br/ 
+              Đã ủng hộ #{@user.donations.successful.count} dự án 
         .container
           .sub-headline Đề Mục Ủng Hộ
           - @project.project_rewards.each do |reward|
@@ -42,7 +57,7 @@
                 %h4 Ủng hộ #{human_currency reward.amount} hoặc hơn
               %p= reward.description
         .container
-          .sub-headline Lời Giới Thiệu (#{@project.recommendations.count})
+          .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
           - @project.recommendations.each do |rec|
             .row-fluid
               .recommendation--user-info
@@ -63,25 +78,9 @@
           .cleared
 
         .container
-          .sub-headline Cập Nhật (#{@project.project_updates.count})
-          - @project.project_updates.each do |update|
-            .row-fluid
-              %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
-              %p 
-                #{update.content}
-                - if current_user && current_user.projects.exists?(@project)
-                  = link_to "[Edit]", edit_project_project_update_path(@project, update)
-            - if current_user && current_user.projects.exists?(@project)
-              .row-fluid
-                .pull-right
-                  = link_to new_project_project_update_path(@project) do
-                    .more Thêm Cập Nhật
-            .cleared
-
-        .container
-          .sub-headline Ủng Hộ (#{@project.donations.count})
+          .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.count})
           - @project.donations.each do |donation|
-            %p #{human_time donation.created_at} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
+            %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
                 
 
         
@@ -89,6 +88,22 @@
         = image_tag @project.photo_url(:banner), size: "658x230"
       .bordered-box
         %p= markdown @project.description
+        .devider
+          .item
+            %i.icon-list-alt
+            &nbsp;Cập Nhật Dự Án
+          - if current_user && current_user.projects.exists?(@project)
+            .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
+
+        - @project.project_updates.each do |update|
+          .row-fluid
+            %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+            %p 
+              #{update.content}
+              - if current_user && current_user.projects.exists?(@project)
+                = link_to "[Edit]", edit_project_project_update_path(@project, update)
+          
+
 
 :javascript
   $(document).ready(function(){

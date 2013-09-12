@@ -41,7 +41,7 @@ module ApplicationHelper
       if donation.collection_method == "COD"
         "Đợi Liên Hệ"
       elsif donation.collection_method == "BANK_TRANSFER"
-        "Chờ MTQ Gửi Tiền"
+        "Chờ CK"
       end
     when "REQUEST_VERIFICATION"
       "Đợi Xác Nhận"
@@ -53,5 +53,13 @@ module ApplicationHelper
   def markdown(text)
     md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
     md.render(text).html_safe
+  end
+
+  def limit_display(text, limit)
+    if text.length > limit
+      "#{text[0..limit]}..."
+    else
+      text
+    end
   end
 end

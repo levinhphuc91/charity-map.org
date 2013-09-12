@@ -1,34 +1,32 @@
 .body-container--dark-row
 	.body-container--content
-		.row-fluid
-			.row-fluid
-				.headline.giving-space.pull-left
-					Đóng Góp Của Bạn
-				.pull-right
-					.more Xem Thêm
-			%hr/ 
-			.row-fluid
-				- if current_user.donations.empty?
-					%p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
-				- else 
-					.row-fluid
-						.span1 MÃ
-						.span4 DỰ ÁN
-						.span2 CẬP NHẬT
-						.span3 SỐ TIỀN / PHƯƠNG THỨC
-						.span2 TRẠNG THÁI
-					-	current_user.donations.each do |donation|
-						= render "layouts/donation_display", donation: donation
-
-.body-container--plain-row
-	.body-container--content
-		.row-fluid
-			.headline.giving-space
-				Dự Án Của Bạn
-		%hr/ 
+		.devider
+			.item Dự Án Của Bạn
+			.note Danh Sách Hoàn Chỉnh
+			/ TODO: add link
 		.row-fluid
 			- if current_user.projects.empty?
 				%p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
 			- else
 				- current_user.projects.each do |project|
 					= render "projects/bar_display", :project => project
+
+.body-container--plain-row
+	.body-container--content
+		.row-fluid
+			.row-fluid
+				.devider
+					.item Đóng Góp Của Bạn
+					.note Danh Sách Hoàn Chỉnh
+					/ TODO: add link
+			.row-fluid
+				- if current_user.donations.empty?
+					%p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
+				- else 
+					.row-fluid.donation--bar.row-heading
+						.span1 MÃ
+						.span4.centered DỰ ÁN
+						.span4 SỐ TIỀN / PHƯƠNG THỨC
+						.span3.righted TRẠNG THÁI
+					-	current_user.donations.each do |donation|
+						= render "layouts/donation_display", donation: donation

@@ -1,13 +1,13 @@
-.row-fluid
-  .span1= donation.euid
-  .span4= donation.project.title
-  .span2= human_time(donation.updated_at)
-  .span3
-    = human_currency donation.amount
-    %br/ 
-    = human_donation_type(donation.collection_method)
-  .span2
+.row-fluid.donation--bar
+  .span1
+    %span.euid= link_to donation.euid, project_donation_path(@project, donation)
+  .span4 #{human_time(donation.updated_at)} / #{limit_display(donation.project.title, 30)}
+  .span4
+    %i.icon-money 
+    #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;
+    %i.icon-cogs 
+    #{human_donation_type(donation.collection_method)}
+  .span3.righted
     = human_donation_status(donation)
     - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING"
-      = link_to "Request Verification", donations_request_verification_path(euid: donation.euid)
-%hr/
+      (#{link_to "Đã Chuyển?", donations_request_verification_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với người làm dự án là bạn đã tiến hành chuyển tiền vào tài khoản. Thao tác này không thể undo."})

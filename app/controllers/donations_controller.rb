@@ -1,6 +1,6 @@
 class DonationsController < InheritedResources::Base
   include DonationsHelper
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index, :show]
 
   def show
     @donation = Donation.find(params[:id])

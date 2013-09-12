@@ -1,28 +1,34 @@
 .body-container--plain-row
   .body-container--content
-    .row-fluid
+    .row-fluid.centered
       .span12
-        = image_tag(@user.avatar_url(:medium)) if @user.avatar?
+        - if @user.avatar? 
+          = image_tag(@user.avatar_url(:medium)) 
+        - else
+          = image_tag "ph-avatar.jpg", :size => "50x50"
+    .row-fluid.centered
+      .sub-headline= @user.full_name
 
     .row-fluid
-      .span6.pull-right
-        = @user.full_name
-      .span6
-        = @user.bio
+      .devider
+        .item Dự Án
+    - if @user.projects.public_view.empty?
+      Hiện chưa có dự án nào được ghi nhận trên hệ thống.
+    - else
+      .row-fluid
+        - @user.projects.public_view.each do |project|
+          = render "projects/bar_display", :project => project
 
     .row-fluid
-      .headline Dự Án (#{@user.projects.public_view.count})
-      %hr/ 
-      - @user.projects.public_view.each do |project|
-        = render "projects/bar_display", :project => project
-
-    .row-fluid
-      .headline Donation History
-      %hr/ 
-      - @user.donations.each do |donation|
-        %p
-          - donation.attributes.each do |key, value|
-            = link_to project_donation_path(donation.project, donation) do
-              %b= key.humanize
-              = value
-              |
+      .devider
+        .item Danh Sách Đóng Góp
+    - if @user.donations.empty?
+      Hiện chưa có đóng góp nào được ghi nhận trên hệ thống.
+    - else
+      .row-fluid.donation--bar.row-heading
+        .span1 MÃ
+        .span4.centered DỰ ÁN
+        .span4 SỐ TIỀN / PHƯƠNG THỨC
+        .span3.righted TRẠNG THÁI
+      - @user.donations.successful.each do |donation|
+        = render "layouts/donation_display", donation: donation

@@ -64,8 +64,8 @@ Feature: Donation
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
 	 		And I press "Tiếp Tục"
 	  When I go to the dashboard
-  	Then I should see "Chờ MTQ Gửi Tiền"
-	  	And I follow "Request Verification"
+  	Then I should see "Chờ CK"
+	  	And I follow "Đã Chuyển?"
 	  Then  I should see "The project creator will check their bank statement and let you know soon."
 	  Then  an email should have been sent with:
 			"""

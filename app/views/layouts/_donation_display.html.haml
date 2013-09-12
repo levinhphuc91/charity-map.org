@@ -1,12 +1,14 @@
 .row-fluid.donation--bar
   .span1
     %span.euid= link_to donation.euid, project_donation_path(@project, donation)
-  .span4 #{human_time(donation.updated_at)} / #{limit_display(donation.project.title, 30)}
+  .span4 #{human_time(donation.updated_at)} &sdot; #{link_to limit_display(donation.project.title, 30), project_path(donation.project)}
   .span4
     %i.icon-money 
-    #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;
-    %i.icon-cogs 
-    #{human_donation_type(donation.collection_method)}
+      #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;
+    = link_to project_donation_path(donation.project, donation) do
+      %i.icon-cogs 
+      #{human_donation_type(donation.collection_method)}
+    
   .span3.righted
     = human_donation_status(donation)
     - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING"

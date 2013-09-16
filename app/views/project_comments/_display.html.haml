@@ -1,0 +1,4 @@
+%h4 
+  <strong>#{link_to comment.user.full_name, project_project_comment_path(@project, comment)}</strong> &sdot; #{human_time comment.updated_at}
+%p 
+  = comment.content

@@ -8,6 +8,7 @@
 #  project_id :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  photo      :string(255)
 #
 
 require 'spec_helper'

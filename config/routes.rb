@@ -23,6 +23,7 @@ CharityMap::Application.routes.draw do
     resources :project_rewards
     resources :donations
     resources :project_updates
+    resources :project_comments
     resources :recommendations
   end
 

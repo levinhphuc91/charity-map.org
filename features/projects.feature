@@ -97,15 +97,16 @@ Feature: Project
     When I go to the edit page of the project "Push The World"
     Then I should see "Permission denied."
 
-  Scenario: Add updates successfully
+  Scenario: Add project update
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
       And I follow "Thêm Cập Nhật"
-      And I fill in "Content" with "Test Content"
+      And I fill in "project_update_content" with "Test Content"
       And I press "Cập Nhật"
+    Then I should see "Cập nhật vừa được thêm."
     Then I should see "Test Content"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
@@ -139,3 +140,25 @@ Feature: Project
     Then I should see "Thank you. New recommendation has been added."
       And I should see "This is such a good project"
       And I should see "[Edit]" within ".edit_recommendation"
+
+  Scenario: Add new comment on project page
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    When I login as "testing@man.net"
+      And I go to the project page of "Push The World"
+      And I fill in "project_comment_content" with "It's a new comment" within ".project_comment"
+      And I press "Gửi" within ".project_comment"
+    Then I should see "It's a new comment"
+
+  # Scenario: Add photo of new project update
+  #   Given the date is 2013-09-11
+  #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+  #     And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+  #   When I login as "testing@man.net"
+  #     And I go to the edit page of the project "Push The World"
+  #     And I follow "Thêm Cập Nhật"
+  #     And I attach the file "spec/files/image.jpg" to "project_update_photo"
+  #     And I fill in "project_update_content" with "Test Content"
+  #     And I press "Cập Nhật"
+  #   Then show me the page
+  #  Then I should see an element ".image_update"

@@ -116,16 +116,39 @@
             &nbsp;Cập Nhật Dự Án
           - if current_user && current_user.projects.exists?(@project)
             .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
+        #project_updates
+          - @project.project_updates.each do |update|
+            .row-fluid
+              %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+              %p 
+                #{update.content}
+                - if current_user && current_user.projects.exists?(@project)
+                  = link_to "[Edit]", edit_project_project_update_path(@project, update)
 
-        - @project.project_updates.each do |update|
+        .devider
+          .item
+            %i.icon-comments
+            &nbsp;Bình Luận
+        - if current_user
           .row-fluid
-            %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
-            %p 
-              #{update.content}
-              - if current_user && current_user.projects.exists?(@project)
-                = link_to "[Edit]", edit_project_project_update_path(@project, update)
-          
+            .span12
+              .sub-headline Gõ Bình Luận Của Bạn Vào Khung Dưới Đây
+              = simple_form_for [@project, @new_comment] do |f|
+                - if @new_comment.errors.any?
+                  #error_explanation
+                    %h2= "#{pluralize(@new_comment.errors.count, "error")} prohibited this project from being saved:"
+                    %ul
+                      - @new_project.errors.full_messages.each do |msg|
+                        %li= msg
 
+                = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
+                = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+                = f.input       :content, :label => false, :input_html => {:class => "span12"}
+                = f.submit "Gửi", class: "submit"
+        .row-fluid#project_comments
+          %hr/
+          - @project.project_comments.each do |comment|
+            = render "project_comments/display", :comment => comment
 
 :javascript
   $(document).ready(function(){

@@ -23,6 +23,7 @@ class ProjectsController < InheritedResources::Base
 
   def show
     @project = Project.find(params[:id])
+    @new_comment = ProjectComment.new
     @user = @project.user
     if @project.status == "DRAFT" || @project.status == "PENDING"
       if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil) && (!current_user.staff))
@@ -35,6 +36,7 @@ class ProjectsController < InheritedResources::Base
     @project = Project.find(params[:id])
     if (current_user.projects.exists?(@project) != nil)
       @project_reward = ProjectReward.new
+      @project_update = ProjectUpdate.new
       edit!
     else
       redirect_to :dashboard, alert: "Permission denied."
@@ -43,6 +45,7 @@ class ProjectsController < InheritedResources::Base
 
   def update
     @project_reward = ProjectReward.new
+    @project_update = ProjectUpdate.new
     update!
   end
 

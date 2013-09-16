@@ -49,15 +49,17 @@
         %i.icon-calendar 
         Cập Nhật Dự Án
       .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
-
-    - @project.project_updates.each do |update|
-      .row-fluid
-        .sub-headline= human_time update.created_at
-        %p= update.content
+      - @project.project_updates.each do |update|
+        .row-fluid
+          .span6
+            = image_tag update.photo_url, :class => "image_update" if update.photo?
+          .span6
+            .sub-headline= human_time update.created_at
+            %p= update.content
 
 :javascript
   $(document).ready(function() {
-    return $("#new_project_reward").bind("ajax:success", function(data, status, xhr) {
+    $("#new_project_reward").bind("ajax:success", function(data, status, xhr) {
       var str;
       str = "";
       $.each(status, function(key, value) {
@@ -67,4 +69,6 @@
     }).bind("ajax:failure", function(xhr, status, error) {
       return alert("Action failed.");
     });
+
+    
   });

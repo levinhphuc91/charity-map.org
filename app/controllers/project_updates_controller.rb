@@ -1,5 +1,7 @@
 class ProjectUpdatesController < InheritedResources::Base
 
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def new
     @project = Project.find(params[:project_id])
     if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil))
@@ -15,7 +17,11 @@ class ProjectUpdatesController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @project_update = ProjectUpdate.new(params[:project_update])
     if @project_update.save
-      redirect_to edit_project_path(@project), notice: "Cập nhật vừa được thêm."
+      respond_to do |format|
+        format.json { render :json => @project_update }
+        format.html { redirect_to edit_project_path(@project), notice: "Cập nhật vừa được thêm." }
+        # TODO: send emails to donors
+      end
     else
       render :new, alert: "Không thành công. Vui lòng thử lại."
     end

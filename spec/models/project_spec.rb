@@ -16,6 +16,7 @@
 #  status       :string(255)
 #  slug         :string(255)
 #  brief        :text
+#  video        :string(255)
 #
 
 require 'spec_helper'

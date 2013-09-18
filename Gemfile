@@ -33,6 +33,7 @@ gem 'carrierwave_direct'
 gem 'fog'
 gem 'mini_magick'
 gem 'delayed_job_active_record'
+gem 'rails_12factor', group: :production
 
 group :development do
   gem 'better_errors'

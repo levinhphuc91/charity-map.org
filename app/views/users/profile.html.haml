@@ -16,8 +16,9 @@
       Hiện chưa có dự án nào được ghi nhận trên hệ thống.
     - else
       .row-fluid
-        - @user.projects.public_view.each do |project|
-          = render "projects/bar_display", :project => project
+        - cache("public_projects", :expires_in => 12.hours) do
+          - @user.projects.public_view.each do |project|
+            = render "projects/bar_display", :project => project
 
     .row-fluid
       .devider
@@ -30,5 +31,6 @@
         .span4.centered DỰ ÁN
         .span4 SỐ TIỀN / PHƯƠNG THỨC
         .span3.righted TRẠNG THÁI
-      - @user.donations.successful.each do |donation|
-        = render "layouts/donation_display", donation: donation
+      - cache("user_donations", :expires_in => 12.hours) do
+        - @user.donations.successful.each do |donation|
+          = render "layouts/donation_display", donation: donation

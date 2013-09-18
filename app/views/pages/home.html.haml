@@ -40,8 +40,9 @@
     %p 
     .row-fluid
       - if Project.funding.count > 0
-        - Project.funding.each do |project|
-          = render "projects/box_display", :project => project
+        - cache("funding_projects", :expires_in => 12.hours) do
+          - Project.funding.each do |project|
+            = render "projects/box_display", :project => project
       - else
         Hiện chưa có dự án nào đang gây quỹ.
 
@@ -57,8 +58,9 @@
               Xem tất cả
       %p 
       .row-fluid
-        - Project.finished.each do |project|
-          = render "projects/box_display", :project => project
+        - cache("finished_projects", :expires_in => 1.day) do
+          - Project.finished.each do |project|
+            = render "projects/box_display", :project => project
 
 :javascript
   $('#homepage-registration-by-email').click(function() {

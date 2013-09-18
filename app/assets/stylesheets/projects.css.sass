@@ -118,9 +118,8 @@
         border-bottom: 1px solid $light_grey
         top: 0
         left: 0
-        width: 270px
+        width: 269px
         padding: 5px 15px
-        z-index: -10
   p
     font-size: 13px
     margin: 0
@@ -168,7 +167,7 @@
 
 .bar-display
   width: 960px
-  height: 135px
+  height: auto
   box-shadow: 0px 2px 0px darken($light_grey, 5%)
   margin: 0 auto
   padding: 0
@@ -212,7 +211,7 @@
       text-transform: uppercase
   .middle-bar
     height: 68px
-    width: 958px
+    width: 960px
     border: 1px solid $light_grey
     border-top-width: 0
     .square-box
@@ -251,3 +250,20 @@
     font-style: italic
     padding-right: 15px
     font-family: Georgia, serif
+    border-style: none
+
+.ex-tooltip
+  background: none repeat scroll 0 0 #EEEEEE
+  border-collapse: separate
+  border-radius: 3px 3px 3px 3px
+  box-shadow: 0 1px 3px #000000
+  display: none
+  padding: 5px
+  position: absolute
+  z-index: 9999
+
+.axisY, .donation-chart
+  display: none
+
+.show-chart
+  cursor: pointer

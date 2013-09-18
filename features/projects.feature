@@ -160,5 +160,4 @@ Feature: Project
   #     And I attach the file "spec/files/image.jpg" to "project_update_photo"
   #     And I fill in "project_update_content" with "Test Content"
   #     And I press "Cập Nhật"
-  #   Then show me the page
   #  Then I should see an element ".image_update"

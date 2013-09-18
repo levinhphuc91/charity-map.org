@@ -14,27 +14,39 @@
       .middle-bar
         .square-box.pull-left
           .upper-part.centered= human_currency project.donations.successful.sum(:amount)
-          .lower-part.centered được ủng hộ
+          .lower-part.centered
+            %i.icon-signout 
+            được ủng hộ
         .square-box.pull-left
           .upper-part.centered= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal, precision: 0
-          .lower-part.centered hoàn thành
+          .lower-part.centered
+            %i.icon-signal 
+            hoàn thành
         .square-box.pull-left
           .upper-part.centered= project.donations.successful.count
-          .lower-part.centered mạnh thường quân
+          .lower-part.centered
+            %i.icon-group
+            mạnh thường quân
         .square-box.pull-left
           .upper-part.centered= project.recommendations.count
-          .lower-part.centered giới thiệu
+          .lower-part.centered
+            %i.icon-thumbs-up
+            giới thiệu
         .rectangle-box.pull-left
-          .upper-part.centered= image_tag "ph_donation-bar.jpg"
-          .lower-part.centered thống kê lượng ủng hộ
+          .upper-part.centered.show-chart= image_tag "ph_donation-bar.jpg"
+          .lower-part.centered.show-chart
+            %i.icon-retweet 
+            thống kê lượng ủng hộ          
+      .chart
+        %figure{:class=>"donation-chart", :id => "p#{project.id}", :style => "width: 800px; height: 150px;"}
       .bottom-bar.righted
         = human_project_status(project).html_safe
         - if project.status == "DRAFT"
           = link_to "— Chỉnh Sửa", edit_project_path(project)
         - else
           = link_to "— Đến Trang Dự Án", project_path(project)
-      .hover-black-box= project.brief
-        
+      .hover-black-box= project.brief            
+    
 :javascript
   // $('.bar-display').hover(
   //   function() {
@@ -43,3 +55,78 @@
   //   function() {
   //     $(this).find('.hover-black-box').hide();
   //   });
+  $(document).ready(function(){  
+    var project_id = #{project.id}
+    var figure_id  = "#p" + project_id
+    var donations = #{donations_list.to_json}
+    var donations_data = convert_donation_to_xchart_data(project_id, donations);
+    var tt = document.createElement('div'),
+      leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),
+      topOffset = -32;
+    tt.className = 'ex-tooltip';
+    document.body.appendChild(tt);
+    var opts = {
+      "dataFormatX": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },
+      "tickFormatX": function (x) { return d3.time.format('%A')(x); },
+      "mouseover": function (d, i) {
+        var pos = $(this).offset();
+        $(tt).text(d.y)
+          .css({top: topOffset + pos.top, left: pos.left + leftOffset})
+          .show();
+      },
+      "mouseout": function (x) {
+        $(tt).hide();
+      }
+    };
+    
+    var data = {
+      "xScale": "ordinal",
+      "yScale": "linear",
+      "main": [
+        {
+          "className": ".donation-chart",
+          "data": JSON.parse(donations_data)
+        }
+      ]
+    };
+    var myChart = new xChart('bar', data, figure_id, opts);
+  });
+
+  function yyyy_mm_dd (datetime) {
+    year = "" + datetime.getFullYear();
+    month = "" + (datetime.getMonth() + 1); if (month.length == 1) { month = "0" + month; }
+    day = "" + datetime.getDate(); if (day.length == 1) { day = "0" + day; }
+    return year + "-" + month + "-" + day;
+  }
+
+  function convert_donation_to_xchart_data(project_id, donations)
+  { 
+    var now = new Date();
+    now.setHours(0,0,0,0);
+    var seven_days_ago =  new Date(now - 86400000 * 7);
+    var donation_date = [];
+    var data = '[';
+    var flag = 0;
+
+    $.each(donations, function(index, donation) {
+      $.each(donation, function(key, object) {
+        if(object.project_id == project_id){
+          var end_string = (key < donation.length - 1) ? ',' : '';
+          data = data + '{ "x": "' + object.created_at + '",' + '"y": ' + parseFloat(object.total_amount) + '}' + end_string;
+          donation_date.push(object.created_at);
+          flag = 1;
+        }
+      });
+    });
+    if(flag == 1) 
+      data = data + ','
+    for(var i = seven_days_ago; i <= now; i.setDate(i.getDate() + 1)){
+      if(jQuery.inArray(yyyy_mm_dd(i),donation_date) == -1){
+        data = data + '{ "x": "' + yyyy_mm_dd(i) + '",' + '"y": ' + 0 + '},' 
+      }
+    }
+    data = data.substring(0, data.length - 1);   
+    data = data + ']';
+    return data;
+  }
+  

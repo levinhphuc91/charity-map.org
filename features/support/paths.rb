@@ -44,6 +44,11 @@ module NavigationHelpers
     when /^the forgot password page$/
       '/users/password/new'
 
+    when /the donation page of the project "(.+)"/
+      p = Project.find_by_title($1)
+      project_donations_path(p)
+
+
     else
       begin
         page_name =~ /the (.*) page/

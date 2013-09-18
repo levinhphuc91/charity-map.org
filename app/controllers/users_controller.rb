@@ -4,8 +4,15 @@ class UsersController < ApplicationController
 
   before_filter :authenticate_user!, except: :profile
 
-  def dashboard
-    
+  def dashboard 
+    @donations_list = []
+    seven_days = Time.now.midnight - 7.days
+    @projects  = current_user.projects
+    @projects.each do |project|
+      donations = project.donations.select("project_id, date(created_at) as created_at, SUM(amount) as total_amount").where("status = ? AND (created_at >= ? AND created_at <= ?)",
+      "SUCCESSFUL", seven_days.beginning_of_day, Time.now.midnight.end_of_day).group("date(created_at), project_id")
+      @donations_list.push(donations)
+    end
   end
 
   def profile

@@ -1,4 +1,12 @@
-%h4 
-  <strong>#{link_to comment.user.full_name, project_project_comment_path(@project, comment)}</strong> &sdot; #{human_time comment.updated_at}
+.row-fluid.user-profile
+  / .avatar
+  /   - if comment.user.avatar? 
+  /     = image_tag(comment.user.avatar_url(:small), size: "30x30")
+  /   - else
+  /     = image_tag("default_avatar.png", size: "30x30")
+  .user-info
+    .name= comment.user.full_name
+    .des-1 #{human_time comment.updated_at}
 %p 
   = comment.content
+%hr

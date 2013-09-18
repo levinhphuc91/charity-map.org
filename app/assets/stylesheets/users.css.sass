@@ -1,7 +1,28 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "main"
 
 .update-user-profile
   .input, .input_action
     list-style-type: none
+
+.user-profile
+  margin-bottom: 10px !important
+  float: left
+  .avatar
+    width: 30px
+    height: 30px
+    padding-right: 10px
+    float: left
+  .user-info
+    float: left
+    .name
+      font-size: 14px
+      line-height: 10px
+      font-weight: bold
+      padding-bottom: 5px
+    .des-1
+      font-size: 13px
+      color: $darker_grey
+      line-height: 13px
+    .des-2
+      @extend .des-1
+      font-weight: bold

@@ -29,8 +29,7 @@
             .description
               Mục tiêu
           .figure.righted
-            - cache("project_donations", :expires_in => 1.hour) do
-              .number= human_currency @project.donations.successful.sum(:amount)
+            .number= human_currency @project.donations.successful.sum(:amount)
             .description
               Số tiền nhận được
           .figure.righted 
@@ -52,19 +51,21 @@
           .heading-bar
             .sub-headline Cá Nhân / Tổ Chức
           .row-fluid
-            .pull-left{:style => "margin: auto 10px auto auto"}
-              - if @user.avatar? 
-                = image_tag(@user.avatar_url(:medium)) 
-              - else
-                = image_tag("default_avatar.png", size: "50x50")
-            %p
-              %b #{link_to @user.full_name, user_profile_path(@user)}
-              %br/ 
-              #{@user.city} 
-              %br/ 
-              - if @user.donations.successful.count > 0
-                - cache("user_donations", :expires_in => 12.hours) do
-                  Đã ủng hộ #{@user.donations.successful.count} dự án 
+            .user-profile
+              .avatar
+                - if @user.avatar? 
+                  = image_tag(@user.avatar_url(:medium), size: "30x30") 
+                - else
+                  = image_tag("default_avatar.png", size: "30x30")
+              .user-info
+                .name #{link_to @user.full_name, user_profile_path(@user)}
+                .des-2
+                  %i.icon-map-marker 
+                  #{@user.city} 
+                .des-1 
+                  - if @user.donations.successful.count > 0
+                    Đã ủng hộ #{@user.donations.successful.count} dự án 
+              
         .container
           - cache("project_rewards", :expires_in => 1.hour) do
             .heading-bar
@@ -80,16 +81,17 @@
           - @project.recommendations.each do |rec|
             .row-fluid
               .recommendation--user-info
-                .avatar.pull-left
-                  - if rec.user.avatar? 
-                    = image_tag(rec.user.avatar_url(:small)) 
-                  - else
-                  = image_tag("default_avatar.png", size: "50x50")
-                .user-info.pull-left
-                  .full_name= rec.user.full_name
-                  .sub-headline
-                    %i.icon-time 
-                    = human_time rec.updated_at
+                .user-profile
+                  .avatar
+                    - if rec.user.avatar? 
+                      = image_tag(rec.user.avatar_url(:small), size: "30x30")
+                    - else
+                      = image_tag("default_avatar.png", size: "30x30")
+                  .user-info
+                    .name= rec.user.full_name
+                    .des-1
+                      %i.icon-time 
+                      = human_time rec.updated_at
               .cleared
               %p 
                 #{rec.content}

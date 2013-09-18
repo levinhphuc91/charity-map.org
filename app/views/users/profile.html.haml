@@ -31,6 +31,5 @@
         .span4.centered DỰ ÁN
         .span4 SỐ TIỀN / PHƯƠNG THỨC
         .span3.righted TRẠNG THÁI
-      - cache("user_donations", :expires_in => 12.hours) do
-        - @user.donations.successful.each do |donation|
-          = render "layouts/donation_display", donation: donation
+      - @user.donations.successful.each do |donation|
+        = render "layouts/donation_display", donation: donation

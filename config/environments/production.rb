@@ -80,4 +80,5 @@ CharityMap::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   config.action_mailer.default_url_options = { :host => 'beta.charity-map.org' }
   # config.assets.cache_store = :dalli_store
+  config.assets.initialize_on_precompile = false
 end

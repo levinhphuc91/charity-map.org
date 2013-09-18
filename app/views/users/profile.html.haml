@@ -5,7 +5,7 @@
         - if @user.avatar? 
           = image_tag(@user.avatar_url(:medium)) 
         - else
-          = image_tag "ph-avatar.jpg", :size => "50x50"
+          = image_tag("default_avatar.png", size: "50x50")
     .row-fluid.centered
       .sub-headline= @user.full_name
 

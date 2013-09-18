@@ -15,7 +15,7 @@ Feature: User
       And I fill in "Bio" with "Charity Map co-founders"
       And I fill in "Phone" with "0908 230 591"
       And I press "Cập nhật Thông Tin"
-    Then I should see "Updated Successfully."
+    Then I should see "Cập nhật thành công."
 
   Scenario: Visit dashboard, as a backer, without donations 
     Given I am a new, authenticated user

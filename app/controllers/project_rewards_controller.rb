@@ -17,10 +17,10 @@ class ProjectRewardsController < InheritedResources::Base
     if @project_reward.save
       respond_to do |format|
         format.json { render :json => @project_reward }
-        format.html { redirect_to edit_project_path(@project), notice: "New reward has been added" }
+        format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
       end
     else
-      render :new, notice: "Unsuccessful. Try again"
+      render :new, alert: "Không thành công. Vui lòng thử lại."
     end
   end
 end

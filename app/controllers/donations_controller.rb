@@ -36,7 +36,7 @@ class DonationsController < InheritedResources::Base
         redirect_to @project, notice: "Cảm ơn bạn đã ủng hộ dự án!"
       end
     else
-      render :new, notice: "Không thành công. Vui lòng thử lại."
+      render :new, alert: "Không thành công. Vui lòng thử lại."
     end
   end
 
@@ -45,7 +45,7 @@ class DonationsController < InheritedResources::Base
     if (current_user.donations.exists?(@donation) != nil) && @donation && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
       @donation.update status: "REQUEST_VERIFICATION"
       UserMailer.bank_transfer_request_verification(@donation).deliver
-      redirect_to :dashboard, notice: "The project creator will check their bank statement and let you know soon."
+      redirect_to :dashboard, notice: "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
     else
       redirect_to :dashboard, alert: "Permission denied."
     end

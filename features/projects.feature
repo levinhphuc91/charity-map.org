@@ -13,7 +13,7 @@ Feature: Project
       And I fill in "user_password" with "secretpass"
       And I press "Đăng Nhập"
     When I go to the new project page
-      Then I should see "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
+      Then I should see "Cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
 
   Scenario: To be created successfully
     Given the date is 2013-09-10
@@ -81,13 +81,13 @@ Feature: Project
       And I go to the dashboard
       And I follow "Chỉnh Sửa"
       And I follow "Đăng Ký Gây Vốn"
-    Then I should see "Please have at least one reward."
+    Then I should see "Phải có ít nhất một Đề mục đóng góp (project reward)."
     When I go to the edit page of the project "Push The World"
       And I fill in "project_reward_amount" with "100000"
       And I fill in "project_reward_description" with "Test Description"
       And I press "Lưu" within ".project_reward"
       And I follow "Đăng Ký Gây Vốn"
-    Then I should see "Project has been submitted. We'll keel you in touch."
+    Then I should see "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
 
   Scenario: Edit project without permission
     Given the time is 2013-09-11
@@ -106,7 +106,7 @@ Feature: Project
       And I follow "Thêm Cập Nhật"
       And I fill in "project_update_content" with "Test Content"
       And I press "Cập Nhật"
-    Then I should see "Cập nhật vừa được thêm."
+    Then I should see "Vừa thêm Cập nhật dự án mới."
     Then I should see "Test Content"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
@@ -137,7 +137,7 @@ Feature: Project
       And I follow "Viết Lời Giới Thiệu"
       And I fill in "Content" with "This is such a good project"
       And I press "Create Recommendation"
-    Then I should see "Thank you. New recommendation has been added."
+    Then I should see "Lời giới thiệu đã được lưu."
       And I should see "This is such a good project"
       And I should see "[Edit]" within ".edit_recommendation"
 

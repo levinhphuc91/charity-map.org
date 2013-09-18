@@ -19,7 +19,7 @@ class ProjectUpdatesController < InheritedResources::Base
     if @project_update.save
       respond_to do |format|
         format.json { render :json => @project_update }
-        format.html { redirect_to edit_project_path(@project), notice: "Cập nhật vừa được thêm." }
+        format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
         # TODO: send emails to donors
       end
     else

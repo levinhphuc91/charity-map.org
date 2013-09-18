@@ -15,7 +15,7 @@ class ProjectsController < InheritedResources::Base
   def new
     @project = Project.new
     if current_user.blank_contact?
-      redirect_to users_settings_path, notice: "Vui lòng cập nhật tên họ và địa chỉ trước khi tạo dự án."
+      redirect_to users_settings_path, notice: "Cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
     else 
       new!
     end
@@ -53,17 +53,17 @@ class ProjectsController < InheritedResources::Base
     @project = Project.find(params[:id])
     if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
       if @project.project_rewards.empty?
-        redirect_to edit_project_path(@project), notice: "Please have at least one reward."
+        redirect_to edit_project_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
       else
         if @project.update status: "PENDING"
-          redirect_to @project, notice: "Project has been submitted. We'll keel you in touch."
+          redirect_to @project, notice: "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
           # TODO: add AdminMailer
         else
-          redirect_to edit_project_path(@project), notice: "#{@project.errors.full_messages.join(' ')}"
+          redirect_to edit_project_path(@project), alert: "#{@project.errors.full_messages.join(' ')}"
         end
       end
     else
-      redirect_to :dashboard, notice: "Permission denied"
+      redirect_to :dashboard, alert: "Permission denied"
     end
   end
 end

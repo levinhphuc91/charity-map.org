@@ -19,11 +19,9 @@ class UsersController < ApplicationController
   def update_settings
   	@user = User.find(params[:user][:id])
   	if @user.update params[:user]
-  		redirect_to users_settings_path
-      flash[:notice] = "Updated Successfully."
+  		redirect_to users_settings_path, notice: "Cập nhật thành công."
   	else
-  		render :action => :settings
-      flash[:alert] = "Unsuccessful Update."
+  		render :action => :settings, alert: "Cập nhật không thành công."
   	end
   end
 
@@ -36,7 +34,7 @@ class UsersController < ApplicationController
         current_user.update(phone: @phone_number) if current_user.phone.blank?  
         redirect_to users_settings_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
       else
-        redirect_to users_settings_path, alert: "Errors occurred. Please try again later."
+        redirect_to users_settings_path, alert: "Không thành công. Vui lòng thử lại."
       end
     elsif params[:phone_code]
       @verification = Verification.where(user_id: current_user.id, code: params[:phone_code], status: "UNUSED").first

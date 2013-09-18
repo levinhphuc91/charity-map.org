@@ -15,7 +15,7 @@ Feature: Donation
 	 		And I fill in "Address" with "This is my address"
 	 		And I fill in "Phone" with "+123456"
 	 		And I press "Cập nhật Thông Tin"
-	 	Then I should see "Updated Successfully."
+	 	Then I should see "Cập nhật thành công."
  		When I go to the project page of "Push The World"
 	 		And I follow "Ủng Hộ Dự Án"
 	 	Then I should see "Vu Manh Cuong"
@@ -40,7 +40,7 @@ Feature: Donation
 		  To: donor@man.net
 		  """
 		When I follow the first link in the email
-		Then I should see "The project creator will check their bank statement and let you know soon."
+		Then I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
 			And an email should have been sent with:
 			  """
 			  From: tu@charity-map.org
@@ -66,7 +66,7 @@ Feature: Donation
 	  When I go to the dashboard
   	Then I should see "Chờ CK"
 	  	And I follow "Đã Chuyển?"
-	  Then  I should see "The project creator will check their bank statement and let you know soon."
+	  Then  I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
 	  Then  an email should have been sent with:
 			"""
 			From: tu@charity-map.org

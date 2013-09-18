@@ -16,10 +16,10 @@ class RecommendationsController < InheritedResources::Base
     if @recommendation.save
       respond_to do |format|
         format.json { render :json => @recommendation }
-        format.html { redirect_to @project, notice: "Thank you. New recommendation has been added." }
+        format.html { redirect_to @project, notice: "Lời giới thiệu đã được lưu." }
       end
     else
-      render :new, notice: "Unsuccessful. Try again"
+      render :new, alert: "Không thành công. Vui lòng thử lại."
     end
   end
 

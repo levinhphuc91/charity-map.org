@@ -46,6 +46,7 @@ class Project < ActiveRecord::Base
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
   validates :user_id, numericality: { greater_than: 0 }
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
+  validate :video_url_to_be_a_valid_service_link
   
   extend FriendlyId
   friendly_id :title, use: :slugged
@@ -69,5 +70,12 @@ class Project < ActiveRecord::Base
     def funding_duration_to_be_less_than_six_months
       errors.add(:end_date, "can't be more than 6 months from start date") if
         !start_date.blank? and !end_date.blank? and TimeDifference.between(end_date, start_date).in_days > 180
+    end
+
+    def video_url_to_be_a_valid_service_link
+      youtube_regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/
+      vimeo_regex = /^(http\:\/\/|https\:\/\/)?(www\.)?(vimeo\.com\/)([0-9]+)$/
+      errors.add(:video, "only valid Vimeo or YouTube URLs are allowed") if
+        (!video.blank?) && !youtube_regex.match(video) && !vimeo_regex.match(video)
     end
 end

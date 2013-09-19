@@ -9,7 +9,7 @@
 				%p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
 			- else
 				- current_user.projects.each do |project|
-					= render "projects/bar_display", :project => project, :donations_list => @donations_list
+					= render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
 
 .body-container--plain-row
 	.body-container--content
@@ -31,12 +31,3 @@
 					- cache("user_donations", :expires_in => 12.hours) do
 						-	current_user.donations.each do |donation|
 							= render "layouts/donation_display", donation: donation
-
-:javascript
-	$(document).ready(function(){ 
-		$(".show-chart").click(function(){
-			var bar_display = $(this).parents(".bar-display");
-			var donation_chart = $(".donation-chart", bar_display);
-			donation_chart.toggle();
-		});
-	});

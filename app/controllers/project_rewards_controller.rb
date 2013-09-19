@@ -16,7 +16,8 @@ class ProjectRewardsController < InheritedResources::Base
     @project_reward = ProjectReward.new(params[:project_reward])
     if @project_reward.save
       respond_to do |format|
-        format.json { render :json => @project_reward }
+        format.js
+        # format.json { render :json => @project_reward }
         format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
       end
     else

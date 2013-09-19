@@ -19,7 +19,7 @@
       .note &sdot; thấp nhất 10.000đ
     .row-fluid
       .span4.project_rewards
-        - @project.project_rewards.each_with_index do |reward, index|
+        - @project.project_rewards.each do |reward|
           .row-fluid
             %p
               %b #{human_currency reward.amount}

@@ -174,7 +174,7 @@
   position: relative
   background-color: $white
   // border: 1px solid $grey
-  border-radius: 5px
+  // border-radius: 5px
   z-index: 5
   overflow: hidden
   .hover-black-box
@@ -211,7 +211,7 @@
       text-transform: uppercase
   .middle-bar
     height: 68px
-    width: 960px
+    width: 958px
     border: 1px solid $light_grey
     border-top-width: 0
     .square-box
@@ -219,7 +219,7 @@
       height: 68px
       border-right: 1px solid $light_grey
     .rectangle-box
-      width: 354px
+      width: 358px
       height: 68px
     .square-box .upper-part, .rectangle-box .upper-part
       height: 34px
@@ -239,10 +239,9 @@
   .bottom-bar
     height: 30px
     width: 943px
-    border: 1px solid $light_grey
-    border-top-width: 0
+    border: 1px solid $light_grey !important
+    border-top-width: 0 !important
     line-height: 30px
-    border-radius: 5px
     border-top-left-radius: 0
     border-top-right-radius: 0
     color: $darker_grey
@@ -251,6 +250,12 @@
     padding-right: 15px
     font-family: Georgia, serif
     border-style: none
+
+  .chart
+    display: none
+    border: 1px solid $light_grey !important
+    width: 958px
+    height: 175px
 
 .brief-length
   font-size: 12px
@@ -269,7 +274,7 @@
   position: absolute
   z-index: 9999
 
-.axisY, .donation-chart
+.axisY
   display: none
 
 .show-chart

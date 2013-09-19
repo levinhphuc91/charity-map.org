@@ -1,5 +1,6 @@
 .body-container--plain-row
   .body-container--content
     / TODO: change to :successful
-    - @donations.each do |donation|
-      = render "layouts/donation_display", donation: donation
+    - cache("project_donations", :expires_in => 1.hour) do
+      - @donations.each do |donation|
+        = render "layouts/donation_display", donation: donation

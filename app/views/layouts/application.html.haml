@@ -21,3 +21,10 @@
       = yield
     = render "layouts/footer"
   = javascript_include_tag "pages", "data-turbolinks-track" => true
+  :javascript
+    $(".show-chart").click(function() {
+      var bar_display, donation_chart;
+      bar_display = $(this).parents(".bar-display");
+      donation_chart = $(".donation-chart", bar_display);
+      return donation_chart.toggle();
+    });

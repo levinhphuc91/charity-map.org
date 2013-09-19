@@ -19,10 +19,13 @@
       .note &sdot; thấp nhất 10.000đ
     .row-fluid
       .span4.project_rewards
-        - @project.project_rewards.each do |reward|
+        - @project.project_rewards.each_with_index do |reward, index|
           .row-fluid
-            .sub-headline= human_currency reward.amount
-            %p= reward.description
+            %p
+              %b #{human_currency reward.amount}
+              %br/ 
+              = reward.description
+
       .span8
         = simple_form_for [@project, @project_reward], remote: true do |f|
           .row-fluid

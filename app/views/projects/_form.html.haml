@@ -6,11 +6,16 @@
         %ul
           - @project.errors.full_messages.each do |msg|
             %li= msg
+  %p 
   .row-fluid
     = image_tag(@project.photo_url(:banner)) if @project.photo?
-    = f.file_field :photo
-    = f.hidden_field :photo_cache
-    = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+  .row-fluid
+    .span4.sub-headline
+      Ảnh Dự Án
+    .span8
+      = f.file_field :photo
+      = f.hidden_field :photo_cache
+      = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
   %hr/ 
   .row-fluid
     .span4.sub-headline
@@ -22,7 +27,7 @@
       Giới Thiệu Ngắn Gọn (giới hạn: 200 ký tự)
     .span8
       = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
-    .brief-length 
+      .brief-length
   .row-fluid
     .span4.sub-headline
       Mô Tả Dự Án
@@ -78,6 +83,7 @@
     });
 
     $('.project .brief').keyup(function () {
+      $('.project .brief-length').css('display', 'block');
       var max = 200;
       var min = 20;
       var len = $(this).val().length;
@@ -85,7 +91,7 @@
         $('.project .brief-length').text('Tối đa 200 ký tự.');
       } else {
         var char = max - len;
-        $('.project .brief-length').text('Còn ' + char + ' ký tự.');
+        $('.project .brief-length').text('Còn ' + char + ' ký tự');
       }
     });
   });

@@ -113,8 +113,7 @@
       .photo-box
         = image_tag @project.photo_url(:banner), size: "658x230"
       .bordered-box
-        - cache("project_description", :expires_in => 2.hours) do
-          %p= markdown @project.description
+        %p= markdown @project.description
         .devider
           .item
             %i.icon-list-alt

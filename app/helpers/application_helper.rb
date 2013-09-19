@@ -12,7 +12,7 @@ module ApplicationHelper
     when "DRAFT"
       "<i class='icon-file-text'></i> Bản Nháp"
     when "PENDING"
-      "<i class='icon-code'></i> Đang Đợi Xét"
+      "<i class='icon-spinner'></i> Đang Đợi Xét"
     when "REVIEWED"
       if project.start_date < Date.today && project.end_date > Date.today
         "<i class='icon-credit-card'></i> Đang Gây Quỹ, Còn #{TimeDifference.between(project.end_date, Time.now).in_days.to_i} Ngày"

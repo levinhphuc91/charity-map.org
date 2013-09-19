@@ -63,11 +63,10 @@ module ApplicationHelper
     end
   end
 
-  def donations_from_7_days(project)
+  def donation_data_in_7_days(project)
     seven_days = Time.now.midnight - 7.days
     donations  = project.donations.select("project_id, date(created_at) as created_at, SUM(amount) as total_amount").where("status = ? AND (created_at >= ? AND created_at <= ?)",
       "SUCCESSFUL", seven_days.beginning_of_day, Time.now.midnight.end_of_day).group("date(created_at), project_id")
     return donations
   end
-
 end

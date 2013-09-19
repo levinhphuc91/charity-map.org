@@ -18,7 +18,7 @@
       .row-fluid
         - cache("public_projects", :expires_in => 12.hours) do
           - @user.projects.public_view.each do |project|
-            = render "projects/bar_display", :project => project, :donations_list => donations_from_7_days(project)
+            = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
 
     .row-fluid
       .devider
@@ -33,12 +33,3 @@
         .span3.righted TRẠNG THÁI
       - @user.donations.successful.each do |donation|
         = render "layouts/donation_display", donation: donation
-
-:javascript
-  $(document).ready(function(){ 
-    $(".show-chart").click(function(){
-      var bar_display = $(this).parents(".bar-display");
-      var donation_chart = $(".donation-chart", bar_display);
-      donation_chart.toggle();
-    });
-  });        

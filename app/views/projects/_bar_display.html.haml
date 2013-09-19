@@ -59,7 +59,7 @@
     var project_id = #{project.id}
     var figure_id  = "#p" + project_id
     var donations = #{donations_list.to_json}
-    var donations_data = convert_donation_to_xchart_data(project_id, donations);
+    var donations_data = convert_donation_to_xchart_data(donations);
     var tt = document.createElement('div'),
       leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),
       topOffset = -32;
@@ -70,7 +70,7 @@
       "tickFormatX": function (x) { return d3.time.format('%A')(x); },
       "mouseover": function (d, i) {
         var pos = $(this).offset();
-        $(tt).text(d.y)
+        $(tt).text(d.y.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."))
           .css({top: topOffset + pos.top, left: pos.left + leftOffset})
           .show();
       },
@@ -78,7 +78,6 @@
         $(tt).hide();
       }
     };
-    
     var data = {
       "xScale": "ordinal",
       "yScale": "linear",
@@ -99,34 +98,29 @@
     return year + "-" + month + "-" + day;
   }
 
-  function convert_donation_to_xchart_data(project_id, donations)
+  function convert_donation_to_xchart_data(donations)
   { 
     var now = new Date();
     now.setHours(0,0,0,0);
     var seven_days_ago =  new Date(now - 86400000 * 7);
     var donation_date = [];
     var data = '[';
-    var flag = 0;
-
-    $.each(donations, function(index, donation) {
-      $.each(donation, function(key, object) {
-        if(object.project_id == project_id){
-          var end_string = (key < donation.length - 1) ? ',' : '';
-          data = data + '{ "x": "' + object.created_at + '",' + '"y": ' + parseFloat(object.total_amount) + '}' + end_string;
-          donation_date.push(object.created_at);
-          flag = 1;
-        }
+    if(donations.length != 0){
+      $.each(donations, function(key, donation) {
+        var end_string = (key < donations.length - 1) ? ',' : '';
+        data = data + '{ "x": "' + donation.created_at + '",' + '"y": ' + donation.total_amount + '}' + end_string;
+        donation_date.push(donation.created_at);
+        flag = 1;
       });
-    });
-    if(flag == 1) 
-      data = data + ','
+      data = data + ',';
+    }
+      
     for(var i = seven_days_ago; i <= now; i.setDate(i.getDate() + 1)){
       if(jQuery.inArray(yyyy_mm_dd(i),donation_date) == -1){
         data = data + '{ "x": "' + yyyy_mm_dd(i) + '",' + '"y": ' + 0 + '},' 
       }
     }
-    data = data.substring(0, data.length - 1);   
-    data = data + ']';
+    data = data.substring(0, data.length - 1) + ']';   
     return data;
   }
   

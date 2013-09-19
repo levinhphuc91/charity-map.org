@@ -9,7 +9,7 @@
 				%p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
 			- else
 				- current_user.projects.each do |project|
-					= render "projects/bar_display", :project => project, :donations_list => @donations_list
+					= render "projects/bar_display", :project => project, :donations_list => donations_from_7_days(project)
 
 .body-container--plain-row
 	.body-container--content

@@ -150,6 +150,28 @@ Feature: Project
       And I press "Gửi" within ".project_comment"
     Then I should see "It's a new comment"
 
+  Scenario: Allows only Youtube or Vimeo video link
+    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    When I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I fill in "project_video" with "www.google.com"
+      And I press "Lưu" within ".project"
+    Then I should see "only valid Vimeo or YouTube URLs are allowed"
+      And I fill in "project_video" with "www.youtube.com"
+      And I press "Lưu" within ".project"
+    Then I should see "only valid Vimeo or YouTube URLs are allowed"
+      And I fill in "project_video" with "http://www.youtube.com/watch?v=cikKIIqL78g"
+      And I press "Lưu" within ".project"
+    Then I should not see "only valid Vimeo or YouTube URLs are allowed"
+      And I go to the edit page of the project "Push The World"
+      And I fill in "project_video" with "www.vimeo.com"
+      And I press "Lưu" within ".project"
+    Then I should see "only valid Vimeo or YouTube URLs are allowed"
+      And I fill in "project_video" with "https://vimeo.com/63387028"
+      And I press "Lưu" within ".project"
+    Then I should not see "only valid Vimeo or YouTube URLs are allowed"
+
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11
   #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"

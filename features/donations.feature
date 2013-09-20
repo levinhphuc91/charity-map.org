@@ -130,3 +130,23 @@ Feature: Donation
 	 		And I should see "Đợi Liên Hệ"
 	 		And I should see "Phụ trách"
 	 		And I should not see "Chờ CK"
+
+	Scenario: Filter donation by created_at
+		Given the date is 2013-09-11
+	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "1"
+	  	And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+	  	And there is a project reward with the amount "10000" and the description "reward description" and the id "1" with the project above
+	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" and the updated at "2013-09-11" and the created_at "2013-09-11" with the project above
+	  	And there is a donation with the amount "11000" and the status "PENDING" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" and the updated at "2013-09-11" and the created_at "2013-09-11" with the project above
+	  	And there is a donation with the amount "21000" and the status "REQUEST_VERIFICATION" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" and the updated at "2013-09-12" and the created_at "2013-09-12" with the project above
+	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" and the user id "2" and the project reward id "1" and the updated at "2013-09-12" and the created_at "2013-09-12" with the project above
+	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456" and the id "2"
+	 	When I login as "testing@man.net"
+	 	Then I go to the donation page of the project "Push The World"
+	 		And I select "created_at" from "donation_filter"
+	 		And I submit the "filter" form
+	 	Then I should see "11/09/2013" within ".created_at"
+	 		And I should see "12/09/2013" within ".created_at"
+
+	
+	

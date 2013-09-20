@@ -2,5 +2,32 @@
   .body-container--content
     / TODO: change to :successful
     - cache("project_donations", :expires_in => 1.hour) do
-      - @donations.each do |donation|
-        = render "layouts/donation_display", donation: donation
+      = form_tag project_donations_path, :method=>:get, :id => "filter" do 
+        = select_tag(:donation_filter, options_for_select([['All', 'All'], ['collection_method', 'collection_method'], ['updated_at', 'updated_at'], ['amount', 'amount']], selected: params[:donation_filter] ))   
+      - if(!params[:donation_filter])
+        - @donations.each do |donation|
+          = render "layouts/donation_display", donation: donation
+      - else
+        - case params[:donation_filter]
+        - when "updated_at"
+          - @donations.each do |key, donation_arr|
+            .updated_at
+              %p= human_time(key)
+            - donation_arr.each do |donation|
+              = render "layouts/donation_display", donation: donation
+        - when "collection_method"
+          - @donations.each do |key, donation_arr|
+            .donation_type 
+              %p= human_donation_type(key)
+            - donation_arr.each do |donation|
+              = render "layouts/donation_display", donation: donation
+        - else
+          - @donations.each do |donation|
+            = render "layouts/donation_display", donation: donation
+
+:javascript
+  $(document).ready(function(){
+    $("#donation_filter").change(function(){
+      $($(this).parent("form")).trigger("submit");
+    });
+  });                        

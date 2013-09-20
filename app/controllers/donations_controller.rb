@@ -2,6 +2,27 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   before_filter :authenticate_user!, except: [:index, :show]
 
+  def index
+    @project = Project.find(params[:project_id])
+    if(current_user && current_user.projects.exists?(@project) != nil)
+      @donations = @project.donations.where("status  = ? OR status = ? OR status = ?", "SUCCESSFUL", "PENDING", "REQUEST_VERIFICATION").order("date(updated_at)")
+    elsif (current_user && current_user.staff)
+      @donations = @project.donations.where("status = ? AND collection_method = ?", "PENDING", "COD").order("date(updated_at)")
+    else
+      @donations = @project.donations.where("status = ?", "SUCCESSFUL").order("date(updated_at)");
+    end
+    if(params[:donation_filter])
+      case params[:donation_filter]
+      when "updated_at"
+        @donations = @donations.group_by { |donation| donation.updated_at.to_date }
+      when "collection_method"
+        @donations = @donations.group_by { |donation| donation.collection_method }
+      when "amount"
+        @donations = @donations.order("amount DESC")
+      end
+    end
+  end
+
   def show
     @donation = Donation.find(params[:id])
     @project = @donation.project

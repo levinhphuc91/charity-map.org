@@ -10,6 +10,8 @@
 			- else
 				- current_user.projects.each do |project|
 					= render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
+					-	project.donations.each do |donation|
+						= render "layouts/donation_display", donation: donation
 
 .body-container--plain-row
 	.body-container--content

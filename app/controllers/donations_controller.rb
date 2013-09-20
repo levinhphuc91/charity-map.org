@@ -50,4 +50,15 @@ class DonationsController < InheritedResources::Base
       redirect_to :dashboard, alert: "Permission denied."
     end
   end
+
+  def confirm
+    @donation = Donation.find_by_euid(params[:euid])
+    if @donation.collection_method == "BANK_TRANSFER" && @donation.status == "REQUEST_VERIFICATION" && current_user.projects.exists?(@project) != nil
+      @donation.update :status => "SUCCESSFUL"
+      UserMailer.bank_transfer_confirm_donation(@donation).deliver
+      redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
+    else
+      redirect_to dashboard_path, alert: "Permission denied"
+    end
+  end
 end

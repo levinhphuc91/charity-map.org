@@ -128,5 +128,24 @@ Feature: Donation
 	 		And I should see "Thu Tiền Mặt"
 	 		And I should see "12.666 đ"
 	 		And I should see "Đợi Liên Hệ"
-	 		And I should see "Phụ trách"
+	 		And I should see "Xác nhận đã nhận tiền"
 	 		And I should not see "Chờ CK"
+
+	Scenario: Confirm bank-transfer donations
+	  Given the date is 2013-09-11
+	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+	  	And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+	  	And there is a project reward with the amount "12340" the description "reward description" with the project above
+	  	And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
+	  	And there is a donation with the status "REQUEST_VERIFICATION" and the amount "12340" with the collection method "BANK_TRANSFER" with the project above and with the user above and with the project reward above
+  	Given the date is "2013-09-12"
+	 	When I login as "testing@man.net"
+	  	And I go to the donation page of the project "Push The World"
+  		And I follow "Xác nhận đã nhận tiền"
+	  Then  I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
+	  Then  an email should have been sent with:
+			"""
+			From: tu@charity-map.org
+			To: donor@man.net
+			Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
+			"""

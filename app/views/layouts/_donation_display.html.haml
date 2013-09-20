@@ -18,8 +18,8 @@
           - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING" && current_user && current_user.donations.exists?(@donation) != nil
             (#{link_to "Đã Chuyển?", donations_request_verification_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với người làm dự án là bạn đã tiến hành chuyển tiền vào tài khoản. Thao tác này không thể undo."})
 
-          - if donation.collection_method == "BANK_TRANSFER" && donation.status == "REQUEST_VERIFICATION" && current_user && current_user.projects.exists?(@project) != nil
-            %button Xác nhận
+          - if donation.collection_method == "BANK_TRANSFER" && donation.status == "REQUEST_VERIFICATION" && current_user && (current_user.projects.exists?(@project) != nil)
+            = link_to "Xác nhận đã nhận tiền", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với mạnh thường quân là bạn đã nhận tiền chuyển vào tài khoản. Thao tác này không thể undo."
 
           - if donation.collection_method == "COD" && donation.status == "PENDING" && current_user && current_user.staff
-            %button Phụ trách
+            = link_to "Đã Chuyển?", donations_request_verification_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với người làm dự án là bạn đã tiến hành chuyển tiền vào tài khoản. Thao tác này không thể undo."

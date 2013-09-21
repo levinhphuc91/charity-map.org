@@ -4,23 +4,13 @@ class DonationsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
-    if(current_user && current_user.projects.exists?(@project) != nil)
-      @donations = @project.donations.where("status  = ? OR status = ? OR status = ?", "SUCCESSFUL", "PENDING", "REQUEST_VERIFICATION").order("date(updated_at)")
-    elsif (current_user && current_user.staff)
-      @donations = @project.donations.where("status = ? AND collection_method = ?", "PENDING", "COD").order("date(updated_at)")
+    if current_user && ((current_user.projects.exists?(@project) != nil) || (current_user.staff))
+      @donations = @project.donations.order("date(updated_at) DESC")
     else
-      @donations = @project.donations.where("status = ?", "SUCCESSFUL").order("date(updated_at)");
+      @donations = @project.donations.successful.order("date(updated_at) DESC")
     end
-    if(params[:donation_filter])
-      case params[:donation_filter]
-      when "updated_at"
-        @donations = @donations.group_by { |donation| donation.updated_at.to_date }
-      when "collection_method"
-        @donations = @donations.group_by { |donation| donation.collection_method }
-      when "amount"
-        @donations = @donations.order("amount DESC")
-      end
-    end
+    
+    @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
   end
 
   def show

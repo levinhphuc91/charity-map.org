@@ -1,0 +1,8 @@
+%p Xin chào#{" #{@user.full_name.split.last}" if @user.full_name},
+
+%p <b>Charity Map</b> xin thông báo dự án <b>#{@project.title}</b> còn 5 ngày để gây quỹ.
+
+%p 
+  \== Vui lòng truy cập #{link_to "trang dự án", project_url(#{@project})} để biết thêm chi tiết.
+  %br/ 
+  www.charity-map.org

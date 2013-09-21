@@ -172,6 +172,33 @@ Feature: Project
       And I press "Lưu" within ".project"
     Then I should not see "only valid Vimeo or YouTube URLs are allowed"
 
+  Scenario: Send email for follower about project update
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the id "1" with the user above
+      And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456" and the id "2"
+      And there is a project follow with the user id "2" and the project id "1"
+    When I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I follow "Thêm Cập Nhật"
+      And I fill in "project_update_content" with "Test Content"
+      And I press "Cập Nhật"
+    Then an email should have been sent with:
+      """
+      From: tu@charity-map.org
+      To: follower@man.net
+      Subject: Dự án Push The World có cập nhật mới
+      """
+  #cannot test ajax submit
+  # Scenario: Follow the project
+  #   Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+  #   And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+  #   When I login as "testing@man.net"
+  #     And I go to the project page of "Push The World"
+  #     And I press "Follow"
+  #   Then show me the page
+  #   Then I should see "Following"
+
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11
   #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"

@@ -24,6 +24,10 @@ class ProjectsController < InheritedResources::Base
   def show
     @project = Project.find(params[:id])
     @new_comment = ProjectComment.new
+    @project_follow = ProjectFollow.new
+    if(current_user)
+      @followed_project = (ProjectFollow.find_by_project_id_and_user_id(@project.id, current_user.id)) != nil ? true : false
+    end
     @user = @project.user
     if @project.status == "DRAFT" || @project.status == "PENDING"
       if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil) && (!current_user.staff))

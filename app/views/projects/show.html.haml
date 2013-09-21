@@ -2,7 +2,7 @@
   .body-container--plain-row
     .body-container--content
       .notice Trạng thái: #{human_project_status(@project).html_safe}
-
+    
 .project-show
   .body-container--plain-row
     .body-container--content
@@ -119,6 +119,16 @@
         = image_tag @project.photo_url(:banner), size: "658x230"
       .bordered-box
         %p= markdown @project.description
+        - if (current_user && !@followed_project)
+          = simple_form_for [@project, @project_follow] do |f|
+            = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
+            = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+            = f.submit "Follow", class: "follow-project"
+        - elsif @followed_project
+          .following-notice
+            %b Following
+        .following-notice{:style => "display: none;"}
+          %b Following
         .devider
           .item
             %i.icon-list-alt
@@ -163,4 +173,21 @@
 :javascript
   $(document).ready(function(){
     $("#donation-box").sticky({topSpacing:0});
+
+    $(".follow-project").click(function(){
+      var form = $(this).parent("#new_project_follow")
+      var valuesToSubmit = form.serialize();
+      $.ajax({
+        type: "POST",
+        url: form.attr('action'),
+        data: valuesToSubmit,
+        dataType: "JSON" 
+      }).success(function(data){
+        if(data.id){
+          $(".following-notice").show();
+          $(".follow-project").hide();
+        }              
+      });
+      return false; // prevents normal behaviour
+    });
   });

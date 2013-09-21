@@ -31,6 +31,7 @@ Feature: Project
     Then  I should see "Push the world"
       And I should see "Here comes a description"
       And I should see "Chỉnh Sửa"
+      And I should see "Hiện chưa có cập nhật nào."
 
   Scenario: To be created unsuccessfully
     Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"

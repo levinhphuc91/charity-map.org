@@ -105,7 +105,7 @@
 
         .container
           .heading-bar
-            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.count})
+            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.successful.count})
           - cache("project_donations", :expires_in => 1.hour) do
             - @project.donations[0..4].each do |donation|
               %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
@@ -127,13 +127,16 @@
             .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
         - cache("project_updates", :expires_in => 12.hours) do
           #project_updates
-            - @project.project_updates.each do |update|
-              .row-fluid
-                %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
-                %p 
-                  #{update.content}
-                  - if current_user && current_user.projects.exists?(@project)
-                    = link_to "[Edit]", edit_project_project_update_path(@project, update)
+            - if @project.project_updates.empty?
+              Hiện chưa có cập nhật nào.
+            - else
+              - @project.project_updates.each do |update|
+                .row-fluid
+                  %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+                  %p 
+                    #{update.content}
+                    - if current_user && current_user.projects.exists?(@project)
+                      = link_to "[Edit]", edit_project_project_update_path(@project, update)
 
         .devider
           .item

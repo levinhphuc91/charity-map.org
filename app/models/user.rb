@@ -25,6 +25,7 @@
 #  verified_by_phone      :boolean
 #  provider               :string(255)
 #  uid                    :string(255)
+#  facebook_credentials   :hstore
 #
 
 class User < ActiveRecord::Base
@@ -38,7 +39,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :verified_by_phone, :provider, :uid
+    :verified_by_phone, :provider, :uid, :facebook_credentials
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
@@ -59,11 +60,18 @@ class User < ActiveRecord::Base
     self.verified_by_phone
   end
 
-  def self.find_for_facebook_oauth(provider, uid, email, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
     user = User.where(:provider => provider, :uid => uid).first
-    unless user
+    if user
+      user.update :facebook_credentials => credentials
+    else
       user = User.create(provider: provider,
         uid:uid,
+        facebook_credentials:{
+          :token => credentials.token,
+          :expires_at => credentials.expires_at,
+          :expires => true
+          },
         email:email,
         password:Devise.friendly_token[0,20])
     end
@@ -76,5 +84,11 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def token_expired?
+    expiry = Time.at(facebook_credentials["expires_at"].to_i)
+    return true if expiry < Time.now
+    false
   end
 end

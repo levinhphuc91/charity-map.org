@@ -21,8 +21,10 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'newrelic_rpm'
 gem 'nexmo'
+gem 'fb_graph'
 gem 'dalli'
 gem 'memcachier'
+gem 'pry', :group => :development
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'

@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :reconnect_with_facebook
+
+  def reconnect_with_facebook
+    if current_user && current_user.provider == "facebook" && current_user.token_expired?
+      redirect_to omniauth_authorize_path(User, "facebook")
+    end
+  end
 
   protected  
   def configure_permitted_parameters

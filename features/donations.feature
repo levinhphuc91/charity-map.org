@@ -106,7 +106,7 @@ Feature: Donation
 	 		And I should see "Chờ CK"
 	 		And I should see "12.666 "
 	 		And I should see "Đợi Xác Nhận"
-	 		And I should see "Xác nhận"
+	 		And I should see "Đã nhận tiền?"
 	 		And I should see "Thu Tiền Mặt"
 	 		And I should see "12.666 đ"
 	 		And I should see "Đợi Liên Hệ"

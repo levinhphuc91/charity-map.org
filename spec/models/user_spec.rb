@@ -25,6 +25,7 @@
 #  verified_by_phone      :boolean
 #  provider               :string(255)
 #  uid                    :string(255)
+#  facebook_credentials   :hstore
 #
 
 require 'spec_helper'

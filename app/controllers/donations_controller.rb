@@ -4,7 +4,13 @@ class DonationsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
-    @donations = @project.donations
+    if current_user && ((current_user.projects.exists?(@project) != nil) || (current_user.staff))
+      @donations = @project.donations.order("date(updated_at) DESC")
+    else
+      @donations = @project.donations.successful.order("date(updated_at) DESC")
+    end
+    
+    @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
   end
 
   def show

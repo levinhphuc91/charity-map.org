@@ -1,6 +1,41 @@
 .body-container--plain-row
   .body-container--content
-    / TODO: change to :successful
+    - if current_user && ((current_user.projects.exists?(@project) != nil) || (current_user.staff))
+      .row-fluid.sub-headline.righted
+        Sắp xếp theo: &nbsp;
+        = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
+        &sdot;
+        = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
+        &sdot;
+        = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
+      %p 
+    .row-fluid.donation--bar.row-heading{:style => "border-bottom-width: 1px;"}
+      .span1 MÃ
+      .span4.centered DỰ ÁN
+      .span4 SỐ TIỀN / PHƯƠNG THỨC
+      .span3.righted TRẠNG THÁI
+    %p 
     - cache("project_donations", :expires_in => 1.hour) do
-      - @donations.each do |donation|
-        = render "layouts/donation_display", donation: donation
+      - unless params[:sort_by]
+        - @donations.each do |donation|
+          = render "layouts/donation_display", donation: donation
+      - else
+        - case params[:sort_by]
+        - when "updated_at"
+          - @donations.each do |key, donation_arr|
+            .updated_at
+              .sub-headline= human_time(key)
+              - donation_arr.each do |donation|
+                = render "layouts/donation_display", donation: donation
+            %hr
+        - when "collection_method"
+          - @donations.each do |key, donation_arr|
+            .donation_type 
+              .devider
+                .item= human_donation_type(key)
+              - donation_arr.each do |donation|
+                = render "layouts/donation_display", donation: donation
+            %hr/ 
+        - else
+          - @donations.each do |donation|
+            = render "layouts/donation_display", donation: donation

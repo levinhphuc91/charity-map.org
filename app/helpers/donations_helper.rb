@@ -20,4 +20,15 @@ module DonationsHelper
     end
   end
 
+  def sort_donations(donations, sort_by)
+    case sort_by
+    when "updated_at"
+      return donations.group_by { |donation| donation.updated_at.to_date }
+    when "collection_method"
+      return donations.group_by { |donation| donation.collection_method }
+    when "amount"
+      return donations.order("amount DESC")
+    end
+  end
+
 end

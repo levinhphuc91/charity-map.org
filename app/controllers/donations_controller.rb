@@ -1,5 +1,6 @@
 class DonationsController < InheritedResources::Base
   include DonationsHelper
+  include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
@@ -22,9 +23,9 @@ class DonationsController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
+      store_location_with_path(new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
-    # TODO: viet test, add redirect_back
       if @project.accepting_donation?
         new!
       else

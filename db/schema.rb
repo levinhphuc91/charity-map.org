@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 20130921100433) do
   add_index "project_comments", ["project_id"], name: "index_project_comments_on_project_id", using: :btree
   add_index "project_comments", ["user_id"], name: "index_project_comments_on_user_id", using: :btree
 
+  create_table "project_follows", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_follows", ["project_id"], name: "index_project_follows_on_project_id", using: :btree
+  add_index "project_follows", ["user_id"], name: "index_project_follows_on_user_id", using: :btree
+
   create_table "project_rewards", force: true do |t|
     t.float    "amount"
     t.text     "description"

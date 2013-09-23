@@ -1,0 +1,13 @@
+%p Xin chào#{" #{@follower.full_name.split.last}" if @follower.full_name},
+
+%p <b>Charity Map</b> xin thông báo dự án <b>#{link_to @project.title, project_path(@project)}</b> có cập nhật mới.
+
+%p Thông tin cập nhật như sau:
+
+%p 
+  \== Ngày cập nhật: #{human_time(@project_update.created_at)}
+  %br/ 
+  \== Nội dung cập nhật: #{markdown @project_update.content}
+
+%p 
+  www.charity-map.org

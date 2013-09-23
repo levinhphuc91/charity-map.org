@@ -1,16 +1,17 @@
 class ProjectFollowsController < InheritedResources::Base
-
+  actions :all, :except => [ :edit, :update, :destroy ]
   before_filter :authenticate_user!
 
-  def create
-    @project_follow = ProjectFollow.new(params[:project_follow])
+  def initiate
+    @project = Project.find(params[:project_id])
+    @project_follow = @project.project_follows.create(user_id: current_user.id)
     if @project_follow.save
       respond_to do |format|
-        format.json { render :json => @project_follow }
-        format.html { redirect_to project_path(@project), notice: "Bình luận vừa được thêm." }
+        format.js
+        format.html { redirect_to project_path(@project), notice: "Theo đuôi dự án thành công." }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      format.html { redirect_to project_path(@project), alert: "Không thành công. Vui lòng thử lại." }
     end
   end
 

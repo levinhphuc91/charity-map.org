@@ -1,0 +1,9 @@
+%p Xin chào#{" #{@follower.full_name.split.last}" if @follower.full_name},
+
+%p <b>Charity Map</b> xin thông báo dự án <b>#{@project.title}</b> sẽ kết thúc chiến dịch gây quỹ trong 5 ngày tới.
+
+%p 
+  Vui lòng truy cập #{link_to "đường dẫn này", project_url(@project} để biết thêm chi tiết.
+
+%p
+  www.charity-map.org

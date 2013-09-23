@@ -8,12 +8,17 @@ namespace :project do
     # TODO: write mailers
   end
 
-  desc "remind those who follow project before 5 days"
-  task :remind_followers_of_project_before_5_days => :environment do
-  	five_days = Time.now.midnight - 5.days
+  # IMPORTANT: run this once a day
+  # TODO: write tests
+  desc "remind project followers 5 days before project end_date"
+  task :remind_project_followers_5_days_before_end_date => :environment do
+  	five_days = Time.now.midnight + 5.days
   	@projects = Project.where("status = ? AND end_date >= ? AND end_date <= ?", "REVIEWED", five_days.beginning_of_day, five_days.end_of_day)
   	@projects.each do |project|
-  		UserMailer.remind_follower_before_5_days(project).deliver
+      project.project_follows.each do |pf|
+        follower = pf.user
+    		UserMailer.delay.remind_followers_5_days_before_end_date(project, follower)
+      end
   	end
 	end
 end

@@ -17,7 +17,10 @@ class ProjectUpdatesController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @project_update = ProjectUpdate.new(params[:project_update])
     if @project_update.save
-      UserMailer.delay.project_follow_update(@project_update)
+      @project.project_follows.each do |pf|
+        follower = pf.user
+        UserMailer.delay.send_updates_to_project_followers(@project_update, follower)
+      end
       respond_to do |format|
         format.json { render :json => @project_update }
         format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }

@@ -16,4 +16,5 @@ class ProjectFollow < ActiveRecord::Base
 
   attr_accessible  :project_id, :user_id
   validates :user_id, :project_id, presence: true
+  validates :project_id, :uniqueness => {:scope => :user_id}
 end

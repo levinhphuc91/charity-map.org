@@ -71,7 +71,7 @@ class DonationsController < InheritedResources::Base
       SendMessage.delay.fb({
         :link => "http://www.charity-map.org#{project_path(@donation.project)}",
         :message => "#{@donation.user.full_name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if @donation.user.provider == "facebook"
+      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
       redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
     elsif @donation.collection_method == "COD" && @donation.status == "PENDING" && current_user.staff
       @donation.update :status => "SUCCESSFUL"
@@ -79,7 +79,7 @@ class DonationsController < InheritedResources::Base
       SendMessage.delay.fb({
         :link => "http://www.charity-map.org#{project_path(@donation.project)}",
         :message => "#{@donation.user.full_name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if @donation.user.provider == "facebook"
+      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
       redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
     else
       redirect_to dashboard_path, alert: "Permission denied"

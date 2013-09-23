@@ -47,6 +47,14 @@
             = link_to new_project_donation_path(@project) do
               .span12.donate-bttn
                 Ủng Hộ Dự Án
+            
+            #project_follow
+            - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
+              %p Bạn đã quan tâm dự án này.
+            - else
+              = link_to initiate_project_project_follows_path(@project) do
+                .span12.donate-bttn
+                  Quan Tâm
         .container
           .heading-bar
             .sub-headline Cá Nhân / Tổ Chức
@@ -119,16 +127,6 @@
         = image_tag @project.photo_url(:banner), size: "658x230"
       .bordered-box
         %p= markdown @project.description
-        - if (current_user && !@followed_project)
-          = simple_form_for [@project, @project_follow] do |f|
-            = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-            = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-            = f.submit "Follow", class: "follow-project"
-        - elsif @followed_project
-          .following-notice
-            %b Following
-        .following-notice{:style => "display: none;"}
-          %b Following
         .devider
           .item
             %i.icon-list-alt
@@ -176,21 +174,4 @@
 :javascript
   $(document).ready(function(){
     $("#donation-box").sticky({topSpacing:0});
-
-    $(".follow-project").click(function(){
-      var form = $(this).parent("#new_project_follow")
-      var valuesToSubmit = form.serialize();
-      $.ajax({
-        type: "POST",
-        url: form.attr('action'),
-        data: valuesToSubmit,
-        dataType: "JSON" 
-      }).success(function(data){
-        if(data.id){
-          $(".following-notice").show();
-          $(".follow-project").hide();
-        }              
-      });
-      return false; // prevents normal behaviour
-    });
   });

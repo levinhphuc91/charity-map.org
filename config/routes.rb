@@ -26,7 +26,9 @@ CharityMap::Application.routes.draw do
     resources :project_updates
     resources :project_comments
     resources :recommendations
-    resources :project_follows
+    resources :project_follows do
+      get 'initiate', on: :collection
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

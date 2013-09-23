@@ -37,22 +37,16 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Xác nhận đã nhận tiền mặt ủng hộ dự án #{@project.title}")
   end
 
-  def project_follow_update(project_update)
+  def send_updates_to_project_followers(project_update, follower)
     @project_update = project_update
     @project = project_update.project
-    project_follows = @project.project_follows
-    project_follows.each do |pf|
-      @user = pf.user
-      mail(to: @user.email, subject: "Dự án #{@project.title} có cập nhật mới")
-    end    
+    @follower = follower
+    mail(to: follower.email, subject: "Cập nhật mới từ dự án #{@project.title}")
   end
 
-  def remind_follower_before_5_days(project)
+  def remind_followers_5_days_before_end_date(project, follower)
     @project = project
-    project_follows = @project.project_follows
-    project_follows.each do |pf|
-      @user = pf.user
-      mail(to: @user.email, subject: "Dự án #{@project.title} còn 5 ngày để gây quỹ")
-    end
+    @follower = follower
+    mail(to: @follower.email, subject: "Chiến dịch gây quỹ dự án #{@project.title} sẽ kết thúc trong 5 ngày")
   end
 end

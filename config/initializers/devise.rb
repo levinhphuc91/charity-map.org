@@ -229,10 +229,10 @@ Devise.setup do |config|
   require "omniauth-facebook"
   if Rails.env.development?
     config.omniauth :facebook, ENV["STAGING_CM_FACEBOOK_OMNIAUTH_ID"], ENV["STAGING_CM_FACEBOOK_OMNIAUTH_SECRET"],
-     {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+     {:scope => 'email, offline_access, publish_actions', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   else
     config.omniauth :facebook, ENV["CM_FACEBOOK_OMNIAUTH_ID"], ENV["CM_FACEBOOK_OMNIAUTH_SECRET"],
-     {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+     {:scope => 'email, offline_access, publish_actions', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   end  
 
   # ==> Warden configuration

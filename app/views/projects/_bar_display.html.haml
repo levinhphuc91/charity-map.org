@@ -18,7 +18,7 @@
             %i.icon-signout 
             được ủng hộ
         .square-box.pull-left
-          .upper-part.centered= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal, precision: 0
+          .upper-part.centered= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal * 100, precision: 0
           .lower-part.centered
             %i.icon-signal 
             hoàn thành

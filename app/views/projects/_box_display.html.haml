@@ -15,12 +15,12 @@
   .project-footer-bar
     .row-fluid.giving-space
       .project-progressbar
-        .project-progressbar--green{:data_percentage => "#{number_with_precision project.donations.successful.sum(:amount) / project.funding_goal, precision: 0}"}
+        .project-progressbar--green{:data_percentage => "#{number_with_precision project.donations.successful.sum(:amount) * 100/ project.funding_goal, precision: 0}"}
     .row-fluid.giving-space
       .pull-left{style: "width: 80px;"}
-        .project-metric= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal, precision: 0
+        .project-metric= number_to_percentage project.donations.successful.sum(:amount) * 100 / project.funding_goal, precision: 0
         .project-metric--description Hoàn Thành
-      - if project.donations.successful.sum(:amount) / project.funding_goal < 0.15
+      - if project.donations.successful.sum(:amount) * 100/ project.funding_goal < 0.15
         .pull-left{style: "width: 110px;"}
           .project-metric= human_currency project.funding_goal - project.donations.successful.sum(:amount)
           .project-metric--description Cần Kêu Gọi

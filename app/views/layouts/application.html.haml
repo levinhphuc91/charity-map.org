@@ -20,7 +20,6 @@
               %p.alert= alert
       = yield
     = render "layouts/footer"
-  = javascript_include_tag "pages", "data-turbolinks-track" => true
   :javascript
     $(".show-chart").click(function() {
       var bar_display, donation_chart;
@@ -28,3 +27,5 @@
       donation_chart = $(".chart", bar_display);
       return donation_chart.toggle();
     });
+
+    

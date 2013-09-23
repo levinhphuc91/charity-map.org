@@ -35,6 +35,11 @@ Given /^I login via Facebook$/ do
     :uid => '123545',
     :info => {
       "email" => "user@man.net"
+    },
+    :credentials => {
+      :token => 'AAA',
+      :expires_at => '1384944372',
+      :expires => true
     }
   })
   visit('/users/sign_in')

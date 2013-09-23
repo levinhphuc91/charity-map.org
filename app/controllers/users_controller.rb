@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   	@user = User.find(params[:user][:id])
   	if @user.update params[:user]
       if session_exist
-        redirect_back  		  
+        redirect_back
       else
         redirect_to users_settings_path
       end
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     def signed_in_user
       unless signed_in?
         store_location
-        redirect_to new_user_session_path, alert: "Please sign in."
+        redirect_to new_user_session_path, alert: "Bạn cần đăng nhập để tiếp tục."
       end
     end
 end

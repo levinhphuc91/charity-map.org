@@ -177,6 +177,17 @@ Feature: Project
       And I press "Lưu" within ".project"
     Then I should not see "only valid Vimeo or YouTube URLs are allowed"
 
+  @javascript
+  Scenario: AJAX Follow a project
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+      And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "follower@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Theo Dõi"
+    Then I should see "Bắt đầu theo dõi dự án này."
+
   Scenario: Send project update to followers via email
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
@@ -184,8 +195,8 @@ Feature: Project
       And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
     When I login as "follower@man.net"
       And I go to the project page of "Push The World"
-      And I follow "Quan Tâm"
-    Then I should see "Bạn đã quan tâm dự án này."
+      And I follow "Theo Dõi"
+    Then I should see "Bắt đầu theo dõi dự án này."
     When I am not authenticated
       And I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"

@@ -48,13 +48,18 @@
               .span12.donate-bttn
                 Ủng Hộ Dự Án
             
-            #project_follow
+          .cleared
+          %hr
+          #project_follow
             - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
-              %p Bạn đã quan tâm dự án này.
+              .row-fluid
+                .sub-headline.centered Bạn đang theo dõi dự án này
             - else
-              = link_to initiate_project_project_follows_path(@project) do
-                .span12.donate-bttn
-                  Quan Tâm
+              = link_to initiate_project_project_follows_path(@project), remote: true do
+                .row-fluid
+                  .span12.donate-bttn
+                    Theo Dõi
+
         .container
           .heading-bar
             .sub-headline Cá Nhân / Tổ Chức

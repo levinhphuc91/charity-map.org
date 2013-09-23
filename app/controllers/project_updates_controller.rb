@@ -18,13 +18,14 @@ class ProjectUpdatesController < InheritedResources::Base
     @project_update = ProjectUpdate.new(params[:project_update])
     if @project_update.save
       @project.project_follows.each do |pf|
-        follower = pf.user
-        UserMailer.delay.send_updates_to_project_followers(@project_update, follower)
+        UserMailer.delay.send_updates_to_project_followers(@project_update, pf.user)
+      end
+      @project.donations.successful.each do |donation|
+        UserMailer.delay.send_updates_to_project_followers(@project_update, donation.donor)
       end
       respond_to do |format|
         format.json { render :json => @project_update }
         format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
-        # TODO: send emails to donors
       end
     else
       render :new, alert: "Không thành công. Vui lòng thử lại."

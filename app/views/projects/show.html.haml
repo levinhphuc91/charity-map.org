@@ -120,7 +120,7 @@
           .heading-bar
             .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.successful.count})
           - cache("project_donations", :expires_in => 1.hour) do
-            - @project.donations[0..4].each do |donation|
+            - @project.donations.successful[0..4].each do |donation|
               %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
           - if @project.donations.count > 5
             .row-fluid
@@ -141,7 +141,7 @@
         - cache("project_updates", :expires_in => 12.hours) do
           #project_updates
             - if @project.project_updates.empty?
-              Hiện chưa có cập nhật nào.
+              %p Hiện chưa có cập nhật nào.
             - else
               - @project.project_updates.each do |update|
                 .row-fluid

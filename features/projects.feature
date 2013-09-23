@@ -118,7 +118,6 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Thêm Cập Nhật"
     Then I should see "Permission denied."
-    # TODO: add rake task to change STATUS to FINISHED after funding time
 
   Scenario: Add new reward on edit project page
     Given the date is 2013-09-11

@@ -8,6 +8,10 @@
           = image_tag("default_avatar.png", size: "50x50")
     .row-fluid.centered
       .sub-headline= @user.full_name
+    - if(@user != current_user)
+      .row-fluid
+        .span12
+          = link_to "Gửi tin nhắn", new_message_users_path(current_user, :receiver => @user.email)
 
     .row-fluid
       .devider

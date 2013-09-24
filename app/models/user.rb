@@ -36,7 +36,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
-
+ acts_as_messageable  :table_name => "messages",
+                      :required   => :body,
+                      :class_name => "ActsAsMessageable::Message",
+                      :dependent  => :destroy,
+                      :group_messages => false
+                      
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
     :staff, :verified_by_phone, :provider, :uid, :facebook_credentials

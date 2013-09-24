@@ -69,4 +69,9 @@ module ApplicationHelper
       "SUCCESSFUL", seven_days.beginning_of_day, Time.now.midnight.end_of_day).group("date(created_at), project_id")
     return donations
   end
+
+  def full_name_by_id(id)
+    user = User.find(id)
+    return user.full_name
+  end
 end

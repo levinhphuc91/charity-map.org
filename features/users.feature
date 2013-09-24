@@ -130,3 +130,21 @@ Feature: User
       And I fill in "phone_code" with "123456"
       And I press "Xác Nhận"
     Then I should see "Xác nhận danh tính bằng số điện thoại hoàn tất."
+
+  Scenario: User message each other
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456" and the id "1"
+    And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "2"
+    When I login as "vumanhcuong01@gmail.com"
+      And I go to the profile of user "2"
+      And I follow "Gửi tin nhắn"      
+    Then I fill in "acts_as_messageable_message_body" with "First Message"
+      And I press "Gửi tin nhắn"
+    Then I should see "Tin nhắn đã được gửi đi."
+      And I follow "Đăng Xuất"
+      And I login as "testing@man.net"
+    When I go to the dashboard page
+      And I should see "First Message"
+      And I follow "Trả lời"
+    Then I fill in "acts_as_messageable_message_body" with "Reply"
+      And I press "Trả lời tin nhắn"
+    Then I should see "Tin nhắn đã được gửi đi."

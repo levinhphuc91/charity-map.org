@@ -28,6 +28,15 @@ CharityMap::Application.routes.draw do
     resources :recommendations
   end
 
+  resources :users, :except => [ :create, :new ] do
+    get "show_message", :on => :collection
+    get "new_message", :on => :collection
+    get "new_reply_message", :on => :collection
+    post "create_message", :on => :collection
+    post "reply_message", :on => :collection
+    resources :store
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with 'rake routes'.
 

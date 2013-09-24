@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, except: :profile
 
   def dashboard 
+    @messages = current_user.messages
   end
 
   def profile
@@ -45,6 +46,35 @@ class UsersController < ApplicationController
         redirect_to users_settings_path, alert: "Permission denied."
       end
     end
+  end
+
+  def show_message
+    @message = current_user.messages.with_id(params[:message_id]).first
+  end
+
+  def new_message
+    @to_email = params[:receiver]
+    @message = ActsAsMessageable::Message.new
+  end
+
+  def create_message
+    to_email = params[:acts_as_messageable_message][:receiver]
+    @receiver = User.find_by_email(to_email)
+    current_user.send_message(@receiver, params[:acts_as_messageable_message][:body])
+    redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
+  end
+
+  def new_reply_message
+    @parent_message_id = params[:message_id]
+    @parent_message = current_user.messages.with_id(params[:message_id]).first
+    @message = ActsAsMessageable::Message.new
+  end
+
+  def reply_message
+    @message = current_user.messages.with_id(params[:acts_as_messageable_message][:parent_message_id].to_i)
+    @message.first.reply(params[:acts_as_messageable_message][:body])
+    # redirect_to :back, notice: "Tin nhắn đã được gửi đi"
+    redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
   end
 
 end

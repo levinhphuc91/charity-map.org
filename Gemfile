@@ -16,6 +16,7 @@ gem 'time_difference'
 gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
 gem 'redcarpet' # Markdown support
 gem 'activerecord-session_store'
+gem 'acts-as-messageable'
 
 gem 'omniauth'
 gem 'omniauth-facebook'

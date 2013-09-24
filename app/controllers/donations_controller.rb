@@ -1,5 +1,6 @@
 class DonationsController < InheritedResources::Base
   include DonationsHelper
+  include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
@@ -22,9 +23,9 @@ class DonationsController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
+      store_location_with_path(new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
-    # TODO: viet test, add redirect_back
       if @project.accepting_donation?
         new!
       else
@@ -71,7 +72,7 @@ class DonationsController < InheritedResources::Base
       SendMessage.delay.fb({
         :link => "http://www.charity-map.org#{project_path(@donation.project)}",
         :message => "#{@donation.user.full_name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if @donation.user.provider == "facebook"
+      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
       redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
     elsif @donation.collection_method == "COD" && @donation.status == "PENDING" && current_user.staff
       @donation.update :status => "SUCCESSFUL"
@@ -79,7 +80,7 @@ class DonationsController < InheritedResources::Base
       SendMessage.delay.fb({
         :link => "http://www.charity-map.org#{project_path(@donation.project)}",
         :message => "#{@donation.user.full_name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if @donation.user.provider == "facebook"
+      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
       redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
     else
       redirect_to dashboard_path, alert: "Permission denied"

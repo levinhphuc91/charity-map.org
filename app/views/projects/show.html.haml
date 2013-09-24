@@ -2,7 +2,7 @@
   .body-container--plain-row
     .body-container--content
       .notice Trạng thái: #{human_project_status(@project).html_safe}
-
+    
 .project-show
   .body-container--plain-row
     .body-container--content
@@ -47,6 +47,19 @@
             = link_to new_project_donation_path(@project) do
               .span12.donate-bttn
                 Ủng Hộ Dự Án
+            
+          .cleared
+          %hr
+          #project_follow
+            - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
+              .row-fluid
+                .sub-headline.centered Bạn đang theo dõi dự án này
+            - else
+              = link_to initiate_project_project_follows_path(@project), remote: true do
+                .row-fluid
+                  .span12.donate-bttn
+                    Theo Dõi
+
         .container
           .heading-bar
             .sub-headline Cá Nhân / Tổ Chức
@@ -107,7 +120,7 @@
           .heading-bar
             .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.successful.count})
           - cache("project_donations", :expires_in => 1.hour) do
-            - @project.donations[0..4].each do |donation|
+            - @project.donations.successful[0..4].each do |donation|
               %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
           - if @project.donations.count > 5
             .row-fluid
@@ -128,7 +141,7 @@
         - cache("project_updates", :expires_in => 12.hours) do
           #project_updates
             - if @project.project_updates.empty?
-              Hiện chưa có cập nhật nào.
+              %p Hiện chưa có cập nhật nào.
             - else
               - @project.project_updates.each do |update|
                 .row-fluid

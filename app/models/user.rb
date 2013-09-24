@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :projects # admin relationship
   has_many :recommendations
   has_many :verifications
+  has_many :project_follows
   
   has_defaults staff: false, verified_by_phone: false
 

@@ -15,5 +15,3 @@ class SendMessage
     end
   end
 end
-
-# TODO: add charity map logo #square

@@ -140,7 +140,7 @@ Feature: User
     Then I fill in "acts_as_messageable_message_body" with "First Message"
       And I press "Gửi tin nhắn"
     Then I should see "Tin nhắn đã được gửi đi."
-      And I follow "Đăng Xuất"
+      And I am not authenticated
       And I login as "testing@man.net"
     When I go to the dashboard page
       And I should see "First Message"

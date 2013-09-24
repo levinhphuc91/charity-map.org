@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130921100433) do
+ActiveRecord::Schema.define(version: 20130923113623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,26 @@ ActiveRecord::Schema.define(version: 20130921100433) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "messages", force: true do |t|
+    t.string   "topic"
+    t.text     "body"
+    t.integer  "received_messageable_id"
+    t.string   "received_messageable_type"
+    t.integer  "sent_messageable_id"
+    t.string   "sent_messageable_type"
+    t.boolean  "opened",                     default: false
+    t.boolean  "recipient_delete",           default: false
+    t.boolean  "sender_delete",              default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "ancestry"
+    t.boolean  "recipient_permanent_delete", default: false
+    t.boolean  "sender_permanent_delete",    default: false
+  end
+
+  add_index "messages", ["ancestry"], name: "index_messages_on_ancestry", using: :btree
+  add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids", using: :btree
+
   create_table "project_comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -79,6 +99,16 @@ ActiveRecord::Schema.define(version: 20130921100433) do
 
   add_index "project_comments", ["project_id"], name: "index_project_comments_on_project_id", using: :btree
   add_index "project_comments", ["user_id"], name: "index_project_comments_on_user_id", using: :btree
+
+  create_table "project_follows", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_follows", ["project_id"], name: "index_project_follows_on_project_id", using: :btree
+  add_index "project_follows", ["user_id"], name: "index_project_follows_on_user_id", using: :btree
 
   create_table "project_rewards", force: true do |t|
     t.float    "amount"

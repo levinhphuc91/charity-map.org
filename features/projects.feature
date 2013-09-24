@@ -118,11 +118,11 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Thêm Cập Nhật"
     Then I should see "Permission denied."
-    # TODO: add rake task to change STATUS to FINISHED after funding time
 
   Scenario: Add new reward on edit project page
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
@@ -131,7 +131,8 @@ Feature: Project
     Then I should see "99.999 đ"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
     And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the project page of "Push The World"
@@ -143,8 +144,9 @@ Feature: Project
       And I should see "[Edit]" within ".edit_recommendation"
 
   Scenario: Add new comment on project page
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the project page of "Push The World"
       And I fill in "project_comment_content" with "It's a new comment" within ".project_comment"
@@ -152,8 +154,9 @@ Feature: Project
     Then I should see "It's a new comment"
 
   Scenario: Allows only Youtube or Vimeo video link
-    Given there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
       And I fill in "project_video" with "www.google.com"
@@ -172,6 +175,39 @@ Feature: Project
       And I fill in "project_video" with "https://vimeo.com/63387028"
       And I press "Lưu" within ".project"
     Then I should not see "only valid Vimeo or YouTube URLs are allowed"
+
+  @javascript
+  Scenario: AJAX Follow a project
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+      And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "follower@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Theo Dõi"
+    Then I should see "Bắt đầu theo dõi dự án này."
+
+  Scenario: Send project update to followers via email
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+      And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "follower@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Theo Dõi"
+    Then I should see "Bắt đầu theo dõi dự án này."
+    When I am not authenticated
+      And I login as "testing@man.net"
+      And I go to the edit page of the project "Push The World"
+      And I follow "Thêm Cập Nhật"
+      And I fill in "project_update_content" with "Test Content"
+      And I press "Cập Nhật"
+    Then an email should have been sent with:
+      """
+      From: tu@charity-map.org
+      To: follower@man.net
+      Subject: Cập nhật mới từ dự án Push The World
+      """
 
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11

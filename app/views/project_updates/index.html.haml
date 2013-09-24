@@ -1,6 +1,5 @@
 .body-container--plain-row
   .body-container--content
-    / TODO: change to :successful
     - @project_updates.each do |update|
       .row-fluid
         %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}

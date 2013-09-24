@@ -35,11 +35,11 @@
 							= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
 								= f.input  :id, :as => :hidden
 								= f.inputs :email
-								= f.input  :full_name, input_html: { disabled: true } unless current_user.phone.blank?
+								= f.input  :full_name #, input_html: { disabled: true } unless current_user.phone.blank?
 								= f.input  :address
 								= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
 								= f.input :bio, :input_html => { :cols => 50, :rows => 3 }
-								= f.input :phone, input_html: { disabled: true } unless current_user.phone.blank?
+								= f.input :phone #, input_html: { disabled: true } unless current_user.phone.blank?
 								= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
 								= f.file_field :avatar 
 								= f.hidden_field :avatar_cache 

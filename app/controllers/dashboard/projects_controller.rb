@@ -7,4 +7,7 @@ class Dashboard::ProjectsController < InheritedResources::Base
     !index
   end
 
+  def donations
+  end
+
 end

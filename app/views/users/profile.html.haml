@@ -1,39 +1,56 @@
 .body-container--plain-row
   .body-container--content
-    .row-fluid.centered
-      .span12
-        - if @user.avatar? 
-          = image_tag(@user.avatar_url(:medium)) 
-        - else
-          = image_tag("default_avatar.png", size: "50x50")
-    .row-fluid.centered
-      .sub-headline= @user.full_name
-    - if(@user != current_user)
-      .row-fluid
+    .dashboard--sidebar
+      .chunk
+        .line.heading
+          %i.icon-user 
+          Cá Nhân
+        .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
+        .line= link_to "Trang Cá Nhân", user_profile_path( current_user)
+        .line= link_to "Xác Nhận Tài Khoản", users_verify_path
+        .line #{link_to "Tin Nhắn", messages_path}
+        .line= link_to "Đóng Góp", users_donations_path
+      .chunk
+        .line.heading
+          %i.icon-gears 
+          Hệ Thống
+        .line Tin Tức, Cập Nhật
+        .line.disabled Gửi Góp Ý
+    .dashboard--main
+      .row-fluid.centered
         .span12
-          = link_to "Gửi tin nhắn", new_message_users_path(current_user, :receiver => @user.email)
+          - if @user.avatar? 
+            = image_tag(@user.avatar_url(:medium)) 
+          - else
+            = image_tag("default_avatar.png", size: "50x50")
+      .row-fluid.centered
+        .sub-headline= @user.full_name
+      - if(@user != current_user)
+        .row-fluid
+          .span12
+            = link_to "Gửi tin nhắn", new_message_users_path(current_user, :receiver => @user.email)
 
-    .row-fluid
-      .devider
-        .item Dự Án
-    - if @user.projects.public_view.empty?
-      Hiện chưa có dự án nào được ghi nhận trên hệ thống.
-    - else
       .row-fluid
-        - cache("public_projects", :expires_in => 12.hours) do
-          - @user.projects.public_view.each do |project|
-            = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
+        .devider
+          .item Dự Án
+      - if @user.projects.public_view.empty?
+        Hiện chưa có dự án nào được ghi nhận trên hệ thống.
+      - else
+        .row-fluid
+          - cache("public_projects", :expires_in => 12.hours) do
+            - @user.projects.public_view.each do |project|
+              = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
 
-    .row-fluid
-      .devider
-        .item Danh Sách Đóng Góp
-    - if @user.donations.empty?
-      Hiện chưa có đóng góp nào được ghi nhận trên hệ thống.
-    - else
-      .row-fluid.donation--bar.row-heading
-        .span1 MÃ
-        .span4.centered DỰ ÁN
-        .span4 SỐ TIỀN / PHƯƠNG THỨC
-        .span3.righted TRẠNG THÁI
-      - @user.donations.successful.each do |donation|
-        = render "layouts/donation_display", donation: donation
+      .row-fluid
+        .devider
+          .item Danh Sách Đóng Góp
+      - if @user.donations.empty?
+        Hiện chưa có đóng góp nào được ghi nhận trên hệ thống.
+      - else
+        .row-fluid.donation--bar.row-heading
+          .span1 MÃ
+          .span4.centered DỰ ÁN
+          .span4 SỐ TIỀN / PHƯƠNG THỨC
+          .span3.righted TRẠNG THÁI
+        - @user.donations.successful.each do |donation|
+          = render "layouts/donation_display", donation: donation

@@ -4,6 +4,7 @@ CharityMap::Application.routes.draw do
   get   'users/settings'
   get   'users/messages', as: :messages
   get   'users/donations'
+  get   'users/verify'
   post  'users/update_settings'
   post  'users/verification_code_via_phone'
   get   'user/:id', to: 'users#profile', as: :user_profile

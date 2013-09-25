@@ -3,7 +3,8 @@ require 'sms'
 class UsersController < ApplicationController
   include SessionsHelper
   before_filter :authenticate_user!, except: :profile
-  layout "layouts/dashboard", only: [:dashboard, :settings, :messages, :donations]
+  layout "layouts/dashboard",
+    only: [:dashboard, :settings, :messages, :donations, :verify]
 
   def dashboard
   end
@@ -17,6 +18,9 @@ class UsersController < ApplicationController
   end
 
   def donations
+  end
+
+  def verify
   end
 
   def update_settings

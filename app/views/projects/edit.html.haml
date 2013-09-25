@@ -6,59 +6,13 @@
         Chỉnh Sửa Thông Tin: #{@project.title}
       .note
         #{link_to "Đến Trang Dự Án", @project}
+        &sdot;
+        #{link_to "Về lại Trang Quản Lý", dashboard_project_path(@project)}
         - if @project.status == "DRAFT"
           &sdot;
           = link_to "Đăng Ký Gây Vốn", projects_submit_path(id: @project.id)
 
     = render 'form'
-
-    .devider
-      .item
-        %i.icon-money 
-        Các Mức Đóng Góp
-      .note &sdot; thấp nhất 10.000đ
-    .row-fluid
-      .span4.project_rewards
-        - @project.project_rewards.each do |reward|
-          .row-fluid
-            %p
-              %b #{human_currency reward.amount}
-              %br/ 
-              = reward.description
-
-      .span8
-        = simple_form_for [@project, @project_reward], remote: true do |f|
-          .row-fluid
-            - if @project_reward.errors.any?
-              #error_explanation
-                %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
-                %ul
-                  - @project_reward.errors.full_messages.each do |msg|
-                    %li= msg
-          .row-fluid
-            .span3
-              = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-              .sub-headline Mức Tài Trợ <br/>
-              = f.input :amount, label: false, :input_html => {:class => "span12"}
-            .span9
-              .sub-headline Điều Khoản Tài Trợ <br/>
-              = f.input :description, label: false, :input_html => {:class => "span12"}
-          .row-fluid
-            .pull-right= f.submit "Lưu", class: "submit"
-          / = link_to 'Thêm Mốc Tài Trợ', new_project_project_reward_path(@project)
-
-    .devider
-      .item
-        %i.icon-calendar 
-        Cập Nhật Dự Án
-      .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
-      - @project.project_updates.each do |update|
-        .row-fluid
-          .span6
-            = image_tag update.photo_url, :class => "image_update" if update.photo?
-          .span6
-            .sub-headline= human_time update.created_at
-            %p= update.content
 
 :javascript
   $(document).ready(function() {

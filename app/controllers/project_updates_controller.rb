@@ -31,7 +31,7 @@ class ProjectUpdatesController < InheritedResources::Base
       end
       respond_to do |format|
         format.json { render :json => @project_update }
-        format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
+        format.html { redirect_to project_project_updates_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
       end
     else
       render :new, alert: "Không thành công. Vui lòng thử lại."

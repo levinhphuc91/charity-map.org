@@ -1,8 +1,32 @@
 .devider
   .item Đề Mục Đóng Góp
-  .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; #{link_to 'Thêm Đề Mục', new_project_project_reward_path(@project)}
+  .note Dự án: #{link_to @project.title, project_path(@project)}
 - @project_rewards.each do |reward|
   .row-fluid
-    %h4 #{link_to "#{human_time reward.updated_at}", project_project_reward_path(@project, reward)}
+    %h4= human_currency reward.amount
     %p 
       #{reward.description}
+
+.devider
+  .item
+    %i.icon-money 
+    Các Mức Đóng Góp
+  .note &sdot; thấp nhất 10.000đ
+= simple_form_for [@project, @project_reward], remote: true do |f|
+  .row-fluid
+    - if @project_reward.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
+        %ul
+          - @project_reward.errors.full_messages.each do |msg|
+            %li= msg
+  .row-fluid
+    .span3
+      = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+      .sub-headline Mức Tài Trợ <br/>
+      = f.input :amount, label: false, :input_html => {:class => "span12"}
+    .span9
+      .sub-headline Điều Khoản Tài Trợ <br/>
+      = f.input :description, label: false, :input_html => {:class => "span12"}
+  .row-fluid
+    .pull-right= f.submit "Lưu", class: "submit"

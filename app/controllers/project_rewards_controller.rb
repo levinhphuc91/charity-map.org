@@ -5,6 +5,7 @@ class ProjectRewardsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
+    @project_reward = ProjectReward.new
     index!
   end
 
@@ -20,7 +21,7 @@ class ProjectRewardsController < InheritedResources::Base
       respond_to do |format|
         format.js
         # format.json { render :json => @project_reward }
-        format.html { redirect_to edit_project_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
+        format.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
       end
     else
       render :new, alert: "Không thành công. Vui lòng thử lại."

@@ -85,9 +85,12 @@ Feature: Project
       And I follow "Đăng Ký Gây Vốn"
     Then I should see "Phải có ít nhất một Đề mục đóng góp (project reward)."
     When I go to the edit page of the project "Push The World"
+      And I follow "Về lại Trang Quản Lý"
+      And I follow "Đề Mục Đóng Góp"
       And I fill in "project_reward_amount" with "100000"
       And I fill in "project_reward_description" with "Test Description"
       And I press "Lưu" within ".project_reward"
+    When I go to the edit page of the project "Push The World"
       And I follow "Đăng Ký Gây Vốn"
     Then I should see "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
 
@@ -105,6 +108,8 @@ Feature: Project
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
+      And I follow "Về lại Trang Quản Lý"
+      And I follow "Cập Nhật"
       And I follow "Thêm Cập Nhật"
       And I fill in "project_update_content" with "Test Content"
       And I press "Cập Nhật"
@@ -117,15 +122,19 @@ Feature: Project
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "DRAFT" with the user above 
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
+      And I follow "Về lại Trang Quản Lý"
+      And I follow "Cập Nhật"
       And I follow "Thêm Cập Nhật"
     Then I should see "Permission denied."
 
-  Scenario: Add new reward on edit project page
+  Scenario: Add new reward on dashboard/project page
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
+      And I follow "Về lại Trang Quản Lý"
+      And I follow "Đề Mục Đóng Góp"
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
       And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
@@ -200,6 +209,8 @@ Feature: Project
     When I am not authenticated
       And I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
+      And I follow "Về lại Trang Quản Lý"
+      And I follow "Cập Nhật"
       And I follow "Thêm Cập Nhật"
       And I fill in "project_update_content" with "Test Content"
       And I press "Cập Nhật"

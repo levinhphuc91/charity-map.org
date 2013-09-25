@@ -4,6 +4,7 @@ class RecommendationsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
+    @recommendations = @project.recommendations
     index!
   end
 

@@ -18,7 +18,7 @@
         .line.disabled Gửi Góp Ý
     .dashboard--main
       .row-fluid.centered
-        .span12
+        %th 
           - if @user.avatar? 
             = image_tag(@user.avatar_url(:medium)) 
           - else
@@ -41,16 +41,11 @@
             - @user.projects.public_view.each do |project|
               = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
 
+      %hr/
       .row-fluid
         .devider
           .item Danh Sách Đóng Góp
-      - if @user.donations.empty?
+      - if @user.donations.successful.empty?
         Hiện chưa có đóng góp nào được ghi nhận trên hệ thống.
       - else
-        .row-fluid.donation--bar.row-heading
-          .span1 MÃ
-          .span4.centered DỰ ÁN
-          .span4 SỐ TIỀN / PHƯƠNG THỨC
-          .span3.righted TRẠNG THÁI
-        - @user.donations.successful.each do |donation|
-          = render "layouts/donation_display", donation: donation
+        = render "layouts/donation_display", donations: @user.donations.successful

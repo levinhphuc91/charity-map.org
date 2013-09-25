@@ -5,12 +5,5 @@
   - if current_user.donations.empty?
     %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
   - else
-    %table.table.table-bordered{:style => "width: 100%;"}
-      %tr
-        %th{:style => "width: 10%;"} MÃ
-        %th{:style => "width: 35%;"} DỰ ÁN
-        %th{:style => "width: 35%;"} SỐ TIỀN / PHƯƠNG THỨC
-        %th{:style => "width: 20%;"} TRẠNG THÁI
-      - cache("user_donations", :expires_in => 12.hours) do
-        - current_user.donations.each do |donation|
-          = render "layouts/donation_display", donation: donation
+    - cache("user_donations", :expires_in => 12.hours) do
+      = render "layouts/donation_display", donations: current_user.donations

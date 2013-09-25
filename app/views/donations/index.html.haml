@@ -9,33 +9,23 @@
         &sdot;
         = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
       %p 
-    %table.table.table-bordered
-      %tr 
-        %th MÃ
-        %th DỰ ÁN
-        %th SỐ TIỀN / PHƯƠNG THỨC
-        %th TRẠNG THÁI
-      - cache("project_donations", :expires_in => 1.hour) do
-        - unless params[:sort_by]
-          - @donations.each do |donation|
-            = render "layouts/donation_display", donation: donation
+    - cache("project_donations", :expires_in => 1.hour) do
+      - unless params[:sort_by]
+        = render "layouts/donation_display", donations: @donations
+      - else
+        - case params[:sort_by]
+        - when "updated_at"
+          - @donations.each do |key, donation_arr|
+            .updated_at
+              .sub-headline= human_time(key)
+              = render "layouts/donation_display", donations: donation_arr
+            %hr
+        - when "collection_method"
+          - @donations.each do |key, donation_arr|
+            .donation_type 
+              .devider
+                .item= human_donation_type(key)
+              = render "layouts/donation_display", donations: donation_arr
+            %hr/ 
         - else
-          - case params[:sort_by]
-          - when "updated_at"
-            - @donations.each do |key, donation_arr|
-              .updated_at
-                .sub-headline= human_time(key)
-                - donation_arr.each do |donation|
-                  = render "layouts/donation_display", donation: donation
-              %hr
-          - when "collection_method"
-            - @donations.each do |key, donation_arr|
-              .donation_type 
-                .devider
-                  .item= human_donation_type(key)
-                - donation_arr.each do |donation|
-                  = render "layouts/donation_display", donation: donation
-              %hr/ 
-          - else
-            - @donations.each do |donation|
-              = render "layouts/donation_display", donation: donation
+          = render "layouts/donation_display", donations: @donations

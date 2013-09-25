@@ -5,6 +5,7 @@ class ProjectUpdatesController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
+    @project_updates = @project.project_updates
     index!
   end
 

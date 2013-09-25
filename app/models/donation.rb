@@ -32,6 +32,11 @@ class Donation < ActiveRecord::Base
     :amount, :collection_method, presence: true
   validate :amount_can_not_be_smaller_than_least_reward
 
+  def belongs_to?(target_user)
+    return true if self.user == target_user
+    false
+  end
+
   private
 
     def amount_can_not_be_smaller_than_least_reward

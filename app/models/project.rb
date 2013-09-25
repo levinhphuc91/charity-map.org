@@ -58,6 +58,11 @@ class Project < ActiveRecord::Base
     # && start_date < Date.today && end_date > Date.today
   end
 
+  def belongs_to?(target_user)
+    return true if self.user == target_user
+    false
+  end
+
   private
     def assign_status
       self.status = "DRAFT" if status == nil

@@ -1,4 +1,4 @@
-- if current_user && current_user.projects.exists?(@project)
+- if current_user && @project.belongs_to?(current_user)
   .body-container--plain-row
     .body-container--content
       .notice Trạng thái: #{human_project_status(@project).html_safe}

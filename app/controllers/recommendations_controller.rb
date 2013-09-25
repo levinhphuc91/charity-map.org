@@ -1,5 +1,7 @@
 class RecommendationsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :limited_access, only: [:new, :create]
+  include SessionsHelper
   # layout "layouts/dashboard"
 
   def index
@@ -14,7 +16,7 @@ class RecommendationsController < InheritedResources::Base
       new!
     else
       store_location_with_path(new_project_recommendation_path(@project))
-      redirect_to users_settings_path, alert: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT hoặc CMND) trước khi viết giới thiệu cho dự án #{@project.title}."
+      redirect_to users_verify_path, alert: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án #{@project.title}."
     end
   end
 
@@ -30,5 +32,13 @@ class RecommendationsController < InheritedResources::Base
       render :new, alert: "Không thành công. Vui lòng thử lại."
     end
   end
+
+  private
+    def limited_access
+      @project = Project.find(params[:project_id])
+      if @project.belongs_to?(current_user)
+        redirect_to project_path(@project), alert: "Permission denied."
+      end
+    end
 
 end

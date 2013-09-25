@@ -8,9 +8,14 @@
     .project-title= link_to project.title, project_path(project)
     .project-info
       %i.icon-user 
-      #{project.user.full_name} / 
+      #{project.user.full_name}
+      &sdot;
       %i.icon-map-marker 
       #{project.location}
+      - if project.recommendations.count > 0
+        &sdot;
+        %i.icon-thumbs-up
+        = project.recommendations.count
   .project-description.giving-space= project.brief.html_safe
   .project-footer-bar
     .row-fluid.giving-space

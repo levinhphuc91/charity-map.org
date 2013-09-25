@@ -1,6 +1,6 @@
 .body-container--plain-row
   .body-container--content
-    - if current_user && ((current_user.projects.exists?(@project) != nil) || (current_user.staff))
+    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
       .row-fluid.sub-headline.righted
         Sắp xếp theo: &nbsp;
         = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")

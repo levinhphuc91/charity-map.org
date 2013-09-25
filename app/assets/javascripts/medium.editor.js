@@ -1,8 +1,6 @@
-/*global console*/
-
-function MediumEditor(elements, options) {
+function MediumEditor(selector, options) {
     'use strict';
-    return this.init(elements, options);
+    return this.init(selector, options);
 }
 
 (function (window, document) {
@@ -60,14 +58,6 @@ function MediumEditor(elements, options) {
         selection.addRange(range);
     }
 
-    // http://stackoverflow.com/questions/1197401/how-can-i-get-the-element-the-caret-is-in-with-javascript-when-using-contentedi
-    // by You
-    function getSelectionStart() {
-        var node = document.getSelection().anchorNode,
-            startNode = (node && node.nodeType === 3 ? node.parentNode : node);
-        return startNode;
-    }
-
     MediumEditor.prototype = {
 
         defaults: {
@@ -80,16 +70,15 @@ function MediumEditor(elements, options) {
             delay: 0
         },
 
-        init: function (elements, options) {
-            this.elements = typeof elements === 'string' ? document.querySelectorAll(elements) : elements;
+        init: function (selector, options) {
+            this.elements = document.querySelectorAll(selector);
             if (this.elements.length === 0) {
                 return;
             }
-            this.isActive = true;
             this.parentElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'q'];
             this.id = document.querySelectorAll('.medium-editor-toolbar').length + 1;
             this.options = extend(options, this.defaults);
-            return this.initElements()
+            return this.initElements(selector)
                        .initToolbar()
                        .bindSelect()
                        .bindButtons()
@@ -97,7 +86,7 @@ function MediumEditor(elements, options) {
                        .bindWindowActions();
         },
 
-        initElements: function () {
+        initElements: function (selector) {
             var i;
             for (i = 0; i < this.elements.length; i += 1) {
                 this.elements[i].setAttribute('contentEditable', true);
@@ -108,14 +97,8 @@ function MediumEditor(elements, options) {
 
         bindParagraphCreation: function (el) {
             el.addEventListener('keyup', function (e) {
-                var node = getSelectionStart();
-                if (node) {
-                    node = node.tagName.toLowerCase();
-                }
                 if (e.which === 13 && !e.shiftKey) {
-                    if (node !== 'q') {
-                        document.execCommand('formatBlock', false, 'p');
-                    }
+                    document.execCommand('formatBlock', false, 'p');
                 }
             });
         },
@@ -156,16 +139,16 @@ function MediumEditor(elements, options) {
         bindSelect: function () {
             var self = this,
                 timer = '',
+                checkSelectionWrapper = function (e) {
+                    clearTimeout(timer);
+                    setTimeout(function () {
+                        self.checkSelection(e);
+                    }, self.options.delay);
+                },
                 i;
-            this.checkSelectionWrapper = function (e) {
-                clearTimeout(timer);
-                setTimeout(function () {
-                    self.checkSelection(e);
-                }, self.options.delay);
-            };
             for (i = 0; i < this.elements.length; i += 1) {
-                this.elements[i].addEventListener('mouseup', this.checkSelectionWrapper);
-                this.elements[i].addEventListener('keyup', this.checkSelectionWrapper);
+                this.elements[i].onmouseup = checkSelectionWrapper;
+                this.elements[i].onkeyup = checkSelectionWrapper;
             }
             return this;
         },
@@ -180,8 +163,8 @@ function MediumEditor(elements, options) {
                     this.selection = newSelection;
                     this.selectionRange = this.selection.getRangeAt(0);
                     this.toolbar.style.display = 'block';
-                    this.setToolbarButtonStates()
-                        .setToolbarPosition()
+                    this.setToolbarPosition()
+                        .setToolbarButtonStates()
                         .showToolbarActions();
                 }
             }
@@ -257,15 +240,8 @@ function MediumEditor(elements, options) {
                     self.execAction(this.getAttribute('data-action'), e);
                 };
             for (i = 0; i < buttons.length; i += 1) {
-                buttons[i].addEventListener('click', triggerAction);
+                buttons[i].onclick = triggerAction;
             }
-            this.setFirstAndLastItens(buttons);
-            return this;
-        },
-
-        setFirstAndLastItens: function (buttons) {
-            buttons[0].className += ' medium-editor-button-first';
-            buttons[buttons.length - 1].className += ' medium-editor-button-last';
             return this;
         },
 
@@ -332,12 +308,12 @@ function MediumEditor(elements, options) {
 
         bindElementToolbarEvents: function (el) {
             var self = this;
-            el.addEventListener('mouseup', function (e) {
+            el.onmouseup = function (e) {
                 self.checkSelection(e);
-            });
-            el.addEventListener('keyup', function (e) {
+            };
+            el.onkeyup = function (e) {
                 self.checkSelection(e);
-            });
+            };
         },
 
         showToolbarActions: function () {
@@ -348,11 +324,11 @@ function MediumEditor(elements, options) {
             this.keepToolbarAlive = false;
             clearTimeout(timer);
             timer = setTimeout(function () {
-                document.addEventListener('click', function (e) {
+                document.onclick = function (e) {
                     self.keepToolbarAlive = false;
                     self.toolbar.style.display = 'none';
-                    document.removeEventListener('click', this);
-                });
+                    this.onclick = '';
+                };
             }, 300);
         },
 
@@ -371,21 +347,21 @@ function MediumEditor(elements, options) {
                 linkCancel = this.anchorForm.querySelector('a'),
                 self = this;
 
-            this.anchorForm.addEventListener('click', function (e) {
+            this.anchorForm.onclick = function (e) {
                 e.stopPropagation();
-            });
+            };
 
-            input.addEventListener('keyup', function (e) {
+            input.onkeyup = function (e) {
                 if (e.keyCode === 13) {
                     e.preventDefault();
                     self.createLink(this);
                 }
-            });
+            };
 
-            linkCancel.addEventListener('click', function (e) {
+            linkCancel.onclick = function (e) {
                 self.showToolbarActions();
                 restoreSelection(self.savedSelection);
-            });
+            };
 
             return this;
         },
@@ -409,32 +385,6 @@ function MediumEditor(elements, options) {
             });
 
             return this;
-        },
-
-        activate: function () {
-            var i;
-            if (this.isActive) {
-                return;
-            }
-            this.isActive = true;
-            for (i = 0; i < this.elements.length; i += 1) {
-                this.elements[i].setAttribute('contentEditable', true);
-            }
-            this.bindSelect();
-        },
-
-        deactivate: function () {
-            var i;
-            if (!this.isActive) {
-                return;
-            }
-            this.isActive = false;
-            this.toolbar.style.display = 'none';
-            for (i = 0; i < this.elements.length; i += 1) {
-                this.elements[i].removeEventListener('mouseup', this.checkSelectionWrapper);
-                this.elements[i].removeEventListener('keyup', this.checkSelectionWrapper);
-                this.elements[i].removeAttribute('contentEditable');
-            }
         }
     };
 }(window, document));

@@ -15,7 +15,3 @@
 //= require jquery.ui.datepicker
 //= require turbolinks
 //= require_tree .
-$(document).ready(function(){
-	var elements = document.querySelectorAll('.editor'),
-  editor = new MediumEditor(elements);
-});

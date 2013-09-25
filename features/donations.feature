@@ -62,6 +62,7 @@ Feature: Donation
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
 	 		And I press "Tiếp Tục"
 	  When I go to the dashboard
+	  	And I follow "Đóng Góp"
   	Then I should see "Chờ CK"
 	  	And I follow "Đã Chuyển?"
 	  Then  I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."

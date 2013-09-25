@@ -20,6 +20,7 @@ Feature: User
   Scenario: Visit dashboard, as a backer, without donations 
     Given I am a new, authenticated user
     When I go to the dashboard
+      And I follow "Đóng Góp"
     Then I should see "Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp."
 
   Scenario: Visit dashboard, as a backer having donations 
@@ -142,7 +143,7 @@ Feature: User
     Then I should see "Tin nhắn đã được gửi đi."
       And I am not authenticated
       And I login as "testing@man.net"
-    When I go to the dashboard page
+    When I go to the message page
       And I should see "First Message"
       And I follow "Trả lời"
     Then I fill in "acts_as_messageable_message_body" with "Reply"

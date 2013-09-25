@@ -19,7 +19,7 @@
         .pull-left
           = render "projects/box_display", :project => project
 
-    - if (current_user && current_user.staff && !@pending.empty?)
+    - if (current_user && current_user.staff && @pending)
       .headline Đang Đợi Xét Duyệt (admin only)
       %hr/ 
       .row-fluid

@@ -2,6 +2,7 @@
   .body-container--content
     .row-fluid
       .headline Tin Nhắn
+      = link_to "Trả lời", new_reply_message_users_path(current_user, :message_id => @message.id)
     %hr/ 
     .row-fluid
       %p

@@ -34,7 +34,7 @@
               Số tiền nhận được
           .figure.righted 
             - if @project.start_date < Date.today && @project.end_date > Date.today
-              .number #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày
+              .number Còn #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày
               .description
                 %i.icon-time
                 Thời gian gây quỹ

@@ -1,57 +1,13 @@
-.body-container--plain-row
-  .body-container--content
-    .devider
-      .item Dự Án Của Bạn
-      .note Danh Sách Hoàn Chỉnh
-      / TODO: add link
-    .row-fluid
-      - if current_user.projects.empty?
-        %p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
-      - else
-        - current_user.projects.each do |project|
-          = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
-          - project.donations.each do |donation|
-            = render "layouts/donation_display", donation: donation
-
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .row-fluid
-        .devider
-          .item Đóng Góp Của Bạn
-          .note Danh Sách Hoàn Chỉnh
-          / TODO: add link
-      .row-fluid
-        - if current_user.donations.empty?
-          %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
-        - else 
-          .row-fluid.donation--bar.row-heading
-            .span1 MÃ
-            .span4.centered DỰ ÁN
-            .span4 SỐ TIỀN / PHƯƠNG THỨC
-            .span3.righted TRẠNG THÁI
-          - cache("user_donations", :expires_in => 12.hours) do
-            - current_user.donations.each do |donation|
-              = render "layouts/donation_display", donation: donation
-
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .row-fluid
-        .devider
-          .item Tin Nhắn Của Bạn (#{@count_unreaded_messages})
-      .row-fluid
-        - if @messages.empty?
-          %p Bạn không có tin nhắn nào mới.
-        - else
-          .row-fluid.donation--bar.row-heading
-            .span5 Nội dung
-            .span3 Người gửi
-            .span2 Thời gian gửi
-          - @messages.each do |message|
-            .row-fluid
-              .span5 #{link_to limit_display(message.body, 200), show_message_users_path(:message_id => message.id), :class => (message.opened == false ? "unreaded_message": "")}
-              .span3 #{link_to full_name_by_id(message.sent_messageable_id), users_profile_path(:id => message.sent_messageable_id)}
-              .span2 #{human_time(message.updated_at)}
-              .span2 
-                = link_to "Trả lời", new_reply_message_users_path(current_user, :message_id => message.id)
+.row-fluid
+  .devider
+    .item Dự Án Của Bạn
+    .note Danh Sách Hoàn Chỉnh
+    / TODO: add link
+  .row-fluid
+    - if current_user.projects.empty?
+      %p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
+    - else
+      - current_user.projects.each do |project|
+        = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
+        - project.donations.each do |donation|
+          = render "layouts/donation_display", donation: donation

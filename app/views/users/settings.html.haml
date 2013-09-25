@@ -1,47 +1,40 @@
 - if (current_user) && (!current_user.verified?) && (!current_user.verifications.empty?)
-	.body-container--dark-row
-		.body-container--content
-			= render "layouts/verify_code_via_phone"
+	= render "layouts/verify_code_via_phone"
 
-.project-show
-	.body-container--plain-row
-		.body-container--content
-			.side-bar
-				- if (!current_user.verified_by_phone) && (current_user.verifications.empty?)
-					.container
-						.sub-headline Xác Nhận Bằng Điện Thoại
-						%p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo mẫu: 0908123456, không thêm mã quốc gia vào.
-						.row-fluid
-							= form_tag(users_verification_code_via_phone_path, :method => :post) do
-								= text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "span12"
-								= submit_tag "Gửi Mã", :class => "submit"
-			.bordered-box
-				.row-fluid
-					.pull-right
-						= link_to user_profile_path(current_user) do
-							.more
-								%i.icon-user 
-								Xem Trang Cá Nhân
+.row-fluid
+	- if (!current_user.verified_by_phone) && (current_user.verifications.empty?)
+		.sub-headline Xác Nhận Bằng Điện Thoại
+		%p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo mẫu: 0908123456, không thêm mã quốc gia vào.
+		.row-fluid
+			= form_tag(users_verification_code_via_phone_path, :method => :post) do
+				= text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "span12"
+				= submit_tag "Gửi Mã", :class => "submit"
+.row-fluid
+	.pull-right
+		= link_to user_profile_path(current_user) do
+			.more
+				%i.icon-user 
+				Xem Trang Cá Nhân
+%hr/ 
+.row-fluid
+	.span12
+		.error_messages
+			- if @user.errors.full_messages
+				- @user.errors.full_messages.each do |error_message| 
+					=error_message 
+					%br/
+
+		.update-user-profile
+			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+				= f.input  :id, :as => :hidden
+				= f.inputs :email
+				= f.input  :full_name #, input_html: { disabled: true } unless current_user.phone.blank?
+				= f.input  :address
+				= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+				= f.input :bio, :input_html => { :cols => 100, :rows => 3 }
+				= f.input :phone #, input_html: { disabled: true } unless current_user.phone.blank?
+				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+				= f.file_field :avatar 
+				= f.hidden_field :avatar_cache 
 				%hr/ 
-				.row-fluid
-					.span12
-						.error_messages
-							- if @user.errors.full_messages
-								- @user.errors.full_messages.each do |error_message| 
-									=error_message 
-									%br/
-
-						.update-user-profile
-							= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-								= f.input  :id, :as => :hidden
-								= f.inputs :email
-								= f.input  :full_name #, input_html: { disabled: true } unless current_user.phone.blank?
-								= f.input  :address
-								= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
-								= f.input :bio, :input_html => { :cols => 50, :rows => 3 }
-								= f.input :phone #, input_html: { disabled: true } unless current_user.phone.blank?
-								= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
-								= f.file_field :avatar 
-								= f.hidden_field :avatar_cache 
-								%hr/ 
-								= f.submit "Cập nhật Thông Tin", class: "submit"
+				= f.submit "Cập nhật Thông Tin", class: "submit"

@@ -2,6 +2,8 @@ CharityMap::Application.routes.draw do
   get   'users/dashboard'
   get   'users/profile'
   get   'users/settings'
+  get   'users/messages', as: :messages
+  get   'users/donations'
   post  'users/update_settings'
   post  'users/verification_code_via_phone'
   get   'user/:id', to: 'users#profile', as: :user_profile
@@ -29,6 +31,10 @@ CharityMap::Application.routes.draw do
     resources :project_follows do
       get 'initiate', on: :collection
     end
+  end
+
+  namespace :dashboard do
+    resources :projects
   end
 
   resources :users, :except => [ :create, :new ] do

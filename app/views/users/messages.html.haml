@@ -1,0 +1,19 @@
+.row-fluid
+  .devider
+    .item Tin Nhắn Của Bạn (#{@count_unreaded_messages})
+.row-fluid
+  - if @messages.empty?
+    %p Bạn không có tin nhắn nào mới.
+  - else
+    .row-fluid
+      .span5 Nội dung
+      .span3 Người gửi
+      .span4 Thời gian gửi
+    %hr/
+    - @messages.each do |message|
+      .row-fluid
+        .span5 #{link_to limit_display(message.body, 200), show_message_users_path(:message_id => message.id), :class => (message.opened == false ? "unreaded_message": "")}
+        .span3 #{link_to full_name_by_id(message.sent_messageable_id), users_profile_path(:id => message.sent_messageable_id)}
+        .span2 #{human_time(message.updated_at)}
+        .span2 
+          = link_to "Trả lời", new_reply_message_users_path(current_user, :message_id => message.id)

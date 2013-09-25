@@ -3,10 +3,9 @@ require 'sms'
 class UsersController < ApplicationController
   include SessionsHelper
   before_filter :authenticate_user!, except: :profile
+  layout "layouts/dashboard", only: [:dashboard, :settings, :messages, :donations]
 
-  def dashboard 
-    @messages = current_user.messages
-    @count_unreaded_messages = current_user.messages.unreaded.count
+  def dashboard
   end
 
   def profile
@@ -15,6 +14,9 @@ class UsersController < ApplicationController
 
   def settings
   	@user = current_user
+  end
+
+  def donations
   end
 
   def update_settings
@@ -52,6 +54,11 @@ class UsersController < ApplicationController
         redirect_to users_settings_path, alert: "Permission denied."
       end
     end
+  end
+
+  def messages
+    @messages = current_user.messages
+    @count_unreaded_messages = current_user.messages.unreaded.count
   end
 
   def show_message    

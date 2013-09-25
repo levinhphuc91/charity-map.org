@@ -1,0 +1,77 @@
+!!!
+%html
+  %head
+    %title= Configuration[:site_name]
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=980", :name => "viewport"}/
+    %link{href: image_path("favicon.ico"), rel: "shortcut icon"}/
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    %link{:href => "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
+    = csrf_meta_tags
+  %body
+    = render "layouts/header"
+    .body-container
+      - if notice || alert
+        .body-container--plain-row
+          .body-container--content
+            - if notice
+              %p.notice= notice
+            - if alert
+              %p.alert= alert
+      .body-container--plain-row
+        .body-container--content
+          .dashboard--sidebar
+            - if (params[:controller] == "dashboard/projects" && @project)
+              .chunk
+                .line.heading
+                  %i.icon-tasks 
+                  = limit_display @project.title, 15
+                .line= link_to "Chỉnh Sửa", edit_project_path(@project)
+                .line Thống Kê Đóng Góp
+                .line Đề Mục Đóng Góp
+                .line Cập Nhật
+                .line Giới Thiệu
+              .chunk
+                .line.heading
+                  %i.icon-tasks
+                  Dự Án Của Bạn
+                - unless current_user.projects.empty?
+                  - current_user.projects.each do |project|
+                    .line= link_to limit_display(project.title, 20), dashboard_project_path(project)
+                .line= link_to "Tạo Dự Án Mới", new_project_path
+            - else
+              .chunk
+                .line.heading
+                  %i.icon-tasks
+                  Dự Án Của Bạn
+                - unless current_user.projects.empty?
+                  - current_user.projects.each do |project|
+                    .line= link_to limit_display(project.title, 20), dashboard_project_path(project)
+                .line= link_to "Tạo Dự Án Mới", new_project_path
+
+            .chunk
+              .line.heading
+                %i.icon-user 
+                Cá Nhân
+              .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
+              .line= link_to "Trang Cá Nhân", user_profile_path( current_user)
+              .line Xác Nhận Tài Khoản
+              .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
+              .line= link_to "Đóng Góp", users_donations_path
+            .chunk
+              .line.heading
+                %i.icon-gears 
+                Hệ Thống
+              .line Tin Tức, Cập Nhật
+              .line.disabled Gửi Góp Ý
+          .dashboard--main
+            = yield
+    = render "layouts/footer"
+  :javascript
+    $(".show-chart").click(function() {
+      var bar_display, donation_chart;
+      bar_display = $(this).parents(".bar-display");
+      donation_chart = $(".chart", bar_display);
+      return donation_chart.toggle();
+    });

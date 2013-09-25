@@ -80,6 +80,7 @@ Feature: Project
       And I fill in "user_password" with "secretpass"
       And I press "Đăng Nhập"
       And I go to the dashboard
+      And I follow "Push The World"
       And I follow "Chỉnh Sửa"
       And I follow "Đăng Ký Gây Vốn"
     Then I should see "Phải có ít nhất một Đề mục đóng góp (project reward)."

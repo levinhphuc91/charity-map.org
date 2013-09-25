@@ -48,6 +48,8 @@ module NavigationHelpers
       p = Project.find_by_title($1)
       project_donations_path(p)
 
+    when /^the message page$/
+      '/users/messages'
 
     else
       begin

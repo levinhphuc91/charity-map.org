@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def dashboard 
     @messages = current_user.messages
+    @count_unreaded_messages = current_user.messages.unreaded.count
   end
 
   def profile
@@ -53,8 +54,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def show_message
+  def show_message    
     @message = current_user.messages.with_id(params[:message_id]).first
+    @message.mark_as_read
   end
 
   def new_message
@@ -72,6 +74,7 @@ class UsersController < ApplicationController
   def new_reply_message
     @parent_message_id = params[:message_id]
     @parent_message = current_user.messages.with_id(params[:message_id]).first
+    @parent_message.mark_as_read
     @message = ActsAsMessageable::Message.new
   end
 

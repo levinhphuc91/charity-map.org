@@ -39,7 +39,7 @@
     .row-fluid
       .row-fluid
         .devider
-          .item Tin Nhắn Của Bạn
+          .item Tin Nhắn Của Bạn (#{@count_unreaded_messages})
       .row-fluid
         - if @messages.empty?
           %p Bạn không có tin nhắn nào mới.
@@ -50,7 +50,7 @@
             .span2 Thời gian gửi
           - @messages.each do |message|
             .row-fluid
-              .span5 #{link_to limit_display(message.body, 200), show_message_users_path(:message_id => message.id)}
+              .span5 #{link_to limit_display(message.body, 200), show_message_users_path(:message_id => message.id), :class => (message.opened == false ? "unreaded_message": "")}
               .span3 #{link_to full_name_by_id(message.sent_messageable_id), users_profile_path(:id => message.sent_messageable_id)}
               .span2 #{human_time(message.updated_at)}
               .span2 

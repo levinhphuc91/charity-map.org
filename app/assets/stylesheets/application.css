@@ -13,3 +13,6 @@
  *= require_self
  *= require_tree .
  */
+ .unreaded_message{
+ 		font-weight: bold;
+ }

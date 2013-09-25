@@ -54,7 +54,7 @@
               .line.heading
                 %i.icon-user 
                 Cá Nhân
-              .line= link_to "Đóng Góp", users_donations_path
+              .line #{link_to "Đóng Góp", users_donations_path} (#{current_user.donations.successful.count})
               .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
               .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
               .line= link_to "Xác Nhận Tài Khoản", users_verify_path

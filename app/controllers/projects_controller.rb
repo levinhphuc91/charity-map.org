@@ -30,7 +30,7 @@ class ProjectsController < InheritedResources::Base
       @followed_project = (ProjectFollow.find_by_project_id_and_user_id(@project.id, current_user.id)) != nil ? true : false
     end
     if @project.status == "DRAFT" || @project.status == "PENDING"
-      if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil) && (!current_user.staff))
+      if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)) && (!current_user.staff))
         redirect_to pages_home_path, alert: "Permission denied."
       end
     end
@@ -38,7 +38,7 @@ class ProjectsController < InheritedResources::Base
 
   def edit
     @project = Project.find(params[:id])
-    if (current_user.projects.exists?(@project) != nil)
+    if @project.belongs_to?(current_user)
       edit!
     else
       redirect_to :dashboard, alert: "Permission denied."
@@ -51,7 +51,7 @@ class ProjectsController < InheritedResources::Base
 
   def submit
     @project = Project.find(params[:id])
-    if current_user && current_user.projects.exists?(@project) && @project.status == "DRAFT"
+    if current_user && @project.belongs_to?(current_user) && @project.status == "DRAFT"
       if @project.project_rewards.empty?
         redirect_to edit_project_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
       else

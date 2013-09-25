@@ -5,7 +5,7 @@ class DonationsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
-    if current_user && ((current_user.projects.exists?(@project) != nil) || (current_user.staff))
+    if current_user && (@project.belongs_to?(current_user) || (current_user.staff))
       @donations = @project.donations.order("date(updated_at) DESC")
     else
       @donations = @project.donations.successful.order("date(updated_at) DESC")
@@ -54,7 +54,7 @@ class DonationsController < InheritedResources::Base
 
   def request_verification
     @donation = Donation.find_by_euid(params[:euid])
-    if (current_user.donations.exists?(@donation) != nil) && @donation && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
+    if @donation && @donation.belongs_to?(current_user) && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
       @donation.update status: "REQUEST_VERIFICATION"
       UserMailer.delay.bank_transfer_request_verification(@donation)
       redirect_to :dashboard, notice: "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
@@ -66,7 +66,7 @@ class DonationsController < InheritedResources::Base
   def confirm
     require 'social_share'
     @donation = Donation.find_by_euid(params[:euid])
-    if @donation.collection_method == "BANK_TRANSFER" && @donation.status == "REQUEST_VERIFICATION" && current_user.projects.exists?(@project) != nil
+    if @donation.collection_method == "BANK_TRANSFER" && @donation.status == "REQUEST_VERIFICATION" && @donation.project.belongs_to?(current_user)
       @donation.update :status => "SUCCESSFUL"
       UserMailer.delay.bank_transfer_confirm_donation(@donation)
       SendMessage.delay.fb({

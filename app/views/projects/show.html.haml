@@ -8,7 +8,7 @@
     .body-container--content
       %p
         .pull-right
-          - if current_user && current_user.projects.exists?(@project)
+          - if current_user && @project.belongs_to?(current_user)
             = link_to edit_project_path(@project) do
               .more
                 %i.icon-edit-sign
@@ -136,7 +136,7 @@
           .item
             %i.icon-list-alt
             &nbsp;Cập Nhật Dự Án
-          - if current_user && current_user.projects.exists?(@project)
+          - if current_user && @project.belongs_to?(current_user)
             .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)} (sẽ được email tới MTQ)
         - cache("project_updates", :expires_in => 12.hours) do
           #project_updates
@@ -148,7 +148,7 @@
                   %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
                   %p 
                     #{update.content}
-                    - if current_user && current_user.projects.exists?(@project)
+                    - if current_user && @project.belongs_to?(current_user)
                       = link_to "[Edit]", edit_project_project_update_path(@project, update)
 
         .devider

@@ -11,7 +11,7 @@ class ProjectUpdatesController < InheritedResources::Base
 
   def new
     @project = Project.find(params[:project_id])
-    if (!signed_in?) || ((current_user) && (current_user.projects.exists?(@project) == nil))
+    if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)))
       redirect_to @project, alert: "Permission denied."
     elsif @project.status == "FINISHED" || @project.status == "REVIEWED"
       new!

@@ -61,6 +61,7 @@ Feature: Donation
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
 	 		And I press "Tiếp Tục"
+	 	Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
 	  When I go to the dashboard
 	  	And I follow "Đóng Góp"
   	Then I should see "Chờ CK"

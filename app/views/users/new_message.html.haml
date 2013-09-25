@@ -1,7 +1,5 @@
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .headline Tin Nhắn Mới
-    %hr/ 
-    .row-fluid
-      = render 'form_message'
+.devider
+  .item Tin Nhắn Mới
+  .note Người nhận: #{link_to @user.full_name, user_profile_path(@user.id)}
+.row-fluid
+  = render 'form_message'

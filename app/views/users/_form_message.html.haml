@@ -1,5 +1,5 @@
 = simple_form_for @message, :url => create_message_users_path, :method => :post do |f|
   .row-fluid
-    = f.input :receiver, :as => :hidden, :input_html => {value: @to_email}
-    = f.input :body, :label => false
-    = f.submit "Gửi tin nhắn"
+    = f.input :receiver, :as => :hidden, :input_html => {value: @id}
+    = f.input :body, :label => false, :input_html => {class: "span12", :rows => 10}
+    = f.submit "Gửi tin nhắn", class: "submit"

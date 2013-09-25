@@ -10,5 +10,5 @@
     = f.file_field :photo
     = f.hidden_field :photo_cache
     = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-    = f.input :content, :label => false
-    = f.submit "Cập Nhật"
+    = f.input :content, :label => false, :input_html => {class: "span12", :rows => 10}
+    = f.submit "Cập Nhật", class: "submit"

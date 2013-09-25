@@ -22,16 +22,16 @@
       .body-container--plain-row
         .body-container--content
           .dashboard--sidebar
-            - if (params[:controller] == "dashboard/projects" && @project)
+            - if (["dashboard/projects", "project_updates", "recommendations", "project_rewards"].include?(params[:controller]) && @project)
               .chunk
                 .line.heading
-                  %i.icon-tasks 
+                  %i.icon-location-arrow
                   = limit_display @project.title, 15
                 .line= link_to "Chỉnh Sửa", edit_project_path(@project)
-                .line Thống Kê Đóng Góp
-                .line Đề Mục Đóng Góp
-                .line Cập Nhật
-                .line Giới Thiệu
+                .line #{link_to "Thống Kê Đóng Góp", project_donations_path(@project)} (#{@project.donations.successful.count})
+                .line #{link_to "Đề Mục Đóng Góp", project_project_rewards_path(@project)} (#{@project.project_rewards.count})
+                .line #{link_to "Cập Nhật", project_project_updates_path(@project)} (#{@project.project_updates.count})
+                .line #{link_to "Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
               .chunk
                 .line.heading
                   %i.icon-tasks
@@ -54,11 +54,12 @@
               .line.heading
                 %i.icon-user 
                 Cá Nhân
-              .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
-              .line= link_to "Trang Cá Nhân", user_profile_path( current_user)
-              .line= link_to "Xác Nhận Tài Khoản", users_verify_path
-              .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
               .line= link_to "Đóng Góp", users_donations_path
+              .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
+              .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
+              .line= link_to "Xác Nhận Tài Khoản", users_verify_path
+              .line= link_to "Trang Cá Nhân", user_profile_path( current_user)
+
             .chunk
               .line.heading
                 %i.icon-gears 

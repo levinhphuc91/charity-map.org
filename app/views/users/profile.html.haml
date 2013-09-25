@@ -28,7 +28,7 @@
       - if(@user != current_user)
         .row-fluid
           .span12
-            = link_to "Gửi tin nhắn", new_message_users_path(current_user, :receiver => @user.email)
+            = link_to "Gửi tin nhắn", new_message_users_path(:receiver => @user.id)
 
       .row-fluid
         .devider

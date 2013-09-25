@@ -3,8 +3,10 @@ require 'sms'
 class UsersController < ApplicationController
   include SessionsHelper
   before_filter :authenticate_user!, except: :profile
-  layout "layouts/dashboard",
-    only: [:dashboard, :settings, :messages, :donations, :verify]
+  layout "layouts/dashboard", only: [
+    :dashboard, :settings, :messages, :donations, :verify,
+    :show_message, :new_message, :new_reply_message
+  ]
 
   def dashboard
   end
@@ -71,13 +73,14 @@ class UsersController < ApplicationController
   end
 
   def new_message
-    @to_email = params[:receiver]
+    @id = params[:receiver]
+    @user = User.find(@id)
     @message = ActsAsMessageable::Message.new
   end
 
   def create_message
-    to_email = params[:acts_as_messageable_message][:receiver]
-    @receiver = User.find_by_email(to_email)
+    @id = params[:acts_as_messageable_message][:receiver]
+    @receiver = User.find(@id)
     current_user.send_message(@receiver, params[:acts_as_messageable_message][:body])
     redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
   end

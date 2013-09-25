@@ -1,0 +1,8 @@
+.devider
+  .item Đề Mục Đóng Góp
+  .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; #{link_to 'Thêm Đề Mục', new_project_project_reward_path(@project)}
+- @project_rewards.each do |reward|
+  .row-fluid
+    %h4 #{link_to "#{human_time reward.updated_at}", project_project_reward_path(@project, reward)}
+    %p 
+      #{reward.description}

@@ -2,10 +2,5 @@
   .row-fluid
     = f.input :parent_message_id, :as => :hidden, :input_html => {value: @parent_message.id}
     = f.input :receiver, :as => :hidden, :input_html => {value: @message.sent_messageable_id}
-    = f.input :body, label: false
-    = f.submit "Trả lời tin nhắn"
-  %hr
-  .row-fluid
-    .span7 #{@parent_message.body}
-    .span3 #{link_to full_name_by_id(@parent_message.sent_messageable_id), users_profile_path(:id => @parent_message.sent_messageable_id)}
-    .span2 #{human_time(@parent_message.updated_at)}
+    = f.input :body, label: false, :input_html => {class: "span12", :rows => 10}
+    = f.submit "Trả lời tin nhắn", class: "submit"

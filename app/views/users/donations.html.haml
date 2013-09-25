@@ -1,13 +1,11 @@
 .row-fluid
   .devider
     .item Đóng Góp Của Bạn
-    .note Danh Sách Hoàn Chỉnh
-    / TODO: add link
 .row-fluid
   - if current_user.donations.empty?
     %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
   - else
-    %table.table-bordered{:style => "width: 100%;"}
+    %table.table.table-bordered{:style => "width: 100%;"}
       %tr
         %th{:style => "width: 10%;"} MÃ
         %th{:style => "width: 35%;"} DỰ ÁN

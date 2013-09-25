@@ -1,9 +1,11 @@
 class ProjectRewardsController < InheritedResources::Base 
 
   before_filter :authenticate_user!
+  layout "layouts/dashboard"
 
   def index
-    render nothing: true
+    @project = Project.find(params[:project_id])
+    index!
   end
 
   def new

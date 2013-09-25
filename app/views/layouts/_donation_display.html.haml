@@ -6,6 +6,7 @@
     %td
       %i.icon-money 
       #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;
+      %br/ 
       = link_to project_donation_path(donation.project, donation) do
         %i.icon-cogs 
         #{human_donation_type(donation.collection_method)}

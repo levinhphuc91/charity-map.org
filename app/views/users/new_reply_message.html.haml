@@ -1,7 +1,10 @@
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .headline Trả Lời Tin Nhắn
-    %hr/ 
-    .row-fluid
-      = render 'form_reply_message'
+.row-fluid
+  .devider
+    .item Trả Lời Tin Nhắn
+    .note Người gửi: #{link_to full_name_by_id(@parent_message.sent_messageable_id), users_profile_path(:id => @parent_message.sent_messageable_id)} &sdot; Ngày gửi: #{human_time(@parent_message.updated_at)}
+.row-fluid
+  = render 'form_reply_message'
+%hr
+.row-fluid
+  %p <b>Tin nhắn được trả lời:</b>
+  %p #{@parent_message.body}

@@ -1,7 +1,8 @@
-.body-container--plain-row
-  .body-container--content
-    - @project_updates.each do |update|
-      .row-fluid
-        %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
-        %p 
-          #{update.content}
+.devider
+  .item Cập Nhật
+  .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
+- @project_updates.each do |update|
+  .row-fluid
+    %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+    %p 
+      #{update.content}

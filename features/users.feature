@@ -33,6 +33,7 @@ Feature: User
       And I fill in "user_password" with "12345678"
       And I press "Đăng Nhập"
     When I go to the dashboard
+      And I follow "Đóng Góp"
     Then I should see "500.000"
       And I should see "Thu Tiền Mặt"
 

@@ -1,11 +1,18 @@
 class RecommendationsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
+  # layout "layouts/dashboard"
+
+  def index
+    @project = Project.find(params[:project_id])
+    index!
+  end
 
   def new
     @project = Project.find(params[:project_id])
     if current_user.verified?
       new!
     else
+      store_location_with_path(new_project_recommendation_path(@project))
       redirect_to users_settings_path, alert: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT hoặc CMND) trước khi viết giới thiệu cho dự án #{@project.title}."
     end
   end

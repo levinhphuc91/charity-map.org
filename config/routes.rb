@@ -26,8 +26,8 @@ CharityMap::Application.routes.draw do
   resources :projects do
     resources :project_rewards
     resources :donations
-    resources :project_updates
     resources :project_comments
+    resources :project_updates
     resources :recommendations
     resources :project_follows do
       get 'initiate', on: :collection

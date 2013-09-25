@@ -147,6 +147,12 @@ Feature: Project
     When I login as "testing@man.net"
       And I go to the project page of "Push The World"
       And I follow "Viết Lời Giới Thiệu"
+    Then I should see "Permission denied"
+      And there is a user with the email "reviewer@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
+      And I am not authenticated
+      And I login as "reviewer@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Viết Lời Giới Thiệu"
       And I fill in "Content" with "This is such a good project"
       And I press "Create Recommendation"
     Then I should see "Lời giới thiệu đã được lưu."

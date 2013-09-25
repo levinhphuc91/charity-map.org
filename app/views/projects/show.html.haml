@@ -51,14 +51,14 @@
           .cleared
           %hr
           #project_follow
-            - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
-              .row-fluid
-                .sub-headline.centered Bạn đang theo dõi dự án này
-            - else
-              = link_to initiate_project_project_follows_path(@project), remote: true do
-                .row-fluid
-                  .span12.donate-bttn
-                    Theo Dõi
+            .row-fluid
+              .sub-headline.centered
+                - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
+                  Bạn đang theo dõi dự án này
+                - else
+                  = link_to initiate_project_project_follows_path(@project), remote: true do
+                    .span12.donate-bttn
+                      Theo Dõi
 
         .container
           .heading-bar

@@ -37,8 +37,8 @@ module NavigationHelpers
       p = Project.find_by_title($1)
       edit_project_path(p)
 
-    when /the profile of user "(.+)"/
-      u = User.find($1)
+    when /the profile of "(.+)"/
+      u = User.find_by_full_name($1)
       user_profile_path(u)
 
     when /^the forgot password page$/

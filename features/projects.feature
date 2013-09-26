@@ -93,6 +93,18 @@ Feature: Project
     When I go to the edit page of the project "Push The World"
       And I follow "Đăng Ký Gây Vốn"
     Then I should see "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
+    Then an email should have been sent with:
+      """
+      From: tu@charity-map.org
+      To: team@charity-map.org
+      Subject: A project has just been submitted for review
+      """
+    And "team@charity-map.org" should receive an email
+    When I open the email
+    Then I should see "A user has just submitted his/her project for review." in the email body
+      And I should see "[LINK]" in the email body
+    When I follow "[LINK]" in the email
+    Then I should see "Push The World"
 
   Scenario: Edit project without permission
     Given the time is 2013-09-11
@@ -138,7 +150,7 @@ Feature: Project
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
       And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
-    Then I should see "99.999 đ"
+    Then I should see "99.999 VNĐ"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
     Given the date is 2013-09-11

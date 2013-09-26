@@ -38,8 +38,8 @@
                   Dự Án Của Bạn
                 - unless current_user.projects.empty?
                   - current_user.projects.each do |project|
-                    .line= link_to limit_display(project.title, 20), dashboard_project_path(project)
-                .line= link_to "Tạo Dự Án Mới", new_project_path
+                    .line.active= link_to limit_display(project.title, 20), dashboard_project_path(project)
+                .line= link_to "Tạo Dự Án Mới", new_project_path, class: "active"
             - else
               .chunk
                 .line.heading

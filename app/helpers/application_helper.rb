@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def human_currency(amount)
-    number_to_currency amount, delimiter: ".", precision: 0, unit: "đ"
+    number_to_currency amount, delimiter: ".", precision: 0, unit: "VNĐ"
   end
 
   def human_project_status(project)

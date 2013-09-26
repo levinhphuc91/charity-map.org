@@ -57,7 +57,7 @@ class ProjectsController < InheritedResources::Base
       else
         if @project.update status: "PENDING"
           redirect_to @project, notice: "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
-          # TODO: add AdminMailer
+          AdminMailer.delay.new_pending_project(@project)
         else
           redirect_to edit_project_path(@project), alert: "#{@project.errors.full_messages.join(' ')}"
         end

@@ -1,5 +1,12 @@
+.devider
+  .item Xác nhận tài khoản
+
 - if (current_user) && (!current_user.verified?) && (!current_user.verifications.empty?)
   = render "layouts/verify_code_via_phone"
+- else
+  %p
+    %i.icon-ok-sign
+    Bạn đã tiến hành xác nhận tài khoản.
 
 - if (!current_user.verified_by_phone) && (current_user.verifications.empty?)
   .devider

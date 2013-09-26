@@ -1,8 +1,6 @@
 .row-fluid
   .devider
     .item Dự Án Của Bạn
-    .note Danh Sách Hoàn Chỉnh
-    / TODO: add link
   .row-fluid
     - if current_user.projects.empty?
       %p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}

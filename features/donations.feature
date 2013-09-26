@@ -75,58 +75,58 @@ Feature: Donation
 
 	Scenario: Donation list for normal user
 		Given the date is 2013-09-11
-	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "1"
+	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
 	  	And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
-	  	And there is a project reward with the amount "10000" and the description "reward description" and the id "1" with the project above
-	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" and the user id "1"and the project reward id "1" with the project above
-	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" and the user id "1" and the project reward id "1" with the project above
+	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
+	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
+	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" with the user above and the project above and the project reward above
 	 	When I go to the donation page of the project "Push The World"
 	 	Then I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "10.000 đ"
+	 		And I should see "10.000 VNĐ"
 	 		And I should see "Thành Công"
-	 		And I should not see "12.666 đ"
+	 		And I should not see "12.666 VNĐ"
 
 	Scenario: Donation list for project creator
 		Given the date is 2013-09-11
-	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "1"
+	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
 	  	And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
-	  	And there is a project reward with the amount "10000" and the description "reward description" and the id "1" with the project above
-	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" with the project above
-	  	And there is a donation with the amount "11000" and the status "PENDING" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" with the project above
-	  	And there is a donation with the amount "21000" and the status "REQUEST_VERIFICATION" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" with the project above
-	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" and the user id "2" and the project reward id "1" with the project above
-	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456" and the id "2"
+	  	And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
+	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
+	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
+	  	And there is a donation with the amount "11000" and the status "PENDING" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
+	  	And there is a donation with the amount "21000" and the status "REQUEST_VERIFICATION" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
+	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" with the user above and the project above and the project reward above
 	 	When I login as "testing@man.net"
 	 	Then I go to the donation page of the project "Push The World"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "10.000 đ"
+	 		And I should see "10.000 VNĐ"
 	 		And I should see "Thành Công"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "11.000 đ"
+	 		And I should see "11.000 VNĐ"
 	 		And I should see "Chờ CK"
-	 		And I should see "12.666 "
+	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Xác Nhận"
 	 		And I should see "Đã nhận tiền?"
 	 		And I should see "Thu Tiền Mặt"
-	 		And I should see "12.666 đ"
+	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Liên Hệ"
 	 		
 	Scenario: Donation list for CM staff
 		Given the date is 2013-09-11
-	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "1"
+	  	And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
 	  	And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
-	  	And there is a project reward with the amount "10000" and the description "reward description" and the id "1" with the project above
-	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" and the user id "1"and the project reward id "1" with the project above
-	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" and the user id "1" and the project reward id "1" with the project above
-	 		And there is a donation with the amount "21000" and the status "REQUEST_VERIFICATION" and the collection method "BANK_TRANSFER" and the user id "2" and the project reward id "1" with the project above
+	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
+	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
+	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" with the user above and the project above and the project reward above
+	 		And there is a donation with the amount "21000" and the status "REQUEST_VERIFICATION" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
 	 		And there is a user with the email "staff@man.net" and the password "secretpass" and the password confirmation "secretpass" and the staff "1"
 	 	When I login as "staff@man.net"
 	 	Then I go to the donation page of the project "Push The World"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "10.000 đ"
+	 		And I should see "10.000 VNĐ"
 	 		And I should see "Thành Công"
 	 		And I should see "Thu Tiền Mặt"
-	 		And I should see "12.666 đ"
+	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Liên Hệ"
 	 		And I should see "Đã nhận tiền?"
 	 		And I should not see "Chờ CK"

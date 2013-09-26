@@ -1,9 +1,9 @@
 Feature: User
 
   Scenario: To have a profile
-    Given there is a user with the id "1" and the email "tu@charity-map.org" and the password "12345678" and the password confirmation "12345678"
-    When I go to the profile of user "1"
-    Then the URL should contain "/user/1"
+    Given there is a user with the full name "Tu Hoang" and the email "tu@charity-map.org" and the password "12345678" and the password confirmation "12345678"
+    When I go to the profile of "Tu Hoang"
+    Then I should see "Tu Hoang"
 
   Scenario: Update their profile settings
     Given I am a new, authenticated user
@@ -49,7 +49,7 @@ Feature: User
       And I press "Đăng Nhập"
     When I go to the dashboard
     Then I should see "Books from Heart"
-      And I should see "500.000 đ được ủng hộ"
+      And I should see "500.000 VNĐ được ủng hộ"
       And I should see "0% hoàn thành"
       And I should see "2 mạnh thường quân"
       And I should see "0 giới thiệu"
@@ -136,11 +136,11 @@ Feature: User
     Then I should see "Xác nhận danh tính bằng số điện thoại hoàn tất."
 
   Scenario: User message each other
-    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456" and the id "1"
-    And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the id "2"
+    Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
+    And there is a user with the full name "Testing Man" and the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "vumanhcuong01@gmail.com"
-      And I go to the profile of user "2"
-      And I follow "Gửi tin nhắn"      
+      And I go to the profile of "Testing Man"
+      And I follow "Gửi Tin Nhắn"
     Then I fill in "acts_as_messageable_message_body" with "First Message"
       And I press "Gửi tin nhắn"
     Then I should see "Tin nhắn đã được gửi đi."

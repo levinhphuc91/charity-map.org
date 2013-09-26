@@ -2,10 +2,12 @@ class ProjectRewardsController < InheritedResources::Base
 
   before_filter :authenticate_user!
   layout "layouts/dashboard"
+  include DonationsHelper
 
   def index
     @project = Project.find(params[:project_id])
     @project_rewards = @project.project_rewards
+    @reward_popularity = reward_popularity(@project)
     @project_reward = ProjectReward.new
     index!
   end

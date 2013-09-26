@@ -31,4 +31,13 @@ module DonationsHelper
     end
   end
 
+  def reward_popularity(project)
+    @reward_popularity = Hash.new
+    @project_rewards = project.project_rewards
+    @project_rewards.each do |reward|
+      @donations = project.donations.successful.where(project_reward_id: reward.id)
+      @reward_popularity["#{reward.amount}"] = @donations.count
+    end
+    return @reward_popularity
+  end
 end

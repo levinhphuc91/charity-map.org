@@ -1,6 +1,12 @@
 .devider
   .item Đề Mục Đóng Góp
   .note Dự án: #{link_to @project.title, project_path(@project)}
+
+.row-fluid
+  #chart{style: "height: 250px;"}
+
+%hr/ 
+
 - @project_rewards.each do |reward|
   .row-fluid
     %h4= human_currency reward.amount
@@ -30,3 +36,5 @@
       = f.input :description, label: false, :input_html => {:class => "span12"}
   .row-fluid
     .pull-right= f.submit "Lưu", class: "submit"
+
+= render "popularity"

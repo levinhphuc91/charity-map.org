@@ -1,4 +1,5 @@
 CharityMap::Application.routes.draw do
+  get "metrics/new_signup"
   get   'users/dashboard'
   get   'users/profile'
   get   'users/settings'

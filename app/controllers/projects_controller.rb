@@ -1,4 +1,5 @@
 class ProjectsController < InheritedResources::Base
+  include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
@@ -15,7 +16,8 @@ class ProjectsController < InheritedResources::Base
   def new
     @project = Project.new
     if current_user.blank_contact?
-      redirect_to users_settings_path, notice: "Cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
+      store_location_with_path(new_project_path)
+      redirect_to users_settings_path, notice: "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
     else 
       new!
     end

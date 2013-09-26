@@ -121,9 +121,11 @@ Feature: User
     When I login as "vumanhcuong@gmail.com"
       And I go to the users settings page
       And I follow "Xác Nhận Tài Khoản"
+    Then I should not see "Bạn đã tiến hành xác nhận tài khoản."
       And I fill in "phone_number" with "0908230591"
       And I press "Gửi Mã"
     Then I should see "Mã xác nhận vừa được gửi tới số +84908230591. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+      And I should see "Điền vào ô bên dưới đoạn mã 6 chữ số đã được gửi đến số 0908230591 của bạn:"
 
   Scenario: To submit verification code
     Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
@@ -131,9 +133,11 @@ Feature: User
     When I login as "vumanhcuong@gmail.com"
       And I go to the users settings page
       And I follow "Xác Nhận Tài Khoản"
+    Then I should not see "Bạn đã tiến hành xác nhận tài khoản."
       And I fill in "phone_code" with "123456"
       And I press "Xác Nhận"
     Then I should see "Xác nhận danh tính bằng số điện thoại hoàn tất."
+      And I should see "Bạn đã tiến hành xác nhận tài khoản."
 
   Scenario: User message each other
     Given there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"

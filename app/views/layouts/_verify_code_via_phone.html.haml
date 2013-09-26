@@ -3,7 +3,7 @@
     %i.icon-male
     Hoàn tất xác nhận danh tính
 .row-fluid
-  %p Điền vào ô bên dưới đoạn mã 6 chữ số đã được gửi đến số #{current_user.phone} của bạn:
+  %p Điền vào ô bên dưới đoạn mã 6 chữ số đã được gửi đến số 0#{current_user.phone} của bạn:
   = form_tag(users_verification_code_via_phone_path, :method => :post) do
     %p 
       = text_field_tag :phone_code

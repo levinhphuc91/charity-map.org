@@ -13,7 +13,7 @@ Feature: Project
       And I fill in "user_password" with "secretpass"
       And I press "Đăng Nhập"
     When I go to the new project page
-      Then I should see "Cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
+      Then I should see "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
 
   Scenario: To be created successfully
     Given the date is 2013-09-10

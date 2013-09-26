@@ -40,4 +40,16 @@ module DonationsHelper
     end
     return @reward_popularity
   end
+
+  def funding_progress(project)
+    @funding_progress = []
+    donations         = project.donations.successful
+    start_date        = project.start_date.to_date
+    end_date          = project.end_date.to_date
+    start_date.upto(end_date) do |day|
+      count = donations.where("created_at > ? AND created_at < ?", start_date, day).sum(:amount)
+      @funding_progress.push({:date => day.to_s, :sum => count})
+    end
+    return @funding_progress
+  end
 end

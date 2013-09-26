@@ -1,6 +1,13 @@
 .body-container--plain-row
   .body-container--content
     - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+      .row-fluid
+        #chart{style: "height: 250px;"}
+    %hr/ 
+    .devider
+      .item Danh Sách Đóng Góp
+      .note Dự án: #{link_to @project.title, @project}
+    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
       .row-fluid.sub-headline.righted
         Sắp xếp theo: &nbsp;
         = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
@@ -8,7 +15,7 @@
         = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
         &sdot;
         = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
-      %p 
+
     - cache("project_donations", :expires_in => 1.hour) do
       - unless params[:sort_by]
         = render "layouts/donation_display", donations: @donations
@@ -29,3 +36,5 @@
             %hr/ 
         - else
           = render "layouts/donation_display", donations: @donations
+
+= render "stat"

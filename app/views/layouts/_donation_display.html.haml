@@ -10,7 +10,7 @@
       %tr
         %td
           %span.euid= link_to donation.euid, project_donation_path(donation.project, donation)
-        %td= link_to limit_display(donation.project.title, 30), project_path(donation.project)
+        %td #{human_time(donation.created_at)} &sdot; #{link_to limit_display(donation.project.title, 30), project_path(donation.project)}
         %td
           %i.icon-money 
           #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;

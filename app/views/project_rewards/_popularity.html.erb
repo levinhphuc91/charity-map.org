@@ -3,11 +3,7 @@
     element: 'chart',
     data: [
       <% @reward_popularity.each do |key, value| %>
-        <% if value != @reward_popularity.values.last %>
-          { amount: '<%= human_currency key.to_i %>', popularity: <%= value.to_i %> },
-        <% else %>
-          { amount: '<%= human_currency key.to_i %>', popularity: <%= value.to_i %> }
-        <% end %>
+        { amount: '<%= human_currency key.to_i %>', popularity: <%= value.to_i %> },
       <% end  %>
     ],
     xkey: 'amount',

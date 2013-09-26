@@ -70,7 +70,7 @@ class Project < ActiveRecord::Base
 
     def start_date_cannot_be_in_the_past
       errors.add(:start_date, "can't be in the past") if
-        !start_date.blank? and start_date < Date.today
+        start_date.blank? and start_date < Date.today
     end
 
     def funding_duration_to_be_less_than_six_months

@@ -12,6 +12,8 @@ class DonationsController < InheritedResources::Base
     end
     
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
+    @reward_popularity = reward_popularity(@project)
+    @funding_progress = funding_progress(@project)
   end
 
   def show

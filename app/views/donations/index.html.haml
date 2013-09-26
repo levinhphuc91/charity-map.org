@@ -39,3 +39,125 @@
         - else
           - @donations.each do |donation|
             = render "layouts/donation_display", donation: donation
+    
+    .chart
+      %figure{:id => "reward-popularity-chart", :style => "width: 700px; height: 250px;"}
+      %hr/
+      %figure{:id => "funding-progress-chart", :style => "width: 700px; height: 250px;"}
+
+
+:javascript
+  $(document).ready(function(){    
+    draw_reward_popularity_chart();
+    draw_funding_progress_chart();
+  });
+
+  function draw_funding_progress_chart(){
+    var funding_progress = #{@funding_progress.to_json};
+    xchart_data = convert_funding_to_xchart_data(funding_progress);
+    console.log(xchart_data);
+    var tt = document.createElement('div'),
+      leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),
+      topOffset = -32;
+    tt.className = 'ex-tooltip';
+    document.body.appendChild(tt);
+    var opts = {
+      "dataFormatX": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },
+      "tickFormatX": function (x) { return d3.time.format('%A')(x); },
+      "mouseover": function (d, i) {
+        var pos = $(this).offset();
+        $(tt).text(d3.time.format('%A')(d.x) + ': ' + d.y)
+          .css({top: topOffset + pos.top, left: pos.left + leftOffset})
+          .show();
+      },
+      "mouseout": function (x) {
+        $(tt).hide();
+      }
+    };
+
+    var data = {
+      "xScale": "time",
+      "yScale": "linear",
+      "type": "line-dotted",
+      "main": [
+        {
+          "className": ".funding-progress-chart",
+          "data": JSON.parse(xchart_data)
+        }
+      ]
+    };
+    var myChart = new xChart('line-dotted', data, "#funding-progress-chart", opts);
+    $(".axisY .tick").last().remove();
+  }
+
+  function convert_funding_to_xchart_data(funding_progress){
+    var data = '[';
+    $.each(funding_progress, function (key, funding){  
+      data = data + '{"x": "' + key + '",' + '"y": ' + funding + '},';
+    });
+    data = data.substring(0, data.length - 1) + ']';
+    return data;
+  }
+
+  function draw_reward_popularity_chart(){ 
+    var reward_popularity = #{@reward_popularity.to_json};
+    xchart_data = convert_reward_popularity_to_xchart_data(reward_popularity);
+
+    var tt = document.createElement('div'),
+      leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),
+      topOffset = -32;
+    tt.className = 'ex-tooltip';
+    document.body.appendChild(tt);
+    var opts = {
+      "mouseover": function (d, i) {
+        var tooltips = tooltips_reward_popularity(reward_popularity, i);
+        var pos = $(this).offset();
+        $(tt).html(tooltips)
+          .css({top: topOffset + pos.top, left: pos.left + leftOffset})
+          .show();
+      },
+      "mouseout": function (x) {
+        $(tt).hide();
+      }
+    };
+
+    var data = {
+      "xScale": "ordinal",
+      "yScale": "linear",
+      "type": "bar",
+      "main": [
+        {
+          "className": ".reward-popularity-chart",
+          "data": JSON.parse(xchart_data)
+        }
+      ]
+    };
+    var myChart = new xChart('bar', data, "#reward-popularity-chart", opts);
+    $(".axisY .tick").last().remove();
+  }
+
+  function convert_reward_popularity_to_xchart_data(reward_popularity){ 
+    var data = '[';
+    $.each(reward_popularity, function (key, reward){  
+      key = key.substring(0, key.length - 2);  
+      data = data + '{ "x": ' + key + ',' + '"y": ' + reward[0].total_donors + '},';
+    });
+    data = data.substring(0, data.length - 1) + ']';   
+    return data;
+  }
+
+  function tooltips_reward_popularity(reward_popularity, index){
+    var count = 0;
+    var tooltips = "";
+    $.each(reward_popularity, function (key, reward){ 
+      if(count == index){
+        key = key.substring(0, key.length - 2);
+        key = key.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+        total_amount = reward[0].total_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        tooltips = "Reward: <b>" + key.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + "</b></br>Donor: <b>" + reward[0].total_donors + "</b></br>Total amount: <b>" + total_amount + "</b>"     
+        return false;    
+      }
+      count = count + 1;
+    });
+    return tooltips;
+  }

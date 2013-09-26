@@ -8,24 +8,34 @@
           %i.icon-retweet 
           về lại trang dự án
 
-    .donation--container
-      .margin
-      %ul.timeline
-        %li.important
-          .sub-headline= human_time @donation.created_at
-          %p Mạnh thường quân <b>#{@donation.user.full_name || @donation.user.id}</b> đóng góp <b>#{human_currency @donation.amount}</b> cho dự án <b>#{@project.title}</b>.
-        / - if @donation.status == "SUCCESSFUL"
-        %li
-          .sub-headline= human_time @donation.updated_at
-          %p Hệ thống ghi nhận đóng góp và đã nhận được tiền.
-        /- if @project.status == "FINISHED"
-        %li
-          .sub-headline 09/09/2013
-          %p Dự án <b>#{@project.title}</b> nhận được 100% số quỹ mục tiêu vào ngày 09/09/2013.
-        %li.important
-          .sub-headline= human_time @project.end_date
-          %p Dự án #{@project.title} kết thúc đợt gây quỹ kéo dài #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày và nhận được <b>#{human_currency @project.donations.sum(:amount)}</b> tiền ủng hộ
-        - @project.project_updates.each do |update|
-          %li 
-            .sub-headline= human_time update.created_at
-            %p= markdown update.content
+    .donation--container      
+      #timelineContainer
+        - @timeline.each do |key, updates|
+          .timelineMajor
+            .sub-headline= human_time key            
+            - updates.each do |update|
+              %dl{:class => "timelineMinor"}
+                - case update
+                - when "donation_created_at"
+                  %p Mạnh thường quân <b>#{@donation.user.full_name || @donation.user.id}</b> đóng góp <b>#{human_currency @donation.amount}</b> cho dự án <b>#{@project.title}</b>.
+                - when "donation_updated_at"
+                  - if @donation.status == "SUCCESSFUL"
+                    %p Hệ thống ghi nhận đóng góp và đã nhận được tiền.
+                - when "project_end_date"
+                  - if @project.status == "FINISHED"
+                    %p Dự án #{@project.title} kết thúc đợt gây quỹ kéo dài #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày và nhận được <b>#{human_currency @project.donations.sum(:amount)}</b> tiền ủng hộ
+                - else
+                  = markdown update.content
+        %br{:class => "clear"}
+
+        / .timelineMajor
+        /   .sub-headline 11/09/2013 
+        /   %dl{:class => "timelineMinor"}
+        /     %p - Hệ thống ghi nhận đóng góp và đã nhận được tiền.
+        /   %dl{:class => "timelineMinor"}
+        /     %p - Dự án <b>Push The World</b> nhận được 100% số quỹ mục tiêu vào ngày 11/09/2013.
+        / .timelineMajor
+        /   .sub-headline 19/09/2013 
+        /   %dl{:class => "timelineMinor"}
+        /     %p - Dự án test donation kết thúc đợt gây quỹ kéo dài 10 ngày và nhận được 14.085.430 đ tiền ủng hộ
+        / %br{:class => "clear"}

@@ -17,6 +17,23 @@ class DonationsController < InheritedResources::Base
   def show
     @donation = Donation.find(params[:id])
     @project = @donation.project
+    @timeline = @project.project_updates.select("content, date(updated_at) as updated_at").group_by { |update| update.updated_at.to_date}
+
+    if(@timeline[@donation.created_at.to_date] == nil)
+      @timeline[@donation.created_at.to_date] = []
+    end
+    if(@timeline[@donation.updated_at.to_date] == nil)
+      @timeline[@donation.updated_at.to_date] = []
+    end
+    if(@project.status == "FINISHED" && @timeline[@project.end_date.to_date] == nil)
+      @timeline[@project.end_date.to_date] = []
+    end
+    @timeline[@donation.created_at.to_date].push("donation_created_at")
+    @timeline[@donation.updated_at.to_date].push("donation_updated_at")
+    if(@project.status == "FINISHED")
+      @timeline[@project.end_date.to_date].push("project_end_date")
+    end
+
     show!
   end
   

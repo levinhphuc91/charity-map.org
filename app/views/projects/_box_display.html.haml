@@ -34,5 +34,9 @@
           .project-metric= human_currency project.donations.successful.sum(:amount)
           .project-metric--description Đã Kêu Gọi
       .pull-left{style: "width: 70px;"}
-        .project-metric= (TimeDifference.between(Time.now, project.end_date).in_days).to_i
-        .project-metric--description Ngày Còn Lại
+        - if project.end_date > Time.now
+          .project-metric= (TimeDifference.between(Time.now, project.end_date).in_days).to_i
+          .project-metric--description Ngày Còn Lại
+        - else
+          .project-metric #{project.end_date.strftime("%d/%m/%Y")}
+          .project-metric--description Kết Thúc

@@ -4,7 +4,7 @@
       .notice Trạng thái: #{human_project_status(@project).html_safe}
     
 .project-show
-  .body-container--plain-row
+  .body-container--plain-row{style: "padding-bottom: 0;"}
     .body-container--content
       %p
         .pull-right
@@ -75,9 +75,6 @@
                 .des-2
                   %i.icon-map-marker 
                   #{@user.city} 
-                .des-1 
-                  - if @user.donations.successful.count > 0
-                    Đã ủng hộ #{@user.donations.successful.count} dự án 
               
         .container
           - cache("project_rewards", :expires_in => 1.hour) do
@@ -85,28 +82,20 @@
               .sub-headline Đề Mục Ủng Hộ
             - @project.project_rewards.each do |reward|
               .row-fluid
-                = link_to new_project_donation_path(@project, amount: reward.amount.to_i) do
-                  %h4 Ủng hộ #{human_currency reward.amount} hoặc hơn
-                %p= reward.description
+                %p 
+                  = link_to new_project_donation_path(@project, amount: reward.amount.to_i) do
+                    %b Ủng hộ #{human_currency reward.amount} hoặc hơn
+                  %br/
+                  = reward.description
         .container
           .heading-bar
-            .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
+            .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)}
           - @project.recommendations.each do |rec|
             .row-fluid
-              .recommendation--user-info
-                .user-profile
-                  .avatar
-                    - if rec.user.avatar? 
-                      = image_tag(rec.user.avatar_url(:small), size: "30x30")
-                    - else
-                      = image_tag("default_avatar.png", size: "30x30")
-                  .user-info
-                    .name= rec.user.full_name
-                    .des-1
-                      %i.icon-time 
-                      = human_time rec.updated_at
-              .cleared
-              %p 
+              %p
+                <b>#{link_to rec.user.full_name, user_profile_path(rec.user)}</b> &sdot; #{human_time rec.updated_at}
+                %br/
+                %i.icon-quote-left
                 #{rec.content}
                 - if (current_user) && (rec.user == current_user)
                   = link_to "[Edit]", edit_project_recommendation_path(@project, rec), class: "edit_recommendation"
@@ -118,10 +107,10 @@
 
         .container
           .heading-bar
-            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)} (#{@project.donations.successful.count})
+            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)}
           - cache("project_donations", :expires_in => 1.hour) do
             - @project.donations.successful[0..4].each do |donation|
-              %p #{link_to human_time(donation.created_at), project_donation_path(@project, donation)} &mdash; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} cho dự án #{@project.title} bằng hình thức #{human_donation_type donation.collection_method}
+              %p <b>#{link_to human_time(donation.created_at), project_donation_path(@project, donation)}</b> &sdot; #{donation.user.full_name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
           - if @project.donations.count > 5
             .row-fluid
               .pull-right
@@ -129,7 +118,7 @@
                   .more Xem Thêm
 
       .photo-box
-        = image_tag @project.photo_url(:banner), size: "658x230"
+        = image_tag @project.photo_url(:banner), size: "658x305"
       .bordered-box
         %p= markdown @project.description
         .devider

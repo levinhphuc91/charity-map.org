@@ -18,6 +18,8 @@ gem 'redcarpet' # Markdown support
 gem 'activerecord-session_store'
 gem 'acts-as-messageable'
 
+gem 'morrisjs-rails'
+gem 'raphael-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'newrelic_rpm'

@@ -1,5 +1,9 @@
 CharityMap::Application.routes.draw do
   get "metrics/new_signup"
+  get "metrics/latest_recommendation"
+  get "metrics/donation_progress"
+  get "metrics/avg_collection_time"
+  get "metrics/avg_donation_amount"
   get   'users/dashboard'
   get   'users/profile'
   get   'users/settings'
@@ -48,6 +52,7 @@ CharityMap::Application.routes.draw do
     resources :store
   end
   
+  # resources :metrics, :defaults => { :format => 'json' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with 'rake routes'.
 

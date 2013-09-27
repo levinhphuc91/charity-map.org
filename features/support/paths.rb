@@ -29,6 +29,10 @@ module NavigationHelpers
     when /^the new project page$/
       '/projects/new'
 
+    when /the dashboard of the project "(.+)"/
+      p = Project.find_by_title($1)
+      dashboard_project_path(p)
+
     when /the project page of "(.+)"/
       p = Project.find_by_title($1)
       project_path(p)

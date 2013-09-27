@@ -156,3 +156,13 @@ Feature: User
     Then I fill in "acts_as_messageable_message_body" with "Reply"
       And I press "Trả lời tin nhắn"
     Then I should see "Tin nhắn đã được gửi đi."
+
+  Scenario: Permission denied for viewing dashboard of projects that don't belong to him/her
+    Given the date is "2014-09-01"
+      And there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
+      And there is a user with the full name "Testing Man" and the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above
+    When I login as "vumanhcuong01@gmail.com"
+      And I go to the dashboard of the project "Books from Heart"
+    Then I should see "Permission denied"
+      And the URL should not contain "/dashboard"

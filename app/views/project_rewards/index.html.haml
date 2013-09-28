@@ -8,10 +8,14 @@
 %hr/ 
 
 - @project_rewards.each do |reward|
-  .row-fluid
-    %h4= human_currency reward.amount
-    %p 
-      #{reward.description}
+  .row-fluid.project-reward
+    .pull-right
+      .more      
+        = link_to edit_project_project_reward_path(@project, reward) do
+          %i.icon-edit
+          Sửa
+    %h4 #{human_currency reward.amount} 
+    %p= markdown reward.description
 
 .devider
   .item

@@ -4,7 +4,7 @@ module MetricsHelper
 		users = User.select("created_at, id").where(:created_at => 1.months.ago..Time.now)
     users_by_week = users.group_by{ |u| u.created_at.beginning_of_week }
     total_user_by_week = []
-    total_amount = 0;
+    total_amount = 0
     users_by_week.each do |week, users|
       total_user_by_week.push(users.count.to_s)
       total_amount = total_amount + users.count
@@ -40,8 +40,8 @@ module MetricsHelper
 		donation_progress = []
 		donations = Donation.select("updated_at, amount, id").successful.where(:updated_at => 1.months.ago..Time.now).order(:updated_at)
 		donations_by_week = donations.group_by{ |d| d.updated_at.beginning_of_week }
-		count = 0;
-		prev_week_amount = 0;
+		count = 0
+		prev_week_amount = 0
 
 		donations_by_week.each do |key, donation|
 			total_amount_by_week = 0			
@@ -49,7 +49,7 @@ module MetricsHelper
 				total_amount_by_week = total_amount_by_week + d.amount
 			end
 			total_amount_by_week = total_amount_by_week + prev_week_amount			
-			count = count + 1;
+			count = count + 1
 			prev_week_amount = total_amount_by_week
 			donation_progress.push({:value => total_amount_by_week.to_s, :label => "Week #{count}"})
 		end
@@ -69,7 +69,7 @@ module MetricsHelper
 		donations.each do |donation|
 			total_hours = total_hours + TimeDifference.between(donation.created_at, donation.updated_at).in_hours
 		end
-		avg_collection_time = total_hours / Donation.successful.count;
+		avg_collection_time = total_hours / Donation.successful.count
 
 		data = {
 			"item" => [
@@ -83,16 +83,16 @@ module MetricsHelper
 				},
 				{
 					"value" => avg_collection_time,
-					"text"  => "Average collection time"
+					"text"  => "Average collection time (hrs)"
 				}
 			]
 		}
-		return data;
+		return data
 	end
 
 	#chart: RAG numbers only
 	def get_avg_donation_amount_data
-		avg_donation_amount = Donation.successful.sum(:amount) / Donation.successful.count;
+		avg_donation_amount = Donation.successful.sum(:amount) / Donation.successful.count
 
 		data = {
 			"item" => [
@@ -110,6 +110,6 @@ module MetricsHelper
 				}
 			]
 		}
-		return data;
+		return data
 	end
 end

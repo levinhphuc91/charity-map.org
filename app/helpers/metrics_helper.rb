@@ -25,14 +25,22 @@ module MetricsHelper
 	#chart: Text
 	def get_latest_recommendation_data
 		latest_recommendation = Recommendation.last
-		data = { 
-			"item" => [
-				{"text" => latest_recommendation.content},
-				{"text" => latest_recommendation.user.full_name},
-				{"text" => latest_recommendation.project.title},
-				{"text" => project_url(latest_recommendation.project)}
-			]
-		}
+		if(latest_recommendation != nil)
+			data = { 
+				"item" => [
+					{"text" => latest_recommendation.content},
+					{"text" => latest_recommendation.user.full_name},
+					{"text" => latest_recommendation.project.title},
+					{"text" => project_url(latest_recommendation.project)}
+				]
+			}
+		else
+			data = { 
+				"item" => [
+					{"text" => "There is no reccommendation."}
+				]
+			}
+		end
 	end
 
 	#chart: Funnel Graph
@@ -53,11 +61,12 @@ module MetricsHelper
 			prev_week_amount = total_amount_by_week
 			donation_progress.push({:value => total_amount_by_week.to_s, :label => "Week #{count}"})
 		end
-
+		items = (donation_progress.any?) ? donation_progress : "There is no donation."
+		if(donation_progress.any?)
 		data = {
 			"type" => "reverse", 
 			"percentage" => "show", 
-			"item" => donation_progress
+			"item" => items
 		}
 		return data
 	end
@@ -69,7 +78,11 @@ module MetricsHelper
 		donations.each do |donation|
 			total_hours = total_hours + TimeDifference.between(donation.created_at, donation.updated_at).in_hours
 		end
-		avg_collection_time = total_hours / Donation.successful.count;
+		if(total_hours == 0 || Donation.successful.count == 0 )
+			avg_collection_time = 0;
+		else
+			avg_collection_time = total_hours / Donation.successful.count;
+		end
 
 		data = {
 			"item" => [

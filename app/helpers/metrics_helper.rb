@@ -62,7 +62,6 @@ module MetricsHelper
 			donation_progress.push({:value => total_amount_by_week.to_s, :label => "Week #{count}"})
 		end
 		items = (donation_progress.any?) ? donation_progress : "There is no donation."
-		if(donation_progress.any?)
 		data = {
 			"type" => "reverse", 
 			"percentage" => "show", 
@@ -122,6 +121,29 @@ module MetricsHelper
 					"text"  => "Average donation amount"
 				}
 			]
+		}
+		return data
+	end
+
+	#chart: Funnel Graph
+	def get_registration_progress_data
+		registration_progress = []
+		users = User.select("created_at, id").where(:created_at => 2.months.ago..Time.now)
+		users_by_week = users.group_by{ |u| u.created_at.beginning_of_week }
+		count = 0
+		prev_week_total_users = 0;
+
+		users_by_week.each do |week, users|
+			count = count + 1
+			total_amount_user = prev_week_total_users + users.count
+			prev_week_total_users = total_amount_user
+
+			registration_progress.push({:value => total_amount_user.to_s, :label => "Week #{count}"})
+    end
+		data = {
+			"type" => "reverse", 
+			"percentage" => "show", 
+			"item" => registration_progress
 		}
 		return data
 	end

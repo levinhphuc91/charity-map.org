@@ -1,6 +1,7 @@
 class Api::V1::MetricsController < ApplicationController
   include MetricsHelper
   respond_to :json
+  before_filter :authenticate_http
 
   def new_signup
     data = get_new_signup_data
@@ -36,4 +37,20 @@ class Api::V1::MetricsController < ApplicationController
       format.json { render :json => data }
     end
   end
+
+  def registration_progress
+    data = get_registration_progress_data
+    respond_to do |format|
+      format.json { render :json => data }
+    end
+  end
+
+  protected
+
+  def authenticate_http
+    authenticate_or_request_with_http_basic do |email, password|
+      email == "cuongvu0103@gmail.com" && password == "chubathong"
+    end
+  end
+
 end

@@ -98,13 +98,13 @@ Feature: User
       And I press "Đăng Ký"
     Then I should see "đã có"
 
-  Scenario: Sign up with short password (< 8 characters)
+  Scenario: Sign up with short password (< 6 characters)
     When I go to the signup page
       And I fill in "user_email" with "vumanhcuong01@gmail.com"
-      And I fill in "user_password" with "12348"
-      And I fill in "user_password_confirmation" with "12348"
+      And I fill in "user_password" with "12345"
+      And I fill in "user_password_confirmation" with "12345"
       And I press "Đăng Ký"
-    Then I should see "quá ngắn (tối thiểu 8 ký tự)"
+    Then I should see "quá ngắn (tối thiểu 6 ký tự)"
 
   Scenario: Get a new password successfully
     Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

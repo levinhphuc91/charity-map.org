@@ -11,14 +11,15 @@
   .row-fluid
     %h4= human_currency reward.amount
     %p 
-      #{reward.description}
+      #{markdown reward.description}
+  %hr/ 
 
 .devider
   .item
     %i.icon-money 
-    Các Mức Đóng Góp
+    Thêm Đề Mục Đóng Góp
   .note &sdot; thấp nhất 10.000đ
-= simple_form_for [@project, @project_reward], remote: true do |f|
+= simple_form_for [@project, @project_reward] do |f|
   .row-fluid
     - if @project_reward.errors.any?
       #error_explanation
@@ -29,10 +30,11 @@
   .row-fluid
     .span3
       = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-      .sub-headline Mức Tài Trợ <br/>
+      .sub-headline Mức (VNĐ) <br/>
       = f.input :amount, label: false, :input_html => {:class => "span12"}
     .span9
-      .sub-headline Điều Khoản Tài Trợ <br/>
+      .sub-headline Điều Khoản / Quyền Lợi Thêm <br/>
+      / TODO: Add examples
       = f.input :description, label: false, :input_html => {:class => "span12"}
   .row-fluid
     .pull-right= f.submit "Lưu", class: "submit"

@@ -20,4 +20,5 @@ class ProjectReward < ActiveRecord::Base
 
   validates :amount, :description, :project_id, presence: true
   validates :amount, numericality: { :greater_than_or_equal_to => 10000 }
+  validates :amount, :uniqueness => {:scope => :project_id}
 end

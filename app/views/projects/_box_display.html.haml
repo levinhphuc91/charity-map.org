@@ -8,15 +8,19 @@
     .project-title= link_to project.title, project_path(project)
     .project-info
       %i.icon-user 
-      #{project.user.full_name}
+      #{limit_display project.user.full_name || project.user.email.split("@").first, 20}
       &sdot;
       %i.icon-map-marker 
-      #{project.location}
+      #{limit_display project.location, 20}
       - if project.recommendations.count > 0
         &sdot;
         %i.icon-thumbs-up
         = project.recommendations.count
-  .project-description.giving-space= project.brief.html_safe
+  .project-description.giving-space
+    - if project.title.length > 30
+      = limit_display project.brief.html_safe, 170
+    - else
+      = project.brief.html_safe
   .project-footer-bar
     .row-fluid.giving-space
       .project-progressbar

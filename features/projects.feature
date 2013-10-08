@@ -150,7 +150,11 @@ Feature: Project
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
       And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
-    Then I should see "99.999 VNĐ"
+    Then I should see "Vừa thêm Đề mục đóng góp mới."
+      And I fill in "project_reward_amount" with "99999" within ".project_reward"
+      And I fill in "project_reward_description" with "A duplicate reward" within ".project_reward"
+      And I press "Lưu" within ".project_reward"
+    Then I should see "Lỗi: Amount đã có"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
     Given the date is 2013-09-11

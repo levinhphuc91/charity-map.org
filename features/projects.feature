@@ -102,8 +102,8 @@ Feature: Project
     And "team@charity-map.org" should receive an email
     When I open the email
     Then I should see "A user has just submitted his/her project for review." in the email body
-      And I should see "[LINK]" in the email body
-    When I follow "[LINK]" in the email
+      And I should see "[Link to Project Page]" in the email body
+    When I follow "[Link to Project Page]" in the email
     Then I should see "Push The World"
 
   Scenario: Edit project without permission

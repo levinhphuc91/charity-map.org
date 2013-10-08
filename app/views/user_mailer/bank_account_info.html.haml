@@ -1,6 +1,6 @@
 %p Xin chào #{" #{@user.full_name.split.last}" if @user.full_name},
 
-%p Bạn vừa đăng ký ủng hộ dự án #{@project.title} (do #{@project.user.full_name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
+%p Bạn vừa đăng ký ủng hộ dự án <b>#{@project.title}</b> (do <b>#{@project.user.full_name}</b> khởi tạo) bằng hình thức <b>#{human_donation_type @donation.collection_method}</b>.
 
 %p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
 
@@ -18,7 +18,7 @@
   %br/ 
   \== Số tài khoản:  0071000707388
 
-%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản. Mã đặc biệt: #{@donation.euid}.
+%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản: <b>#{@donation.euid}</b>.
 
 %p Khi bạn đã chuyển khoản, vui lòng click vào #{link_to "link", request_verification_url(euid: @donation.euid)} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map:
 

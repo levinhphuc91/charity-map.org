@@ -1,5 +1,16 @@
 Feature: User
 
+  Scenario: To be able to retrieve password
+    Given there is a user with the full name "Cuong Vu" and the email "cuong@charity-map.org" and the password "12345678" and the password confirmation "12345678"
+    When I am on the forgot-your-password page
+      And I fill in "Email" with "cuong@charity-map.org"
+      And I press "Send me reset password instructions"
+    Then I should see "Bạn sẽ nhận được email hướng dẫn thiết lập lại mật khẩu trong vài phút nữa."
+      And "cuong@charity-map.org" should receive an email
+    When I open the email
+    When I follow "Change my password" in the email
+    Then I should see "Change your password"
+
   Scenario: To have a profile
     Given there is a user with the full name "Tu Hoang" and the email "tu@charity-map.org" and the password "12345678" and the password confirmation "12345678"
     When I go to the profile of "Tu Hoang"

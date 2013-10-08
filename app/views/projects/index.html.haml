@@ -16,8 +16,7 @@
     %hr
     .row-fluid
       - @projects.each do |project|
-        .pull-left
-          = render "projects/box_display", :project => project
+        = render "projects/box_display", :project => project
 
     - if (current_user && current_user.staff && @pending)
       .headline Đang Đợi Xét Duyệt (admin only)

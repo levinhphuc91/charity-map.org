@@ -67,11 +67,19 @@ Feature: Donation
   	Then I should see "Chờ CK"
 	  	And I follow "Đã Chuyển?"
 	  Then  I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
-	  Then  an email should have been sent with:
-			"""
-			From: tu@charity-map.org
-			To: testing@man.net
-			"""
+		  And I am not authenticated
+		  And I login as "testing@man.net"
+	  Then "testing@man.net" should receive an email
+		When I open the email
+			And I follow "đường dẫn này" in the email
+			And I follow "Đã nhận tiền?"
+		Then I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
+			And an email should have been sent with:
+			  """
+			  From: tu@charity-map.org
+			  To: donor@man.net
+			  Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
+			  """
 
 	Scenario: Donation list for normal user
 		Given the date is 2013-09-11

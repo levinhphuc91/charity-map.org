@@ -11,8 +11,8 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
     
-    # when /^the users settings tiles\s?page$/
-    #   '/tiles'
+    when /^the forgot-your-password page$/
+      '/users/password/new'
 
     when /^the users settings page$/
       '/users/settings'

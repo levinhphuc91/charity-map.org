@@ -102,8 +102,8 @@ Feature: Project
     And "team@charity-map.org" should receive an email
     When I open the email
     Then I should see "A user has just submitted his/her project for review." in the email body
-      And I should see "[LINK]" in the email body
-    When I follow "[LINK]" in the email
+      And I should see "[Link to Project Page]" in the email body
+    When I follow "[Link to Project Page]" in the email
     Then I should see "Push The World"
 
   Scenario: Edit project without permission
@@ -150,7 +150,11 @@ Feature: Project
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
       And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
-    Then I should see "99.999 VNĐ"
+    Then I should see "Vừa thêm Đề mục đóng góp mới."
+      And I fill in "project_reward_amount" with "99999" within ".project_reward"
+      And I fill in "project_reward_description" with "A duplicate reward" within ".project_reward"
+      And I press "Lưu" within ".project_reward"
+    Then I should see "Lỗi: Amount đã có"
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
     Given the date is 2013-09-11

@@ -28,7 +28,7 @@ class ProjectUpdatesController < InheritedResources::Base
         UserMailer.delay.send_updates_to_project_followers(@project_update, pf.user)
       end
       @project.donations.successful.each do |donation|
-        UserMailer.delay.send_updates_to_project_followers(@project_update, donation.donor)
+        UserMailer.delay.send_updates_to_project_followers(@project_update, donation.user)
       end
       respond_to do |format|
         format.json { render :json => @project_update }

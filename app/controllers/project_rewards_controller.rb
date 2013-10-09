@@ -27,7 +27,7 @@ class ProjectRewardsController < InheritedResources::Base
         format.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      redirect_to project_project_rewards_path(@project), alert: "Lỗi: #{@project_reward.errors.full_messages.join(", ")}"
     end
   end
 end

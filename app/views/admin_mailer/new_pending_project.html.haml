@@ -1,12 +1,12 @@
 %p A user has just submitted his/her project for review.
 
 %p
-  %b Details:
+  %b DETAILS:
   %br/ 
-  <b>Title</b>: <%= @project.title %>
+  <b>Title</b>: #{@project.title}
   %br/
   <b>Description:</b>
   %br/ 
-  <%= markdown @project.description.html_safe %>
+  #{markdown @project.description.html_safe}
 
-%p= link_to "[LINK]", project_url(@project)
+%p= link_to "[Link to Project Page]", project_url(@project)

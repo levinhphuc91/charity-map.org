@@ -1,6 +1,6 @@
-%p Xin chào#{" #{@user.full_name.split.last}" if @user.full_name},
+%p Xin chào #{@user.name.split.last},
 
-%p Vào ngày #{human_time(@donation.created_at)}, bạn đã đăng ký ủng hộ dự án #{@project.title} (do #{@project.user.full_name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
+%p Vào ngày #{human_time(@donation.created_at)}, bạn đã đăng ký ủng hộ dự án #{@project.title} (do #{@project.user.name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
 
 %p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
 

@@ -22,9 +22,9 @@
 class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?",
-    "REVIEWED", Time.now, Time.now) }
-  scope :finished, -> { where(status: "FINISHED") }
-  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]) }
+    "REVIEWED", Time.now, Time.now).order("created_at DESC") }
+  scope :finished, -> { where(status: "FINISHED").order("created_at DESC") }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video

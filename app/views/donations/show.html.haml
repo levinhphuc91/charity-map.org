@@ -13,7 +13,7 @@
       %ul.timeline
         %li.important
           .sub-headline= human_time @donation.created_at
-          %p Mạnh thường quân <b>#{@donation.user.full_name || @donation.user.id}</b> đóng góp <b>#{human_currency @donation.amount}</b> cho dự án <b>#{@project.title}</b>.
+          %p Mạnh thường quân <b>#{@donation.user.name || @donation.user.id}</b> đóng góp <b>#{human_currency @donation.amount}</b> cho dự án <b>#{@project.title}</b>.
         / - if @donation.status == "SUCCESSFUL"
         %li
           .sub-headline= human_time @donation.updated_at

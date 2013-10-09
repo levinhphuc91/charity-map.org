@@ -2,13 +2,16 @@
   .item Đề Mục Đóng Góp
   .note Dự án: #{link_to @project.title, project_path(@project)}
 
-.row-fluid
-  #chart{style: "height: 250px;"}
+- unless @project.project_rewards.empty?
+  .row-fluid
+    #chart{style: "height: 250px;"}
+- else
+  %p Hiện chưa có đề mục đóng góp nào được ghi nhận.
 
 %hr/ 
 
 - @project_rewards.each do |reward|
-  .row-fluid.project-reward
+  .row-fluid
     .pull-right
       .more      
         = link_to edit_project_project_reward_path(@project, reward) do

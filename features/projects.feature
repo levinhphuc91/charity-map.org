@@ -147,6 +147,7 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Về lại Trang Quản Lý"
       And I follow "Đề Mục Đóng Góp"
+    Then I should see "Hiện chưa có đề mục đóng góp nào được ghi nhận."
       And I fill in "project_reward_amount" with "99999" within ".project_reward"
       And I fill in "project_reward_description" with "Bla Bla" within ".project_reward"
       And I press "Lưu" within ".project_reward"
@@ -155,6 +156,9 @@ Feature: Project
       And I fill in "project_reward_description" with "A duplicate reward" within ".project_reward"
       And I press "Lưu" within ".project_reward"
     Then I should see "Lỗi: Amount đã có"
+      And I follow "Sửa"
+      And I follow "Xóa"
+    Then I should see "Xóa đề mục đóng góp thành công."
 
   Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
     Given the date is 2013-09-11

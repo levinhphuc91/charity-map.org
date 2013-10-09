@@ -7,6 +7,14 @@
           %li= msg
   
   = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-  = f.input       :amount
-  = f.input       :description
-  = f.submit "Lưu"
+  %p 
+    .sub-headline Amount
+    = f.input       :amount, label: false, :input_html => {:class => "span12"}
+  %p 
+    .sub-headline Description
+    = f.input       :description, label: false, :input_html => {:class => "span12"}
+  = f.submit "Lưu", class: "submit"
+  = link_to project_project_reward_path(@project, @project_reward), method: :delete do
+    &sdot;
+    %i.icon-remove
+    Xóa

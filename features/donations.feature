@@ -45,7 +45,7 @@ Feature: Donation
 			  To: testing@man.net
 			  """
 		When I follow the first link in the email
-		Then the URL should contain "dashboard"
+		Then the URL should contain "projects/push-the-world/donations"
 
 	Scenario: Request verification for bank transfer on dashboard
 	  Given the date is 2013-09-11

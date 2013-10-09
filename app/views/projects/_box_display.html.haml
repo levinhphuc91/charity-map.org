@@ -8,7 +8,7 @@
     .project-title= link_to project.title, project_path(project)
     .project-info
       %i.icon-user 
-      #{limit_display project.user.full_name || project.user.email.split("@").first, 20}
+      #{limit_display project.user.name || project.user.email.split("@").first, 20}
       &sdot;
       %i.icon-map-marker 
       #{limit_display project.location, 20}

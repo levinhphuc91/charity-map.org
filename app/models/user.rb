@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
- acts_as_messageable  :table_name => "messages",
+  acts_as_messageable  :table_name => "messages",
                       :required   => :body,
                       :class_name => "ActsAsMessageable::Message",
                       :dependent  => :destroy,
@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
   has_many :project_follows
   
   has_defaults staff: false, verified_by_phone: false
+
+  def name
+    return full_name unless full_name.blank?
+    email.split("@").first
+  end
 
   def blank_contact?
     return true if (self.phone.blank?) || (self.address.blank?) || (self.full_name.blank?)

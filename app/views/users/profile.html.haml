@@ -29,7 +29,7 @@
           - else
             = image_tag("default_avatar.png", size: "50x50")
       .row-fluid.centered
-        .sub-headline= @user.full_name
+        .sub-headline= @user.name
         - if(@user != current_user)
           %p
             %i.icon-comments

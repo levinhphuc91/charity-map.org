@@ -1,4 +1,4 @@
-%p Xin chào#{" #{@user.full_name.split.last}" if @user.full_name},
+%p Xin chào #{@user.name.split.last},
 
 %p Hệ thống vừa ghi nhận một yêu cầu xác nhận tiền đã được gửi đến tài khoản của dự án #{@project.title} vào ngày #{human_time(@donation.updated_at)}.
 

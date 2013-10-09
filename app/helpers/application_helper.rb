@@ -72,6 +72,6 @@ module ApplicationHelper
 
   def full_name_by_id(id)
     user = User.find(id)
-    return user.full_name
+    return user.name
   end
 end

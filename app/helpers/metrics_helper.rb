@@ -28,7 +28,7 @@ module MetricsHelper
 		data = { 
 			"item" => [
 				{"text" => latest_recommendation.content},
-				{"text" => latest_recommendation.user.full_name},
+				{"text" => latest_recommendation.user.name},
 				{"text" => latest_recommendation.project.title},
 				{"text" => project_url(latest_recommendation.project)}
 			]

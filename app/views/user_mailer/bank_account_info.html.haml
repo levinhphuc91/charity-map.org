@@ -1,4 +1,4 @@
-%p Xin chào #{" #{@user.full_name.split.last}" if @user.full_name},
+%p Xin chào #{@user.name.split.last},
 
 %p Bạn vừa đăng ký ủng hộ dự án <b>#{@project.title}</b> (do <b>#{@project.user.full_name}</b> khởi tạo) bằng hình thức <b>#{human_donation_type @donation.collection_method}</b>.
 

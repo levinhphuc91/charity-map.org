@@ -63,8 +63,8 @@ class UsersController < ApplicationController
   end
 
   def verification_delivery_receipt
-    if params["to"]
-      @user = User.find_by_phone("#{params["to"].gsub("84","0")}")
+    if params["msisdn"]
+      @user = User.find_by_phone("#{params["msisdn"].gsub("84","0")}")
       @verification = @user.verifications.where(:status => "UNUSED").first
       @verification.update_attributes :receipt => params
       render :text => "Confirmed."

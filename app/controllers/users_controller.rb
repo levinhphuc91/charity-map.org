@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
-        sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        sms = SMS.send(@phone_number, "(Charity Map) Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
         current_user.update(phone: @phone_number) if current_user.phone.blank?  
         redirect_to users_verify_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
       else

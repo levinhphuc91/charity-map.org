@@ -2,7 +2,7 @@ require 'sms'
 
 class UsersController < ApplicationController
   include SessionsHelper
-  before_filter :authenticate_user!, except: :profile
+  before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt]
   layout "layouts/dashboard", only: [
     :dashboard, :settings, :messages, :donations, :verify,
     :show_message, :new_message, :new_reply_message
@@ -59,6 +59,17 @@ class UsersController < ApplicationController
       else
         redirect_to users_verify_path, alert: "Permission denied."
       end
+    end
+  end
+
+  def verification_delivery_receipt
+    if params["to"]
+      @user = User.find_by_phone("#{params["to"].gsub("84","0")}")
+      @verification = @user.verifications.where(:status => "UNUSED").first
+      @verification.update_attributes :receipt => params
+      render :text => "Confirmed."
+    else
+      render :text => "Error."
     end
   end
 

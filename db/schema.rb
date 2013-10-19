@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130923113623) do
+ActiveRecord::Schema.define(version: 20131019101215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 20130923113623) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.hstore   "receipt"
   end
 
   add_index "verifications", ["user_id"], name: "index_verifications_on_user_id", using: :btree

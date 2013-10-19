@@ -21,6 +21,7 @@
               %p.alert= alert
       = yield
     = render "layouts/footer"
+    = debug params if Rails.env.development?
   :javascript
     $(document).ready(function() {
       $(".show-chart").click(function() {

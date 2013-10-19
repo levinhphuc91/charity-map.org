@@ -9,6 +9,7 @@
 #  status     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  receipt    :hstore
 #
 
 require 'spec_helper'

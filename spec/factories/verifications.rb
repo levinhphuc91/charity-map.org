@@ -2,6 +2,9 @@
 
 FactoryGirl.define do
   factory :verification do
-    user nil
+    user_id 1
+    code "11111"
+    channel "phone"
+    status "UNUSED"
   end
 end

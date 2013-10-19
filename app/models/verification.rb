@@ -9,10 +9,11 @@
 #  status     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  receipt    :hstore
 #
 
 class Verification < ActiveRecord::Base
-  attr_accessible :code, :user_id, :channel, :status
+  attr_accessible :code, :user_id, :channel, :status, :receipt
   belongs_to :user
   validates :code, :channel, :user_id, :status, presence: true
   validates :user_id, :uniqueness => {:scope => :channel}

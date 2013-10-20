@@ -9,23 +9,26 @@
       .span6
         = image_tag "ph_homepage-banner.jpg"
 
-.body-container--dark-row
-  .body-container--content
-    .row-fluid{style: "margin-top: 10px;"}
-      .span6
-        %p{style: "margin-top: 10px;"}
-          = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
-          %b Chỉ tốn 1 phút
-          %br/ 
-          để đăng ký và bắt đầu ủng hộ
-      = form_tag(new_user_registration_path, :method => :get) do
-        .span4
-          = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
-        .span2
-          .pull-right
-            #homepage-registration-by-email.bttn.bttn-green
-              %i.icon-anchor
-              &nbsp;Đăng Ký
+- unless current_user
+  .body-container--dark-row
+    .body-container--content
+      .row-fluid{style: "margin-top: 10px;"}
+        .span6
+          %p{style: "margin-top: 10px;"}
+            = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
+            %b Chỉ tốn 1 phút
+            %br/ 
+            để đăng ký và bắt đầu ủng hộ
+        = form_tag(new_user_registration_path, :method => :get) do
+          .span4
+            = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
+          .span2
+            .pull-right
+              #homepage-registration-by-email.bttn.bttn-green
+                %i.icon-anchor
+                &nbsp;Đăng Ký
+- else
+  %hr/ 
 
 .body-container--plain-row
   .body-container--content

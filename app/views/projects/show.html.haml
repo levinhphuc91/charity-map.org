@@ -121,7 +121,7 @@
         = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
       .bordered-box
         .main-project-description
-          %p= markdown @project.description
+          %p= @project.description.html_safe
         .devider
           .item
             %i.icon-list-alt

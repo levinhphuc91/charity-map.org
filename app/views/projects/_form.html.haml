@@ -32,7 +32,12 @@
     .span4.sub-headline
       Mô Tả Dự Án
     .span8
-      = f.input :description, label: false, :input_html => {:class => "span12", :size => "50x20"}
+      #project-description--edit-box.editable
+        - if @project.description
+          = @project.description.html_safe
+        - else
+          Thời gian, cách thức hoạt động, nhân lực, etc.
+      = f.input :description, as: :hidden, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
   .row-fluid
     .span4.sub-headline
       Link Video giới thiệu
@@ -58,6 +63,11 @@
 
 :javascript
   $( document ).ready(function() {
+    $('input.submit').click( function(){
+      new_description = $("#project-description--edit-box").html();
+      $('#project_description').val(new_description);
+      $("#edit_project_10").submit();
+    });
     $(".start_date").datepicker({
       defaultDate: "+1w",
       changeMonth: true,

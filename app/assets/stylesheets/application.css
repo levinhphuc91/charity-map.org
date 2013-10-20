@@ -17,3 +17,22 @@
  .unreaded_message{
  		font-weight: bold;
  }
+
+ .editable {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 7px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  margin-bottom: 10px;
+ }
+
+.editable p {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+ }

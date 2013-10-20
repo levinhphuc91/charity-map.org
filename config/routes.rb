@@ -49,13 +49,13 @@ CharityMap::Application.routes.draw do
   end
   
   namespace :api, defaults: {format: 'json'} do
-      namespace :v1 do
-        get   'metrics/new_signup'
-        get   'metrics/latest_recommendation'
-        get   'metrics/donation_progress'
-        get   'metrics/avg_collection_time'
-        get   'metrics/avg_donation_amount'
-      end
+    namespace :v1 do
+      get   'metrics/new_signup'
+      get   'metrics/latest_recommendation'
+      get   'metrics/donation_progress'
+      get   'metrics/avg_collection_time'
+      get   'metrics/avg_donation_amount'
+    end
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

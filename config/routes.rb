@@ -25,6 +25,10 @@ CharityMap::Application.routes.draw do
   get   'donations/request_verification'
 
   resources :projects do
+    collection do
+      get 'autocomplete'
+      get 'search'
+    end
     resources :project_rewards
     resources :donations
     resources :project_comments

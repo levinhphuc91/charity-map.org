@@ -250,6 +250,15 @@ Feature: Project
       Subject: Cập nhật mới từ dự án Push The World
       """
 
+  Scenario: To be searched
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I go to the project listing page
+      And I fill in "project_search" with "Push The World"
+      And I press "Tìm"
+    Then the URL should contain "push-the-world"
+
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11
   #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"

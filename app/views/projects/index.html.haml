@@ -1,5 +1,15 @@
 .body-container--plain-row
   .body-container--content
+    .project-search
+      = form_tag search_projects_path, method: :get do
+        .row-fluid
+          .span8
+            = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
+          .span4
+            = submit_tag "Tìm", class: "submit"
+
+.body-container--plain-row
+  .body-container--content
     .row-fluid
       .pull-left
         - if params[:filter] && params[:filter] == "funding"
@@ -25,3 +35,9 @@
         - @pending.each do |pending|
           .pull-left
             = render "projects/box_display", :project => pending
+
+:javascript
+  $('#project_search').typeahead({
+    name: "project",
+    prefetch: "/projects/autocomplete"
+  });

@@ -1,6 +1,6 @@
 class ProjectsController < InheritedResources::Base
   include SessionsHelper
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show, :search, :autocomplete]
 
   def index
     if params[:filter] && params[:filter] == "funding"
@@ -67,5 +67,14 @@ class ProjectsController < InheritedResources::Base
     else
       redirect_to :dashboard, alert: "Permission denied"
     end
+  end
+
+  def search
+    @project = Project.find_by_title(params[:query])
+    redirect_to @project
+  end
+
+  def autocomplete
+    render json: Project.public_view.map(&:title)
   end
 end

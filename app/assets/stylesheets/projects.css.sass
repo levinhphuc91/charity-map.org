@@ -1,5 +1,41 @@
 @import 'main'
 
+.project-search
+  background-color: $light_grey
+  border-radius: 5px
+  height: 42px
+  padding: 10px
+  .input-box
+    font-family: 'Helvetica Neue', sans-serif
+    font-weight: bold
+    font-size: 20px !important
+    height: 40px !important
+    line-height: 30px !important
+    padding: 0 10px 0 10px !important
+    border-radius: 5px !important
+    width: 650px
+    border: 2px solid $grey !important
+    background-color: $white !important
+  input.submit
+    clear: both
+    background-color: $blue
+    border: none
+    margin: 0
+    margin-left: 20px
+    padding: 0px 20px
+    height: 40px
+    width: 275px
+    font-size: 15px
+    line-height: 40px
+    font-weight: bold
+    text-transform: uppercase
+    color: $white
+    border-radius: 3px
+    border-bottom: 2px solid darken($blue, 10%)
+    &:hover
+      background-color: lighten($blue, 5%)
+      cursor: pointer
+
 .homepage--project-container
   float: left
   width: 260px

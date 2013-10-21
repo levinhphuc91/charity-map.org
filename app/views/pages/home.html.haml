@@ -9,6 +9,9 @@
       .span6
         = image_tag "ph_homepage-banner.jpg"
 
+.body-container--plain-row{:style => "margin-top: -20px;"}
+  = render "layouts/map", height: "500px", markers: @markers
+
 - unless current_user
   .body-container--dark-row
     .body-container--content
@@ -29,9 +32,6 @@
                 &nbsp;Đăng Ký
 - else
   %hr/ 
-
-.body-container--plain-row{:style => "margin-top: -20px;"}
-  = render "layouts/map", height: "500px", markers: nil
 
 .body-container--plain-row
   .body-container--content

@@ -39,6 +39,7 @@ gem 'fog'
 gem 'mini_magick'
 gem 'delayed_job_active_record'
 gem 'rails_12factor', group: :production
+gem 'geocoder'
 
 group :development do
   gem 'better_errors'

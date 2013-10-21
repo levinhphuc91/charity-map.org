@@ -19,6 +19,9 @@
 #  video        :string(255)
 #  settings     :hstore
 #  unlisted     :boolean
+#  address      :string(255)
+#  latitude     :float
+#  longitude    :float
 #
 
 require 'spec_helper'

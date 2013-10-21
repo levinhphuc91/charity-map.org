@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @markers = Project.mapped
   end
 
   def about

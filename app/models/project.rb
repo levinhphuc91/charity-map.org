@@ -19,6 +19,9 @@
 #  video        :string(255)
 #  settings     :hstore
 #  unlisted     :boolean
+#  address      :string(255)
+#  latitude     :float
+#  longitude    :float
 #
 
 class Project < ActiveRecord::Base
@@ -26,10 +29,12 @@ class Project < ActiveRecord::Base
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ? AND UNLISTED = ?",
     "REVIEWED", Time.now, Time.now, "f").order("created_at DESC") }
   scope :finished, -> { where(status: "FINISHED", unlisted: false).order("created_at DESC") }
+  scope :mapped, -> { where("LATITUDE >= ? AND LONGITUDE >= ?", 0, 0) }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
-    :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video
+    :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,
+    :address, :latitude, :longitude
 
   has_many :project_rewards
   has_many :project_updates
@@ -51,6 +56,11 @@ class Project < ActiveRecord::Base
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
   validate :video_url_to_be_a_valid_service_link
   
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :geocode,
+    :if => lambda{ |obj| obj.address_changed? }
+
   extend FriendlyId
   friendly_id :title, use: :slugged
   mount_uploader :photo, PhotoUploader

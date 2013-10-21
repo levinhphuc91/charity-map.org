@@ -82,34 +82,14 @@
 
     var myLatlng = new google.maps.LatLng(10.77530, 106.69681);
 
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      icon: '<%= image_path("fire-hydrant-adopted.png") %>'
-    });
-
   <% unless markers.nil?  %>
     <% markers.each do |marker| %>
       var <%= "myLatlng#{marker.id}" %> = new google.maps.LatLng(<%= marker.latitude %>, <%= marker.longitude %>);
-      
-        <% if marker.user.nil?  %>
-          var <%= "content#{marker.id}" %> = '<%= escape_javascript(render "layouts/info_window/waiting_for_adopt", :hydrant => marker) %>';
-
-          var <%= "marker#{marker.id}" %> = new google.maps.Marker({
-            position: <%= "myLatlng#{marker.id}" %>,
-            map: map,
-            icon: '<%= image_path("fire-hydrant-unadopted.png") %>'
-          });
-
-        <% else  %>
-          var <%= "content#{marker.id}" %> = '<%= escape_javascript(render "layouts/info_window/already_adopted", :hydrant => marker) %>';
-
-          var <%= "marker#{marker.id}" %> = new google.maps.Marker({
-            position: <%= "myLatlng#{marker.id}" %>,
-            map: map,
-            icon: '<%= image_path("fire-hydrant-adopted.png") %>'
-          });
-        <% end  %>
+      var <%= "content#{marker.id}" %> = '<%= marker.title %>';
+      var <%= "marker#{marker.id}" %> = new google.maps.Marker({
+        position: <%= "myLatlng#{marker.id}" %>,
+        map: map
+      });
 
       google.maps.event.addListener(<%= "marker#{marker.id}" %>, 'click', function() {
         infowindow.close();

@@ -9,9 +9,6 @@
       .span6
         = image_tag "ph_homepage-banner.jpg"
 
-.body-container--plain-row{:style => "margin-top: -20px;"}
-  = render "layouts/map", height: "500px", markers: @markers
-
 - unless current_user
   .body-container--dark-row
     .body-container--content
@@ -66,6 +63,10 @@
         - cache("finished_projects", :expires_in => 1.day) do
           - Project.finished.each do |project|
             = render "projects/box_display", :project => project
+
+- unless @markers.nil?
+  .body-container--plain-row{:style => "margin-top: -20px;"}
+    = render "layouts/map", height: "500px", markers: @markers
 
 :javascript
   $('#homepage-registration-by-email').click(function() {

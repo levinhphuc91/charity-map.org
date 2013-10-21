@@ -17,14 +17,16 @@
 #  slug         :string(255)
 #  brief        :text
 #  video        :string(255)
+#  settings     :hstore
+#  unlisted     :boolean
 #
 
 class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
-  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ?",
-    "REVIEWED", Time.now, Time.now).order("created_at DESC") }
-  scope :finished, -> { where(status: "FINISHED").order("created_at DESC") }
-  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
+  scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ? AND UNLISTED = ?",
+    "REVIEWED", Time.now, Time.now, "f").order("created_at DESC") }
+  scope :finished, -> { where(status: "FINISHED", unlisted: false).order("created_at DESC") }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video
@@ -52,6 +54,7 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
   mount_uploader :photo, PhotoUploader
+  has_defaults unlisted: true
 
   def accepting_donation?
     status == "REVIEWED" 

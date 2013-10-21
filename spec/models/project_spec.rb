@@ -17,6 +17,8 @@
 #  slug         :string(255)
 #  brief        :text
 #  video        :string(255)
+#  settings     :hstore
+#  unlisted     :boolean
 #
 
 require 'spec_helper'

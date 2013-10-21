@@ -1,7 +1,7 @@
 Feature: Project
   Scenario: To be displayed in a box
     Given there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"
-      And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above
+      And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above that is not unlisted
     When I go to the home page
     Then I should see "Books from Heart"
       And I should see "This is a short brief"
@@ -258,6 +258,13 @@ Feature: Project
       And I fill in "project_search" with "Push The World"
       And I press "Tìm"
     Then the URL should contain "push-the-world"
+
+  Scenario: To be unlisted upon create
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I go to the project listing page
+    Then I should not see "Push The World"
 
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11

@@ -1,4 +1,6 @@
 CharityMap::Application.routes.draw do
+  resources :categories
+
   get   'users/dashboard'
   get   'users/profile'
   get   'users/settings'

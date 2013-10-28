@@ -23,6 +23,7 @@
 #  latitude     :float
 #  longitude    :float
 #
+require "babosa"
 
 class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
@@ -63,6 +64,11 @@ class Project < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :title, use: :slugged
+
+  def normalize_friendly_id(input)
+    input.to_s.to_slug.normalize.to_s 
+  end
+
   mount_uploader :photo, PhotoUploader
   has_defaults unlisted: true
 

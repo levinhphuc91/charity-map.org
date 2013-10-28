@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include SessionsHelper
   before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt]
   layout "layouts/dashboard", only: [
-    :dashboard, :settings, :messages, :donations, :verify,
+    :dashboard, :settings, :messages, :donations, :update_settings, :verify,
     :show_message, :new_message, :new_reply_message
   ]
 
@@ -60,6 +60,13 @@ class UsersController < ApplicationController
         redirect_to users_verify_path, alert: "Permission denied."
       end
     end
+  end
+
+  def resend_verification
+    @phone_number = current_user.phone.gsub(/\D/, '').to_i.to_s
+    @verification = current_user.verifications.where(:status => "UNUSED").first
+    sms = SMS.send(@phone_number, "(Charity Map) Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
+    redirect_to users_verify_path
   end
 
   def verification_delivery_receipt

@@ -9,3 +9,6 @@
       = text_field_tag :phone_code
     %p 
       = submit_tag "Xác Nhận", class: "submit"
+%hr/ 
+.row-fluid
+  %p Chưa nhận được mã? #{link_to "Gửi lại", users_resend_verification_path} tới số #{current_user.phone}.

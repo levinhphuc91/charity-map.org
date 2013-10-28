@@ -10,6 +10,7 @@ puts 'Updating Configurations'
 
 {
   site_name: 'Charity Map',
+  site_url: 'http://beta.charity-map.org',
   blog_url: 'http://blog.charity-map.org',
   email_contact: 'team@charity-map.org',
 }.each do |name, value|

@@ -11,6 +11,9 @@
     = csrf_meta_tags
     = yield :head
   %body
+    <div id="fb-root"></div>
+    - if params[:controller] == "projects"
+      = render "layouts/facebook_script"
     = render "layouts/header"
     .body-container
       - if notice || alert

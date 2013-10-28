@@ -34,3 +34,5 @@
           = link_to initiate_project_project_follows_path(project), remote: true do
             .span12.donate-bttn
               Theo Dõi
+  %hr/ 
+  .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}

@@ -118,7 +118,7 @@ Feature: User
     When I go to the forgot password page
       And I fill in "user_email" with "cuong@gmail.com"
       And I press "Send me reset password instructions"
-    Then  I should see "Some errors were found, please take a look"
+    Then  I should see "Please review the problems below:"
       And I should see "không tìm thấy"
 
   Scenario: To be able to login using Facebook

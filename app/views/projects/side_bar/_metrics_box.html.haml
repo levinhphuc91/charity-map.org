@@ -1,0 +1,36 @@
+#donation-box.container
+  .figure.righted
+    .number= human_currency project.funding_goal
+    .description
+      Mục tiêu
+  .figure.righted
+    .number= human_currency project.donations.successful.sum(:amount)
+    .description
+      Số tiền nhận được
+  .figure.righted 
+    - if project.start_date < Date.today && project.end_date > Date.today
+      .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
+      .description
+        %i.icon-time
+        Thời gian gây quỹ
+    - else
+      .number #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
+      .description
+        %i.icon-time
+        Thời gian gây quỹ
+  .row-fluid
+    = link_to new_project_donation_path(project) do
+      .span12.donate-bttn
+        Ủng Hộ Dự Án
+    
+  .cleared
+  %hr
+  #project_follow
+    .row-fluid
+      .sub-headline.centered
+        - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
+          Bạn đang theo dõi dự án này
+        - else
+          = link_to initiate_project_project_follows_path(project), remote: true do
+            .span12.donate-bttn
+              Theo Dõi

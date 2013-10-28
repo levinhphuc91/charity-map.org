@@ -1,7 +1,7 @@
 class ProjectUpdatesController < InheritedResources::Base
 
   before_filter :authenticate_user!, except: [:index, :show]
-  layout "layouts/dashboard"
+  layout "layouts/dashboard", except: [:show]
 
   def index
     @project = Project.find(params[:project_id])
@@ -37,5 +37,11 @@ class ProjectUpdatesController < InheritedResources::Base
     else
       render :new, alert: "Không thành công. Vui lòng thử lại."
     end
+  end
+
+  def show
+    @project = Project.find(params[:project_id])
+    @user = @project.user
+    @project_update = @project.project_updates.where(:id => params[:id]).first
   end
 end

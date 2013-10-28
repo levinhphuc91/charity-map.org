@@ -1,0 +1,15 @@
+.heading-bar
+  .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(project)}
+- project.recommendations.each do |rec|
+  .row-fluid
+    %p
+      <b>#{link_to rec.user.name, user_profile_path(rec.user)}</b> &sdot; #{human_time rec.updated_at}
+      %br/
+      %i.icon-quote-left
+      #{rec.content}
+      - if (current_user) && (rec.user == current_user)
+        = link_to "[Edit]", edit_project_recommendation_path(project, rec), class: "edit_recommendation"
+.row-fluid
+  .pull-right
+    = link_to new_project_recommendation_path(project) do
+      .more Viết Lời Giới Thiệu

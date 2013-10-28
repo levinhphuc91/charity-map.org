@@ -23,42 +23,7 @@
   .body-container--plain-row
     .body-container--content
       .side-bar
-        #donation-box.container
-          .figure.righted
-            .number= human_currency @project.funding_goal
-            .description
-              Mục tiêu
-          .figure.righted
-            .number= human_currency @project.donations.successful.sum(:amount)
-            .description
-              Số tiền nhận được
-          .figure.righted 
-            - if @project.start_date < Date.today && @project.end_date > Date.today
-              .number Còn #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i} ngày
-              .description
-                %i.icon-time
-                Thời gian gây quỹ
-            - else
-              .number #{human_time(@project.start_date)} &mdash; #{human_time(@project.end_date)}
-              .description
-                %i.icon-time
-                Thời gian gây quỹ
-          .row-fluid
-            = link_to new_project_donation_path(@project) do
-              .span12.donate-bttn
-                Ủng Hộ Dự Án
-            
-          .cleared
-          %hr
-          #project_follow
-            .row-fluid
-              .sub-headline.centered
-                - if current_user && !@project.project_follows.where(user_id: current_user.id).empty?
-                  Bạn đang theo dõi dự án này
-                - else
-                  = link_to initiate_project_project_follows_path(@project), remote: true do
-                    .span12.donate-bttn
-                      Theo Dõi
+        = render "projects/side_bar/metrics_box", project: @project
 
         .container
           .heading-bar
@@ -88,21 +53,7 @@
                   %br/
                   = reward.description
         .container
-          .heading-bar
-            .sub-headline #{link_to "Lời Giới Thiệu", project_recommendations_path(@project)}
-          - @project.recommendations.each do |rec|
-            .row-fluid
-              %p
-                <b>#{link_to rec.user.name, user_profile_path(rec.user)}</b> &sdot; #{human_time rec.updated_at}
-                %br/
-                %i.icon-quote-left
-                #{rec.content}
-                - if (current_user) && (rec.user == current_user)
-                  = link_to "[Edit]", edit_project_recommendation_path(@project, rec), class: "edit_recommendation"
-          .row-fluid
-            .pull-right
-              = link_to new_project_recommendation_path(@project) do
-                .more Viết Lời Giới Thiệu
+          = render "projects/side_bar/reviews", project: @project
           .cleared
 
         .container

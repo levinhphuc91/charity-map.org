@@ -1,65 +1,66 @@
-= simple_form_for @project do |f|
-  .row-fluid
-    - if @project.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
-        %ul
-          - @project.errors.full_messages.each do |msg|
-            %li= msg
-  %p 
-  .row-fluid
-    = image_tag(@project.photo_url(:banner)) if @project.photo?
-  .row-fluid
-    .span4.sub-headline
-      Ảnh Dự Án
-    .span8
-      = f.file_field :photo
-      = f.hidden_field :photo_cache
-      = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-  %hr/ 
-  .row-fluid
-    .span4.sub-headline
-      Tên Dự Án
-    .span8
-      = f.input :title, label: false, :input_html => {:class => "span12"}
-  .row-fluid
-    .span4.sub-headline
-      Giới Thiệu Ngắn Gọn (giới hạn: 200 ký tự)
-    .span8
-      = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
-      .brief-length
-  .row-fluid
-    .span4.sub-headline
-      Mô Tả Dự Án
-    .span8
-      #project-description--edit-box.editable
-        - if @project.description
-          = @project.description.html_safe
-        - else
-          Thời gian, cách thức hoạt động, nhân lực, etc.
-      = f.input :description, as: :hidden, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
-  .row-fluid
-    .span4.sub-headline
-      Link Video giới thiệu
-    .span8
-      = f.input :video, label: false, :input_html => {:class => "span12"}
-  %hr/ 
-  .row-fluid
-    .span3.sub-headline
-      Ngày Bắt Đầu<br/>
-      = f.input :start_date, label: false, :as => :string, :input_html => {:class => "start_date"}
-    .span3.sub-headline
-      Ngày Kết Thúc <br/>
-      = f.input :end_date, label: false,   :as => :string, :input_html => {:class => "end_date"}
-    .span3.sub-headline
-      Số Quỹ Cần Vận Động (VND)<br/>
-      = f.input :funding_goal, label: false
-    .span3.sub-headline
-      Địa Điểm <br/>
-      = f.input :location, label: false
-  .row-fluid
-    .pull-right
-      = f.submit "Lưu", class: "submit"
+.project
+  = simple_form_for @project do |f|
+    .row-fluid
+      - if @project.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+          %ul
+            - @project.errors.full_messages.each do |msg|
+              %li= msg
+    %p 
+    .row-fluid
+      = image_tag(@project.photo_url(:banner)) if @project.photo?
+    .row-fluid
+      .span4.sub-headline
+        Ảnh Dự Án
+      .span8
+        = f.file_field :photo
+        = f.hidden_field :photo_cache
+        = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+    %hr/ 
+    .row-fluid
+      .span4.sub-headline
+        Tên Dự Án
+      .span8
+        = f.input :title, label: false, :input_html => {:class => "span12"}
+    .row-fluid
+      .span4.sub-headline
+        Giới Thiệu Ngắn Gọn (giới hạn: 200 ký tự)
+      .span8
+        = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
+        .brief-length
+    .row-fluid
+      .span4.sub-headline
+        Mô Tả Dự Án
+      .span8
+        #project-description--edit-box.editable
+          - if @project.description
+            = @project.description.html_safe
+          - else
+            Thời gian, cách thức hoạt động, nhân lực, etc.
+        = f.input :description, as: :hidden, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
+    .row-fluid
+      .span4.sub-headline
+        Link Video giới thiệu
+      .span8
+        = f.input :video, label: false, :input_html => {:class => "span12"}
+    %hr/ 
+    .row-fluid
+      .span3.sub-headline
+        Ngày Bắt Đầu<br/>
+        = f.input :start_date, label: false, :as => :string, :input_html => {:class => "start_date"}
+      .span3.sub-headline
+        Ngày Kết Thúc <br/>
+        = f.input :end_date, label: false,   :as => :string, :input_html => {:class => "end_date"}
+      .span3.sub-headline
+        Số Quỹ Cần Vận Động (VND)<br/>
+        = f.input :funding_goal, label: false
+      .span3.sub-headline
+        Địa Điểm <br/>
+        = f.input :location, label: false
+    .row-fluid
+      .pull-right
+        = f.submit "Lưu", class: "submit"
 
 :javascript
   $( document ).ready(function() {

@@ -22,6 +22,7 @@
 #  address      :string(255)
 #  latitude     :float
 #  longitude    :float
+#  category_id  :integer
 #
 
 class Project < ActiveRecord::Base
@@ -44,6 +45,7 @@ class Project < ActiveRecord::Base
   has_many :recommendations
   has_many :project_follows
   belongs_to :user # admin relationship
+  belongs_to :category
 
   before_validation :assign_status
   

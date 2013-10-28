@@ -19,3 +19,19 @@ puts 'Updating Configurations'
     value: value
   })
 end
+
+puts 'Seeding Categories'
+
+[ "Nghệ thuật, Văn hóa, Nhân loại",
+  "Kinh tế",
+  "Môi trường",
+  "Bất bình đẳng",
+  "Giáo dục",
+  "Việc làm",
+  "Truyền thông",
+  "Y tế sức khỏe",
+  "Vấn đề xã hội"
+].each do |title|
+  cat = Category.find_or_initialize_by_title title
+  cat.save
+end

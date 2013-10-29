@@ -4,7 +4,7 @@ class DonationsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     if current_user && (@project.belongs_to?(current_user) || (current_user.staff))
       @donations = @project.donations.order("date(updated_at) DESC")
     else
@@ -21,7 +21,7 @@ class DonationsController < InheritedResources::Base
   end
   
   def new
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     if current_user.blank_contact?
       store_location_with_path(new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
@@ -35,7 +35,7 @@ class DonationsController < InheritedResources::Base
   end
 
   def create
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @donation = Donation.new(params[:donation])
     @donation.project_reward_id = auto_select_project_reward(@project, params[:donation][:amount])
     if @donation.save

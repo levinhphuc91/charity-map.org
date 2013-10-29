@@ -4,13 +4,13 @@ class ProjectUpdatesController < InheritedResources::Base
   layout "layouts/dashboard"
 
   def index
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @project_updates = @project.project_updates
     index!
   end
 
   def new
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)))
       redirect_to @project, alert: "Permission denied."
     elsif @project.status == "FINISHED" || @project.status == "REVIEWED"
@@ -21,7 +21,7 @@ class ProjectUpdatesController < InheritedResources::Base
   end
 
   def create
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @project_update = ProjectUpdate.new(params[:project_update])
     if @project_update.save
       @project.project_follows.each do |pf|

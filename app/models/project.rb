@@ -23,7 +23,7 @@
 #  latitude     :float
 #  longitude    :float
 #
-require "babosa"
+require "stringex"
 
 class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
@@ -62,11 +62,15 @@ class Project < ActiveRecord::Base
   after_validation :geocode,
     :if => lambda{ |obj| obj.address_changed? }
 
-  extend FriendlyId
-  friendly_id :title, use: :slugged
+  # extend FriendlyId
+  # friendly_id :title, use: :slugged
 
-  def normalize_friendly_id(input)
-    input.to_s.to_slug.normalize.to_s 
+  # def normalize_friendly_id(input)
+  #   input.to_s.to_slug.normalize.to_s 
+  # end
+  acts_as_url :title, :url_attribute  => :slug, :sync_url => true
+  def to_param
+    slug # or whatever you set :url_attribute to
   end
 
   mount_uploader :photo, PhotoUploader

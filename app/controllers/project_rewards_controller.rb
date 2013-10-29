@@ -6,7 +6,7 @@ class ProjectRewardsController < InheritedResources::Base
   before_filter :limited_access, only: [:new, :create, :edit, :destroy]
 
   def index
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @project_rewards = @project.project_rewards
     @reward_popularity = reward_popularity(@project)
     @project_reward = ProjectReward.new
@@ -14,12 +14,12 @@ class ProjectRewardsController < InheritedResources::Base
   end
 
   def new
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     new!
   end
 
   def create
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @project_reward = ProjectReward.new(params[:project_reward])
     if @project_reward.save
       respond_to do |format|
@@ -33,12 +33,12 @@ class ProjectRewardsController < InheritedResources::Base
   end
 
   def edit
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     edit!
   end
 
   def destroy
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     super do |format|
       format.html { redirect_to project_project_rewards_path(@project), notice: "Xóa đề mục đóng góp thành công." }
     end
@@ -46,7 +46,7 @@ class ProjectRewardsController < InheritedResources::Base
 
   private
     def limited_access
-      @project = Project.find(params[:project_id])
+      @project = Project.find_by_slug(params[:project_id])
       unless @project.belongs_to?(current_user)
         redirect_to project_path(@project), alert: "Permission denied."
       end

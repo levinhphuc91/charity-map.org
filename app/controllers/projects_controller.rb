@@ -24,7 +24,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = Project.find_by_slug(params[:id])
     @user = @project.user
     @new_comment = ProjectComment.new
     @project_follow = ProjectFollow.new
@@ -39,7 +39,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def edit
-    @project = Project.find(params[:id])
+    @project = Project.find_by_slug(params[:id])
     if @project.belongs_to?(current_user)
       edit!
     else
@@ -52,7 +52,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def submit
-    @project = Project.find(params[:id])
+    @project = Project.find_by_slug(params[:id])
     if current_user && @project.belongs_to?(current_user) && @project.status == "DRAFT"
       if @project.project_rewards.empty?
         redirect_to edit_project_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."

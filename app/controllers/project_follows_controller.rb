@@ -3,7 +3,7 @@ class ProjectFollowsController < InheritedResources::Base
   before_filter :authenticate_user!
 
   def initiate
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @project_follow = @project.project_follows.create(user_id: current_user.id)
     if @project_follow.save
       respond_to do |format|

@@ -6,13 +6,13 @@ class RecommendationsController < InheritedResources::Base
   # layout "layouts/dashboard"
 
   def index
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @recommendations = @project.recommendations
     index!
   end
 
   def new
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     if current_user.verified?
       new!
     else
@@ -22,7 +22,7 @@ class RecommendationsController < InheritedResources::Base
   end
 
   def create
-    @project = Project.find(params[:project_id])
+    @project = Project.find_by_slug(params[:project_id])
     @recommendation = Recommendation.new(params[:recommendation])
     if @recommendation.save
       respond_to do |format|
@@ -36,7 +36,7 @@ class RecommendationsController < InheritedResources::Base
 
   private
     def limited_access
-      @project = Project.find(params[:project_id])
+      @project = Project.find_by_slug(params[:project_id])
       if @project.belongs_to?(current_user)
         redirect_to project_path(@project), alert: "Permission denied."
       end

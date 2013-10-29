@@ -26,6 +26,7 @@
 
 class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
+  scope :listed, -> { where(unlisted: false) }
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ? AND UNLISTED = ?",
     "REVIEWED", Time.now, Time.now, "f").order("created_at DESC") }
   scope :finished, -> { where(status: "FINISHED", unlisted: false).order("created_at DESC") }

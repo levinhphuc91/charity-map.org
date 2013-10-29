@@ -47,4 +47,15 @@ describe Project do
       location: "Ho Chi Minh", user_id: 1)
     project.errors.full_messages.should eq(["End date can't be more than 6 months from start date"])
   end
+
+  it "should have a working slug" do
+    project = Project.create(:title => "Test", :brief => "This is a brief to be put here", :description => "Help me to put something here",
+      start_date: Time.parse('2013-05-23'), end_date: Time.parse('2013-05-30'), funding_goal: 3000000,
+      location: "Ho Chi Minh", user_id: 1)
+    project.slug.should eq("test")
+    project.update title: "Hoàng Minh Tú"
+    project.slug.should eq("hoang-minh-tu")
+    project.update title: "Công Tằng Tôn Nữ Hương Giang"
+    project.slug.should eq("cong-tang-ton-nu-huong-giang")
+  end  
 end

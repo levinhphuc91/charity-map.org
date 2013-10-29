@@ -1,9 +1,17 @@
-%p#notice= notice
+.body-container--plain-row
+  .body-container--content
+    %p#notice= notice
 
-%p
-  %b Title:
-  = @category.title
+    %p
+      %b Title:
+      = @category.title
 
-= link_to 'Edit', edit_category_path(@category)
-\|
-= link_to 'Back', categories_path
+    - if @projects
+      - @projects.each do |project|
+        project.to_s
+    - else
+      Hien chua co du an nao thuoc de muc nay.
+
+    = link_to 'Edit', edit_category_path(@category)
+    \|
+    = link_to 'Back', categories_path

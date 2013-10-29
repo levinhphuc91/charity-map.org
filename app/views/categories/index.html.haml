@@ -1,6 +1,5 @@
 .body-container--plain-row
   .body-container--content
-    %h1 Listing categories
 
     %table
       %tr
@@ -12,13 +11,4 @@
 
       - @categories.each do |category|
         %tr
-          %td= category.title
-          - if current_user && current_user.staff
-            %td= link_to 'Show', category
-            %td= link_to 'Edit', edit_category_path(category)
-            %td= link_to 'Destroy', category, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-    %br
-
-    - if current_user && current_user.staff
-      = link_to 'New Category', new_category_path
+          %td= link_to category.title, category

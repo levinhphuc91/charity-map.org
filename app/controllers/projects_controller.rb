@@ -11,6 +11,7 @@ class ProjectsController < InheritedResources::Base
       @projects = Project.public_view
     end
     @pending = Project.pending
+    @markers = Project.mapped
   end
 
   def new

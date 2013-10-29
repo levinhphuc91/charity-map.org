@@ -1,9 +1,9 @@
 class CategoriesController < InheritedResources::Base
   actions :all, :except => [ :new, :create, :edit, :update, :destroy ]
-  before_filter :allow_staff_only, except: :index
+  before_filter :allow_staff_only, except: [ :index, :show ]
 
   def index
-    index!
+    @categories = Category.all
     @projects = Project.public_view
   end
 

@@ -1,14 +1,19 @@
 .body-container--plain-row
   .body-container--content
-
-    %table
-      %tr
-        %th Title
-        - if current_user && current_user.staff
-          %th
-          %th
-          %th
-
-      - @categories.each do |category|
+    - if @categories.empty?
+      Hien chua co de muc nao ca.
+    - else
+      %table
         %tr
-          %td= link_to category.title, category
+          %th Title
+          - if current_user && current_user.staff
+            %th
+            %th
+            %th
+
+        - @categories.each do |category|
+          %tr
+            %td= link_to category.title, category
+
+    - @projects.each do |project|
+      %p= project.title

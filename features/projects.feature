@@ -270,6 +270,21 @@ Feature: Project
     When I go to the project listing page
     Then I should not see "Push The World"
 
+  Scenario: To be categorized
+    When I go to the category page
+    Then I should see "Hien chua co de muc nao ca."
+    Given there is a category with the title "Children Saves The World"
+    When I go to the category page
+    Then I should see "Children Saves The World"
+    When I follow "Children Saves The World"
+    Then the URL should contain "/categories/"
+    Then I should see "Hien chua co du an nao thuoc de muc nay."
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the category above and with the user above that is not unlisted
+    When I go to the category page
+    Then I should see "Push The World"
+
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11
   #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"

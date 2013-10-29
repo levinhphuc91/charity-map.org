@@ -32,6 +32,9 @@ module NavigationHelpers
     when /^the project listing page$/
       '/projects'
 
+    when /^the category page$/
+      '/categories'
+
     when /the dashboard of the project "(.+)"/
       p = Project.find_by_title($1)
       dashboard_project_path(p)

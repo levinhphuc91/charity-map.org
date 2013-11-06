@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   def resend_verification
     @phone_number = current_user.phone.gsub(/\D/, '').to_i.to_s
     @verification = current_user.verifications.where(:status => "UNUSED").first
-    sms = SMS.send(@phone_number, "(Charity Map) Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
+    sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
     redirect_to users_verify_path, notice: "Mã xác nhận đã được gửi đi tới số #{@phone_number}."
   end
 

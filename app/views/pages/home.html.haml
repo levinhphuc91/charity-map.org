@@ -32,49 +32,70 @@
 
 .body-container--plain-row
   .body-container--content
-    .row-fluid
-      .pull-left.headline Các Dự Án Đang Gây Quỹ
-      .pull-right
-        = link_to projects_path(:filter => "funding") do
-          .more
-            %i.icon-list-alt 
-            Xem tất cả  
-    %p 
-    .row-fluid
-      - if Project.funding.count > 0
-        - cache("funding_projects", :expires_in => 12.hours) do
-          - Project.funding.each do |project|
-            = render "projects/box_display", :project => project
-      - else
-        Hiện chưa có dự án nào đang gây quỹ.
+    .row-fluid{style: "text-align: center;"}
+      = image_tag "misc/closed-beta-msg.jpg"
 
-- if Project.finished.count > 0
-  .body-container--plain-row
-    .body-container--content
-      .row-fluid
-        .pull-left.headline Các Dự Án Đã Hoàn Thành
-        .pull-right
-          = link_to projects_path(:filter => "finished") do
-            .bttn.bttn-green
-              %i.icon-list-alt
-              Xem tất cả
-      %p 
-      .row-fluid
-        - cache("finished_projects", :expires_in => 1.day) do
-          - Project.finished.each do |project|
-            = render "projects/box_display", :project => project
-
-- unless @markers.nil?
-  .body-container--plain-row{:style => "margin-bottom: -90px;"}
-    = render "layouts/map", height: "500px", markers: @markers
+.body-container--plain-row
+  .body-container--content
+    .project-search
+      = form_tag search_projects_path, method: :get do
+        .row-fluid
+          .span8
+            = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
+          .span4
+            = submit_tag "Tìm", class: "submit"
 
 :javascript
-  $('#homepage-registration-by-email').click(function() {
-    if ($('input#email')[0].value.length > 0) {
-      $('form').submit();
-      return false;  
-    } else {
-      alert("Mời bạn điền email vào khung kế bên.");
-    }
-    
+  $('#project_search').typeahead({
+    name: "project",
+    prefetch: "/projects/autocomplete"
   });
+
+/ .body-container--plain-row
+/   .body-container--content
+/     .row-fluid
+/       .pull-left.headline Các Dự Án Đang Gây Quỹ
+/       .pull-right
+/         = link_to projects_path(:filter => "funding") do
+/           .more
+/             %i.icon-list-alt 
+/             Xem tất cả  
+/     %p 
+/     .row-fluid
+/       - if Project.funding.count > 0
+/         - cache("funding_projects", :expires_in => 12.hours) do
+/           - Project.funding.each do |project|
+/             = render "projects/box_display", :project => project
+/       - else
+/         Hiện chưa có dự án nào đang gây quỹ.
+
+/ - if Project.finished.count > 0
+/   .body-container--plain-row
+/     .body-container--content
+/       .row-fluid
+/         .pull-left.headline Các Dự Án Đã Hoàn Thành
+/         .pull-right
+/           = link_to projects_path(:filter => "finished") do
+/             .bttn.bttn-green
+/               %i.icon-list-alt
+/               Xem tất cả
+/       %p 
+/       .row-fluid
+/         - cache("finished_projects", :expires_in => 1.day) do
+/           - Project.finished.each do |project|
+/             = render "projects/box_display", :project => project
+
+/ - unless @markers.nil?
+/   .body-container--plain-row{:style => "margin-bottom: -90px;"}
+/     = render "layouts/map", height: "500px", markers: @markers
+
+/ :javascript
+/   $('#homepage-registration-by-email').click(function() {
+/     if ($('input#email')[0].value.length > 0) {
+/       $('form').submit();
+/       return false;  
+/     } else {
+/       alert("Mời bạn điền email vào khung kế bên.");
+/     }
+    
+/   });

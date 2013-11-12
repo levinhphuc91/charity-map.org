@@ -4,9 +4,9 @@
       = link_to root_path do
         = image_tag "logo.png"
     .pull-right
-      = link_to projects_path do
-        .navigation-box 
-          .navigation-text Các Dự Án
+      / = link_to projects_path do
+      /   .navigation-box 
+      /     .navigation-text Các Dự Án
       - unless signed_in?
         = link_to pages_about_path do
           .navigation-box 

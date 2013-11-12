@@ -1,3 +1,7 @@
+- if @project.unlisted
+  = content_for  :head do
+    %meta{content: "NOINDEX, NOFOLLOW, NOARCHIVE", name: "ROBOTS"}/
+
 - if current_user && @project.belongs_to?(current_user)
   .body-container--plain-row
     .body-container--content

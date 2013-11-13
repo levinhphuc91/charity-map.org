@@ -1,11 +1,14 @@
+= content_for :head do
+  %link{href: "http://fonts.googleapis.com/css?family=Roboto+Slab:100&subset=latin,%vietnamese ", rel: "stylesheet", type: "text/css"}/
+
 .body-container--plain-row
   #header-box.body-container--content.dark-container
     .logo 
-    / size: 80x80
+      = image_tag "default_avatar.png", size: "80x80"
     .group-info
       .title Hoang Minh Tu
       .slogan Here comes the giants!
-    .follow-button Theo
+    .follow-button Theo Duoi
 
   .body-container--content.light-container
     .clearfix
@@ -13,10 +16,10 @@
       Yuck Lam sao de thoat ra khoi day day?
   
   .body-container--content.light-container
-    #sub-header-box Du An Cua Chung Toi
+    #sub-header-box Dự Án Của Chúng Tôi
 
   .body-container--content.light-container
-    #our-projects.row-fluid{style: "padding-top: 20px;"}
+    #our-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
       - 5.times do
         .project-bar
           .top-image
@@ -29,20 +32,32 @@
             
           .bottom-stats
             .stat-box.donations
-              .text Quy
+              .text Quỹ 
               .number 200,000,000 VND
             .stat-box.donors
               .text MTQ
               .number 200
             .stat-box.reviews
-              .text Nhan xet
+              .text Nhận Xét
               .number 2
 
   .body-container--content.light-container
-    #sub-header-box Nhung Con So
+    #sub-header-box Những Con Số
 
   .body-container--content.light-container
-    .row-fluid{style: "padding-top: 20px;"}
-      .figures
-        .figure 1
-      Content Content
+    .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
+      - 5.times do |i|
+        .figures
+          .figure= i
+          .message-bar Content Content Content ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent ContentContent Content
+          .margined
+
+  .body-container--content.light-container
+    #sub-header-box Thanh Vien
+  
+  .body-container--content.light-container
+    .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
+      - 5.times do 
+        .member
+          .avatar= image_tag "default_avatar.png", size: "100x100"
+          .info Hoang Minh Tu

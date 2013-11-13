@@ -1,58 +1,48 @@
 .body-container--plain-row
-  .body-container--content
-    .dashboard--sidebar
-      - if (current_user) && (current_user == @user)
-        .chunk
-          .line.heading
-            %i.icon-user 
-            Cá Nhân
-          .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
-          .line #{link_to "Tin Nhắn", messages_path}
-          .line= link_to "Đóng Góp", users_donations_path
-      .chunk
-        .line.heading
-          %i.icon-link
-          Đường Dẫn
-        .line= link_to "Trang Chủ", root_path
-        .line= link_to "Danh Sách Dự Án", projects_path
-      .chunk
-        .line.heading
-          %i.icon-gears 
-          Hệ Thống
-        .line Tin Tức, Cập Nhật
-        .line.disabled Gửi Góp Ý
-    .dashboard--main
-      .row-fluid.centered
-        %th 
-          - if @user.avatar? 
-            = image_tag(@user.avatar_url(:medium)) 
-          - else
-            = image_tag("default_avatar.png", size: "50x50")
-      .row-fluid.centered
-        .sub-headline= @user.name
-        - if(@user != current_user)
-          %p
-            %i.icon-comments
-            = link_to "Gửi Tin Nhắn", new_message_users_path(:receiver => @user.id)
+  #header-box.body-container--content.dark-container
+    .logo 
+    / size: 80x80
+    .group-info
+      .title Hoang Minh Tu
+      .slogan Here comes the giants!
+    .follow-button Theo
 
-      %hr/ 
+  .body-container--content.light-container
+    .clearfix
+    #about-us.row-fluid
+      Yuck Lam sao de thoat ra khoi day day?
+  
+  .body-container--content.light-container
+    #sub-header-box Du An Cua Chung Toi
 
-      .row-fluid
-        .devider
-          .item Dự Án Của Bạn
-      - if @user.projects.public_view.empty?
-        Người dùng chưa tạo dự án trên hệ thống.
-      - else
-        .row-fluid
-          - cache("public_projects", :expires_in => 12.hours) do
-            - @user.projects.public_view.each do |project|
-              = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)
+  .body-container--content.light-container
+    #our-projects.row-fluid{style: "padding-top: 20px;"}
+      - 5.times do
+        .project-bar
+          .top-image
+            .info
+              .title
+                Hoang minh Tu
+              .location
+                Dong Nai
+            = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
+            
+          .bottom-stats
+            .stat-box.donations
+              .text Quy
+              .number 200,000,000 VND
+            .stat-box.donors
+              .text MTQ
+              .number 200
+            .stat-box.reviews
+              .text Nhan xet
+              .number 2
 
-      %hr/
-      .row-fluid
-        .devider
-          .item Đóng Góp Của Bạn
-      - if @user.donations.successful.empty?
-        Chưa có đóng góp nào được ghi nhận trên hệ thống.
-      - else
-        = render "layouts/donation_display", donations: @user.donations.successful
+  .body-container--content.light-container
+    #sub-header-box Nhung Con So
+
+  .body-container--content.light-container
+    .row-fluid{style: "padding-top: 20px;"}
+      .figures
+        .figure 1
+      Content Content

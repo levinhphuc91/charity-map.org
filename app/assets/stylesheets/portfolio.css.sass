@@ -1,0 +1,143 @@
+@import "main"
+
+$portfolio_green: #343131
+
+.dark-container
+  background-color: lighten($portfolio_green, 15%)
+
+.light-container
+  box-sizing: border-box
+  background-color: $white
+  border: 1px solid $grey
+  font-size: 14px
+  color: #333
+  border-top: none
+
+#header-box
+  height: 120px
+  position: relative
+  .logo
+    width: 100px
+    height: 80px
+    background-color: $white
+    position: absolute
+    padding-top: 20px
+    padding-left: 10px
+    top: 0
+    left: 20px
+  .follow-button
+    width: 200px
+    height: 40px
+    position: absolute
+    top: 40px
+    right: 40px
+    background-color: $portfolio_green
+    border-radius: 5px
+    color: $white
+    text-align: center
+    line-height: 40px
+    font-weight: bold
+  .group-info
+    float: left
+    margin-left: 140px
+    margin-top: 30px
+    height: 100px
+    width: 300px
+    color: $white
+    .title
+      font-size: 30px
+      font-weight: bold
+    .slogan
+      font-size: 13px
+
+#sub-header-box
+  height: 20px
+  text-align: center
+  padding-top: 20px !important
+  padding-bottom: 20px !important
+  line-height: 20px
+  font-size: 20px
+  text-transform: uppercase
+  font-weight: bold
+  // background-color: $light_grey
+
+#about-us
+  margin: 10px 20px 20px 20px
+
+#our-projects
+  .project-bar
+    width: 450px
+    height: 220px
+    margin-left: 20px
+    margin-bottom: 20px
+    border-radius: 5px
+    border: 1px solid #eaeaea
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05)
+    -webkit-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05)
+    background-color: #FBFBFB
+    overflow: hidden
+    float: left
+    .top-image
+      height: 160px
+      width: 100%
+      position: relative
+      .info
+        position: absolute
+        bottom: 0
+        left: 0
+        height: 45px
+        margin-left: 10px
+        .title
+          font-size: 20px
+          font-weight: bold
+          color: $white
+          text-shadow: 0px 2px 0px #000 !important
+        .location
+          font-size: 12px
+          color: $white
+          text-shadow: 0px 2px 5px #000 !important
+          text-transform: uppercase
+    .bottom-stats
+      height: 60px
+      width: 100%
+      border-top: 1px solid #eaeaea
+      .stat-box
+        margin: 10px auto auto 10px
+        float: left
+        .text
+          font-size: 12px
+          color: $grey
+          text-transform: uppercase
+          font-weight: bold
+        .number
+          font-size: 20px
+          font-weight: bold
+          color: $black
+      .donations
+        width: 180px !important
+      .donors
+        width: 120px !important
+      .reviews
+        width: 120px !important
+
+.figures
+  width: 100%
+  padding-left: 50px
+  height: 100px
+  background-image: image-url("portfolio/number_background-pttn.png")
+  background-repeat: repeat-y
+  background-position: 38px 0
+  position: relative
+  .figure
+    position: absolute
+    top: 0
+    left: 20px
+    width: 20px
+    height: 20px
+    padding: 10px
+    line-height: 20px
+    text-align: center
+    font-weight: bold
+    background-color: $portfolio_green
+    border-radius: 20px
+    color: $white

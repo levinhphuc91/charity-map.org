@@ -9,7 +9,7 @@ $portfolio_green: #343131
 .light-container
   box-sizing: border-box
   background-color: $white
-  border: 1px solid $light_grey
+  border: 1px solid darken(#ECF0F1, 10%)
   font-size: 14px
   color: #333
   border-top: none
@@ -38,6 +38,10 @@ $portfolio_green: #343131
     text-align: center
     line-height: 40px
     font-weight: bold
+    &:hover
+      background-color: #e2e7e8
+      color: $portfolio_green
+      cursor: pointer
   .group-info
     float: left
     margin-left: 140px
@@ -61,11 +65,12 @@ $portfolio_green: #343131
   font-size: 20px
   letter-spacing: -1px
   text-transform: uppercase
-  background-color: $light_grey
+  background-color: lighten(#ECF0F1, 3%)
   text-shadow: 0px 2px 0px #fff !important
 
 #about-us
-  margin: 10px 20px 20px 20px
+  padding: 10px 20px 20px 20px
+  box-sizing: border-box
 
 #our-projects
   .project-bar
@@ -95,6 +100,11 @@ $portfolio_green: #343131
           font-weight: bold
           color: $white
           text-shadow: 0px 2px 0px #000 !important
+          a:active, a:link, a:visited
+            text-decoration: none
+            color: $white
+          a:hover
+            color: lighten($blue, 25%)
         .location
           font-size: 12px
           color: $white
@@ -122,6 +132,27 @@ $portfolio_green: #343131
         width: 120px !important
       .reviews
         width: 120px !important
+  .blank-project-bar
+    width: 450px
+    height: 220px
+    margin-left: 20px
+    margin-bottom: 20px
+    border-radius: 5px
+    border: 3px dashed #eaeaea
+    box-sizing: border-box
+    // box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05)
+    // -webkit-box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05)
+    background-color: #FBFBFB
+    overflow: hidden
+    float: left
+    line-height: 220px
+    text-align: center
+    font-size: 30px
+    font-weight: bold
+    color: $grey
+    &:hover
+      color: #4AA3DF
+      border: 3px dashed lighten(#4AA3DF, 25%)
 
 .figures
   width: 100%
@@ -132,7 +163,7 @@ $portfolio_green: #343131
   position: relative
   &:last-child
     background-image: none
-  .figure
+  .order
     position: absolute
     top: 0
     left: 20px
@@ -142,10 +173,19 @@ $portfolio_green: #343131
     line-height: 20px
     text-align: center
     font-weight: bold
-    background-color: $portfolio_green
+    background-color: #4AA3DF
     border-radius: 20px
     color: $white
   .message-bar
+    .figure
+      font-size: 30px
+      font-weight: bold
+      width: 100%
+      max-width: 100%
+      border-bottom: 1px solid darken(#FBFBFB, 5%)
+      margin-bottom: 10px
+      padding-bottom: 5px !important
+      text-align: center
     max-width: 860px
     padding: 10px 20px
     box-sizing: border-box
@@ -158,7 +198,7 @@ $portfolio_green: #343131
     background-color: #FBFBFB
     overflow: hidden
   .margined
-    height: 10px
+    height: 20px
     width: 100%
 
 .member
@@ -166,20 +206,20 @@ $portfolio_green: #343131
     width: 100px
     height: 100px
     padding: 5px
-    background-color: lighten($portfolio_green, 30%) !important
+    background-color: lighten($portfolio_green, 50%) !important
   .info
     width: 98px
     height: 30px
     padding: 5px
     font-size: 12px
     text-align: center
-    color: lighten($portfolio_green, 30%)
+    color: lighten($portfolio_green, 50%)
   &:hover
     .avatar
       background-color: $portfolio_green !important
       cursor: pointer
     .info
       color: $portfolio_green
-  margin-left: 20px
+  margin-left: 23px
   float: left
   

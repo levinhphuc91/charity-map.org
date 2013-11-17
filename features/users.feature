@@ -183,7 +183,7 @@ Feature: User
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "testing@man.net"
       And I go to the users settings page
-    Then the "portfolio" checkbox within ".formtastic" should not be checked
+    Then the "user_org" checkbox should not be checked
     # When I check "portfolio"
     #   And I press "Cập nhật Thông Tin"
     # Then the "portfolio" checkbox should be checked

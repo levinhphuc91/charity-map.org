@@ -21,6 +21,8 @@
         = link_to "Những Con Số", "#our-figures"
         &sdot;
         = link_to "Thành Viên", "#our-members"
+        &sdot;
+        = link_to "Liên Hệ", "#contact-us"
       
     / - if (current_user) && (!current_user.following?(user))
     /   .follow-button.disabled #{pluralize user.followers.count, "like"}
@@ -29,7 +31,7 @@
 
   .body-container--content.light-container
     .clearfix
-    #about-us.row-fluid= markdown user.bio
+    #about-us.text-container.row-fluid= markdown user.bio
   
   #our-projects.body-container--content.light-container
     #sub-header-box Dự Án Của Chúng Tôi
@@ -37,17 +39,18 @@
   .body-container--content.light-container
     .portfolio-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 20px;"}
       - if user.projects
-        - user.projects.each do |project|
+        - user.projects.public_view.each do |project|
           .project-bar
-            .top-image
-              .status
-                %i.icon-retweet
-                = project.status
-              .info
-                .title= link_to project.title, project_path
-                .location
-                  = project.location || "Viet Nam"
-              = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
+            = link_to project_path do
+              .top-image
+                .status
+                  %i.icon-retweet
+                  = project.status
+                .info
+                  .title= project.title
+                  .location
+                    = project.location || "Viet Nam"
+                = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
               
             .bottom-stats
               .stat-box.donations
@@ -98,6 +101,11 @@
         .member
           .avatar= image_tag "portfolio/default_avatars/#{i}.jpg", size: "100x100"
           .info Hoang Minh Tu
+
+  #contact-us.body-container--content.light-container
+    #sub-header-box Liên Hệ
+  .body-container--content.light-container
+    .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.address
 
   .body-container--content.light-container
     = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped

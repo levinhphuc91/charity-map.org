@@ -22,24 +22,27 @@
         &sdot;
         = link_to "Thành Viên", "#our-members"
       
-    - if (current_user) && (!current_user.following?(user))
-      .follow-button.disabled #{pluralize user.followers.count, "like"}
-    - else
-      .follow-button= link_to "Thích (#{user.followers.count})", users_follow_path(:followed => user.id)
+    / - if (current_user) && (!current_user.following?(user))
+    /   .follow-button.disabled #{pluralize user.followers.count, "like"}
+    / - else
+    /   .follow-button= link_to "Thích (#{user.followers.count})", users_follow_path(:followed => user.id)
 
   .body-container--content.light-container
     .clearfix
     #about-us.row-fluid= markdown user.bio
   
-  .body-container--content.light-container
+  #our-projects.body-container--content.light-container
     #sub-header-box Dự Án Của Chúng Tôi
 
   .body-container--content.light-container
-    #our-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 20px;"}
+    .portfolio-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 20px;"}
       - if user.projects
         - user.projects.each do |project|
           .project-bar
             .top-image
+              .status
+                %i.icon-retweet
+                = project.status
               .info
                 .title= link_to project.title, project_path
                 .location
@@ -61,9 +64,6 @@
           .blank-project-bar
             %i.icon-plus
             &nbsp; Dự Án Mới
-
-  .body-container--content.light-container
-    = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped
   
   #our-figures.body-container--content.light-container
     #sub-header-box Những Con Số
@@ -98,3 +98,6 @@
         .member
           .avatar= image_tag "portfolio/default_avatars/#{i}.jpg", size: "100x100"
           .info Hoang Minh Tu
+
+  .body-container--content.light-container
+    = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped

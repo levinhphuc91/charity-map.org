@@ -26,6 +26,20 @@
 
   .body-container--plain-row
     .body-container--content
+      .show-project--navigation
+        = link_to root_path do
+          .box.active
+            %i.icon-home 
+            Thông Tin
+        = link_to root_path do
+          %div.box{class:("active" if 0 == 0)}
+            %i.icon-retweet 
+            Cập Nhật
+        .box
+          %i.icon-user 
+          Mạnh Thường Quân
+  .body-container--plain-row
+    .body-container--content
       .side-bar
         = render "projects/side_bar/metrics_box", project: @project
 
@@ -71,7 +85,6 @@
               .pull-right
                 = link_to project_donations_path(@project) do
                   .more Xem Thêm
-
       .photo-box
         = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
       .bordered-box

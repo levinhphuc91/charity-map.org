@@ -41,11 +41,12 @@
       - if user.projects
         - user.projects.public_view.each do |project|
           .project-bar
-            = link_to project_path do
+            = link_to project_path(project) do
               .top-image
-                .status
-                  %i.icon-retweet
-                  = project.status
+                - if project.accepting_donation?
+                  .status
+                    %i.icon-rocket
+                    Đang Gây Quỹ
                 .info
                   .title= project.title
                   .location

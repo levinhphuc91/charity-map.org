@@ -5,7 +5,7 @@
   margin-bottom: -30px
   .box
     height: 30px
-    line-height: 32px
+    line-height: 23px
     // border: 1px solid darken($grey, 25%)
     // border-right: none
     // background-color: lighten($grey, 25%)
@@ -18,11 +18,15 @@
     padding-right: 15px !important
     &:hover
       color: $black
+      border-bottom: 4px solid $blue
+      box-sizing: border-box
     // &:last-child
     //   border-right: 1px solid darken($grey, 25%)
   .box.active
-    background-color: $blue
-    color: $white
+    // background-color: $blue
+    box-sizing: border-box
+    color: $black
+    border-bottom: 4px solid $blue
     // box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.5)
 
 .project-search

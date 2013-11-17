@@ -19,25 +19,28 @@
                 Chỉnh Sửa
         .top-title.centered= @project.title
         .top-creator-and-location.centered
-          %i.icon-user 
-          <b>#{@project.user.name}</b> &nbsp;
           %i.icon-map-marker 
           <b>#{@project.location}</b>
 
-  .body-container--plain-row
+  .body-container--plain-row{style: "margin-bottom: -10px;"}
     .body-container--content
       .show-project--navigation
         = link_to root_path do
-          .box.active
+          %div.box{class:("active" unless params[:filter])}
             %i.icon-home 
             Thông Tin
-        = link_to root_path do
-          %div.box{class:("active" if 0 == 0)}
-            %i.icon-retweet 
-            Cập Nhật
-        .box
-          %i.icon-user 
-          Mạnh Thường Quân
+        = link_to "#project_updates" do
+          %div.box{class:("active" if params[:filter] == "updates")}
+            %i.icon-rss
+            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
+        = link_to "?filter=donors" do
+          %div.box{class:("active" if params[:filter] == "donors")}
+            %i.icon-user
+            Mạnh Thường Quân #{"(#{@project.donations.count})" if @project.donations.count > 0}
+        = link_to "#project_comments" do
+          %div.box{class:("active" if params[:filter] == "comments")}
+            %i.icon-comment
+            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
   .body-container--plain-row
     .body-container--content
       .side-bar

@@ -12,8 +12,15 @@
       - else
         = image_tag("portfolio/default_avatars/4.jpg", size: "80x80")
     .group-info
-      .title= user.name
-      .slogan Giving has never been this easy with Charity Map
+      .title= limit_display user.name, 40
+      .slogan
+        = link_to "Thông Tin ", "#about-us"
+        &sdot;
+        = link_to "Dự Án", "#our-projects"
+        &sdot;
+        = link_to "Những Con Số", "#our-figures"
+        &sdot;
+        = link_to "Thành Viên", "#our-members"
     .follow-button Thích
 
   .body-container--content.light-container
@@ -32,7 +39,7 @@
               .info
                 .title= link_to project.title, project_path
                 .location
-                  Dong Nai
+                  = project.location || "Viet Nam"
               = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
               
             .bottom-stats
@@ -43,17 +50,18 @@
                 .text MTQ
                 .number= project.donations.successful.count
               .stat-box.reviews
-                .text Nhận Xét
-                .number= project.recommendations.count
-      = link_to new_project_path do
-        .blank-project-bar
-          %i.icon-plus
-          &nbsp; Dự Án Mới
+                .text Thời Gian
+                .number= human_time project.start_date
+      - if (current_user) && (current_user == user)
+        = link_to new_project_path do
+          .blank-project-bar
+            %i.icon-plus
+            &nbsp; Dự Án Mới
 
   .body-container--content.light-container
-    = render "layouts/map", height: "400px", markers: Project.listed.mapped
+    = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped
   
-  .body-container--content.light-container
+  #our-figures.body-container--content.light-container
     #sub-header-box Những Con Số
 
   .body-container--content.light-container
@@ -77,7 +85,7 @@
           Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
         .margined
 
-  .body-container--content.light-container
+  #our-members.body-container--content.light-container
     #sub-header-box Thành Viên
   
   .body-container--content.light-container

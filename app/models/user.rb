@@ -26,6 +26,7 @@
 #  provider               :string(255)
 #  uid                    :string(255)
 #  facebook_credentials   :hstore
+#  org                    :boolean
 #
 
 class User < ActiveRecord::Base
@@ -44,7 +45,7 @@ class User < ActiveRecord::Base
                       
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :staff, :verified_by_phone, :provider, :uid, :facebook_credentials
+    :staff, :verified_by_phone, :provider, :uid, :facebook_credentials, :org
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
@@ -55,11 +56,11 @@ class User < ActiveRecord::Base
   has_many :verifications
   has_many :project_follows
   
-  has_defaults staff: false, verified_by_phone: false
+  has_defaults staff: false, verified_by_phone: false, org: false
 
-  has_settings do |s|
-    s.key :profile, :defaults => { :portfolio => false }
-  end
+  # has_settings do |s|
+  #   s.key :profile, :defaults => { :portfolio => false }
+  # end
 
   def name
     return full_name unless full_name.blank?

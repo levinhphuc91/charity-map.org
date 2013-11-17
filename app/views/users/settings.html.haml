@@ -23,9 +23,9 @@
 				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
 				= f.file_field :avatar 
 				= f.hidden_field :avatar_cache 
-				%hr/ 
-				%p 
-					= check_box_tag :profile_portfolio
-					Sử dụng trang đại diện dạng portfolio
+				%hr/
+				%p
+					= f.check_box :org
+					Tổ chức (click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng )
 				%hr/ 
 				= f.submit "Cập nhật Thông Tin", class: "submit"

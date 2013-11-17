@@ -26,6 +26,7 @@
 #  provider               :string(255)
 #  uid                    :string(255)
 #  facebook_credentials   :hstore
+#  org                    :boolean
 #
 
 require 'spec_helper'

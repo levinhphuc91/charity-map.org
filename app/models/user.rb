@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
   has_many :recommendations
   has_many :verifications
   has_many :project_follows
+  has_many :relationships, :foreign_key => "follower_id", dependent: :destroy
+  has_many :following, :through => :relationships, :source => :followed
+  has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship"
+  has_many :followers, :through => :reverse_relationships
   
   has_defaults staff: false, verified_by_phone: false, org: false
 
@@ -106,5 +110,17 @@ class User < ActiveRecord::Base
     expiry = Time.at(facebook_credentials["expires_at"].to_i)
     return true if expiry < Time.now
     false
+  end
+
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
   end
 end

@@ -4,6 +4,7 @@ CharityMap::Application.routes.draw do
   get   'users/dashboard'
   get   'users/profile'
   get   'users/settings'
+  get   'users/follow'
   get   'users/messages', as: :messages
   get   'users/donations'
   get   'users/verify'

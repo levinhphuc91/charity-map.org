@@ -21,7 +21,11 @@
         = link_to "Những Con Số", "#our-figures"
         &sdot;
         = link_to "Thành Viên", "#our-members"
-    .follow-button Thích
+      
+    - if (current_user) && (!current_user.following?(user))
+      .follow-button.disabled #{pluralize user.followers.count, "like"}
+    - else
+      .follow-button= link_to "Thích (#{user.followers.count})", users_follow_path(:followed => user.id)
 
   .body-container--content.light-container
     .clearfix

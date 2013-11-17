@@ -15,6 +15,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) || current_user
   end
 
+  def follow
+    @followed = User.find(params[:followed])
+    if current_user.follow!(@followed)
+      redirect_to user_profile_path(@followed), notice: "Liked."
+    else
+      redirect_to user_profile_path(@followed), alert: "Unsuccessful."
+    end
+  end
+
   def settings
   	@user = current_user
   end

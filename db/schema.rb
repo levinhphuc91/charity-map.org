@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021205228) do
+ActiveRecord::Schema.define(version: 20131116040018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "categories", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "configurations", force: true do |t|
     t.string   "name"
@@ -145,12 +151,15 @@ ActiveRecord::Schema.define(version: 20131021205228) do
     t.string   "slug"
     t.text     "brief"
     t.string   "video"
+    t.hstore   "settings"
     t.boolean  "unlisted"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "category_id"
   end
 
+  add_index "projects", ["category_id"], name: "index_projects_on_category_id", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
@@ -174,6 +183,17 @@ ActiveRecord::Schema.define(version: 20131021205228) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "settings", force: true do |t|
+    t.string   "var",         null: false
+    t.text     "value"
+    t.integer  "target_id",   null: false
+    t.string   "target_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

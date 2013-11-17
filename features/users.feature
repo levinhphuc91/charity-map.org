@@ -177,3 +177,13 @@ Feature: User
       And I go to the dashboard of the project "Books from Heart"
     Then I should see "Permission denied"
       And the URL should not contain "/dashboard"
+
+  Scenario: To be able to have a portfolio profile
+    Given the date is "2014-09-01"
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "testing@man.net"
+      And I go to the users settings page
+    Then the "portfolio" checkbox within ".formtastic" should not be checked
+    # When I check "portfolio"
+    #   And I press "Cập nhật Thông Tin"
+    # Then the "portfolio" checkbox should be checked

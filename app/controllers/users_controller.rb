@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def update_settings
   	@user = User.find(params[:user][:id])
-  	if @user.update params[:user]
+  	if (@user.update params[:user]) && (@user.settings(:profile).update_attributes! portfolio: (params[:profile_portfolio] == 1 ? true : false) )
       if session_exist
         redirect_back
       else

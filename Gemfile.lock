@@ -197,6 +197,8 @@ GEM
       multi_json (>= 1.5)
     launchy (2.3.0)
       addressable (~> 2.3)
+    ledermann-rails-settings (2.1.0)
+      activerecord (>= 3.1)
     letter_opener (1.1.2)
       launchy (~> 2.2)
     listen (2.1.1)
@@ -414,6 +416,7 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.0.1)
   json
   launchy
+  ledermann-rails-settings
   letter_opener
   memcachier
   mini_magick

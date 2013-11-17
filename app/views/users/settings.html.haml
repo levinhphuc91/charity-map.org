@@ -24,4 +24,8 @@
 				= f.file_field :avatar 
 				= f.hidden_field :avatar_cache 
 				%hr/ 
+				%p 
+					= check_box_tag :profile_portfolio
+					Sử dụng trang đại diện dạng portfolio
+				%hr/ 
 				= f.submit "Cập nhật Thông Tin", class: "submit"

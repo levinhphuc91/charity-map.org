@@ -17,6 +17,7 @@ gem 'friendly_id4', '4.0.0.beta3', :require => 'friendly_id'
 gem 'redcarpet' # Markdown support
 gem 'activerecord-session_store'
 gem 'acts-as-messageable'
+gem 'ledermann-rails-settings', :require => 'rails-settings' # User settings
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

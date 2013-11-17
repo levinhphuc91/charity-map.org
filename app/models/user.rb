@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
   
   has_defaults staff: false, verified_by_phone: false
 
+  has_settings do |s|
+    s.key :profile, :defaults => { :portfolio => false }
+  end
+
   def name
     return full_name unless full_name.blank?
     email.split("@").first

@@ -27,6 +27,7 @@
 #  uid                    :string(255)
 #  facebook_credentials   :hstore
 #  org                    :boolean
+#  figures                :hstore
 #
 
 class User < ActiveRecord::Base
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
                       
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :staff, :verified_by_phone, :provider, :uid, :facebook_credentials, :org
+    :staff, :verified_by_phone, :provider, :uid, :facebook_credentials, :org, :figures
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments

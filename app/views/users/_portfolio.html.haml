@@ -70,28 +70,60 @@
             &nbsp; Dự Án Mới
   
   #our-figures.body-container--content.light-container
-    #sub-header-box Những Con Số
-
+    #sub-header-box
+      Những Con Số
   .body-container--content.light-container
     .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
+      - if user.figures
+        - index = 1
+        - user.figures.each do |key, value|
+          .figures
+            .order= index
+            .message-bar
+              .figure= key
+              = value
+              - if current_user == user
+                %br/ 
+                = link_to users_delete_figure_from_portfolio_path(:key => key) do
+                  %i.icon-minus
+                  Delete
+
+            .margined
+          - index += 1
       .figures
-        .order 1
+        .order
+          %i.icon-plus
         .message-bar
-          .figure 100,000,000 VNĐ
-          Tổng số tiền chúng tôi đã gây quỹ được kể từ khi giới thiệu đến công chúng. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-        .margined
-      .figures
-        .order 2
-        .message-bar
-          .figure 2,305,192 tin nhắn
-          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
-        .margined
-      .figures
-        .order 3
-        .message-bar
-          .figure "Danh Hiệu Của Năm"
-          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-        .margined
+          = form_tag(users_add_figure_to_portfolio_path, method: :post) do
+            .row-fluid
+              .sub-headline
+                Tiêu Đề
+              = text_field_tag :key, nil, class: "span12"
+            .row-fluid
+              .sub-headline
+                Diễn Giải
+              = text_area_tag :value, nil, class: "span12"
+            %hr/ 
+            .pull-right
+              = submit_tag "Submit", class: "submit"
+      / .figures
+      /   .order 1
+      /   .message-bar
+      /     .figure 100,000,000 VNĐ
+      /     Tổng số tiền chúng tôi đã gây quỹ được kể từ khi giới thiệu đến công chúng. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      /   .margined
+      / .figures
+      /   .order 2
+      /   .message-bar
+      /     .figure 2,305,192 tin nhắn
+      /     Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+      /   .margined
+      / .figures
+      /   .order 3
+      /   .message-bar
+      /     .figure "Danh Hiệu Của Năm"
+      /     Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+      /   .margined
 
   #our-members.body-container--content.light-container
     #sub-header-box Thành Viên

@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(params[:id]) || current_user
+    @user = User.find(params[:id] || current_user.id)
   end
 
   def follow
@@ -46,6 +46,29 @@ class UsersController < ApplicationController
   	else
   		render :action => :settings, alert: "Cập nhật không thành công."
   	end
+  end
+
+  def add_figure_to_portfolio
+    if params[:key].blank? || params[:value].blank?
+      redirect_to users_profile_path, alert: "Cập nhật không thành công."
+    else
+      figures = (current_user.figures || {}).merge({"#{params[:key].html_safe}" => "#{params[:value].html_safe}"})
+      if current_user.update_attributes :figures => figures
+        redirect_to users_profile_path, notice: "Cập nhật thành công."
+      else
+        redirect_to users_profile_path, notice: "Cập nhật không thành công."
+      end
+    end
+  end
+
+  def delete_figure_from_portfolio
+    @figures = current_user.figures.to_hash
+    @figures.delete(params[:key])
+    if current_user.update_attributes :figures => @figures
+      redirect_to users_profile_path, notice: "Cập nhật thành công."
+    else
+      redirect_to users_profile_path, notice: "Cập nhật không thành công."
+    end
   end
 
   def verification_code_via_phone

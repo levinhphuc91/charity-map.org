@@ -27,6 +27,7 @@
 #  uid                    :string(255)
 #  facebook_credentials   :hstore
 #  org                    :boolean
+#  figures                :hstore
 #
 
 require 'spec_helper'

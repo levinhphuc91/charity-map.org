@@ -9,6 +9,8 @@ CharityMap::Application.routes.draw do
   get   'users/donations'
   get   'users/verify'
   post  'users/update_settings'
+  post  'users/add_figure_to_portfolio'
+  get   'users/delete_figure_from_portfolio'
   post  'users/verification_code_via_phone'
   get   'users/resend_verification'
   get   'users/verification_delivery_receipt'

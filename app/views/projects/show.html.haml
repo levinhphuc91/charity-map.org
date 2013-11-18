@@ -17,6 +17,11 @@
               .more
                 %i.icon-edit-sign
                 Chỉnh Sửa
+          / - if @project.status == "DRAFT"
+          = link_to projects_submit_path(id: @project.id) do
+            .more{style: "margin-left: 10px;"}
+              %i.icon-rocket
+              Tiến Hành Gây Quỹ
         .top-title.centered= @project.title
         .top-creator-and-location.centered
           %i.icon-map-marker 

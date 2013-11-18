@@ -93,9 +93,9 @@ Feature: Project
       And I fill in "project_reward_amount" with "100000"
       And I fill in "project_reward_description" with "Test Description"
       And I press "Lưu" 
-    When I go to the edit page of the project "Push The World"
-      And I follow "Đăng Ký Gây Vốn"
-    Then I should see "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
+    When I go to the project page of "Push The World"
+      And I follow "Tiến Hành Gây Quỹ"
+    Then I should see "Dự án chuyển sang trạng thái gây quỹ."
     Then an email should have been sent with:
       """
       From: tu@charity-map.org

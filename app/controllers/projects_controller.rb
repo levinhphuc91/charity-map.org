@@ -58,8 +58,8 @@ class ProjectsController < InheritedResources::Base
       if @project.project_rewards.empty?
         redirect_to edit_project_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
       else
-        if @project.update status: "PENDING"
-          redirect_to @project, notice: "Chúng tôi đã nhận được thông tin dự án của bạn và sẽ liên lạc trong thời gian sớm nhất."
+        if @project.update status: "REVIEWED"
+          redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
           AdminMailer.delay.new_pending_project(@project)
         else
           redirect_to edit_project_path(@project), alert: "#{@project.errors.full_messages.join(' ')}"

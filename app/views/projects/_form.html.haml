@@ -19,8 +19,8 @@
         = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
     %hr/ 
     .row-fluid
-      .span4.sub-headline
-        Tên Dự Án
+      .span4
+        .sub-headline Tên Dự Án
       .span8
         = f.input :title, label: false, :input_html => {:class => "span12"}
     .row-fluid
@@ -30,15 +30,11 @@
         = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
         .brief-length
     .row-fluid
-      .span4.sub-headline
-        Mô Tả Dự Án
+      .span4
+        .sub-headline Mô Tả Dự Án
+        .hint Thời gian, cách thức hoạt động, nhân lực, etc.
       .span8
-        #project-description--edit-box.editable
-          - if @project.description
-            = @project.description.html_safe
-          - else
-            Thời gian, cách thức hoạt động, nhân lực, etc.
-        = f.input :description, as: :hidden, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
+        = f.input :description, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
     .row-fluid
       .span4.sub-headline
         Link Video giới thiệu
@@ -64,11 +60,11 @@
 
 :javascript
   $( document ).ready(function() {
-    $('input.submit').click( function(){
-      new_description = $("#project-description--edit-box").html();
-      $('#project_description').val(new_description);
-      $("#edit_project_10").submit();
-    });
+    // $('input.submit').click( function(){
+    //   new_description = $("#project-description--edit-box").html();
+    //   $('#project_description').val(new_description);
+    //   $("#edit_project_10").submit();
+    // });
     $(".start_date").datepicker({
       defaultDate: "+1w",
       changeMonth: true,

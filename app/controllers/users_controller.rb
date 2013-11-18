@@ -62,12 +62,15 @@ class UsersController < ApplicationController
   end
 
   def delete_figure_from_portfolio
-    @figures = current_user.figures.to_hash
-    @figures.delete(params[:key])
-    if current_user.update_attributes :figures => @figures
-      redirect_to users_profile_path, notice: "Cập nhật thành công."
+    @user = User.find(current_user.id)
+    @figures = @user.figures.to_hash
+    @figures = @figures.tap{ |h| h.delete("#{params[:key]}") }
+    if current_user.update_attributes(:figures => @figures)
+      respond_to do |format|
+        format.js
+      end
     else
-      redirect_to users_profile_path, notice: "Cập nhật không thành công."
+      redirect_to users_profile_path, alert: "Cập nhật không thành công."
     end
   end
 

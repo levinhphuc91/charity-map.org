@@ -59,18 +59,54 @@
             .bottom-stats
               .stat-box.donations
                 .text Quỹ 
-                .number= number_with_precision project.donations.successful.sum(:amount), precision: 0
+                .number= human_currency project.donations.successful.sum(:amount)
               .stat-box.donors
                 .text MTQ
                 .number= project.donations.successful.count
               .stat-box.reviews
                 .text Ngày
                 .number= human_time project.start_date
+      - if user.ext_projects
+        - user.ext_projects.each do |project|
+          = render "projects/ext_project", project: project
       - if (current_user) && (current_user == user)
-        = link_to new_project_path do
-          .blank-project-bar
+        = link_to "#new_ext_project" do
+          #new_ext_project_button.blank-project-bar
             %i.icon-plus
-            &nbsp; Dự Án Mới
+            &nbsp; Dự Án Trước Đây
+        .clearfix
+        #new_ext_project.figures{style: "display: none;"}
+          .order
+            %i.icon-plus
+          .message-bar
+            = form_for @ext_project, url: users_add_ext_project_to_portfolio_path do |f|
+              = f.hidden_field :user_id, value: user.id
+              .row-fluid
+                .sub-headline Tiêu Đề
+                = f.text_field :title, class: "span12"
+              .row-fluid
+                .sub-headline Địa Điểm
+                = f.text_field :location, class: "span12"
+              .row-fluid
+                .sub-headline
+                  Diễn Giải
+                = f.text_area :description, class: "span12"
+              .row-fluid
+                .span4.sub-headline Quỹ
+                .span4.sub-headline MTQ
+                .span4.sub-headline Ngày
+              .row-fluid
+                .span4= f.text_field :funding_goal
+                .span4= f.text_field :number_of_donors
+                .span4= f.text_field :executed_at
+              .row-fluid
+                .span6.sub-headline Ảnh Dự Án
+                .span6.sub-headline Lưu ý
+              .row-fluid
+                .span6= f.file_field :photo
+                .span6.hint Hiện BĐTT chưa hỗ trợ chỉnh sửa thông tin dự án trước đây một khi đã gửi về hệ thống. Bạn vui lòng kiểm tra kỹ thông tin trước khi ấn gửi. Bạn có thể xoá dự án sau khi đã gửi.
+              .pull-right
+                = f.submit "Submit", class: "submit"
   
   #our-figures.body-container--content.light-container
     #sub-header-box
@@ -146,3 +182,8 @@
 
   .body-container--content.light-container
     = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped
+
+:javascript
+  $("#new_ext_project_button").click(function() {
+    $("#new_ext_project").slideToggle(500);
+  })

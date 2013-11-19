@@ -17,12 +17,10 @@
 #  slug         :string(255)
 #  brief        :text
 #  video        :string(255)
-#  settings     :hstore
 #  unlisted     :boolean
 #  address      :string(255)
 #  latitude     :float
 #  longitude    :float
-#  category_id  :integer
 #
 
 require 'spec_helper'

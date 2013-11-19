@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
   has_many :donations
   has_many :projects, through: :donations
   has_many :projects # admin relationship
+  has_many :ext_projects
   has_many :recommendations
   has_many :verifications
   has_many :project_follows

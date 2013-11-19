@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(params[:id] || current_user.id)
+    @ext_project = ExtProject.new
   end
 
   def follow
@@ -56,7 +57,7 @@ class UsersController < ApplicationController
       if current_user.update_attributes :figures => figures
         redirect_to users_profile_path, notice: "Cập nhật thành công."
       else
-        redirect_to users_profile_path, notice: "Cập nhật không thành công."
+        redirect_to users_profile_path, alert: "Cập nhật không thành công."
       end
     end
   end
@@ -69,6 +70,15 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.js
       end
+    else
+      redirect_to users_profile_path, alert: "Cập nhật không thành công."
+    end
+  end
+
+  def add_ext_project_to_portfolio
+    @ext_project = ExtProject.new(params[:ext_project])
+    if @ext_project.save
+      redirect_to users_profile_path, notice: "Cập nhật thành công."
     else
       redirect_to users_profile_path, alert: "Cập nhật không thành công."
     end

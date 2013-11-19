@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118090719) do
+ActiveRecord::Schema.define(version: 20131119121545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,17 +63,23 @@ ActiveRecord::Schema.define(version: 20131118090719) do
   add_index "donations", ["project_reward_id"], name: "index_donations_on_project_reward_id", using: :btree
   add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
 
-  create_table "ext_donations", force: true do |t|
-    t.integer  "project_id"
-    t.float    "amount"
-    t.string   "collection_method"
-    t.string   "note"
-    t.string   "donor"
+  create_table "ext_projects", force: true do |t|
+    t.string   "photo"
+    t.string   "title"
+    t.string   "location"
+    t.float    "funding_goal"
+    t.integer  "number_of_donors"
+    t.datetime "executed_at"
+    t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
-  add_index "ext_donations", ["project_id"], name: "index_ext_donations_on_project_id", using: :btree
+  add_index "ext_projects", ["user_id"], name: "index_ext_projects_on_user_id", using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
@@ -163,15 +169,12 @@ ActiveRecord::Schema.define(version: 20131118090719) do
     t.string   "slug"
     t.text     "brief"
     t.string   "video"
-    t.hstore   "settings"
     t.boolean  "unlisted"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "category_id"
   end
 
-  add_index "projects", ["category_id"], name: "index_projects_on_category_id", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 

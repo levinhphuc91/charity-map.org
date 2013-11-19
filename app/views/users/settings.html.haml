@@ -16,9 +16,12 @@
 				= f.input  :id, :as => :hidden
 				= f.inputs :email
 				= f.input  :full_name #, input_html: { disabled: true } unless current_user.phone.blank?
+				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+				= f.input :bio, :input_html => { :cols => 100, :rows => 15 }
 				= f.input  :address, as: :text, :input_html => {:rows => 5}
-				= f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
-				= f.input :bio, :input_html => { :cols => 100, :rows => 3 }
+				.row-fluid
+					.span8.offset3.hint= render "layouts/markdown"
+				.clearfix
 				= f.input :phone #, input_html: { disabled: true } unless current_user.phone.blank?
 				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
 				= f.file_field :avatar 

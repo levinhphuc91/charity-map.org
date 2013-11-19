@@ -9,7 +9,7 @@
               %li= msg
     %p 
     .row-fluid
-      = image_tag(@project.photo_url(:banner)) if @project.photo?
+      .span9.offset3= image_tag(@project.photo_url(:banner)) if @project.photo?
     .row-fluid
       .span4.sub-headline
         Ảnh Dự Án
@@ -30,8 +30,15 @@
         = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
         .brief-length
     .row-fluid
-      .span4.sub-headline
-        Mô Tả Dự Án
+      .span4
+        .sub-headline Mô Tả Dự Án
+        .hint
+          Bôi đậm: **Tiêu đề** &sdot; <b>Tiêu đề</b><br/>
+          In nghiêng: *Ghi chú* &sdot; <i>Ghi chú</i><br/>
+          Tiêu đề: ### Thông báo &sdot; <font size="2em">Thông báo</font><br/>
+          Chèn ảnh: ![Ghi chú ảnh](link_ảnh)<br/>
+          Chèn link: [Báo chí](http://google.com) &sdot; <a href="http://google.com">Báo </a>
+
       .span8
         #project-description--edit-box.editable
           - if @project.description

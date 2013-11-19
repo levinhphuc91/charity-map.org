@@ -61,7 +61,7 @@
                 .text MTQ
                 .number= project.donations.successful.count
               .stat-box.reviews
-                .text Thời Gian
+                .text Ngày
                 .number= human_time project.start_date
       - if (current_user) && (current_user == user)
         = link_to new_project_path do
@@ -126,15 +126,15 @@
       /     Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
       /   .margined
 
-  #our-members.body-container--content.light-container
-    #sub-header-box Thành Viên
+  / #our-members.body-container--content.light-container
+  /   #sub-header-box Thành Viên
   
-  .body-container--content.light-container
-    .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
-      - (1..9).each do |i|
-        .member
-          .avatar= image_tag "portfolio/default_avatars/#{i}.jpg", size: "100x100"
-          .info Hoang Minh Tu
+  / .body-container--content.light-container
+  /   .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
+  /     - (1..9).each do |i|
+  /       .member
+  /         .avatar= image_tag "portfolio/default_avatars/#{i}.jpg", size: "100x100"
+  /         .info Hoang Minh Tu
 
   #contact-us.body-container--content.light-container
     #sub-header-box Liên Hệ

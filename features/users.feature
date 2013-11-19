@@ -22,7 +22,7 @@ Feature: User
       And I fill in "user_email" with "saidrebyn@gmail.com"
       And I fill in "Full name" with "Hoang Minh Tu"
       And I fill in "Address" with "10.5B D5 Binh Thanh"
-      And I select "Hồ Chí Minh" from "City"
+      # And I select "Hồ Chí Minh" from "City"
       And I fill in "Bio" with "Charity Map co-founders"
       And I fill in "Phone" with "0908 230 591"
       And I press "Cập nhật Thông Tin"

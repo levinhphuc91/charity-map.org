@@ -1,4 +1,5 @@
 Feature: Project
+  # fail for closed beta period only TODO
   Scenario: To be displayed in a box
     Given there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"
       And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above that is not unlisted
@@ -23,15 +24,14 @@ Feature: Project
       And I go to the new project page
       And I fill in "project_title" with "Push the world"
       And I fill in "project_brief" with "This is a short brief"
-      # And I fill in "project_description" with "Here comes a description"
+      And I fill in "project_description" with "Here comes a description"
       And I fill in "project_start_date" with "2013-09-10"
       And I fill in "project_end_date" with "2013-09-24"
       And I fill in "project_funding_goal" with "9999999"
       And I fill in "project_location" with "227 Nguyen Van Cu"
       And I press "Lưu"
     Then  I should see "Push the world"
-      # And I should see "Here comes a description"
-      # And I should see "Chỉnh Sửa"
+      And I should see "Here comes a description"
       And I should see "Hiện chưa có cập nhật nào."
 
   # @javascript

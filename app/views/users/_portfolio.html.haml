@@ -39,7 +39,7 @@
   .body-container--content.light-container
     .portfolio-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 20px;"}
       - if user.projects
-        - user.projects.public_view.each do |project|
+        - user.projects.portfolio_view.each do |project|
           .project-bar
             = link_to project_path(project) do
               .top-image
@@ -181,7 +181,7 @@
     .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.address
 
   .body-container--content.light-container
-    = render "layouts/map", height: "400px", markers: @user.projects.public_view.mapped
+    = render "layouts/map", height: "400px", markers: @user.projects.portfolio_view.mapped
 
 :javascript
   $("#new_ext_project_button").click(function() {

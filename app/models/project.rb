@@ -30,7 +30,8 @@ class Project < ActiveRecord::Base
     "REVIEWED", Time.now, Time.now, "f").order("created_at DESC") }
   scope :finished, -> { where(status: "FINISHED", unlisted: false).order("created_at DESC") }
   scope :mapped, -> { where("LATITUDE >= ? AND LONGITUDE >= ?", 0, 0) }
-  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
+  scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
+  scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,

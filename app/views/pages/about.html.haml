@@ -1,92 +1,154 @@
+= content_for :head do
+  %link{href: "http://fonts.googleapis.com/css?family=Roboto+Slab:100,400,300&subset=latin,vietnamese", rel: "stylesheet", type: "text/css"}/
+
 .body-container--plain-row
   .body-container--content
-    .message-div{:style => "background-color: #fff;"}
-      .message-box
-        .row-fluid
-          .span12{:align => "center"}
-            %span.medium-content
-            %p.classic-headline{:style => "color: #000;"}
-              %strong What is Charity Map?
-            %p Charity Map is a social crowdfunding platform. Projects for social organizations are listed on Charity Map, examples of these projects include buying books for a library at an orphanage and the construction of toilets at homeless people shelters. Donors can browse though the projects listed on the platform and easily donate to one (or many!).
-        .row-fluid{:style => "margin-top: 50px;"}
-          .span12
-            %span.medium-content{:align => "center"}
-            .span12{:align => "center"}
-              %strong What need does Charity Map address?
-            %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence. 
-          .span4{:align => "center"}
-            %br/
+    .row-fluid
+      .span8.offset2
+        .about-us
+          .headline Bản Đồ Từ Thiện
+          %p được xây dựng nhằm mục đích hỗ trợ các dự án xã hội tại Việt Nam gây quỹ từ cộng đồng. Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.
+          / %p Ủng hộ một dự án trên BĐTT mang ý nghĩa nhiều hơn hẳn việc bạn đang gửi tiền cho một ai / nhóm nào đó. Bạn đang tham gia vào một cộng đồng của những công dân quan tâm tới các vấn đề mà xã hội Việt Nam đang phải đối đầu. Bất kể dự án thuộc về giáo dục, thiên tai và con người, trẻ em, hay dịch bệnh, bạn đang là một phần của một cuộc vận động mà nhiều người đang bước đi chung.
+  %hr/ 
+  .body-container--content
+    .row-fluid
+      .span8.offset2
+        .about-us
+          .headline Các Dự Án Đăng Trên BĐTT
+          %p được khởi tạo, bổ sung thông tin và tiến hành gây quỹ một cách độc lập. Các cá nhân / tổ chức làm dự án có toàn quyền quyết định về chiến dịch gây quỹ của mình.
+ 
+.body-container--dark-row{style: "background-color: #31373A; margin-bottom: 0; padding-bottom: 0;"}
+  .body-container--content
+    .row-fluid
+      .span8.offset2
+        .about-us
+          .headline{style: "color: #fff;"} Bức Tranh Toàn Cảnh
+          %p{style: "color: #969ba2;"} về tổ chức / nhóm hoạt động xã hội: mục tiêu, sức mệnh hoạt động, các dự án đã và đang làm, thành viên, v.v
+      .span10.offset1
+        %p= image_tag "about/screenshot-1.jpg"
+      
+    
+    .row-fluid{style: "margin-top: 30px;"}
+      .span8.offset2
+        .about-us
+          %p{style: "color: #969ba2;"} về dự án: kế hoạch, tình hình tài chính, nhân sự, cập nhật, báo cáo, v.v
+      .span10.offset1
+        %p{style: "padding-bottom: 0; margin-bottom: -3px;"}= image_tag "about/screenshot-2.jpg" 
+
 .body-container--plain-row
   .body-container--content
-    .message-div
-      .message-box
+    .row-fluid
+      .span8.offset2
+        .about-us
+          .headline Tích Hợp Chặt Chẽ
+          %p với email, mạng xã hội và SMS. <b>Chức năng tuỳ chọn</b>:
+          %p{style: "margin-top: 10px; font-size: 15px;"} 
+            &sdot; Các thông báo quan trọng về dự án mà bạn đã ủng hộ (đạt mục tiêu gây quỹ, giải ngân, cập nhật hoạt động, v.v) đều được gửi email và SMS.<br/>
+            &sdot; Bản tin hằng tháng cập nhật các dự án mới trên hệ thống và các dự án mà bạn bè trên Facebook của bạn đã ủng hộ.
+    .row-fluid
+      .span10.offset1
         .row-fluid
-          .span12{:align => "center"}
-            %strong What is the difference between a public platform and a private crowdfunding page on Charity Map?
-        .row-fluid
-          %p Charity Map operates two types of crowdfunding pages. The private page allows individuals and organizations to set up a page for a social organization that can only be viewed by sharing the link. It is not listed on our homepage. The benefit for this type of page is that Charity Map increases the ease of information and payment process for existing donor networks. A public page is listed on our homepage and allows anyone to view the cause and donate to it, this is the preferred option for most crowdfunders since it allows both existing donor networks to view the page but also attracts additional potential donors.
-      %hr/ 
-      .message-box
-        .row-fluid
-          .span12{:align => "center"}
-            %strong How does Charity Map ensure that donations are used for the intended target?
-        .row-fluid
-          %p Charity Map screen all social organizations that list on the platform through a multi-stage screening process. During and after the crowdfunding campaign, the team conducts regular visits to the social organization to ensure that donor money is being transferred as efficiently as possible.
-      %hr/ 
-      .message-box
-        .row-fluid
-          .span12{:align => "center"}
-            %strong What information about the project will I receive after I donate?
-        .row-fluid
-          %p At Charity Map, our goal is to provide you with as much information about the project both pre and post donation. After you donate, you can check the project page for updates on the project and their fundraising goal. Depending on the goals of the social organization, you may also receive periodic updates keeping you abreast of all project-related activities. You will also be notified when the campaign has ended. Also, our team visits the project periodically after the campaign and relays this information back onto the platform.
-.body-container--plain-row
-  .body-container--content
-    #Who.message-div
-      .message-box
-        .row-fluid{:style => "margin-bottom: 50px;"}
-          .span12{:align => "center"}
-            %span.classic-headline{:style => "color: #000; border-bottom: 2px dashed #757473;"}
-              %strong The Team
-        .row-fluid{:style => "margin-bottom: 100px;"}
-          .span3.offset1
-            %img.img-circle{:alt => "Bilesh", :height => "100", :src => "/assets/about/bilesh.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
-            %br/
-            %p.medium-content
-              %strong Bilesh Ladva
-              = succeed "Co-founder" do
-                %br/
-          .span8
-            %p Bilesh is an impact investment analyst at Shujog Impact Investment in Singapore. He has been actively involved in Viet Nam for almost two years. He managed a shelter project in Can Tho, Viet Nam, that sent students from the local university to teach English at several shelters throughout the city. He now sits on the Board of Directors of this project.
-            %p During the summer of 2012, he worked as a business development intern at an educational startup in Ho Chi Minh City through the Sponsors for Educational Opportunities (SEO) program. Prior to this, he taught English to students at Can Tho University as a Princeton in Asia Fellow for a year. He graduated from Princeton in 2011 with a degree in Economics and a certificate in Political Economy. He is originally from Cambridge, England and likes to cycle and sample delicious streetside food.
-        .row-fluid{:style => "margin-bottom: 100px;"}
-          .span8
-            %p Starting her career in finance, Hanh is also passionate about social activities and community service. Through Charity Map she hopes to bring more transparency to charity work and improve children’s lives in Viet Nam.
-            %p Hanh graduated from Foreign Trade University in 2012. In her summer of graduation, she joined SEO-VN internship program where she got to know Bilesh and Tu, and started the partnership with them later on. Hanh is an AmCham Scholar and currently serves on the Alumni Association’s Board of Directors.
-          .span3.offset1
-            %img.img-circle{:alt => "Hanh", :height => "100", :src => "/assets/about/hanh.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
-            %br/
-            %p.medium-content
-              %strong Hanh Nguyen
-              = succeed "Co-founder" do
-                %br/
-        .row-fluid
-          .span3.offset1
-            %img.img-circle{:alt => "Tu", :height => "100", :src => "/assets/about/tu.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
-            %br/
-            %p.medium-content
-              %strong Tu Hoang
-              = succeed "Co-founder" do
-                %br/
-          .span8
-            %p Tu, together with Hanh and Bilesh, founded Charity Map in a dazzling summer night over a hu tieu table on Pasteur, Saigon (this reasons for why they apparently loved the idea). He has been Charity Map's technical lead ever since, working nights in and out to make 0s and 1s meaningful to a world of children where computers are a rare but, with Charity Map, not anymore.
-            %p Tu spent two years at Foreign Trade University, during which worked as assistant to chairman at a real-estate project in Dong Thap. Summer 2012, he joined Sponsor For Educational Opportunities VN working at a portfolio startup. He is now residing in Berlin, Germany for a computer science fellowship.
-        .row-fluid{:align => "center", :style => "margin-top: 50px; font-size: 11px; line-height: 12px;"}
-          %img{:alt => "Pia", :src => "/assets/about/pia.jpg"}/
-          %br/
-          %br/
-          Generously seed funded through a
-          %br/
-          %strong Princeton in Asia Carrie Gordon Fellowship
+          .span8= image_tag "about/fb.png"
+          .span4= image_tag "about/sms.png"
+
+/ .row-fluid{:style => "margin-top: 50px;"}
+/   .span12
+/     %span.medium-content{:align => "center"}
+/     .span12{:align => "center"}
+/       %strong What need does Charity Map address?
+/     %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence. 
+/   .span4{:align => "center"}
+/     %br/
+
+/ .body-container--plain-row
+/   .body-container--content
+/     .message-div{:style => "background-color: #fff;"}
+/       .message-box
+/         .row-fluid
+/           .span12{:align => "center"}
+/             %span.medium-content
+/             %p.classic-headline{:style => "color: #000;"}
+/               %strong What is Charity Map?
+/             %p Charity Map is a social crowdfunding platform. Projects for social organizations are listed on Charity Map, examples of these projects include buying books for a library at an orphanage and the construction of toilets at homeless people shelters. Donors can browse though the projects listed on the platform and easily donate to one (or many!).
+/         .row-fluid{:style => "margin-top: 50px;"}
+/           .span12
+/             %span.medium-content{:align => "center"}
+/             .span12{:align => "center"}
+/               %strong What need does Charity Map address?
+/             %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence. 
+/           .span4{:align => "center"}
+/             %br/
+/ .body-container--plain-row
+/   .body-container--content
+/     .message-div
+/       .message-box
+/         .row-fluid
+/           .span12{:align => "center"}
+/             %strong What is the difference between a public platform and a private crowdfunding page on Charity Map?
+/         .row-fluid
+/           %p Charity Map operates two types of crowdfunding pages. The private page allows individuals and organizations to set up a page for a social organization that can only be viewed by sharing the link. It is not listed on our homepage. The benefit for this type of page is that Charity Map increases the ease of information and payment process for existing donor networks. A public page is listed on our homepage and allows anyone to view the cause and donate to it, this is the preferred option for most crowdfunders since it allows both existing donor networks to view the page but also attracts additional potential donors.
+/       %hr/ 
+/       .message-box
+/         .row-fluid
+/           .span12{:align => "center"}
+/             %strong How does Charity Map ensure that donations are used for the intended target?
+/         .row-fluid
+/           %p Charity Map screen all social organizations that list on the platform through a multi-stage screening process. During and after the crowdfunding campaign, the team conducts regular visits to the social organization to ensure that donor money is being transferred as efficiently as possible.
+/       %hr/ 
+/       .message-box
+/         .row-fluid
+/           .span12{:align => "center"}
+/             %strong What information about the project will I receive after I donate?
+/         .row-fluid
+/           %p At Charity Map, our goal is to provide you with as much information about the project both pre and post donation. After you donate, you can check the project page for updates on the project and their fundraising goal. Depending on the goals of the social organization, you may also receive periodic updates keeping you abreast of all project-related activities. You will also be notified when the campaign has ended. Also, our team visits the project periodically after the campaign and relays this information back onto the platform.
+/ .body-container--plain-row
+/   .body-container--content
+/     #Who.message-div
+/       .message-box
+/         .row-fluid{:style => "margin-bottom: 50px;"}
+/           .span12{:align => "center"}
+/             %span.classic-headline{:style => "color: #000; border-bottom: 2px dashed #757473;"}
+/               %strong The Team
+/         .row-fluid{:style => "margin-bottom: 100px;"}
+/           .span3.offset1
+/             %img.img-circle{:alt => "Bilesh", :height => "100", :src => "/assets/about/bilesh.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
+/             %br/
+/             %p.medium-content
+/               %strong Bilesh Ladva
+/               = succeed "Co-founder" do
+/                 %br/
+/           .span8
+/             %p Bilesh is an impact investment analyst at Shujog Impact Investment in Singapore. He has been actively involved in Viet Nam for almost two years. He managed a shelter project in Can Tho, Viet Nam, that sent students from the local university to teach English at several shelters throughout the city. He now sits on the Board of Directors of this project.
+/             %p During the summer of 2012, he worked as a business development intern at an educational startup in Ho Chi Minh City through the Sponsors for Educational Opportunities (SEO) program. Prior to this, he taught English to students at Can Tho University as a Princeton in Asia Fellow for a year. He graduated from Princeton in 2011 with a degree in Economics and a certificate in Political Economy. He is originally from Cambridge, England and likes to cycle and sample delicious streetside food.
+/         .row-fluid{:style => "margin-bottom: 100px;"}
+/           .span8
+/             %p Starting her career in finance, Hanh is also passionate about social activities and community service. Through Charity Map she hopes to bring more transparency to charity work and improve children’s lives in Viet Nam.
+/             %p Hanh graduated from Foreign Trade University in 2012. In her summer of graduation, she joined SEO-VN internship program where she got to know Bilesh and Tu, and started the partnership with them later on. Hanh is an AmCham Scholar and currently serves on the Alumni Association’s Board of Directors.
+/           .span3.offset1
+/             %img.img-circle{:alt => "Hanh", :height => "100", :src => "/assets/about/hanh.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
+/             %br/
+/             %p.medium-content
+/               %strong Hanh Nguyen
+/               = succeed "Co-founder" do
+/                 %br/
+/         .row-fluid
+/           .span3.offset1
+/             %img.img-circle{:alt => "Tu", :height => "100", :src => "/assets/about/tu.jpg", :style => "margin-bottom: 20px;", :width => "100"}/
+/             %br/
+/             %p.medium-content
+/               %strong Tu Hoang
+/               = succeed "Co-founder" do
+/                 %br/
+/           .span8
+/             %p Tu, together with Hanh and Bilesh, founded Charity Map in a dazzling summer night over a hu tieu table on Pasteur, Saigon (this reasons for why they apparently loved the idea). He has been Charity Map's technical lead ever since, working nights in and out to make 0s and 1s meaningful to a world of children where computers are a rare but, with Charity Map, not anymore.
+/             %p Tu spent two years at Foreign Trade University, during which worked as assistant to chairman at a real-estate project in Dong Thap. Summer 2012, he joined Sponsor For Educational Opportunities VN working at a portfolio startup. He is now residing in Berlin, Germany for a computer science fellowship.
+/         .row-fluid{:align => "center", :style => "margin-top: 50px; font-size: 11px; line-height: 12px;"}
+/           %img{:alt => "Pia", :src => "/assets/about/pia.jpg"}/
+/           %br/
+/           %br/
+/           Generously seed funded through a
+/           %br/
+/           %strong Princeton in Asia Carrie Gordon Fellowship
 
 / .body-container--dark-row
 /   .body-container--content

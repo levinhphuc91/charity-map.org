@@ -9,7 +9,7 @@
               %li= msg
     %p 
     .row-fluid
-      = image_tag(@project.photo_url(:banner)) if @project.photo?
+      .span9.offset3= image_tag(@project.photo_url(:banner)) if @project.photo?
     .row-fluid
       .span4.sub-headline
         Ảnh Dự Án
@@ -19,8 +19,8 @@
         = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
     %hr/ 
     .row-fluid
-      .span4
-        .sub-headline Tên Dự Án
+      .span4.sub-headline
+        Tên Dự Án
       .span8
         = f.input :title, label: false, :input_html => {:class => "span12"}
     .row-fluid
@@ -32,7 +32,13 @@
     .row-fluid
       .span4
         .sub-headline Mô Tả Dự Án
-        .hint Thời gian, cách thức hoạt động, nhân lực, etc.
+        .hint
+          %p Bôi đậm: **Tiêu đề** &sdot; <b>Tiêu đề</b>
+          %p In nghiêng: *Ghi chú* &sdot; <i>Ghi chú</i>
+          %p Tiêu đề: ### Thông báo &sdot; <font size="2em">Thông báo</font>
+          %p Chèn ảnh: ![Ghi chú ảnh](link_ảnh)
+          %p Chèn link: [Báo chí](http://google.com) &sdot; <a href="http://google.com">Báo chí</a>
+
       .span8
         = f.input :description, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
     .row-fluid
@@ -60,11 +66,6 @@
 
 :javascript
   $( document ).ready(function() {
-    // $('input.submit').click( function(){
-    //   new_description = $("#project-description--edit-box").html();
-    //   $('#project_description').val(new_description);
-    //   $("#edit_project_10").submit();
-    // });
     $(".start_date").datepicker({
       defaultDate: "+1w",
       changeMonth: true,

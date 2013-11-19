@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021205228) do
+ActiveRecord::Schema.define(version: 20131118090719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "categories", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "configurations", force: true do |t|
     t.string   "name"
@@ -165,6 +171,13 @@ ActiveRecord::Schema.define(version: 20131021205228) do
   add_index "recommendations", ["project_id"], name: "index_recommendations_on_project_id", using: :btree
   add_index "recommendations", ["user_id"], name: "index_recommendations_on_user_id", using: :btree
 
+  create_table "relationships", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
     t.text     "data"
@@ -174,6 +187,17 @@ ActiveRecord::Schema.define(version: 20131021205228) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "settings", force: true do |t|
+    t.string   "var",         null: false
+    t.text     "value"
+    t.integer  "target_id",   null: false
+    t.string   "target_type", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -199,6 +223,8 @@ ActiveRecord::Schema.define(version: 20131021205228) do
     t.string   "provider"
     t.string   "uid"
     t.hstore   "facebook_credentials"
+    t.boolean  "org"
+    t.hstore   "figures"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

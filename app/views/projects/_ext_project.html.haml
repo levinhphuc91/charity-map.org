@@ -1,14 +1,13 @@
 .project-bar
-  = link_to project_path(project) do
-    .top-image
-      .info
-        .title= project.title
-        .location
-          = project.location || "Viet Nam"
-      - if project.photo?
-        = image_tag project.photo_url(:portfolio), size: "450x160"
-      - else
-        = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
+  .top-image
+    .info
+      .title= project.title
+      .location
+        = project.location || "Viet Nam"
+    - if project.photo?
+      = image_tag project.photo_url(:portfolio), size: "450x160"
+    - else
+      = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
     
   .bottom-stats
     .stat-box.donations

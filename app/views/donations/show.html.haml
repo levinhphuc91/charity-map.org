@@ -24,7 +24,7 @@
           %p Dự án <b>#{@project.title}</b> nhận được 100% số quỹ mục tiêu vào ngày 09/09/2013.
         %li.important
           .sub-headline= human_time @project.end_date
-          %p Dự án #{@project.title} kết thúc đợt gây quỹ kéo dài #{(TimeDifference.between(@project.start_date, @project.end_date).in_days).to_i} ngày và nhận được <b>#{human_currency @project.donations.successful.sum(:amount)}</b> tiền ủng hộ
+          %p Dự án #{@project.title} kết thúc đợt gây quỹ kéo dài #{(TimeDifference.between(@project.start_date, @project.end_date).in_days).to_i} ngày và nhận được <b>#{human_currency @project.donations_sum}</b> tiền ủng hộ
         - @project.project_updates.each do |update|
           %li 
             .sub-headline= human_time update.created_at

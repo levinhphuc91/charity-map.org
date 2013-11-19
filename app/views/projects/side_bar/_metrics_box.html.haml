@@ -4,9 +4,9 @@
     .description
       Mục tiêu
   .figure.righted
-    .number= human_currency project.donations.successful.sum(:amount)
+    .number= human_currency project.donations_sum
     .description
-      Số tiền nhận được
+      Số tiền nhận được (#{number_with_precision (project.donations_sum/project.funding_goal*100), precision: 0}%)
   .figure.righted 
     - if project.start_date < Date.today && project.end_date > Date.today
       .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày

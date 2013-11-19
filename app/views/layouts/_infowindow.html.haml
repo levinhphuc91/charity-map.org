@@ -19,18 +19,18 @@
   .project-footer-bar
     .row-fluid.giving-space
       .project-progressbar
-        .project-progressbar--green{:style => "width: #{(project.donations.successful.sum(:amount)/ project.funding_goal * 260).to_i}px;"}
+        .project-progressbar--green{:style => "width: #{(project.donations_sum/ project.funding_goal * 260).to_i}px;"}
     .row-fluid.giving-space
       .pull-left{style: "width: 80px;"}
-        .project-metric= number_to_percentage project.donations.successful.sum(:amount) * 100 / project.funding_goal, precision: 0
+        .project-metric= number_to_percentage project.donations_sum * 100 / project.funding_goal, precision: 0
         .project-metric--description Hoàn Thành
       - if project.donations.successful.sum(:amount) * 100/ project.funding_goal < 0.15
         .pull-left{style: "width: 110px;"}
-          .project-metric= human_currency project.funding_goal - project.donations.successful.sum(:amount)
+          .project-metric= human_currency project.funding_goal - project.donations_sum
           .project-metric--description Cần Kêu Gọi
       - else
         .pull-left{style: "width: 110px;"}
-          .project-metric= human_currency project.donations.successful.sum(:amount)
+          .project-metric= human_currency project.donations_sum
           .project-metric--description Đã Kêu Gọi
       .pull-left{style: "width: 70px;"}
         - if project.end_date > Time.now

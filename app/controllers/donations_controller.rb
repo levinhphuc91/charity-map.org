@@ -12,6 +12,17 @@ class DonationsController < InheritedResources::Base
     end
     @funding_progress = funding_progress(@project)
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
+    @ext_donation = ExtDonation.new
+    @ext_donations = @project.ext_donations
+  end
+
+  def add_ext_donation
+    @ext_donation = ExtDonation.new(params[:ext_donation])
+    if @ext_donation.save
+      redirect_to project_donations_path(@ext_donation.project), notice: "Thêm ủng hộ ngoài hệ thống thành công."
+    else
+      redirect_to project_donations_path(@ext_donation.project), alert: "#{@ext_donation.errors.full_messages}"
+    end
   end
 
   def show

@@ -3,7 +3,7 @@
   .note Dự án: #{link_to @project.title, project_path(@project)}
 .row-fluid
   %p
-    <b>Lưu ý:</b> cập nhật mới sẽ được email đến các mạnh thường quân. Hiện dự án #{@project.title} đang có #{@project.donations.successful.count} mạnh thường quân.
+    <b>Lưu ý:</b> cập nhật mới sẽ được email đến các mạnh thường quân. Hiện dự án #{@project.title} đang có #{@project.donations_count} mạnh thường quân.
 %hr/
 .row-fluid
   = render 'form'

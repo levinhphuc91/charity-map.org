@@ -37,7 +37,9 @@ CharityMap::Application.routes.draw do
       get 'search'
     end
     resources :project_rewards
-    resources :donations
+    resources :donations do
+      post 'add_ext_donation', on: :collection
+    end
     resources :project_comments
     resources :project_updates
     resources :recommendations

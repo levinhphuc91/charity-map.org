@@ -41,6 +41,7 @@ class Project < ActiveRecord::Base
   has_many :project_updates
   has_many :project_comments
   has_many :donations
+  has_many :ext_donations
   has_many :users, through: :donations
   has_many :recommendations
   has_many :project_follows
@@ -66,6 +67,16 @@ class Project < ActiveRecord::Base
   friendly_id :title, use: :slugged
   mount_uploader :photo, PhotoUploader
   has_defaults unlisted: true
+
+  def donations_count
+    count = self.donations.successful.count + self.ext_donations.count
+    return count
+  end
+
+  def donations_sum
+    sum = self.donations.successful.sum(:amount) + self.ext_donations.sum(:amount)
+    return sum
+  end
 
   def accepting_donation?
     status == "REVIEWED" 

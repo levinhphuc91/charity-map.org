@@ -11,17 +11,17 @@
       = project.location
   .middle-bar
     .square-box.pull-left
-      .upper-part.centered= human_currency project.donations.successful.sum(:amount)
+      .upper-part.centered= human_currency project.donations_sum
       .lower-part.centered
         %i.icon-signout 
         được ủng hộ
     .square-box.pull-left
-      .upper-part.centered= number_to_percentage project.donations.successful.sum(:amount) / project.funding_goal * 100, precision: 0
+      .upper-part.centered= number_to_percentage project.donations_sum / project.funding_goal * 100, precision: 0
       .lower-part.centered
         %i.icon-signal 
         hoàn thành
     .square-box.pull-left
-      .upper-part.centered= project.donations.successful.count
+      .upper-part.centered= project.donations_count
       .lower-part.centered
         %i.icon-group
         mạnh thường quân

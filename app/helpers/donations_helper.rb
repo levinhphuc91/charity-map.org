@@ -44,10 +44,12 @@ module DonationsHelper
   def funding_progress(project)
     @funding_progress = []
     donations         = project.donations.successful
+    ext_donations     = project.ext_donations
     start_date        = project.start_date.to_date
     end_date          = project.end_date.to_date
     start_date.upto(end_date) do |day|
       count = donations.where("created_at > ? AND created_at < ?", start_date, day).sum(:amount)
+      count += ext_donations.where("collection_time > ? AND collection_time < ?", start_date, day).sum(:amount)
       @funding_progress.push({:date => day.to_s, :sum => count})
     end
     return @funding_progress

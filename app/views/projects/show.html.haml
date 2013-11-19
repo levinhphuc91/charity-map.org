@@ -41,7 +41,7 @@
         = link_to "?filter=donors" do
           %div.box{class:("active" if params[:filter] == "donors")}
             %i.icon-user
-            Mạnh Thường Quân #{"(#{@project.donations.successful.count})" if @project.donations.successful.count > 0}
+            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
         = link_to "#project_comments" do
           %div.box{class:("active" if params[:filter] == "comments")}
             %i.icon-comment

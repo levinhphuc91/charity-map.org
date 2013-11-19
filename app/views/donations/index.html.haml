@@ -3,6 +3,37 @@
     - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
       .row-fluid
         #chart{style: "height: 250px;"}
+    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+      %hr/ 
+      .devider
+        .item Thêm Ủng Hộ Ngoài Hệ Thống
+        .note Dự án: #{link_to @project.title, @project}
+      = form_for @ext_donation, url: add_ext_donation_project_donations_path do |f|
+        = f.hidden_field :project_id, value: @project.id
+        .row-fluid
+          .span4
+            .sub-headline Người Ủng Hộ *
+            = f.text_field :donor, class: "span12"
+            .hint (để trống = ẩn danh)
+          .span4
+            .sub-headline Số Tiền *
+            = f.text_field :amount, class: "span12"
+            .hint bằng VNĐ
+          .span4
+            .sub-headline Phương Thức Ủng Hộ
+            = f.text_field :collection_method, class: "span12"
+            .hint Chuyển khoản NH / Thu tiền tại nơi / khác
+        .row-fluid
+          .span4
+            .sub-headline Ngày Ghi Nhận *
+            = f.text_field :collection_time, class: "span12 collection_time"
+          .span4
+            .sub-headline Ghi Chú
+            = f.text_field :note, class: "span12"
+          .span4.centered
+            = f.submit "Thêm", class: "submit"
+
+    
     %hr/ 
     .devider
       .item Danh Sách Đóng Góp
@@ -36,5 +67,28 @@
             %hr/ 
         - else
           = render "layouts/donation_display", donations: @donations
-
+    .sub-headline Ngoài Hệ Thống
+    %table.table.table-bordered
+      %tr
+        %th Ngày
+        %th Người Ủng Hộ
+        %th Số Tiền
+        %th Ghi Chú
+      - @ext_donations.order("collection_time DESC").each do |donation|
+        %tr 
+          %td= human_time donation.collection_time
+          %td= donation.donor == "Anonymous" ? "Ẩn Danh" : "#{donation.donor}"
+          %td #{human_currency donation.amount} #{"(#{donation.collection_method})" unless donation.collection_method.blank?}
+          %td= donation.try(:note)
+          
 = render "stat"
+
+:javascript
+  $(".collection_time").datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    dateFormat: 'yy-mm-dd'
+  });
+  $(".collection_time").click(function(){
+    $(".collection_time").datepicker();
+  });

@@ -59,10 +59,10 @@
             .bottom-stats
               .stat-box.donations
                 .text Quỹ 
-                .number= human_currency project.donations.successful.sum(:amount)
+                .number= human_currency project.donations_sum
               .stat-box.donors
                 .text MTQ
-                .number= project.donations.successful.count
+                .number= project.donations_count
               .stat-box.reviews
                 .text Ngày
                 .number= human_time project.start_date

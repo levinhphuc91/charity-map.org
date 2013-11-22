@@ -31,6 +31,7 @@ Feature: Project
       And I fill in "project_location" with "227 Nguyen Van Cu"
       And I press "Lưu"
     Then  I should see "Push the world"
+      And I should see page title as "Push the world"
       And I should see "Here comes a description"
       And I should see "Hiện chưa có cập nhật nào."
 

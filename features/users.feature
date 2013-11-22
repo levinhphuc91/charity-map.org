@@ -15,6 +15,7 @@ Feature: User
     Given there is a user with the full name "Tu Hoang" and the email "tu@charity-map.org" and the password "12345678" and the password confirmation "12345678"
     When I go to the profile of "Tu Hoang"
     Then I should see "Tu Hoang"
+      And I should see page title as "Tu Hoang"
 
   Scenario: Update their profile settings
     Given I am a new, authenticated user

@@ -42,7 +42,7 @@ Given /^I login via Facebook$/ do
     },
     :credentials => {
       :token => 'AAA',
-      :expires_at => '1384944372',
+      :expires_at => '1609286400',
       :expires => true
     }
   })

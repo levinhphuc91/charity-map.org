@@ -17,11 +17,11 @@
               .more
                 %i.icon-edit-sign
                 Chỉnh Sửa
-          / - if @project.status == "DRAFT"
-          = link_to projects_submit_path(id: @project.id) do
-            .more{style: "margin-left: 10px;"}
-              %i.icon-rocket
-              Tiến Hành Gây Quỹ
+          - if current_user && @project.belongs_to?(current_user) && (@project.status == "DRAFT")
+            = link_to projects_submit_path(id: @project.id) do
+              .more{style: "margin-left: 10px;"}
+                %i.icon-rocket
+                Tiến Hành Gây Quỹ
         .top-title.centered= @project.title
         .top-creator-and-location.centered
           %i.icon-map-marker 
@@ -65,7 +65,7 @@
                 .name #{link_to @user.name, user_profile_path(@user)}
                 .des-2
                   %i.icon-map-marker 
-                  #{@user.city} 
+                  #{@project.location} 
               
         .container
           - cache("project_rewards", :expires_in => 1.hour) do
@@ -97,7 +97,7 @@
         = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
       .bordered-box
         .main-project-description
-          %p= @project.description.html_safe
+          %p= markdown @project.description
         .devider
           .item
             %i.icon-list-alt

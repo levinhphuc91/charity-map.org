@@ -56,7 +56,7 @@ class ProjectsController < InheritedResources::Base
     @project = Project.find(params[:id])
     if current_user && @project.belongs_to?(current_user) && @project.status == "DRAFT"
       if @project.project_rewards.empty?
-        redirect_to edit_project_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
+        redirect_to project_project_rewards_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
       else
         if @project.update status: "REVIEWED"
           redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
@@ -66,7 +66,7 @@ class ProjectsController < InheritedResources::Base
         end
       end
     else
-      redirect_to :dashboard, alert: "Permission denied"
+      redirect_to :dashboard, alert: "Permission denied."
     end
   end
 

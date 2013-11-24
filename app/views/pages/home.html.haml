@@ -45,6 +45,16 @@
           .span4
             = submit_tag "Tìm", class: "submit"
 
+%hr/ 
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      %p.centered
+        Generously seed funded through a <br/>
+        = link_to "http://piaweb.princeton.edu" do
+          %b Princeton in Asia Carrie Gordon Fellowship<br/><br/>
+          = image_tag "about/pia.jpg"
+
 :javascript
   $('#project_search').typeahead({
     name: "project",

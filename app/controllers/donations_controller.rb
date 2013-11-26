@@ -19,11 +19,12 @@ class DonationsController < InheritedResources::Base
   def add_ext_donation
     @ext_donation = ExtDonation.new(params[:ext_donation])
     if @ext_donation.save
-      redirect_to project_donations_path(@ext_donation.project), notice: "Thêm ủng hộ ngoài hệ thống thành công."
+      redirect_to project_donations_path(@ext_donation.project), notice: "Thêm ủng hộ ngoài hệ thống (#{@ext_donation.donor} #{human_currency @ext_donation.amount}) thành công."
     else
       redirect_to project_donations_path(@ext_donation.project), alert: "#{@ext_donation.errors.full_messages}"
     end
   end
+  # TODO: ADD TEST
 
   def show
     @donation = Donation.find(params[:id])

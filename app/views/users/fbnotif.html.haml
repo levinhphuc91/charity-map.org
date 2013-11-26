@@ -1,6 +1,6 @@
 - if @project
   :javascript
-    window.top.location.replace("#{project_url(@project)}");
+    window.top.location.replace("http://www.charity-map.org#{project_path(@project)}");
 - else
   :javascript
-    window.top.location.replace("/");
+    window.top.location.replace("http://www.charity-map.org");

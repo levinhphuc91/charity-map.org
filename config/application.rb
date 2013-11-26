@@ -20,5 +20,6 @@ module CharityMap
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.assets.initialize_on_precompile = false
     config.i18n.default_locale = :vi
+    config.middleware.use Rack::SslEnforcer if Rails.env.production?
   end
 end

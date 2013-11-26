@@ -165,7 +165,6 @@ class UsersController < ApplicationController
   def fbnotif
     if params[:project_id]
       @project = Project.find(params[:project_id])
-      redirect_to project_path(@project)
     else
       redirect_to root_path
     end

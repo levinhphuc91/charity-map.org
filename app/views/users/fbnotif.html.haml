@@ -1,0 +1,6 @@
+- if @project
+  :javascript
+    window.top.location.replace("#{project_url(@project)}");
+- else
+  :javascript
+    window.top.location.replace("/");

@@ -2,7 +2,7 @@ require 'sms'
 
 class UsersController < ApplicationController
   include SessionsHelper
-  before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt]
+  before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt, :fbnotif]
   layout "layouts/dashboard", only: [
     :dashboard, :settings, :messages, :donations, :update_settings, :verify,
     :show_message, :new_message, :new_reply_message

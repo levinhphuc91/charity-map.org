@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     :dashboard, :settings, :messages, :donations, :update_settings, :verify,
     :show_message, :new_message, :new_reply_message
   ]
+  layout "layouts/blank", only: :fbnotif
+  skip_before_filter :verify_authenticity_token, only: :fbnotif
 
   def dashboard
   end
@@ -163,11 +165,7 @@ class UsersController < ApplicationController
   end
   
   def fbnotif
-    if params[:project_id]
-      @project = Project.find(params[:project_id])
-    else
-      redirect_to root_path
-    end
+    @project = Project.find_by_id(params[:project_id])
   end
 
   private

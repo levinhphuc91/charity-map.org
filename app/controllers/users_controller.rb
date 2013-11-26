@@ -161,6 +161,15 @@ class UsersController < ApplicationController
     # redirect_to :back, notice: "Tin nhắn đã được gửi đi"
     redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
   end
+  
+  def fbnotif
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
+      redirect_to project_path(@project)
+    else
+      redirect_to root_path
+    end
+  end
 
   private
     def signed_in_user

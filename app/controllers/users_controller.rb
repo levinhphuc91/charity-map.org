@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   ]
   layout "layouts/blank", only: :fbnotif
   skip_before_filter :verify_authenticity_token, only: :fbnotif
+  after_action :allow_facebook_iframe, only: :fbnotif
 
   def dashboard
   end
@@ -174,5 +175,9 @@ class UsersController < ApplicationController
         store_location
         redirect_to new_user_session_path, alert: "Bạn cần đăng nhập để tiếp tục."
       end
+    end
+
+    def allow_facebook_iframe
+      response.headers['X-Frame-Options'] = 'ALLOW-FROM https://apps.facebook.com'
     end
 end

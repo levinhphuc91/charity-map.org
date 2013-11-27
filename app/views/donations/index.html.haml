@@ -1,8 +1,8 @@
 .body-container--plain-row
   .body-container--content
-    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
-      .row-fluid
-        #chart{style: "height: 250px;"}
+    / - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+    .row-fluid
+      #chart{style: "height: 250px;"}
     - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
       %hr/ 
       .devider

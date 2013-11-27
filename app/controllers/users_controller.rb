@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     :dashboard, :settings, :messages, :donations, :update_settings, :verify,
     :show_message, :new_message, :new_reply_message
   ]
-  layout "layouts/blank", only: :fbnotif
   skip_before_filter :verify_authenticity_token, only: :fbnotif
   after_action :allow_facebook_iframe, only: :fbnotif
 
@@ -167,6 +166,7 @@ class UsersController < ApplicationController
   
   def fbnotif
     @project = Project.find_by_id(params[:project_id])
+    layout "layouts/blank"
   end
 
   private

@@ -84,9 +84,7 @@ class User < ActiveRecord::Base
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
     user = User.where(:provider => provider, :uid => uid).first
-    if user
-      user.update :facebook_credentials => credentials
-    else
+    unless user
       user = User.create(provider: provider,
         uid:uid,
         facebook_credentials:{

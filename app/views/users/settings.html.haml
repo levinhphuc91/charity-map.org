@@ -6,10 +6,11 @@
 .row-fluid
 	.span12
 		.error_messages
-			- if @user.errors.full_messages
-				- @user.errors.full_messages.each do |error_message| 
-					=error_message 
-					%br/
+			%p
+				- if @user.errors.full_messages
+					- @user.errors.full_messages.each do |error_message| 
+						= error_message 
+						%br/
 
 		.update-user-profile
 			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|

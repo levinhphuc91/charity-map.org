@@ -64,7 +64,7 @@ class Project < ActiveRecord::Base
     :if => lambda{ |obj| obj.address_changed? }
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: [:slugged, :history]
   # stop friendlyid from generating new slug when title is updated
   def should_generate_new_friendly_id?
     new_record?

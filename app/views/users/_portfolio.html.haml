@@ -8,7 +8,7 @@
   #header-box.body-container--content.dark-container
     .logo 
       - if @user.avatar? 
-        = image_tag(user.avatar_url(:medium)) 
+        = image_tag(user.avatar_url(:medium), size: "80x80")
       - else
         = image_tag("portfolio/default_avatars/4.jpg", size: "80x80")
     .group-info

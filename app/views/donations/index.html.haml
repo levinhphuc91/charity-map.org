@@ -22,15 +22,23 @@
           .span4
             .sub-headline Phương Thức Ủng Hộ
             = f.text_field :collection_method, class: "span12"
-            .hint Chuyển khoản NH / Thu tiền tại nơi / khác
+            .hint Chuyển khoản NH / Thu tiền tận nơi / khác
         .row-fluid
+          .span4
+            .sub-headline Email
+            = f.text_field :email, class: "span12"
+          .span4
+            .sub-headline Số ĐT
+            = f.text_field :phone, class: "span12"
           .span4
             .sub-headline Ngày Ghi Nhận *
             = f.text_field :collection_time, class: "span12 collection_time"
-          .span4
+        .row-fluid
+          .span8
             .sub-headline Ghi Chú
-            = f.text_field :note, class: "span12"
+            = f.text_area :note, class: "span12"
           .span4.centered
+            .sub-headline Kiểm Tra Thông Tin Trước Khi Thêm
             = f.submit "Thêm", class: "submit"
 
     

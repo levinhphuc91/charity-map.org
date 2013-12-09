@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119181326) do
+ActiveRecord::Schema.define(version: 20131209110450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20131119181326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "collection_time"
+    t.string   "email"
+    t.string   "phone"
   end
 
   add_index "ext_donations", ["project_id"], name: "index_ext_donations_on_project_id", using: :btree

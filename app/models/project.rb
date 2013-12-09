@@ -65,6 +65,10 @@ class Project < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :title, use: :slugged
+  # stop friendlyid from generating new slug when title is updated
+  def should_generate_new_friendly_id?
+    new_record?
+  end
   mount_uploader :photo, PhotoUploader
   has_defaults unlisted: true
 

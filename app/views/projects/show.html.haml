@@ -65,7 +65,7 @@
                 .name #{link_to @user.name, user_profile_path(@user)}
                 .des-2
                   %i.icon-map-marker 
-                  #{limit_display @project.location, 30}
+                  #{limit_display @project.location, 27}
               
         .container
           - cache("project_rewards", :expires_in => 1.hour) do

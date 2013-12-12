@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,
-    :address, :latitude, :longitude
+    :address, :latitude, :longitude, :slug
 
   has_many :project_rewards
   has_many :project_updates
@@ -64,11 +64,12 @@ class Project < ActiveRecord::Base
     :if => lambda{ |obj| obj.address_changed? }
 
   extend FriendlyId
-  friendly_id :title, use: [:slugged, :history]
-  # stop friendlyid from generating new slug when title is updated
-  def should_generate_new_friendly_id?
-    new_record?
+  friendly_id :title, use: :slugged
+
+  def normalize_friendly_id(string)
+    string.to_s.to_slug.normalize(transliterations: :vietnamese).to_s
   end
+  
   mount_uploader :photo, PhotoUploader
   has_defaults unlisted: true
 

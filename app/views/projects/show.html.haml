@@ -38,7 +38,7 @@
           %div.box{class:("active" if params[:filter] == "updates")}
             %i.icon-rss
             Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-        = link_to "?filter=donors" do
+        = link_to project_donations_path(@project) do
           %div.box{class:("active" if params[:filter] == "donors")}
             %i.icon-user
             Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}

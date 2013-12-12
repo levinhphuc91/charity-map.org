@@ -121,9 +121,9 @@ class UsersController < ApplicationController
       @user = User.find_by_phone("#{params["msisdn"].gsub("84","0")}")
       @verification = @user.verifications.where(:status => "UNUSED").first
       @verification.update_attributes :receipt => params
-      render :text => "Confirmed."
+      render text: "#{params}", status: :ok
     else
-      render :text => "Error."
+      render :text => "Error.", status: :bad_request
     end
   end
 

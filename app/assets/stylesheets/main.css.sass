@@ -85,7 +85,7 @@ ol>li>ul>li
 
 .body-container
   margin: 0
-  padding: 50px 0 50px 0
+  padding: 0px 0 50px 0
   max-width: 100%
   min-height: 500px
   .body-container--plain-row
@@ -93,12 +93,16 @@ ol>li>ul>li
     width: 100%
     height: auto
     padding: 20px 0 20px 0
+    &:first-child
+      padding-top: 70px
   .body-container--dark-row
     margin: 0
     width: 100%
     height: auto
     background-color: $light_grey
     padding: 20px 0 20px 0
+    &:first-child
+      padding-top: 70px
   .body-container--content
     width: 960px
     margin: 0 auto

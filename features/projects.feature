@@ -105,7 +105,7 @@ Feature: Project
       """
     And "team@charity-map.org" should receive an email
     When I open the email
-    Then I should see "A user has just submitted his/her project for review." in the email body
+    Then I should see "A user has just start raising fund for his/her project." in the email body
       And I should see "[Link to Project Page]" in the email body
     When I follow "[Link to Project Page]" in the email
     Then I should see "Push The World"
@@ -270,6 +270,27 @@ Feature: Project
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
     When I go to the project listing page
     Then I should not see "Push The World"
+
+  @javascript
+  Scenario: Add invites to project
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thư Mời"
+      And I press "Thêm Liên Lạc"
+    Then I should see "Name không thể để trắng"
+    When I fill in "Tên" with "Test Invite"
+      And I fill in "Email" with "test@emai.net"
+      And I press "Thêm Liên Lạc"
+    Then I should not see "Name không thể để trắng"
+      And I should see "Test Invite"
+      And I should see "Sửa"
+    # When I go to the project page of "Push The World"
+    # Then I should see "Test Update Content"
+    #   And I follow "11/09/2013"
+    # Then the URL should contain "projects/push-the-world/project_updates"
 
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11

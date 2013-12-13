@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @invite.name
+%p
+  %b Email:
+  = @invite.email
+%p
+  %b Phone:
+  = @invite.phone
+
+= link_to 'Edit', edit_invite_path(@invite)
+\|
+= link_to 'Back', invites_path

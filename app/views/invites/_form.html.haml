@@ -1,0 +1,9 @@
+= semantic_form_for [@project, @invite] do |f|
+  = f.inputs do
+    = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+    = f.input :name, label: "Tên"
+    = f.input :email
+    = f.input :phone, label: "Số ĐT"
+
+  = f.actions do
+    = f.submit "Sửa Thông Tin", class: "submit"

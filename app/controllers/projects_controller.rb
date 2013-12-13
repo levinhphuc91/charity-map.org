@@ -49,7 +49,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def update
-    update!
+    update!(notice: "Updated!") { params[:href] if params[:href] }
   end
 
   def submit

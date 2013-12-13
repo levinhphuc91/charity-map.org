@@ -2,25 +2,27 @@
 #
 # Table name: projects
 #
-#  id           :integer          not null, primary key
-#  title        :string(255)
-#  description  :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  start_date   :datetime
-#  end_date     :datetime
-#  funding_goal :float
-#  location     :string(255)
-#  photo        :string(255)
-#  user_id      :integer
-#  status       :string(255)
-#  slug         :string(255)
-#  brief        :text
-#  video        :string(255)
-#  unlisted     :boolean
-#  address      :string(255)
-#  latitude     :float
-#  longitude    :float
+#  id                   :integer          not null, primary key
+#  title                :string(255)
+#  description          :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  start_date           :datetime
+#  end_date             :datetime
+#  funding_goal         :float
+#  location             :string(255)
+#  photo                :string(255)
+#  user_id              :integer
+#  status               :string(255)
+#  slug                 :string(255)
+#  brief                :text
+#  video                :string(255)
+#  unlisted             :boolean
+#  address              :string(255)
+#  latitude             :float
+#  longitude            :float
+#  invite_email_content :text
+#  invite_sms_content   :string(255)
 #
 
 class Project < ActiveRecord::Base
@@ -35,8 +37,9 @@ class Project < ActiveRecord::Base
 
   attr_accessible :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,
-    :address, :latitude, :longitude, :slug
+    :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
+  has_many :invites
   has_many :project_rewards
   has_many :project_updates
   has_many :project_comments
@@ -52,6 +55,7 @@ class Project < ActiveRecord::Base
   validates :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :status, :user_id, :brief,
     presence: true
+  validates :invite_sms_content, length: { maximum: 160 }
   validates_length_of :brief, :minimum => 20, :maximum => 200, :allow_blank => true
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
   validates :user_id, numericality: { greater_than: 0 }
@@ -65,6 +69,10 @@ class Project < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :title, use: :slugged
+
+  def sms_credit
+    return (100 - self.invites.sent.where("phone <> ''").count)
+  end
 
   def normalize_friendly_id(string)
     string.to_s.to_slug.normalize(transliterations: :vietnamese).to_s

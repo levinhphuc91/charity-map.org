@@ -1,0 +1,61 @@
+= content_for :head do
+  = javascript_include_tag "//www.google.com/jsapi", "chartkick" 
+
+.devider
+  .item
+    %i.icon-user
+    Liên Lạc
+  .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; Credit: Còn #{@project.sms_credit} tin nhắn
+
+.row-fluid
+  #contact-chart.span12
+    = render "invites/chart", project: @project
+%hr/
+%table.table.table-bordered.invites
+  - unless @project.invites.empty?  
+    - @project.invites.each do |invite|
+      = render "invites/invite", invite: invite
+  / %b.pull-right= link_to "Gửi Thư Mời Đến Toàn Bộ Danh Sách", '#' #send_out_project_invites_path(@project, all: true)
+  .clearfix
+
+.devider
+  .item
+    %i.icon-plus
+    Thêm Liên Lạc
+
+= semantic_form_for [@project, @invite], remote: true do |f|
+  .row-fluid.error
+    - if @invite.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@invite.errors.count, "error")} prohibited this project from being saved:"
+        %ul
+          - @invite.errors.full_messages.each do |msg|
+            %li= msg
+  = f.inputs do
+    = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+    = f.input :name, label: "Tên"
+    = f.input :email
+    = f.input :phone, label: "Số ĐT"
+
+  = f.actions do
+    = f.submit "Thêm Liên Lạc", class: "submit"
+
+.devider
+  .item
+    %i.icon-envelope
+    Thư Mời
+  .note Dự án: #{link_to @project.title, project_path(@project)}
+
+= form_for @project do |f|
+  .row-fluid
+    .span3.sub-headline Nội dung Email
+    .span9= f.text_area :invite_email_content, class: "span12"
+  .row-fluid
+    .span3
+      .sub-headline Nội dung SMS
+      .hint giới hạn 160 ký tự
+    .span9= f.text_area :invite_sms_content, class: "span12"
+  .row-fluid
+    = hidden_field_tag :href, "#{project_invites_url(@project)}"
+  .row-fluid
+    .span9.offset3= f.submit "Lưu", class: "submit"

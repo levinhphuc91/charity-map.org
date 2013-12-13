@@ -1,0 +1,1 @@
+= column_chart({"MTQ" => project.invites.count, "Emails" => project.invites.where("email <> ''").count, "Số ĐT" => project.invites.where("phone <>''").count}, height: "150px")

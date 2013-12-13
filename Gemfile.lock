@@ -69,6 +69,7 @@ GEM
       uuidtools
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    chartkick (1.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.2.2)
@@ -392,6 +393,7 @@ DEPENDENCIES
   capybara
   carrierwave
   carrierwave_direct
+  chartkick
   coffee-rails (~> 4.0.0)
   cucumber-rails
   cucumber_factory

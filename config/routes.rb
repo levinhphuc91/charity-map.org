@@ -38,6 +38,9 @@ CharityMap::Application.routes.draw do
       get 'autocomplete'
       get 'search'
     end
+    resources :invites do
+      get 'send_out', on: :collection
+    end
     resources :project_rewards
     resources :donations do
       post 'add_ext_donation', on: :collection

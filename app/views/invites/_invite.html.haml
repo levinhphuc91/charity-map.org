@@ -1,0 +1,44 @@
+%tr
+  %td
+    = human_time invite.created_at
+    %br/ 
+    - if invite.status == "SENT"
+      Đã Mời
+    - else
+      Mới
+  %td 
+    %p <strong>#{invite.name}</strong>
+  %td 
+    %p
+      P: #{invite.phone}<br/>
+      E: #{invite.email}
+  %td 
+    %p 
+      - if invite.status != "SENT"
+        = link_to 'Sửa', edit_project_invite_path(@project, invite)
+        &sdot;
+        = link_to 'Xoá', project_invite_path(@project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
+        %br/
+        / %b= link_to 'Gửi Thư Mời', '#' # send_out_project_invites_path(@project, id: invite.id)
+  / .span2
+  /   %p
+  /     = human_time invite.created_at
+  /     %br/ 
+  /     - if invite.status == "SENT"
+  /       Đã Mời
+  /     - else
+  /       Mới
+  / .span4
+  /   %p <strong>#{invite.name}</strong>
+  / .span4
+  /   %p
+  /     P: #{invite.phone}<br/>
+  /     E: #{invite.email}
+  / .span2
+  /   %p 
+  /     - if invite.status != "SENT"
+  /       = link_to 'Sửa', edit_project_invite_path(@project, invite)
+  /       &sdot;
+  /       = link_to 'Xoá', project_invite_path(@project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
+  /       %br/
+  /       %b= link_to 'Gửi Thư Mời', '#' # send_out_project_invites_path(@project, id: invite.id)

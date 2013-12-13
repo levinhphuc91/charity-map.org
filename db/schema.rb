@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209110450) do
+ActiveRecord::Schema.define(version: 20131213085019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,18 @@ ActiveRecord::Schema.define(version: 20131209110450) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "invites", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id"
+    t.string   "status"
+  end
+
+  add_index "invites", ["project_id"], name: "index_invites_on_project_id", using: :btree
+
   create_table "messages", force: true do |t|
     t.string   "topic"
     t.text     "body"
@@ -188,6 +200,8 @@ ActiveRecord::Schema.define(version: 20131209110450) do
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.text     "invite_email_content"
+    t.string   "invite_sms_content"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree

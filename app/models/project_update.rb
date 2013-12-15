@@ -8,6 +8,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  photo      :string(255)
+#  title      :string(255)
 #
 
 class ProjectUpdate < ActiveRecord::Base
@@ -15,7 +16,7 @@ class ProjectUpdate < ActiveRecord::Base
   default_scope { order('updated_at') }
   belongs_to :project
 
-  attr_accessible :content, :project_id, :photo, :photo_cache
+  attr_accessible :title, :content, :project_id, :photo, :photo_cache
 
-  validates :content, :project_id, presence: true
+  validates :title, :content, :project_id, presence: true
 end

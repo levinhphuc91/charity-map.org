@@ -8,6 +8,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  photo      :string(255)
+#  title      :string(255)
 #
 
 require 'spec_helper'

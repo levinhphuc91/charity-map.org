@@ -53,7 +53,8 @@
             %i.icon-list-alt
             &nbsp;
             = human_time @project_update.created_at
-        %p= markdown @project_update.content.html_safe
+        #project_updates
+          %p= markdown @project_update.content.html_safe
         - if current_user && @project.belongs_to?(current_user)
           .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
 

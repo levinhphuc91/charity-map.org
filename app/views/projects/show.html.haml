@@ -110,7 +110,9 @@
           - else
             - @project.project_updates.each do |update|
               .row-fluid
-                %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
+                .sub-headline #{human_time update.updated_at}
+                %h4 #{link_to update.title, project_project_update_path(@project, update)}
+
                 %p 
                   #{markdown update.content.html_safe}
                   - if current_user && @project.belongs_to?(current_user)

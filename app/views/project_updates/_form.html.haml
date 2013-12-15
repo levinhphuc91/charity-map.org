@@ -9,6 +9,8 @@
   .row-fluid
     = f.file_field :photo
     = f.hidden_field :photo_cache
+    %hr/ 
     = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-    = f.input :content, :label => false, :input_html => {class: "span12", :rows => 10}
+    = f.input :title, :label => "Tên cập nhật", :input_html => {class: "span12"}
+    = f.input :content, :label => "Nội dung cập ", :input_html => {class: "span12", :rows => 10}
     = f.submit "Cập Nhật", class: "submit"

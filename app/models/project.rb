@@ -97,7 +97,7 @@ class Project < ActiveRecord::Base
   end
 
   def belongs_to?(target_user)
-    return true if self.user == target_user
+    return true if (self.user == target_user) || (target_user.staff)
     false
   end
 

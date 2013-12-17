@@ -2,6 +2,10 @@
   = content_for  :head do
     %meta{content: "NOINDEX, NOFOLLOW, NOARCHIVE", name: "ROBOTS"}/
 
+= content_for  :head do
+  %meta{property: "og:image", content: "#{@project.photo_url(:thumb)}"}/
+  %meta{property: "og:description", content: "#{@project.brief}"}/
+
 - if current_user && @project.belongs_to?(current_user)
   .body-container--plain-row
     .body-container--content

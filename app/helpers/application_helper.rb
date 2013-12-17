@@ -26,12 +26,14 @@ module ApplicationHelper
     end
   end
 
-  def human_donation_type(method)
-    case method
+  def human_donation_type(collection_method)
+    case collection_method
     when "COD"
-      "Thu Tiền Mặt"
+      "Thu Tiền Tận Nơi"
     when "BANK_TRANSFER"
       "Chuyển Khoản Ngân Hàng"
+    else
+      collection_method
     end
   end
 

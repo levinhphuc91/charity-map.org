@@ -13,6 +13,7 @@
 #  collection_time   :datetime
 #  email             :string(255)
 #  phone             :string(255)
+#  anon              :boolean
 #
 
 require 'spec_helper'

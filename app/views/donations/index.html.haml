@@ -8,38 +8,7 @@
       .devider
         .item Thêm Ủng Hộ Ngoài Hệ Thống
         .note Dự án: #{link_to @project.title, @project}
-      = form_for @ext_donation, url: add_ext_donation_project_donations_path do |f|
-        = f.hidden_field :project_id, value: @project.id
-        .row-fluid
-          .span4
-            .sub-headline Người Ủng Hộ *
-            = f.text_field :donor, class: "span12"
-            .hint (để trống = ẩn danh)
-          .span4
-            .sub-headline Số Tiền *
-            = f.text_field :amount, class: "span12"
-            .hint bằng VNĐ
-          .span4
-            .sub-headline Phương Thức Ủng Hộ
-            = f.text_field :collection_method, class: "span12"
-            .hint Chuyển khoản NH / Thu tiền tận nơi / khác
-        .row-fluid
-          .span4
-            .sub-headline Email
-            = f.text_field :email, class: "span12"
-          .span4
-            .sub-headline Số ĐT
-            = f.text_field :phone, class: "span12"
-          .span4
-            .sub-headline Ngày Ghi Nhận *
-            = f.text_field :collection_time, class: "span12 collection_time"
-        .row-fluid
-          .span8
-            .sub-headline Ghi Chú
-            = f.text_area :note, class: "span12"
-          .span4.centered
-            .sub-headline Kiểm Tra Thông Tin Trước Khi Thêm
-            = f.submit "Thêm", class: "submit"
+      = render "ext_donations/form"
 
     
     %hr/ 
@@ -87,11 +56,11 @@
       - @ext_donations.order("collection_time DESC").each do |donation|
         %tr 
           %td= human_time donation.collection_time
-          %td= donation.donor == "Anonymous" ? "Ẩn Danh" : "#{donation.donor}"
-          %td #{human_currency donation.amount} #{"(#{donation.collection_method})" unless donation.collection_method.blank?}
+          %td= donation.anon ? "Ẩn Danh" : donation.donor
+          %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}
           %td= donation.try(:note)
           - if current_user && @project.authorized_edit_for?(current_user)
-            %td #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
+            %td #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
           
 = render "stat"
 

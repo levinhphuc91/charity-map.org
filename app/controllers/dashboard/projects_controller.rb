@@ -14,9 +14,8 @@ class Dashboard::ProjectsController < InheritedResources::Base
   private
     def restricted_access
       @project = Project.find(params[:id])
-      unless @project.belongs_to?(current_user)
+      unless @project.authorized_edit_for?(current_user)
         redirect_to :root, alert: "Permission denied."
       end
     end
-
 end

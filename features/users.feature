@@ -47,7 +47,7 @@ Feature: User
     When I go to the dashboard
       And I follow "Đóng Góp"
     Then I should see "500.000"
-      And I should see "Thu Tiền Mặt"
+      And I should see "Thu Tiền Tận Nơi"
 
   Scenario: Visit dashboard, as a project creator
     Given there is a user with the email "vumanhcuong01@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"

@@ -1,6 +1,7 @@
 class ProjectsController < InheritedResources::Base
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show, :search, :autocomplete]
+  before_filter :restricted_access, only: :submit
 
   def index
     if params[:filter] && params[:filter] == "funding"
@@ -53,20 +54,13 @@ class ProjectsController < InheritedResources::Base
   end
 
   def submit
-    @project = Project.find(params[:id])
-    if current_user && @project.belongs_to?(current_user) && @project.status == "DRAFT"
-      if @project.project_rewards.empty?
-        redirect_to project_project_rewards_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
-      else
-        if @project.update status: "REVIEWED"
-          redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
-          AdminMailer.delay.new_pending_project(@project)
-        else
-          redirect_to edit_project_path(@project), alert: "#{@project.errors.full_messages.join(' ')}"
-        end
-      end
+    if @project.project_rewards.empty?
+      redirect_to project_project_rewards_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
     else
-      redirect_to :dashboard, alert: "Permission denied."
+      if @project.update_attributes status: "REVIEWED"
+        redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
+        AdminMailer.delay.new_pending_project(@project)
+      end
     end
   end
 
@@ -78,4 +72,12 @@ class ProjectsController < InheritedResources::Base
   def autocomplete
     render json: Project.public_view.map(&:title)
   end
+
+  private
+    def restricted_access
+      @project = Project.find(params[:id])
+      unless @project.belongs_to?(current_user)
+        redirect_to :root, alert: "Permission denied."
+      end
+    end
 end

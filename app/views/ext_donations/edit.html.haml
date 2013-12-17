@@ -1,0 +1,16 @@
+- if current_user && @project.authorized_edit_for?(current_user)
+  %hr/ 
+  .devider
+    .item Thêm Ủng Hộ Ngoài Hệ Thống
+    .note Dự án: #{link_to @project.title, @project}
+  = render "ext_donations/form"          
+
+:javascript
+  $(".collection_time").datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    dateFormat: 'yy-mm-dd'
+  });
+  $(".collection_time").click(function(){
+    $(".collection_time").datepicker();
+  });

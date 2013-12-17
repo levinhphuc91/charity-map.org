@@ -115,7 +115,7 @@ Feature: Donation
 	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Xác Nhận"
 	 		And I should see "Đã nhận tiền?"
-	 		And I should see "Thu Tiền Mặt"
+	 		And I should see "Thu Tiền Tận Nơi"
 	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Liên Hệ"
 	 		
@@ -133,7 +133,7 @@ Feature: Donation
 	 		And I should see "Chuyển Khoản Ngân Hàng"
 	 		And I should see "10.000 VNĐ"
 	 		And I should see "Thành Công"
-	 		And I should see "Thu Tiền Mặt"
+	 		And I should see "Thu Tiền Tận Nơi"
 	 		And I should see "12.666 VNĐ"
 	 		And I should see "Đợi Liên Hệ"
 	 		And I should see "Đã nhận tiền?"

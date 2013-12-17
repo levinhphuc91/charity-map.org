@@ -296,7 +296,15 @@ Feature: Project
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
     When I login as "testing@man.net"
       And I go to the dashboard of the project "Push The World"
-      And I follow "Thư Mời"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_collection_time" with "12/12/2013"
+      And I check "ext_donation_anon"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+      And I should see "Ẩn Danh"
 
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11

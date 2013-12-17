@@ -13,12 +13,13 @@
 #  collection_time   :datetime
 #  email             :string(255)
 #  phone             :string(255)
+#  anon              :boolean
 #
 
 class ExtDonation < ActiveRecord::Base
   belongs_to :project
   attr_accessible :donor, :amount, :note, :email, :phone,
-    :collection_method, :collection_time, :project_id
+    :collection_method, :collection_time, :project_id, :anon
   validates :donor, :amount, :collection_time, :project_id, presence: true
-  has_defaults donor: "Anonymous"
+  has_defaults anon: false
 end

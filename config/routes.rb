@@ -41,6 +41,7 @@ CharityMap::Application.routes.draw do
     resources :invites do
       get 'send_out', on: :collection
     end
+    resources :ext_donations
     resources :project_rewards
     resources :donations do
       post 'add_ext_donation', on: :collection

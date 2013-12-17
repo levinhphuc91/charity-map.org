@@ -101,6 +101,11 @@ class Project < ActiveRecord::Base
     false
   end
 
+  def authorized_edit_for?(target_user)
+    return true if (self.belongs_to?(target_user)) || (target_user.staff)
+    false
+  end
+
   private
     def assign_status
       self.status = "DRAFT" if status == nil

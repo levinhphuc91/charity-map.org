@@ -3,6 +3,7 @@
   .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
 - @project_updates.each do |update|
   .row-fluid
-    %h4 #{link_to "#{human_time update.updated_at}", project_project_update_path(@project, update)}
-    %p 
-      #{update.content}
+    .sub-headline #{human_time update.updated_at}
+    %h4 #{link_to update.title, project_project_update_path(@project, update)}
+    %p= markdown limit_display(update.content, 800)
+  %hr/

@@ -3,7 +3,7 @@
     / - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
     .row-fluid
       #chart{style: "height: 250px;"}
-    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+    - if current_user && @project.authorized_edit_for?(current_user)
       %hr/ 
       .devider
         .item Thêm Ủng Hộ Ngoài Hệ Thống
@@ -82,12 +82,16 @@
         %th Người Ủng Hộ
         %th Số Tiền
         %th Ghi Chú
+        - if current_user && @project.authorized_edit_for?(current_user)
+          %th Lệnh
       - @ext_donations.order("collection_time DESC").each do |donation|
         %tr 
           %td= human_time donation.collection_time
           %td= donation.donor == "Anonymous" ? "Ẩn Danh" : "#{donation.donor}"
           %td #{human_currency donation.amount} #{"(#{donation.collection_method})" unless donation.collection_method.blank?}
           %td= donation.try(:note)
+          - if current_user && @project.authorized_edit_for?(current_user)
+            %td #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
           
 = render "stat"
 

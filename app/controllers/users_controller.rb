@@ -91,7 +91,7 @@ class UsersController < ApplicationController
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
-        sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        sms = SMS.send(sender_id: true, to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
         current_user.update(phone: @phone_number) if current_user.phone.blank?  
         redirect_to users_verify_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
       else
@@ -112,7 +112,7 @@ class UsersController < ApplicationController
   def resend_verification
     @phone_number = current_user.phone.gsub(/\D/, '').to_i.to_s
     @verification = current_user.verifications.where(:status => "UNUSED").first
-    sms = SMS.send(@phone_number, "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
+    sms = SMS.send(sender_id: true, to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
     redirect_to users_verify_path, notice: "Mã xác nhận đã được gửi đi tới số 0#{@phone_number}."
   end
 

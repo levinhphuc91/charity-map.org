@@ -1,9 +1,24 @@
 require 'nexmo'
 class SMS
   class << self
-    def send(to, body)
-      nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
-      response = nexmo.send_message!({:to => "0084#{to}", :from => "CharityMap", :text => "#{body}"})
+    def send(params)
+      default_params = {
+        to: nil,
+        text: nil,
+        sender_id: false
+      }
+      params = default_params.merge(params)
+      params.each do |key, value|
+        raise "#{key} cannot be nil" if value.nil?
+      end
+
+      if params[:sender_id]
+        nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
+        response = nexmo.send_message!({:to => "84#{params[:to]}", :from => "CharityMap", :text => params[:text]})
+      else
+        nexmo = Nexmo::Client.new(ENV['CM_NEXMO_2ND_SID'],ENV['CM_NEXMO_2ND_SECRET'])
+        response = nexmo.send_message!({:to => "84#{params[:to]}", :from => "17377772014", :text => params[:text]})
+      end
     end
   end
 end

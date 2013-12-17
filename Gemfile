@@ -31,6 +31,7 @@ gem 'dalli'
 gem 'memcachier'
 gem 'pry', :group => :development
 gem 'chartkick'
+gem 'groupdate'
 # Model gems
 gem 'has_defaults'
 gem 'activerecord-postgres-hstore'

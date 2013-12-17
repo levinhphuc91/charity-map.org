@@ -127,13 +127,14 @@ Feature: Project
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
       And I follow "Thêm Cập Nhật"
-      And I fill in "project_update_content" with "Test Update Content"
+      And I fill in "Tên cập nhật" with "Test Update Title"
+      And I fill in "Nội dung cập nhật" with "Test Update Content"
       And I press "Cập Nhật"
     Then I should see "Vừa thêm Cập nhật dự án mới."
     Then I should see "Test Update Content"
     When I go to the project page of "Push The World"
     Then I should see "Test Update Content"
-      And I follow "11/09/2013"
+      And I follow "Test Update Title"
     Then the URL should contain "projects/push-the-world/project_updates"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
@@ -246,7 +247,8 @@ Feature: Project
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
       And I follow "Thêm Cập Nhật"
-      And I fill in "project_update_content" with "Test Content"
+      And I fill in "Tên cập nhật" with "Test Update Title"
+      And I fill in "Nội dung cập nhật" with "Test Update Content"
       And I press "Cập Nhật"
     Then an email should have been sent with:
       """
@@ -287,10 +289,14 @@ Feature: Project
     Then I should not see "Name không thể để trắng"
       And I should see "Test Invite"
       And I should see "Sửa"
-    # When I go to the project page of "Push The World"
-    # Then I should see "Test Update Content"
-    #   And I follow "11/09/2013"
-    # Then the URL should contain "projects/push-the-world/project_updates"
+  
+  Scenario: Add ext donations
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thư Mời"
 
   # Scenario: Add photo of new project update
   #   Given the date is 2013-09-11

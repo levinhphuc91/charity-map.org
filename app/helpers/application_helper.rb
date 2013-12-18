@@ -86,4 +86,8 @@ module ApplicationHelper
       "#{Configuration[:site_name]}"
     end
   end
+
+  def phone_striped(number)
+    return number.gsub(/\D/, '').to_i.to_s
+  end
 end

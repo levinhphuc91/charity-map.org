@@ -82,21 +82,23 @@
                     %b Ủng hộ #{human_currency reward.amount} hoặc hơn
                   %br/
                   = reward.description
-        .container
-          = render "projects/side_bar/reviews", project: @project
-          .cleared
+        - unless (!user_signed_in?) && @project.recommendations.empty?
+          .container
+            = render "projects/side_bar/reviews", project: @project
+            .cleared
 
-        .container
-          .heading-bar
-            .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)}
-          - cache("project_donations", :expires_in => 1.hour) do
-            - @project.donations.successful[0..4].each do |donation|
-              %p <b>#{link_to human_time(donation.created_at), project_donation_path(@project, donation)}</b> &sdot; #{donation.user.name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
-          - if @project.donations.count > 5
-            .row-fluid
-              .pull-right
-                = link_to project_donations_path(@project) do
-                  .more Xem Thêm
+        - unless (!user_signed_in?) && @project.donations.empty?
+          .container
+            .heading-bar
+              .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)}
+            - cache("project_donations", :expires_in => 1.hour) do
+              - @project.donations.successful[0..4].each do |donation|
+                %p <b>#{link_to human_time(donation.created_at), project_donation_path(@project, donation)}</b> &sdot; #{donation.user.name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
+            - if @project.donations.count > 5
+              .row-fluid
+                .pull-right
+                  = link_to project_donations_path(@project) do
+                    .more Xem Thêm
       .photo-box
         = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
       .bordered-box

@@ -23,6 +23,7 @@
 #  longitude            :float
 #  invite_email_content :text
 #  invite_sms_content   :string(255)
+#  short_code           :string(255)
 #
 
 require 'spec_helper'

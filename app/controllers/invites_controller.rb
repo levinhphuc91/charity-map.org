@@ -2,6 +2,7 @@ class InvitesController < InheritedResources::Base
   nested_belongs_to :project
   before_filter :authenticate_user!
   layout "layouts/dashboard"
+  include ApplicationHelper
 
   def index
     @invite = Invite.new
@@ -30,6 +31,12 @@ class InvitesController < InheritedResources::Base
       end
     elsif params[:id]
       @invite = Invite.find params[:id]
+      if params[:means] == "sms"
+        SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
+        @invite.update_attributes status: "SENT"
+      end
+      redirect_to action: :index
+      flash[:notice] = "Đã gửi tin nhắn thành công."
     end
   end
 end

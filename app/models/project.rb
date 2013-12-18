@@ -23,6 +23,7 @@
 #  longitude            :float
 #  invite_email_content :text
 #  invite_sms_content   :string(255)
+#  short_code           :string(255)
 #
 
 class Project < ActiveRecord::Base
@@ -35,7 +36,7 @@ class Project < ActiveRecord::Base
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 
-  attr_accessible :title, :brief, :description, :start_date, :end_date, 
+  attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, 
     :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,
     :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
@@ -51,7 +52,9 @@ class Project < ActiveRecord::Base
   belongs_to :user # admin relationship
 
   before_validation :assign_status
+  before_validation :generate_short_code
   
+  validates :short_code, length: {minimum: 4, maximum: 6}, allow_blank: true
   validates :title, :description, :start_date, :end_date, 
     :funding_goal, :location, :status, :user_id, :brief,
     presence: true
@@ -104,6 +107,17 @@ class Project < ActiveRecord::Base
   def authorized_edit_for?(target_user)
     return true if (self.belongs_to?(target_user)) || (target_user.staff)
     false
+  end
+
+  def generate_short_code
+    if short_code.blank?
+      abbr = ""
+      title.to_s.to_slug.normalize(transliterations: :vietnamese).to_s.split("-")[0..3].each do |a|
+        abbr += a[0]
+      end
+      abbr = title[0..3] if title.split.count < 4
+      self.short_code = abbr
+    end
   end
 
   private

@@ -15,11 +15,12 @@
   %td 
     %p 
       - if invite.status != "SENT"
-        = link_to 'Sửa', edit_project_invite_path(@project, invite)
+        = link_to 'Sửa', edit_project_invite_path(invite.project, invite)
         &sdot;
-        = link_to 'Xoá', project_invite_path(@project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
+        = link_to 'Xoá', project_invite_path(invite.project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
         %br/
-        / %b= link_to 'Gửi Thư Mời', '#' # send_out_project_invites_path(@project, id: invite.id)
+        - unless invite.phone.blank?
+          %b= link_to 'Gửi Thư Mời (SMS)', send_out_project_invites_path(invite.project, id: invite.id, means: "sms")
   / .span2
   /   %p
   /     = human_time invite.created_at

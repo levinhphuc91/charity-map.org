@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217070042) do
+ActiveRecord::Schema.define(version: 20131218105952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20131217070042) do
     t.float    "longitude"
     t.text     "invite_email_content"
     t.string   "invite_sms_content"
+    t.string   "short_code"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree

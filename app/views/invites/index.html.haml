@@ -54,6 +54,7 @@
     .span3
       .sub-headline Nội dung SMS
       .hint giới hạn 160 ký tự
+      %p.hint <strong>Chú ý</strong>: Tin nhắn cần bao gồm: tên dự án, đường link tới dự án (<strong style="color: black;">charity-map.org/#{@project.short_code}</strong>)
     .span9= f.text_area :invite_sms_content, class: "span12"
   .row-fluid
     = hidden_field_tag :href, "#{project_invites_url(@project)}"

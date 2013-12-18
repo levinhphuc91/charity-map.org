@@ -82,6 +82,7 @@ CharityMap::Application.routes.draw do
 
   # You can have the root of your site routed with 'root'
   root 'pages#home'
+  match ':short_code', to: 'projects#abbr', via: :all
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

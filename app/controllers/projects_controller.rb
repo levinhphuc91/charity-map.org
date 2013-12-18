@@ -73,6 +73,15 @@ class ProjectsController < InheritedResources::Base
     render json: Project.public_view.map(&:title)
   end
 
+  def abbr
+    @project = Project.find_by_short_code(params[:short_code])
+    if @project
+      redirect_to @project
+    else
+      redirect_to root_path
+    end
+  end
+
   private
     def restricted_access
       @project = Project.find(params[:id])

@@ -37,12 +37,9 @@
     </td><td class="padded" align="center" style="padding-t    op:0;padding-bottom:0;padding-right:0;padding-left:0;vertical-align:top;widt    h:420px;">
     <p style="margin-top:0;color:#313740;font-family:Hel    veticaNeue,sans-serif;font-size:16px;font-weight:300;line-height:24px;margin    -bottom:28px;">
 
-      <%= @invite.project.invite_email_content %>
+      <%= markdown @invite.project.invite_email_content.html_safe %>
 
-      <br><br>
-
-      <%= markdown @invite.project.description %>
-
+      <br>
 
     </p>
     <div class="btn">

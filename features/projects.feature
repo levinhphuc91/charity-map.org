@@ -287,8 +287,29 @@ Feature: Project
       And I fill in "Email" with "test@emai.net"
       And I press "Thêm Liên Lạc"
     Then I should not see "Name không thể để trắng"
+      And I should not see "Gửi thư mời"
       And I should see "Test Invite"
       And I should see "Sửa"
+      And I should see "Gửi Thư Mời"
+    When I fill in "project_invite_sms_content" with "Test Content SMS"
+      And I fill in "project_invite_email_content" with "Test Email Content"
+      And I press "Lưu"
+    Then I should see "Updated!"
+    When I follow "Gửi Thư Mời"
+    Then I should see "Đã gửi thư mời thành công."
+    Then an email should have been sent with:
+      """
+      From: tu@charity-map.org
+      To: test@emai.net
+      Subject: Đang gây quỹ: Dự án Push The World
+      """
+    And "test@emai.net" should receive an email
+    When I open the email
+    Then I should see "Push The World" in the email body
+      And I should see "Test Email Content" in the email body
+      And I should see "Tôi muốn ủng hộ" in the email body
+    When I follow "Tôi muốn ủng hộ" in the email
+    Then I should see "Push The World"
   
   Scenario: Add ext donations
     Given the date is 2013-09-11

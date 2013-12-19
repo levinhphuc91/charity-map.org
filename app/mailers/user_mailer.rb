@@ -2,6 +2,11 @@ class UserMailer < ActionMailer::Base
   default from: "tu@charity-map.org"
   helper :application
 
+  def prefunding_invite(invite)
+    @invite = invite
+    mail(to: @invite.email, subject: "Đang gây quỹ: Dự án #{@invite.project.title}")
+  end
+
   def bank_account_info(donation)
     @donation = donation
     @user = @donation.user

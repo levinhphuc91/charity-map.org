@@ -31,12 +31,16 @@ class InvitesController < InheritedResources::Base
       end
     elsif params[:id]
       @invite = Invite.find params[:id]
-      if params[:means] == "sms"
-        SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
+      unless @invite.phone.blank?
+        SMS.send(to: phone_striped(@invite.phone), text: rendered_message("$1", @invite.calling, @invite.project.invite_sms_content))
+        @invite.update_attributes status: "SENT"
+      end
+      unless @invite.email.blank?
+        UserMailer.delay.prefunding_invite(@invite)
         @invite.update_attributes status: "SENT"
       end
       redirect_to action: :index
-      flash[:notice] = "Đã gửi tin nhắn thành công."
+      flash[:notice] = "Đã gửi thư mời thành công."
     end
   end
 end

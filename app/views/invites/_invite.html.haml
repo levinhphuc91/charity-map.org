@@ -19,8 +19,7 @@
         &sdot;
         = link_to 'Xoá', project_invite_path(invite.project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
         %br/
-        - unless invite.phone.blank?
-          %b= link_to 'Gửi Thư Mời (SMS)', send_out_project_invites_path(invite.project, id: invite.id, means: "sms")
+        %b= link_to 'Gửi Thư Mời', send_out_project_invites_path(invite.project, id: invite.id)
   / .span2
   /   %p
   /     = human_time invite.created_at

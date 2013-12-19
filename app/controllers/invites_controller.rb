@@ -32,7 +32,7 @@ class InvitesController < InheritedResources::Base
     elsif params[:id]
       @invite = Invite.find params[:id]
       unless @invite.phone.blank?
-        SMS.send(to: phone_striped(@invite.phone), text: rendered_message("$1", @invite.calling, @invite.project.invite_sms_content))
+        SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
         @invite.update_attributes status: "SENT"
       end
       unless @invite.email.blank?

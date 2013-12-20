@@ -15,14 +15,14 @@
     .devider
       .item Danh Sách Đóng Góp
       .note Dự án: #{link_to @project.title, @project}
-    - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
-      .row-fluid.sub-headline.righted
-        Sắp xếp theo: &nbsp;
-        = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
-        &sdot;
-        = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
-        &sdot;
-        = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
+    / - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+    /   .row-fluid.sub-headline.righted
+    /     Sắp xếp theo: &nbsp;
+    /     = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
+    /     &sdot;
+    /     = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
+    /     &sdot;
+    /     = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
 
     - cache("project_donations", :expires_in => 1.hour) do
       - unless params[:sort_by]
@@ -45,22 +45,32 @@
         - else
           = render "layouts/donation_display", donations: @donations
     .sub-headline Ngoài Hệ Thống
-    %table.table.table-bordered
-      %tr
-        %th Ngày
-        %th Người Ủng Hộ
-        %th Số Tiền
-        %th Ghi Chú
-        - if current_user && @project.authorized_edit_for?(current_user)
-          %th Lệnh
-      - @ext_donations.order("collection_time DESC").each do |donation|
-        %tr 
-          %td= human_time donation.collection_time
-          %td= donation.anon ? "Ẩn Danh" : donation.donor
-          %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}
-          %td= donation.try(:note)
+    - @ext_donations.order("collection_time DESC").each do |donation|
+      .donation
+        .date.centered= human_time donation.collection_time
+        / .collection_method
+        /   %span.centered= human_donation_type donation.collection_method
+        .impact
+          .bar{:style => "width: #{((donation.amount / donation.project.donations_average * 100)/2 + 50).to_i}%;"}
+        .in_words <strong>#{ donation.anon ? "Ẩn Danh" : donation.donor }</strong> ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
+        .action
           - if current_user && @project.authorized_edit_for?(current_user)
-            %td #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
+            #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
+    / %table.table.table-bordered
+    /   %tr
+    /     %th Ngày
+    /     %th Người Ủng Hộ
+    /     %th Số Tiền
+    /     %th Ghi Chú
+    /     - if current_user && @project.authorized_edit_for?(current_user)
+    /       %th Lệnh
+    / %tr 
+    /   %td= human_time donation.collection_time
+    /   %td= donation.anon ? "Ẩn Danh" : donation.donor
+    /   %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}
+    /   %td= donation.try(:note)
+    /   - if current_user && @project.authorized_edit_for?(current_user)
+    /     %td #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
           
 = render "stat"
 

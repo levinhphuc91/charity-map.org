@@ -95,6 +95,11 @@ class Project < ActiveRecord::Base
     return sum
   end
 
+  def donations_average
+    average = self.ext_donations.maximum(:amount)
+    return average.to_i
+  end
+
   def accepting_donation?
     status == "REVIEWED" 
     # && start_date < Date.today && end_date > Date.today

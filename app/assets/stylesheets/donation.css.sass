@@ -97,3 +97,80 @@ ul.timeline
 .timeline > li.important
   border-top: 5px solid $blue
   background-image: image-url("misc/noise_lines.png") !important
+
+.donation
+  height: 30px
+  width: 100%
+  font-size: 14px
+  color: darken($grey, 15%) !important
+  border-bottom: 1px solid $light_grey
+  padding-top: 15px
+  position: relative
+  &:last-child
+    border-bottom: none
+  .date
+    @extend .pull-left
+    width: 100px
+  .impact
+    @extend .pull-left
+    color: rgb(173, 178, 187)
+    cursor: pointer
+    height: 8px
+    overflow-wrap: break-word
+    position: relative
+    text-align: left
+    text-decoration: none solid rgb(173, 178, 187)
+    width: 150px
+    word-wrap: break-word
+    background: rgb(233, 234, 237) none repeat scroll 0% 0% / auto padding-box border-box
+    border: 0px none rgb(173, 178, 187)
+    border-radius: 4px 4px 4px 4px
+    font: normal normal normal 11px/15px 'lucida grande', tahoma, verdana, arial, sans-serif
+    list-style: none outside none
+    margin: 4px 0px 0px
+    outline: rgb(173, 178, 187) none 0px
+    overflow: hidden !important
+    .bar
+      color: rgb(255, 255, 255)
+      cursor: pointer
+      height: 8px
+      overflow-wrap: break-word
+      position: relative
+      text-align: left
+      text-decoration: none solid rgb(255, 255, 255)
+      top: 0px
+      width: 150px
+      word-wrap: break-word
+      background: rgb(88, 144, 255) none repeat scroll 0% 0% / auto padding-box border-box
+      border: 0px none rgb(255, 255, 255)
+      border-radius: 4px 4px 4px 4px
+      font: normal normal normal 11px/15px 'lucida grande', tahoma, verdana, arial, sans-serif
+      list-style: none outside none
+      // margin: -1px
+      outline: rgb(255, 255, 255) none 0px
+      overflow: hidden
+  .collection_method
+    @extend .pull-left
+    width: 200px
+    span
+      font-size: 10px
+      font-weight: bold
+      background-color: $blue
+      color: $white
+      padding: 3px
+      border-radius: 3px
+      text-transform: uppercase
+  .in_words
+    @extend .pull-left
+    color: $grey
+    padding-left: 20px
+    strong
+      color: $black
+  .action
+    display: none
+    position: absolute
+    right: 10px
+  &:hover
+    background-color: lighten($light_grey, 5%)
+    .action
+      display: block

@@ -19,4 +19,9 @@ class Invite < ActiveRecord::Base
   attr_accessible :project_id, :name, :email, :phone, :status
   validates :name, presence: true
   has_defaults status: "NEW"
+
+  def sent?
+    return true if status == "SENT"
+    false
+  end
 end

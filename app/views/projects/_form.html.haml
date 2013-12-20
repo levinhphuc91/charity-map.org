@@ -42,6 +42,20 @@
         Link Video giới thiệu
       .span8
         = f.input :video, label: false, :input_html => {:class => "span12"}
+    .row-fluid
+      .span4
+        .sub-headline Thông tin Tài khoản Ngân hàng
+        .hint
+          Điền đầy đủ thông tin:
+          %ul 
+            %li Tên ngân hàng
+            %li Chi nhánh
+            %li Địa chỉ ngân hàng
+            %li SWIFT CODE
+            %li Chủ tài khoản
+            %li Số tài khoản
+      .span8
+        = f.input :bank_info, label: false, :input_html => {:class => "span12"}
     %hr/ 
     .row-fluid
       .span3.sub-headline

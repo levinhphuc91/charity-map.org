@@ -22,24 +22,16 @@ class InvitesController < InheritedResources::Base
   end
 
   def send_out
-    @project = Project.find_by_slug(params[:project_id])
-    if @project.invite_email_content.blank? || @project.invite_sms_content.blank?
+    @invite = Invite.find(params[:invite_id])
+    if (@invite.project.invite_email_content.blank? || @invite.project.invite_sms_content.blank?)
       redirect_to action: :index
       flash[:alert] = "Nội dung thư mời chưa đầy đủ."
-    elsif params[:all]
-      @project.invites.fresh.each do |invite|
-      end
-    elsif params[:id]
-      @invite = Invite.find params[:id]
-      unless @invite.phone.blank?
-        SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
-      end
-      unless @invite.email.blank?
-        UserMailer.delay.prefunding_invite(@invite)
-      end
-      @invite.update_attributes status: "SENT"
+    else
+      SMS.delay.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content) if (!@invite.phone.blank? && !@invite.sent?)
+      UserMailer.delay.prefunding_invite(@invite) if (!@invite.email.blank? && !@invite.sent?)
+      @invite.update_attributes(status: "SENT")
       redirect_to action: :index
-      flash[:notice] = "Đã gửi thư mời thành công."
+      flash[:notice] = "Hệ thống đã nhận được yêu cầu gửi thư mời."
     end
   end
 end

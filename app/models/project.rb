@@ -24,6 +24,7 @@
 #  invite_email_content :text
 #  invite_sms_content   :string(255)
 #  short_code           :string(255)
+#  bank_info            :text
 #
 
 class Project < ActiveRecord::Base
@@ -37,8 +38,8 @@ class Project < ActiveRecord::Base
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 
   attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, 
-    :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :video,
-    :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
+    :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status,
+    :video, :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
   has_many :invites
   has_many :project_rewards

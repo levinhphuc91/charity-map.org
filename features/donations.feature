@@ -21,7 +21,7 @@ Feature: Donation
 	Scenario: Email with bank account info to be sent for Bank Transfer donations
 		Given the date is "2013-09-10"
 			And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong"
-			And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+			And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the bank info "Techcombank" with the user above
 	  	And there is a project reward with the amount "10000" and the description "reward description" with the project above
 	 		And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
 	 	Given the date is "2013-09-13"
@@ -37,6 +37,7 @@ Feature: Donation
 		  From: tu@charity-map.org
 		  To: donor@man.net
 		  """
+			And I should see "Techcombank" in the email
 		When I follow the first link in the email
 		Then I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
 			And an email should have been sent with:

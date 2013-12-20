@@ -1,7 +1,7 @@
 <% unless @invite.errors.full_messages.empty? %>
   $(".error").html("<p><%= @invite.errors.full_messages.join() %></p>");
 <% else %>
-  $(".invites").prepend("<%=j render 'invites/invite', invite: @invite unless @invite.new_record? %>");
-  $("input[type=text], input[type=email], input[type=tel], textarea").val("");
+  $(".invites").append("<%=j render 'invites/invite', invite: @invite unless @invite.new_record? %>");
+  $("#new_invite input[type=text], #new_invite input[type=email], #new_invite input[type=tel]").val("");
   $(".error").html("");
 <% end %>

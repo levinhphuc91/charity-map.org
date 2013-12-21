@@ -14,6 +14,7 @@
 #  email             :string(255)
 #  phone             :string(255)
 #  anon              :boolean
+#  token_id          :integer
 #
 
 require 'spec_helper'

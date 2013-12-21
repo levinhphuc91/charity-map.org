@@ -13,14 +13,13 @@
 #  project_id        :integer
 #  created_at        :datetime
 #  updated_at        :datetime
-#  token_id          :integer
 #
 
 class Donation < ActiveRecord::Base
   scope :successful, -> { where(status: "SUCCESSFUL") }
 
   attr_accessible :euid, :status, :user_id, :amount, :note,
-    :collection_method, :project_reward_id, :project_id
+    :collection_method, :project_reward_id, :project_id, :token_id
 
   belongs_to :user
   belongs_to :project

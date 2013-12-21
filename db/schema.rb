@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131221073028) do
+ActiveRecord::Schema.define(version: 20131221074745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20131221073028) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "token_id"
   end
 
   add_index "donations", ["project_id"], name: "index_donations_on_project_id", using: :btree
@@ -76,6 +75,7 @@ ActiveRecord::Schema.define(version: 20131221073028) do
     t.string   "email"
     t.string   "phone"
     t.boolean  "anon"
+    t.integer  "token_id"
   end
 
   add_index "ext_donations", ["project_id"], name: "index_ext_donations_on_project_id", using: :btree

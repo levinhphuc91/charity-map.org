@@ -13,7 +13,6 @@
 #  project_id        :integer
 #  created_at        :datetime
 #  updated_at        :datetime
-#  token_id          :integer
 #
 
 require 'spec_helper'

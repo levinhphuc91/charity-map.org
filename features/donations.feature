@@ -177,3 +177,40 @@ Feature: Donation
 			To: donor@man.net
 			Subject: Xác nhận đã nhận tiền mặt ủng hộ dự án Push The World
 			"""
+
+	Scenario: Convert ExtDonation to Donation
+		Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_email" with "donor@mail.net"
+      And I fill in "ext_donation_collection_time" with "12/12/2013"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+      And I should see "Ẩn Danh"
+      And I should see "Moi su dung he thong"
+    When I follow "Moi su dung he thong"
+    Then an email should have been sent with:
+      """
+      From: tu@charity-map.org
+      To: donor@mail.net
+      Subject: Cam on ban da ung ho du an Push The World
+      """
+    And "donor@mail.net" should receive an email
+    When I open the email
+    Then I should see "Kiem tra ung ho cua ban" in the email body
+    When I follow "Kiem tra ung ho cua ban" in the email
+    Then I should see "Dang Ky"
+    	And I fill in "Password" with "12345678"
+    	And I fill in "Password Confirmation" with "12345678"
+    And I press "Dang Ky"
+    Then I should see "Ban da dang ky thanh cong"
+    When I go to my user profile
+    Then I should see "100000VND"
+    	And I should see "Push The World"
+	  

@@ -12,6 +12,7 @@
         .body-bar{:style => "border-top: 1px solid #ccc;"}
           %p= f.error_notification
           .form-inputs
+            = hidden_field_tag 'token', params[:token]
             %p 
               %b Email
               = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}

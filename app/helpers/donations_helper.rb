@@ -56,4 +56,26 @@ module DonationsHelper
     end
     return @funding_progress
   end
+
+  def convert_ext_to_int_donation(ext_donation, user_id)
+    exceptions_arr = ['id','donor', 'collection_time', 'email', 'phone', 'anon', 'token_id']
+    project = Project.find(ext_donation.project_id)
+    donation = Donation.new
+
+    ext_donation.attributes.each do |key, value|
+      if(!exceptions_arr.include?(key))
+        donation[key.to_s] = value      
+      end      
+    end
+    donation.project_reward_id = auto_select_project_reward(project, donation['amount'])
+    donation.user_id = user_id
+    die
+    if(donation.save)
+      # ext_donation.update_attributes deleted: 1
+      return true
+    else
+      return false
+    end
+  end
+
 end

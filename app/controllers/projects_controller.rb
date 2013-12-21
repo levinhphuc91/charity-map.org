@@ -83,6 +83,11 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
+  def invite_ext_donator
+    token = params[:token]
+    UserMailer.invite_ext_donator(@donation, token)
+  end
+
   private
     def restricted_access
       @project = Project.find(params[:id])

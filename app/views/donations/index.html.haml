@@ -60,7 +60,7 @@
         .in_words <strong>#{ donation.anon ? "Ẩn Danh" : donation.donor }</strong> ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
         .action
           - if current_user && @project.authorized_edit_for?(current_user)
-            #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
+            #{link_to "Mời sử dụng hệ thống", invite_ext_donator_projects_path(:token => @token)} &sdot; #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
     / %table.table.table-bordered
     /   %tr
     /     %th Ngày

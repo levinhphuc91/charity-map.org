@@ -26,4 +26,13 @@ class ExtDonation < ActiveRecord::Base
 
   scope :bank_transfer, -> { where(collection_method: "BANK_TRANSFER") }
   scope :cod, -> { where(collection_method: "COD") }
+  after_save :generate_token
+
+  def generate_token
+    token = Token.new
+    token.created_for = "ExtDonation"
+    token.parent_id = self.id
+    token.save
+  end 
+  
 end

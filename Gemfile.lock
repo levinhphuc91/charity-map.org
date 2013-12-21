@@ -231,6 +231,7 @@ GEM
     nexmo (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    nprogress-rails (0.1.2.3)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -431,6 +432,7 @@ DEPENDENCIES
   morrisjs-rails
   newrelic_rpm
   nexmo
+  nprogress-rails
   omniauth
   omniauth-facebook
   pg

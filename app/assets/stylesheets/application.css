@@ -13,6 +13,8 @@
  *= require_self
  *= require morris
  *= require_tree .
+ *= require nprogress
+  *= require nprogress-bootstrap
  */
  .unreaded_message{
  		font-weight: bold;

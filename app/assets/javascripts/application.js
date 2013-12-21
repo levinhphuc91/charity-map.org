@@ -17,3 +17,5 @@
 //= require_tree .
 //= require raphael
 //= require morris
+//= require nprogress
+//= require nprogress-turbolinks

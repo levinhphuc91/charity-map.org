@@ -25,6 +25,7 @@
 #  invite_sms_content   :string(255)
 #  short_code           :string(255)
 #  bank_info            :text
+#  item_based           :boolean
 #
 
 require 'spec_helper'

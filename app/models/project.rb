@@ -25,6 +25,7 @@
 #  invite_sms_content   :string(255)
 #  short_code           :string(255)
 #  bank_info            :text
+#  item_based           :boolean
 #
 
 class Project < ActiveRecord::Base
@@ -38,7 +39,7 @@ class Project < ActiveRecord::Base
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 
   attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, 
-    :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status,
+    :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :item_based,
     :video, :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
   is_impressionable
@@ -84,7 +85,7 @@ class Project < ActiveRecord::Base
   end
   
   mount_uploader :photo, PhotoUploader
-  has_defaults unlisted: true
+  has_defaults unlisted: true, item_based: false
 
   def donations_count
     count = self.donations.successful.count + self.ext_donations.count

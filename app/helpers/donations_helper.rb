@@ -1,5 +1,4 @@
 module DonationsHelper
-
   def auto_select_project_reward(project, donation_amount)
     @rewards = project.project_rewards
     @donation_amount = donation_amount.to_f
@@ -42,15 +41,18 @@ module DonationsHelper
   end
 
   def funding_progress(project)
-    @funding_progress = []
+    @funding_progress = {}
     donations         = project.donations.successful
     ext_donations     = project.ext_donations
     start_date        = project.start_date.to_date
     end_date          = project.end_date.to_date
     start_date.upto(end_date) do |day|
-      count = donations.where("created_at > ? AND created_at < ?", start_date, day + 1.day).sum(:amount)
-      count += ext_donations.where("collection_time > ? AND collection_time < ?", start_date, day + 1.day).sum(:amount)
-      @funding_progress.push({:date => day.to_s, :sum => count})
+      if day <= Date.today
+        count = donations.where("created_at > ? AND created_at < ?", start_date, day + 1.day).sum(:amount)
+        count += ext_donations.where("collection_time > ? AND collection_time < ?", start_date, day + 1.day).sum(:amount)
+        # @funding_progress.push({:date => day.to_s, :sum => count})
+        @funding_progress.merge!(day.to_s.to_sym => count)
+      end
     end
     return @funding_progress
   end

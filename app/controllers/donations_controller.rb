@@ -10,7 +10,6 @@ class DonationsController < InheritedResources::Base
     else
       @donations = @project.donations.successful.order("date(updated_at) DESC")
     end
-    @funding_progress = funding_progress(@project)
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
     @ext_donation = ExtDonation.new
     @ext_donations = @project.ext_donations

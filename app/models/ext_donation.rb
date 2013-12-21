@@ -22,4 +22,7 @@ class ExtDonation < ActiveRecord::Base
     :collection_method, :collection_time, :project_id, :anon
   validates :donor, :amount, :collection_time, :project_id, presence: true
   has_defaults anon: false
+
+  scope :bank_transfer, -> { where(collection_method: "BANK_TRANSFER") }
+  scope :cod, -> { where(collection_method: "COD") }
 end

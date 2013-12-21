@@ -50,6 +50,7 @@
           %div.box{class:("active" if params[:filter] == "comments")}
             %i.icon-comment
             Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+          
   .body-container--plain-row
     .body-container--content
       .side-bar
@@ -104,6 +105,8 @@
       .bordered-box
         .main-project-description
           %p= markdown @project.description
+        %hr/ 
+        %p Lượt Xem: #{@project.impressionist_count}
         .devider
           .item
             %i.icon-list-alt

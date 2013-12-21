@@ -20,6 +20,7 @@ gem 'acts-as-messageable'
 gem 'ledermann-rails-settings', :require => 'rails-settings' # User settings
 gem 'rack-ssl-enforcer'
 gem 'nprogress-rails'
+gem 'impressionist'
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

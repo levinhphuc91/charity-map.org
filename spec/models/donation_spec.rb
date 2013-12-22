@@ -14,6 +14,7 @@
 #  created_at              :datetime
 #  updated_at              :datetime
 #  project_reward_quantity :integer
+#  anon                    :boolean
 #
 
 require 'spec_helper'

@@ -14,14 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     if resource.save
       if params[:token]
         @token = Token.find_by_value params[:token]
-        @ext_donation = @token.ext_donation
-        resource.donations.create(
-          status: "SUCCESSFUL",
-          amount: @ext_donation.amount,
-          note: "Converted from External Donation",
-          collection_method: @ext_donation.collection_method,
-          project_id: @ext_donation.project.id
-        )
+        create_donatino_from_ext(resource, @token.ext_donation)
       end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -38,4 +31,16 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  private
+    def create_donatino_from_ext(resource, ext_donation)
+      resource.donations.create(
+        status: "SUCCESSFUL",
+        amount: ext_donation.amount,
+        note: "Converted from External Donation #{ext_donation.try(:email)} #{ext_donation.try(:phone)} #{ext_donation.try(:note)}",
+        collection_method: ext_donation.collection_method,
+        project_id: ext_donation.project_id,
+        created_at: ext_donation.collection_time,
+        project_reward_quantity: 1
+      )
+    end
 end 

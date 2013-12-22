@@ -14,6 +14,7 @@
 #  created_at              :datetime
 #  updated_at              :datetime
 #  project_reward_quantity :integer
+#  anon                    :boolean
 #
 
 class Donation < ActiveRecord::Base
@@ -21,14 +22,15 @@ class Donation < ActiveRecord::Base
   scope :successful, -> { where(status: "SUCCESSFUL") }
 
   attr_accessible :euid, :status, :user_id, :amount, :note,
-    :collection_method, :project_id, :token_id,
-    :project_reward_id, :project_reward_quantity
+    :anon, :collection_method, :project_id, :token_id,
+    :project_reward_id, :project_reward_quantity,
+    :created_at
 
   belongs_to :user
   belongs_to :project
   belongs_to :project_reward
 
-  has_defaults status: "PENDING", project_reward_quantity: 1
+  has_defaults status: "PENDING", project_reward_quantity: 1, anon: false
   before_validation :assign_euid
   before_validation :calculate_amount
   before_validation :assign_project_reward_id

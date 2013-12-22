@@ -83,6 +83,12 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
+  def invite_ext_donor
+    @ext_donation = ExtDonation.find params[:ext_donation_id]
+    UserMailer.delay.invite_ext_donor(@ext_donation) unless @ext_donation.email.blank?
+    redirect_to project_donations_path(@ext_donation.project)
+  end
+
   private
     def restricted_access
       @project = Project.find(params[:id])

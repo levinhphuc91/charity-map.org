@@ -54,4 +54,10 @@ class UserMailer < ActionMailer::Base
     @follower = follower
     mail(to: @follower.email, subject: "Chiến dịch gây quỹ dự án #{@project.title} sẽ kết thúc trong 5 ngày")
   end
+
+  def invite_ext_donor(ext_donation)
+    @ext_donation = ext_donation
+    @project = @ext_donation.project
+    mail(to: @ext_donation.email, subject: "Cảm ơn bạn đã ủng hộ dự án #{@project.title}")
+  end
 end

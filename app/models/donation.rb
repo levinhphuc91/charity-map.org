@@ -16,6 +16,7 @@
 #
 
 class Donation < ActiveRecord::Base
+  include DonationsHelper
   scope :successful, -> { where(status: "SUCCESSFUL") }
 
   attr_accessible :euid, :status, :user_id, :amount, :note,
@@ -27,8 +28,9 @@ class Donation < ActiveRecord::Base
 
   has_defaults status: "PENDING"
   before_validation :assign_euid
+  before_validation :assign_project_reward_id
 
-  validates :user_id, :project_id, :euid, :status, :project_reward_id,
+  validates :user_id, :project_id, :euid, :status,
     :amount, :collection_method, presence: true
   validate :amount_can_not_be_smaller_than_least_reward
 
@@ -51,5 +53,9 @@ class Donation < ActiveRecord::Base
 
     def assign_euid
       self.euid = generate_random_string if euid == nil
+    end
+
+    def assign_project_reward_id
+      self.project_reward_id = auto_select_project_reward(self.project, self.amount) if project_reward_id.blank?
     end
 end

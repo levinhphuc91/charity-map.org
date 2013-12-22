@@ -12,9 +12,14 @@
         .body-bar{:style => "border-top: 1px solid #ccc;"}
           %p= f.error_notification
           .form-inputs
+            - if params[:token]
+              = hidden_field_tag "token", params[:token]
             %p 
               %b Email
-              = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}
+              - if params[:token]
+                = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => @ext_donation.email || nil}
+              - else
+                = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}
             %p 
               %b Password / Mật Khẩu
               = f.input :password, label: false, :required => true

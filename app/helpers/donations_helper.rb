@@ -2,7 +2,7 @@ module DonationsHelper
   def auto_select_project_reward(project, donation_amount)
     @rewards = project.project_rewards
     @donation_amount = donation_amount.to_f
-    @reward_amounts = @rewards.map(&:amount)
+    @reward_amounts = @rewards.map(&:value)
     case @rewards.count
     when 1
       return @rewards[0].id

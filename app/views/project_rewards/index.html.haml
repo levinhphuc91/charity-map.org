@@ -20,6 +20,7 @@
             Sửa
         = link_to project_project_reward_path(@project, reward), method: :delete do
           %i.icon-minus-sign
+          Xoá
       %h4= reward.name
       &sdot; #{human_currency reward.value} &sdot; SL: #{reward.quantity}
       %p= markdown reward.description

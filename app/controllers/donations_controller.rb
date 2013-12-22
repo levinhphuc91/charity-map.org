@@ -41,7 +41,6 @@ class DonationsController < InheritedResources::Base
   def create
     @project = Project.find(params[:project_id])
     @donation = Donation.new(params[:donation])
-    @donation.project_reward_id = auto_select_project_reward(@project, params[:donation][:amount]) if (!@project.item_based && @donation.project_reward_id.blank?)
     if @donation.save
       if @donation.collection_method == "BANK_TRANSFER"
         UserMailer.delay.bank_account_info(@donation)

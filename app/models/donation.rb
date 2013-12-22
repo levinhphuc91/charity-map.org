@@ -17,6 +17,7 @@
 #
 
 class Donation < ActiveRecord::Base
+  include DonationsHelper
   scope :successful, -> { where(status: "SUCCESSFUL") }
 
   attr_accessible :euid, :status, :user_id, :amount, :note,
@@ -30,6 +31,7 @@ class Donation < ActiveRecord::Base
   has_defaults status: "PENDING", project_reward_quantity: 1
   before_validation :assign_euid
   before_validation :calculate_amount
+  before_validation :assign_project_reward_id
 
   validates :user_id, :project_id, :euid, :status, :project_reward_id,
     :amount, :collection_method, presence: true
@@ -51,7 +53,7 @@ class Donation < ActiveRecord::Base
 
     def amount_can_not_be_smaller_than_least_reward
       errors.add(:amount, "can't be smaller than least reward") if
-        !(self.project.project_rewards.empty?) and !amount.blank? and (amount < self.project.project_rewards[0].amount)
+        !(self.project.project_rewards.empty?) and !amount.blank? and (amount < self.project.project_rewards[0].value)
     end
     # viet test TODO
 
@@ -61,5 +63,9 @@ class Donation < ActiveRecord::Base
 
     def assign_euid
       self.euid = generate_random_string if euid == nil
+    end
+
+    def assign_project_reward_id
+      self.project_reward_id = auto_select_project_reward(self.project, self.amount) if project_reward_id.blank?
     end
 end

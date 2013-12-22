@@ -22,7 +22,10 @@ CharityMap::Application.routes.draw do
   post  'users/fbnotif'
   match 'fbnotif', to: 'users#fbnotif', via: :post
   
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "users/omniauth_callbacks",
+    :registrations => "registrations"
+  }
 
   get   'pages/home'
   get   'pages/about'
@@ -37,6 +40,7 @@ CharityMap::Application.routes.draw do
     collection do
       get 'autocomplete'
       get 'search'
+      get 'invite_ext_donor'
     end
     resources :invites do
       get 'send_out', on: :collection

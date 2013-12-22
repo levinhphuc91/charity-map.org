@@ -2,12 +2,11 @@
 #
 # Table name: tokens
 #
-#  id          :integer          not null, primary key
-#  value       :string(255)
-#  created_for :string(255)
-#  parent_id   :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer          not null, primary key
+#  value           :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  ext_donation_id :integer
 #
 
 require 'spec_helper'

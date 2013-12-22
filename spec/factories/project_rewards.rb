@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :project_reward do
-    amount 1.5
+    value 1.5
     description "MyText"
     project nil
   end

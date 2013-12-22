@@ -16,11 +16,14 @@
         .container
           .sub-headline Đề Mục Đóng Góp
           - @project.project_rewards.each do |reward|
-            .row-fluid.reward{:"data-amount" => reward.amount.to_i}
-              %h4 Đóng Góp #{human_currency reward.amount} hoặc hơn
+            .row-fluid.reward{:"data-amount" => reward.value.to_i}
+              %h4 Đóng Góp #{human_currency reward.value} hoặc hơn
               %p= reward.description
       .bordered-box
         .row-fluid
+        - if @project.item_based
+          = render 'form_for_reward'
+        - else
           = render 'form'
         %hr/
         .sub-headline Câu Hỏi

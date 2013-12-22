@@ -24,8 +24,10 @@
             - if alert
               .alert= alert
       = yield
-    = render "layouts/footer"
-  = render "layouts/analytics"
+    - cache("footer", :expires_in => 1.day) do
+      = render "layouts/footer"
+  - cache("analytics", :expires_in => 1.month) do
+    = render "layouts/analytics"
   :javascript
     $(document).ready(function() {
       // var editor = new MediumEditor('.editable');

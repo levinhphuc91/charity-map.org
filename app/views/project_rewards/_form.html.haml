@@ -1,20 +1,30 @@
-= simple_form_for [@project, @project_reward], remote: false do |f|
-  - if @project_reward.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
-      %ul
-        - @project_reward.errors.full_messages.each do |msg|
-          %li= msg
-  
-  = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-  %p 
-    .sub-headline Amount
-    = f.input       :amount, label: false, :input_html => {:class => "span12"}
-  %p 
-    .sub-headline Description
-    = f.input       :description, label: false, :input_html => {:class => "span12"}
-  = f.submit "Lưu", class: "submit"
-  = link_to project_project_reward_path(@project, @project_reward), method: :delete do
-    &sdot;
-    %i.icon-remove
-    Xóa
+= simple_form_for [@project, @project_reward] do |f|
+  .row-fluid
+    - if @project_reward.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
+        %ul
+          - @project_reward.errors.full_messages.each do |msg|
+            %li= msg
+  .row-fluid
+    .span4
+      = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+      .sub-headline Tên<br/>
+      = f.input :name, label: false, :input_html => {:class => "span12"}
+    .span4
+      .sub-headline Mức (VNĐ) <br/>
+      = f.input :value, label: false, :input_html => {:class => "span12"}
+    .span4
+      .sub-headline Số Lượng (Cái) <br/>
+      = f.input :quantity, label: false, :input_html => {:class => "span12"}
+  .row-fluid
+    .span12
+      .sub-headline Thông Tin / Điều Khoản / Quyền Lợi Thêm <br/>
+      / TODO: Add examples
+      = f.input :description, label: false, :input_html => {:class => "span12"}
+  .row-fluid
+    .span12
+      .sub-headline Ảnh (Nếu Có)
+      = f.input :photo, label: false, :input_html => {:class => "span12"}
+  .row-fluid
+    .pull-right= f.submit "Lưu", class: "submit"

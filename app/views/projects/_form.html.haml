@@ -56,6 +56,10 @@
             %li Số tài khoản
       .span8
         = f.input :bank_info, label: false, :input_html => {:class => "span12"}
+    .row-fluid
+      .span4.sub-headline Có tặng hiện vật?
+      .span8
+        = f.check_box :item_based
     %hr/ 
     .row-fluid
       .span3.sub-headline

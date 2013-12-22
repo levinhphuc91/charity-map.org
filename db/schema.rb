@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131221074745) do
+ActiveRecord::Schema.define(version: 20131221075357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20131221074745) do
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_reward_quantity"
   end
 
   add_index "donations", ["project_id"], name: "index_donations_on_project_id", using: :btree
@@ -189,11 +190,14 @@ ActiveRecord::Schema.define(version: 20131221074745) do
   add_index "project_follows", ["user_id"], name: "index_project_follows_on_user_id", using: :btree
 
   create_table "project_rewards", force: true do |t|
-    t.float    "amount"
+    t.float    "value"
     t.text     "description"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "photo"
+    t.integer  "quantity"
   end
 
   add_index "project_rewards", ["project_id"], name: "index_project_rewards_on_project_id", using: :btree

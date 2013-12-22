@@ -10,39 +10,37 @@
 
 %hr/ 
 
-- @project_rewards.each do |reward|
-  .row-fluid
-    .pull-right
-      .more      
-        = link_to edit_project_project_reward_path(@project, reward) do
-          %i.icon-edit
-          Sửa
-    %h4 #{human_currency reward.amount} 
-    %p= markdown reward.description
+- if @project.item_based
+  - @project_rewards.each do |reward|
+    .row-fluid
+      .pull-right
+        .more      
+          = link_to edit_project_project_reward_path(@project, reward) do
+            %i.icon-edit
+            Sửa
+        = link_to project_project_reward_path(@project, reward), method: :delete do
+          %i.icon-minus-sign
+      %h4= reward.name
+      &sdot; #{human_currency reward.value} &sdot; SL: #{reward.quantity}
+      %p= markdown reward.description
+- else
+  - @project_rewards.each do |reward|
+    .row-fluid
+      .pull-right
+        .more      
+          = link_to edit_project_project_reward_path(@project, reward) do
+            %i.icon-edit
+            Sửa
+        = link_to project_project_reward_path(@project, reward), method: :delete do
+          %i.icon-minus-sign
+      %h4 #{human_currency reward.value} 
+      %p= markdown reward.description
 
 .devider
   .item
     %i.icon-money 
     Thêm Đề Mục Đóng Góp
   .note &sdot; thấp nhất 10.000đ
-= simple_form_for [@project, @project_reward] do |f|
-  .row-fluid
-    - if @project_reward.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
-        %ul
-          - @project_reward.errors.full_messages.each do |msg|
-            %li= msg
-  .row-fluid
-    .span3
-      = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-      .sub-headline Mức (VNĐ) <br/>
-      = f.input :amount, label: false, :input_html => {:class => "span12"}
-    .span9
-      .sub-headline Điều Khoản / Quyền Lợi Thêm <br/>
-      / TODO: Add examples
-      = f.input :description, label: false, :input_html => {:class => "span12"}
-  .row-fluid
-    .pull-right= f.submit "Lưu", class: "submit"
+= render "form"
 
 = render "popularity"

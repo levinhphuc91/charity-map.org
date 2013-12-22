@@ -35,7 +35,7 @@ module DonationsHelper
     @project_rewards = project.project_rewards
     @project_rewards.each do |reward|
       @donations = project.donations.successful.where(project_reward_id: reward.id)
-      @reward_popularity["#{reward.amount}"] = @donations.count
+      @reward_popularity["#{reward.value}"] = @donations.count
     end
     return @reward_popularity
   end

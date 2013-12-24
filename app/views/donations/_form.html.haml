@@ -15,9 +15,12 @@
       = f.input :amount, :label => false, :input_html => {value: params[:amount] || nil, :class => "span12 custom-fields"}
       .sub-headline Phương Thức Đóng Góp
       = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tại nhà", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12"}
+      .sub-headline Ẩn Danh?
+      = f.input :anon, label: false
     .span6
       .sub-headline Ghi Chú
       = f.input :note, :label => false, :input_html => {:class => "span12 custom-fields", :size => "20x5"}
+  %hr/ 
   .row-fluid
     = f.submit "Tiếp Tục", class: "submit"
 

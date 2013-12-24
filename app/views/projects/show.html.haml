@@ -10,7 +10,12 @@
   .body-container--plain-row
     .body-container--content
       .notice Trạng thái: #{human_project_status(@project).html_safe}
-    
+
+- if @project.coordinated?
+  .body-container--plain-row
+    .body-container--content
+      = render "layouts/map", height: "500px", marker: @project
+
 .project-show
   .body-container--plain-row{style: "padding-bottom: 0;"}
     .body-container--content

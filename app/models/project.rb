@@ -76,6 +76,11 @@ class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  def coordinated?
+    return true if (latitude && longitude && latitude >= 0 && longitude >= 0)
+    false
+  end
+
   def sms_credit
     return (100 - self.invites.sent.where("phone <> ''").count)
   end

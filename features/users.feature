@@ -28,6 +28,8 @@ Feature: User
       And I fill in "Phone" with "0908 230 591"
       And I press "Cập nhật Thông Tin"
     Then I should see "Cập nhật thành công."
+    When I follow "Xem Trang Của Bạn"
+    Then I should see "Người dùng chưa tạo dự án trên hệ thống."
 
   Scenario: Visit dashboard, as a backer, without donations 
     Given I am a new, authenticated user

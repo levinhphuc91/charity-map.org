@@ -31,5 +31,7 @@
 				%p
 					= f.check_box :org
 					Tổ chức (click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng portfolio)
-				%hr/ 
-				= f.submit "Cập nhật Thông Tin", class: "submit"
+				%hr/
+				.pull-right.bttn.bttn-blue= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+				.pull-left
+					= f.submit "Cập nhật Thông Tin", class: "submit"

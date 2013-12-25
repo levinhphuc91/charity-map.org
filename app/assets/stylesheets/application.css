@@ -12,9 +12,19 @@
  *= require jquery.ui.datepicker
  *= require_self
  *= require morris
- *= require_tree .
- *= require nprogress
-  *= require nprogress-bootstrap
+ *= require about
+ *= require bootstrap_old
+ *= require dashboard
+ *= require donation
+ *= require main
+ *= require medium-editor
+ *= require pages
+ *= require portfolio
+ *= require projects
+ *= require typeahead
+ *= require users
+ *= require xcharts.min
+ *= require nprogress-bootstrap
  */
  .unreaded_message{
  		font-weight: bold;

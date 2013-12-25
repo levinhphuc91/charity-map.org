@@ -38,7 +38,7 @@
     .group-details
       %span
         - if @user.avatar? 
-          = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
+          = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
         - else
           = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
       %h1 #{link_to @user.name, user_profile_path(@user)}

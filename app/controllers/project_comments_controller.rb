@@ -1,6 +1,11 @@
 class ProjectCommentsController < InheritedResources::Base
-
+  nested_belongs_to :project
   before_filter :authenticate_user!, except: [:index, :show]
+  layout "layouts/item-based", only: [:index]
+
+  def index
+    index!
+  end
 
   def create
     @project = Project.find(params[:project_id])

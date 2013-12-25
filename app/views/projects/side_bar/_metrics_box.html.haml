@@ -1,38 +1,40 @@
-#donation-box.container
-  .figure.righted
-    .number= human_currency project.funding_goal
-    .description
-      Mục tiêu
-  .figure.righted
-    .number= human_currency project.donations_sum
-    .description
-      Số tiền nhận được (#{number_with_precision (project.donations_sum/project.funding_goal*100), precision: 0}%)
-  .figure.righted 
-    - if project.start_date < Date.today && project.end_date > Date.today
-      .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
-      .description
-        %i.icon-time
-        Thời gian gây quỹ
-    - else
-      .number #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
-      .description
-        %i.icon-time
-        Thời gian gây quỹ
-  .row-fluid
-    = link_to new_project_donation_path(project) do
-      .span12.donate-bttn
-        Ủng Hộ Dự Án
-    
-  .cleared
-  %hr
-  #project_follow
-    .row-fluid
-      .sub-headline.centered
-        - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
-          Bạn đang theo dõi dự án này
+.row.donation-stats
+  .donation-funded-wrap
+    .donation-funded{style: "width: 90%"}
+  %ul.donation-stats.row
+    .col-md-4
+      %li.funded
+        %strong
+          %span= human_currency project.funding_goal
+        .hint MỤC TIÊU
+    .col-md-4
+      %li.raised
+        %strong
+          %span= human_currency project.donations_sum
+        .hint ĐÃ NHẬN ĐƯỢC
+    .col-md-4
+      %li.deadline
+        - if project.start_date < Date.today && project.end_date > Date.today
+          %strong
+            %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} NGÀY
+          .hint THỜI GIAN CÒN LẠI
         - else
-          = link_to initiate_project_project_follows_path(project), remote: true do
-            .span12.donate-bttn
-              Theo Dõi
-  %hr/ 
-  .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}
+          %strong
+            %span #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
+          .hint THỜI GIAN GÂY QUỸ
+  .row.text-center.action-box
+    = link_to new_project_donation_path(project) do
+      %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+        %span.glyphicon.glyphicon-gift
+        ủng hộ dự án
+    - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
+      %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+        %span.glyphicon.glyphicon-gift
+        bạn đã đăng ký nhận cập nhật
+    - else
+      = link_to initiate_project_project_follows_path(project), remote: true do
+        %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+          %span.glyphicon.glyphicon-gift
+          nhận cập nhật
+    .col-md-3.btn.col-md-offset-1
+      .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}

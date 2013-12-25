@@ -1,172 +1,81 @@
-- if @project.unlisted
-  = content_for  :head do
-    %meta{content: "NOINDEX, NOFOLLOW, NOARCHIVE", name: "ROBOTS"}/
-
-= content_for  :head do
-  %meta{property: "og:image", content: "#{@project.photo_url(:thumb)}"}/
-  %meta{property: "og:description", content: "#{@project.brief}"}/
-
-- if current_user && @project.belongs_to?(current_user)
-  .body-container--plain-row
-    .body-container--content
-      .notice Trạng thái: #{human_project_status(@project).html_safe}
-
-- if @project.coordinated?
-  .body-container--plain-row
-    .body-container--content
-      = render "layouts/map", height: "500px", marker: @project
-
-.project-show
-  .body-container--plain-row{style: "padding-bottom: 0;"}
-    .body-container--content
-      %p
-        .pull-right
-          - if current_user && @project.belongs_to?(current_user)
-            = link_to edit_project_path(@project) do
-              .more
-                %i.icon-edit-sign
-                Chỉnh Sửa
-          - if current_user && @project.belongs_to?(current_user) && (@project.status == "DRAFT")
-            = link_to projects_submit_path(id: @project.id) do
-              .more{style: "margin-left: 10px;"}
-                %i.icon-rocket
-                Tiến Hành Gây Quỹ
-        .top-title.centered= @project.title
-        .top-creator-and-location.centered
-          %i.icon-map-marker 
-          <b>#{@project.location}</b>
-
-  .body-container--plain-row{style: "margin-bottom: -10px;"}
-    .body-container--content
-      .show-project--navigation
-        = link_to root_path do
-          %div.box{class:("active" unless params[:filter])}
-            %i.icon-home 
-            Thông Tin
-        = link_to "#project_updates" do
-          %div.box{class:("active" if params[:filter] == "updates")}
-            %i.icon-rss
-            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-        = link_to project_donations_path(@project) do
-          %div.box{class:("active" if params[:filter] == "donors")}
-            %i.icon-user
-            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
-        = link_to "#project_comments" do
-          %div.box{class:("active" if params[:filter] == "comments")}
-            %i.icon-comment
-            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-          
-  .body-container--plain-row
-    .body-container--content
-      .side-bar
-        = render "projects/side_bar/metrics_box", project: @project
-
-        .container
-          .heading-bar
-            .sub-headline Cá Nhân / Tổ Chức
-          .row-fluid
-            .user-profile
-              .avatar
-                - if @user.avatar? 
-                  = image_tag(@user.avatar_url(:medium), size: "30x30") 
-                - else
-                  = image_tag("default_avatar.png", size: "30x30")
-              .user-info
-                .name #{link_to @user.name, user_profile_path(@user)}
-                .des-2
-                  %i.icon-map-marker 
-                  #{limit_display @project.location, 27}
-              
-        .container
-          - cache("project_rewards", :expires_in => 1.hour) do
-            .heading-bar
-              .sub-headline Đề Mục Ủng Hộ
-            - @project.project_rewards.each do |reward|
-              .row-fluid
-                %p 
-                  = link_to new_project_donation_path(@project, amount: reward.value.to_i) do
-                    %b Ủng hộ #{human_currency reward.value} hoặc hơn
-                  %br/
-                  = reward.description
-        - unless (!user_signed_in?) && @project.recommendations.empty?
-          .container
-            = render "projects/side_bar/reviews", project: @project
-            .cleared
-
-        - unless (!user_signed_in?) && @project.donations.empty?
-          .container
-            .heading-bar
-              .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)}
-            - cache("project_donations", :expires_in => 1.hour) do
-              - @project.donations.successful[0..4].each do |donation|
-                %p <b>#{link_to human_time(donation.created_at), project_donation_path(@project, donation)}</b> &sdot; #{donation.anon ? "Ẩn Danh" : donation.user.name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
-            - if @project.donations.count > 5
-              .row-fluid
-                .pull-right
-                  = link_to project_donations_path(@project) do
-                    .more Xem Thêm
-      .photo-box
-        = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
-      .bordered-box
-        .main-project-description
-          %p 
-            - if @project.item_based
-              - @project.project_rewards.each do |reward|
-                .row-fluid
-                  %h4= link_to "#{reward.name}", new_project_donation_path(@project, project_reward_id: reward.id)
-                  &sdot; #{human_currency reward.value} &sdot; SL: #{reward.quantity}
-                  %p= markdown reward.description
-          %p= markdown @project.description
-        / %hr/ 
-        / %p Lượt Xem: #{@project.impressionist_count}
-        .devider
-          .item
-            %i.icon-list-alt
-            &nbsp;Cập Nhật Dự Án
-          - if current_user && @project.belongs_to?(current_user)
-            .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
-        #project_updates
-          - if @project.project_updates.empty?
-            %p Hiện chưa có cập nhật nào.
-          - else
-            - @project.project_updates.each do |update|
-              .row-fluid
-                .sub-headline #{human_time update.updated_at}
-                %h4 #{link_to update.title, project_project_update_path(@project, update)}
-
-                %p 
-                  #{markdown update.content.html_safe}
-                  - if current_user && @project.belongs_to?(current_user)
-                    = link_to "[Edit]", edit_project_project_update_path(@project, update)
-
-        .devider
-          .item
-            %i.icon-comments
-            &nbsp;Bình Luận
-        - if current_user
-          .row-fluid
-            .span12
-              .sub-headline Gõ Bình Luận Của Bạn Vào Khung Dưới Đây
-              = simple_form_for [@project, @new_comment] do |f|
-                - if @new_comment.errors.any?
-                  #error_explanation
-                    %h2= "#{pluralize(@new_comment.errors.count, "error")} prohibited this project from being saved:"
-                    %ul
-                      - @new_project.errors.full_messages.each do |msg|
-                        %li= msg
-
-                = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-                = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-                = f.input       :content, :label => false, :input_html => {:class => "span12"}
-                = f.submit "Gửi", class: "submit"
-        .row-fluid#project_comments
-          %hr/
-          - @project.project_comments.each do |comment|
-            = render "project_comments/display", :comment => comment
-
-        
-
-// :javascript
-//   $(document).ready(function(){
-//     $("#donation-box").sticky({topSpacing:0});
-//   });
+= content_for :head do
+  %style 
+    
+  / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+  / WARNING: Respond.js doesn't work if you view the page via file://
+  /[if lt IE 9]
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+%body
+  %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+    .row.col-md-10.col-md-offset-1
+      %a#cm-logo.navbar-brand{href: "#"} Charity Map
+      %ul#cm-menu.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "#"} Đăng Kí
+        %li
+          %a{href: "#"} Đăng Nhập
+  .overlay.proj-cover{style: "background-image: url('/assets/61150027.jpg')"}
+    .overlay
+  %header.proj-header.row.col-md-8.col-md-offset-2
+    %nav.navbar.proj-details{role: "navigation"}
+      .row.col-md-8.col-md-offset-2.clearfix
+        %ul.nav.navbar-nav
+          %li= link_to "Thông Tin", root_path
+          %li
+            = link_to "#project_updates" do
+              Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
+          %li
+            = link_to project_donations_path(@project) do
+              Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
+          %li
+            = link_to "#project_comments" do
+              Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+    %h1.text-shadow= @project.title
+    %span
+      %i.glyphicon.glyphicon-map-marker>
+      = @project.location
+    .group-details
+      %span
+        - if @user.avatar? 
+          = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
+        - else
+          = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+      %h1 #{link_to @user.name, user_profile_path(@user)}
+      %span.quote "#{@project.brief}"
+  %section.content.row.col-md-8.col-md-offset-2
+    = render "projects/side_bar/metrics_box", project: @project
+    %p= markdown @project.description
+    %ul.products.row
+      .col-md-3
+        %li.item
+          %a{href: "#"}
+            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+            .item-desc.text-center
+              %span.name Áo thun hiệu con Ó
+              %hr/
+              %span.price 200.000 VNĐ
+      .col-md-3
+        %li.item
+          %a{href: "#"}
+            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+            .item-desc.text-center
+              %span.name Áo thun hiệu con Cào Cào
+              %hr/
+              %span.price 200.000 VNĐ
+      .col-md-3
+        %li.item
+          %a{href: "#"}
+            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+            .item-desc.text-center
+              %span.name Áo thun hiệu con chim Bồ Câu
+              %hr/
+              %span.price 200.000 VNĐ
+      .col-md-3
+        %li.item
+          %a{href: "#"}
+            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+            .item-desc.text-center
+              %span.name Áo thun hiệu con Bồ Nông
+              %hr/
+              %span.price 200.000 VNĐ

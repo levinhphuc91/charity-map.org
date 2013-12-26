@@ -1,9 +1,66 @@
-.devider
-  .item Cập Nhật
-  .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
-- @project_updates.each do |update|
-  .row-fluid
-    .sub-headline #{human_time update.updated_at}
-    %h4 #{link_to update.title, project_project_update_path(@project, update)}
-    %p= markdown limit_display(update.content, 800)
-  %hr/
+%body
+  %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+    .row.col-md-10.col-md-offset-1
+      %a#cm-logo.navbar-brand{href: "#"} Charity Map
+      %ul#cm-menu.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "#"} Đăng Kí
+        %li
+          %a{href: "#"} Đăng Nhập
+
+  .comment-cover{style: "background-image: url('http://i1150.photobucket.com/albums/o617/redsvn/2013/12/image_3_zing_1.jpg~original')"}
+    .overlay
+  %header.proj-header.row.col-md-8.col-md-offset-2
+    %nav.navbar.proj-details{role: "navigation"}
+      .row.col-md-8.col-md-offset-2.clearfix
+        %ul.nav.navbar-nav
+          %li
+            %a{href: "#"} Thông Tin
+          %li
+            %a{href: "#"} Cập Nhật
+          %li
+            %a{href: "#"} Mạnh Thường Quân
+          %li
+            %a{href: "#"} Bình Luận
+    .comment-header
+      %h1 Ấm Tình Mùa Xuân 2014
+      %span
+        %i.glyphicon.glyphicon-user>
+        Chia Sẻ Yêu Thương
+  %section.row.col-md-8.col-md-offset-2
+    .row.donation-stats
+      .donation-funded-wrap
+        .donation-funded{style: "width: 90%"}
+      %ul.donation-stats.row
+        .col-md-4
+          %li.funded
+            %strong
+              %span 50.000.000 VNĐ
+            .hint MỤC TIÊU
+        .col-md-4
+          %li.raised
+            %strong
+              %span 27.450.000 VNĐ
+            .hint ĐÃ NHẬN ĐƯỢC
+        .col-md-4
+          %li.deadline
+            %strong
+              %span 27 NGÀY
+            .hint THỜI GIAN CÒN LẠI
+      .row.text-center.action-box
+        %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+          %span.glyphicon.glyphicon-gift
+          ủng hộ dự án
+        %button.col-md-2.col-md-offset-1.btn.btn-default{type: "button"}
+          %span.glyphicon.glyphicon-star
+          nhận cập nhật
+        .col-md-3.btn.col-md-offset-1
+          %like{action: "like", href: "http://www.charity-map.org/projects/am-tinh-mua-xuan-2014", layout: "standard", share: "true", show_faces: "true"}
+    %hr/
+    .list-group
+      - @project_updates.each do |update|
+        = link_to project_project_update_path(@project, update), class: "list-group-item" do
+          %h4.list-group-item-heading
+            = update.title
+            %span.label.label-success.pull-right= human_time update.created_at
+          %p.list-group-item-text= limit_display(update.content, 800)

@@ -1,84 +1,38 @@
-- if current_user && @project.belongs_to?(current_user)
-  .body-container--plain-row
-    .body-container--content
-      .notice Trạng thái: #{human_project_status(@project).html_safe}
-    
-.project-show
-  .body-container--plain-row{style: "padding-bottom: 0;"}
-    .body-container--content
-      %p
-        .pull-right
-          - if current_user && @project.belongs_to?(current_user)
-            = link_to edit_project_path(@project) do
-              .more
-                %i.icon-edit-sign
-                Chỉnh Sửa
-        .top-title.centered= link_to @project.title, @project
-        .top-creator-and-location.centered
-          %i.icon-user 
-          <b>#{@project.user.name}</b> &nbsp;
-          %i.icon-map-marker 
-          <b>#{@project.location}</b>
+%body
+  %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+    .row.col-md-10.col-md-offset-1
+      %a#cm-logo.navbar-brand{href: "#"} Charity Map
+      %ul#cm-menu.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "#"} Đăng Kí
+        %li
+          %a{href: "#"} Đăng Nhập
 
-  .body-container--plain-row
-    .body-container--content
-      .side-bar
-        = render "projects/side_bar/metrics_box", project: @project
-
-        .container
-          .heading-bar
-            .sub-headline Cá Nhân / Tổ Chức
-          .row-fluid
-            .user-profile
-              .avatar
-                - if @user.avatar? 
-                  = image_tag(@user.avatar_url(:medium), size: "30x30") 
-                - else
-                  = image_tag("default_avatar.png", size: "30x30")
-              .user-info
-                .name #{link_to @user.name, user_profile_path(@user)}
-                .des-2
-                  %i.icon-map-marker 
-                  #{@user.city} 
-              
-        .container
-          = render "projects/side_bar/reviews", project: @project
-          .cleared
-
-      / .photo-box
-      /   = image_tag @project.photo_url(:banner), size: "658x305" if @project.photo?
-      .bordered-box
-        .devider
-          .item
-            %i.icon-list-alt
-            &nbsp;
-            = human_time @project_update.created_at
-        #project_updates
-          %p= markdown @project_update.content.html_safe
-        - if current_user && @project.belongs_to?(current_user)
-          .note &sdot; #{link_to 'Thêm Cập Nhật', new_project_project_update_path(@project)}
-
-        / .devider
-        /   .item
-        /     %i.icon-comments
-        /     &nbsp;Bình Luận
-        / - if current_user
-        /   .row-fluid
-        /     .span12
-        /       .sub-headline Gõ Bình Luận Của Bạn Vào Khung Dưới Đây
-        /       = simple_form_for [@project, @new_comment] do |f|
-        /         - if @new_comment.errors.any?
-        /           #error_explanation
-        /             %h2= "#{pluralize(@new_comment.errors.count, "error")} prohibited this project from being saved:"
-        /             %ul
-        /               - @new_project.errors.full_messages.each do |msg|
-        /                 %li= msg
-
-        /         = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-        /         = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-        /         = f.input       :content, :label => false, :input_html => {:class => "span12"}
-        /         = f.submit "Gửi", class: "submit"
-        / .row-fluid#project_comments
-        /   %hr/
-        /   - @project.project_comments.each do |comment|
-        /     = render "project_comments/display", :comment => comment
+  .comment-cover{style: "background-image: url('http://i1150.photobucket.com/albums/o617/redsvn/2013/12/image_3_zing_1.jpg~original')"}
+    .overlay
+  %header.proj-header.row.col-md-8.col-md-offset-2
+    %nav.navbar.proj-details{role: "navigation"}
+      .row.col-md-8.col-md-offset-2.clearfix
+        %ul.nav.navbar-nav
+          %li
+            %a{href: "#"} Thông Tin
+          %li
+            %a{href: "#"} Cập Nhật
+          %li
+            %a{href: "#"} Mạnh Thường Quân
+          %li
+            %a{href: "#"} Bình Luận
+    .comment-header
+      %h1 Ấm Tình Mùa Xuân 2014
+      %span
+        %i.glyphicon.glyphicon-user>
+        Chia Sẻ Yêu Thương
+  %section.row.col-md-8.col-md-offset-2
+    = render "projects/side_bar/metrics_box", project: @project
+    %hr/
+    .list-group
+      = link_to project_project_update_path(@project, @project_update), class: "list-group-item" do
+        %h4.list-group-item-heading
+          = @project_update.title
+          %span.label.label-success.pull-right= human_time @project_update.created_at
+        %p.list-group-item-text= limit_display(@project_update.content, 800)

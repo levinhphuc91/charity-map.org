@@ -1,7 +1,8 @@
 class ProjectUpdatesController < InheritedResources::Base
 
   before_filter :authenticate_user!, except: [:index, :show]
-  layout "layouts/dashboard", except: [:show]
+  layout "layouts/dashboard"
+  layout "layouts/item-based", only: [:index, :show]
 
   def index
     @project = Project.find(params[:project_id])

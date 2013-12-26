@@ -1,15 +1,45 @@
-%p#notice= notice
+= content_for :head do
+  = javascript_include_tag "//www.google.com/jsapi", "chartkick" 
 
-%p
-  %b Start date:
-  = @grant.start_date
-%p
-  %b End date:
-  = @grant.end_date
-%p
-  %b Amount:
-  = @grant.amount
-
-= link_to 'Edit', edit_grant_path(@grant)
-\|
-= link_to 'Back', grants_path
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .span6 
+        .row-fluid
+          = line_chart [{:name => "Tiến Độ", :data => @donations.group_by_day(:created_at).sum(:amount)}, {:name => "Mục Tiêu", :data => {@grant.end_date.to_s=>1000000000}}], max: (1000000000+1)
+        .row-fluid.sub-headline Fund Raised Using Charity Map
+        = human_currency @donations.sum(:amount)
+      .span6 
+        .row-fluid
+          .span5
+            = pie_chart [["Used", @expenses.sum(:amount)], ["Unused", @grant.amount - @expenses.sum(:amount)]]
+          .span7
+            .row-fluid
+              .sub-headline #{@grant.name} Grant from #{@grant.giver}
+              = human_currency @grant.amount
+            .row-fluid
+              .sub-headline CM Operational Cost (#{human_time @grant.start_date} &mdash; now)
+              = human_currency @expenses.sum(:amount)
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .span3
+        .sub-headline Average Cost Per Donation
+        = @expenses.sum(:amount) / @donations.sum(:amount)
+      .span4
+        .sub-headline Reaching 1.000.000VND Goal In
+        - if @donations.sum(:amount) > 0
+          #{((1000000000-@donations.sum(:amount))/(@donations.sum(:amount)/TimeDifference.between(Time.parse("03/01/2014"), @grant.start_date).in_days.to_i)).to_i} DAYS
+        - else
+          30 DAYS
+      .span5
+        .sub-headline Avg Donation Cost / Avg Donation Value
+        7/186
+.body-container--plain-row
+  .body-container--content
+    .row-fluid
+      .sub-headline System Cost Breakdown
+      Technical Expense | Operational Expenses | Project-specific Expenses
+    .row-fluid
+      - @expenses.each do |expense|
+        = render "expenses/expense", expense: expense

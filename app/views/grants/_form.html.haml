@@ -1,8 +1,36 @@
 = semantic_form_for @grant do |f|
   = f.inputs do
-    = f.input :start_date
-    = f.input :end_date
+    = f.input :name
+    = f.input :giver
+    = f.input :start_date, :as => :string, :input_html => {:class => "start_date"}
+    = f.input :end_date, :as => :string, :input_html => {:class => "end_date"}
     = f.input :amount
 
   = f.actions do
     = f.action :submit, :as => :input
+
+:javascript
+  $( document ).ready(function() {
+    $(".start_date").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',
+      onClose: function( selectedDate ) {
+        $( ".end_date" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $(".end_date").datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: 'yy-mm-dd',
+      onClose: function( selectedDate ) {
+        $(".start_date").datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+    $(".start_date").click(function(){
+      $(".start_date").datepicker();
+    });
+    $(".end_date").click(function(){
+      $(".end_date").datepicker();
+    });
+  });

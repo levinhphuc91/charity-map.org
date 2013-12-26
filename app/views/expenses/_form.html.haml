@@ -1,9 +1,10 @@
 = semantic_form_for @expense do |f|
   = f.inputs do
-    = f.input :category
+    = f.select :category, ["OPERATION", "PLATFORM", "PROJECT"]
     = f.input :amount
     = f.input :project
     = f.input :in_words
+    = f.input :created_at
 
   = f.actions do
     = f.action :submit, :as => :input

@@ -13,7 +13,7 @@
 
 class Expense < ActiveRecord::Base
   belongs_to :project
-  attr_accessible :category, :amount, :in_words, :project_id
+  attr_accessible :category, :amount, :in_words, :project_id, :created_at
   validates :category, :amount, :in_words, presence: true
   validate :permitted_categories
 

@@ -8,9 +8,11 @@
 #  amount     :float
 #  created_at :datetime
 #  updated_at :datetime
+#  name       :string(255)
+#  giver      :string(255)
 #
 
 class Grant < ActiveRecord::Base
-  attr_accessible :start_date, :end_date, :amount
-  validates :start_date, :end_date, :amount, presence: true
+  attr_accessible :name, :giver, :start_date, :end_date, :amount
+  validates :name, :giver, :start_date, :end_date, :amount, presence: true
 end

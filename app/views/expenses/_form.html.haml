@@ -1,0 +1,9 @@
+= semantic_form_for @expense do |f|
+  = f.inputs do
+    = f.input :category
+    = f.input :amount
+    = f.input :project
+    = f.input :in_words
+
+  = f.actions do
+    = f.action :submit, :as => :input

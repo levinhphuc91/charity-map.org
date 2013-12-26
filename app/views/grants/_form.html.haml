@@ -1,0 +1,8 @@
+= semantic_form_for @grant do |f|
+  = f.inputs do
+    = f.input :start_date
+    = f.input :end_date
+    = f.input :amount
+
+  = f.actions do
+    = f.action :submit, :as => :input

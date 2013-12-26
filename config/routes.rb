@@ -1,4 +1,8 @@
 CharityMap::Application.routes.draw do
+  resources :expenses
+
+  resources :grants
+
   resources :categories
 
   get   'users/dashboard'

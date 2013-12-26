@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Start date:
+  = @grant.start_date
+%p
+  %b End date:
+  = @grant.end_date
+%p
+  %b Amount:
+  = @grant.amount
+
+= link_to 'Edit', edit_grant_path(@grant)
+\|
+= link_to 'Back', grants_path

@@ -12,15 +12,26 @@
       %a#cm-logo.navbar-brand{href: "#"} Charity Map
       %ul#cm-menu.nav.navbar-nav.navbar-right
         %li
-          %a{href: "#"} Đăng Kí
+          %a{href: "#"} Quản Lí
         %li
-          %a{href: "#"} Đăng Nhập
+          %a{href: "#"} Hồ Sơ
+        %li
+          %a{href: "#"} Đăng Xuất
+      %ul#cm-menu.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "#"} Credits
+        / %li
+        /   %a{href: "#"} Giới Thiệu
+        / %li
+        /   %a{href: "#"} Đăng Kí
+        / %li
+        /   %a{href: "#"} Đăng Nhập
   .overlay.proj-cover{style: "background-image: url('/assets/61150027.jpg')"}
     .overlay
   %header.proj-header.row.col-md-8.col-md-offset-2
     %nav.navbar.proj-details{role: "navigation"}
       .row.col-md-8.col-md-offset-2.clearfix
-        %ul.nav.navbar-nav
+        %ul.nav.navbar-nav.project-links
           %li= link_to "Thông Tin", root_path
           %li
             = link_to "#project_updates" do

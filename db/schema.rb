@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131222143921) do
+ActiveRecord::Schema.define(version: 20131226075720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20131222143921) do
   add_index "donations", ["project_reward_id"], name: "index_donations_on_project_reward_id", using: :btree
   add_index "donations", ["user_id"], name: "index_donations_on_user_id", using: :btree
 
+  create_table "expenses", force: true do |t|
+    t.string   "category"
+    t.float    "amount"
+    t.integer  "project_id"
+    t.string   "in_words"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "expenses", ["project_id"], name: "index_expenses_on_project_id", using: :btree
+
   create_table "ext_donations", force: true do |t|
     t.integer  "project_id"
     t.float    "amount"
@@ -109,6 +120,14 @@ ActiveRecord::Schema.define(version: 20131222143921) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true, using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
+  create_table "grants", force: true do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.float    "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "impressions", force: true do |t|
     t.string   "impressionable_type"

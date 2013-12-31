@@ -1,0 +1,211 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700&subset=vietnamese)
+
+@import url(http://fonts.googleapis.com/css?family=Noticia+Text:400italic,700italic&subset=vietnamese)
+
+html
+  -webkit-font-smoothing: antialiased !important
+  a
+    -webkit-font-smoothing: antialiased !important
+
+body
+  background: white
+  padding-top: 70px
+  font: 16px / 24px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+
+#sidebar
+  background-color: #fff
+  margin-top: 18px
+  h3.side-heading
+    font: 16px / 40px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+    color: #3598dc
+  ul
+    margin-left: -30px
+    li
+      list-style: none
+      font: 14px / 36px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+      margin-left: 10px
+      a
+        color: rgba(51, 51, 51, 0.8)
+        text-decoration: none
+        vertical-align: middle
+        display: inline-block
+        padding: 0 0 7px 10px
+        &:hover
+          color: rgba(51, 51, 51, 1)
+        &.active
+          color: rgba(51, 51, 51, 1)
+          font-weight: bold
+
+#project-edit
+  .header h1
+    font-weight: 700
+    font-size: 20px
+    line-height: 82px
+    text-transform: uppercase
+    font-family: 'Source Sans Pro'
+    border-bottom: solid 1px rgba(51, 51, 51, 0.1)
+  .main-form h2
+    font-size: 20px
+    line-height: 82px
+    font-family: 'Source Sans Pro'
+  .show-alert
+    margin-top: 3%
+    margin-bottom: 6%
+    ul li
+      list-style: none
+
+/* Ảnh Dự Án
+
+#project-img
+  border-bottom: dashed 1px rgba(51, 51, 51, 0.1)
+  padding-bottom: 40px
+  margin-bottom: 40px
+  min-height: 400px
+  .uploaded-img
+    border-radius: 4px
+    border: solid 1px rgba(51, 51, 51, 0.4)
+    margin-bottom: 30px
+  .img-upload
+    border-radius: 4px
+    border: solid 1px rgba(51, 51, 51, 0.4)
+    margin-bottom: 30px
+    text-align: center
+    padding: 10px
+    color: rgba(51, 51, 51, 0.4)
+    &:hover
+      border: solid 1px rgba(51, 51, 51, 0.8)
+      color: rgba(51, 51, 51, 0.8)
+      cursor: pointer
+  span
+    &.plus
+      display: block
+      font-size: 80px
+      line-height: 60px
+    &.upload-text
+      display: block
+
+/* Form
+
+#forms
+  .form-item
+    margin-bottom: 30px
+  label
+    font-size: 16px
+    line-height: 40px
+    font-family: 'Source Sans Pro'
+  span
+    &.example
+      display: inline-block
+      font-size: 14px
+      margin-left: 7px
+      color: rgba(51, 51, 51, 0.6)
+    &.length
+      float: right
+      font-size: 16px
+      line-height: 40px
+      display: inline
+
+.form-item
+  .gift-check
+    line-height: 60px
+  input.check
+    margin-left: 10px
+
+.goal
+  margin-top: 40px
+  padding-top: 40px
+  border-top: dashed 1px rgba(51, 51, 51, 0.1)
+  padding-bottom: 60px
+
+.submit-bar
+  position: fixed
+  display: block
+  padding: 15px 20px 15px 0
+  bottom: 0
+  right: 0
+  width: 100%
+  z-index: 10
+  background-color: #fff
+  border-top: 1px solid rgba(0, 0, 0, 0.15)
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.08)
+  .cancel-prj, .save-prj
+    float: right
+    margin: 0 0 0 15px
+
+/*Dashboard
+
+#verify-steps
+  margin-bottom: 50px
+  .step-item
+    text-align: center
+    vertical-align: middle
+    padding: 20px
+    h3
+      font: 16px / 10px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+      font-weight: bold
+    span
+      color: rgba(51, 51, 51, 0.7)
+      &.icon
+        font-size: 30px
+        color: #3598dc
+    &.yet
+      span
+        &.icon
+          color: #d8d8d8
+        color: #d8d8d8 !important
+      color: #d8d8d8 !important
+
+#prj-list
+  margin-top: 40px
+  .empty
+    text-align: center
+    background-color: #f7f7f7
+    padding: 100px 0
+    -webkit-border-radius: 4px
+    -moz-border-radius: 4px
+    border-radius: 4px
+    h4
+      font: 18px / 48px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+  .list
+    .item-left
+      text-align: right
+      font-size: 30px / 60px
+    .item-banner
+      width: 525px
+      height: 100px
+      background-color: #d8d8d8
+      overflow: hidden
+      img
+        position: relative
+    a.banner-text-bg
+      background: url('../img/banner-bg.png')
+      position: absolute
+      z-index: 1
+      bottom: 90px
+      width: 525px
+      height: 100px
+    .item-details
+      bottom: 110px
+      z-index: 1
+      position: absolute
+      left: 50px
+      color: #fff
+      .name a
+        color: #fff
+        font: 20px / 30px "Source Sans Pro", Helvetica Neue, Helvetica, Arial, sans-serif
+        font-weight: 700
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4)
+      .desc
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4)
+    .item-action
+      height: 50px
+      position: relative
+      z-index: 1
+      width: 525px
+      margin-bottom: 40px
+      .actions
+        float: right
+        margin: 20px 10px 0 7px
+        .icon
+          font-size: 12px
+          margin: 2px 5px 0 0

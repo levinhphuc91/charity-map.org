@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   after_action :allow_facebook_iframe, only: :fbnotif
 
   def dashboard
+    render layout: "layouts/dashboard2"
   end
 
   def profile

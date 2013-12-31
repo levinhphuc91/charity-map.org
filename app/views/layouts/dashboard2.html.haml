@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title= Configuration[:site_name]
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=980", :name => "viewport"}/
+    %link{href: image_path("favicon.ico"), rel: "shortcut icon"}/
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "bootstrap", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "cm-dashboard", media: "all", "data-turbolinks-track" => true
+    %link{:href => "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
+    = csrf_meta_tags
+    = yield :head
+  %body
+    = render "layouts/facebook_script"
+    = render "layouts/item-based/header"
+    - cache("analytics", :expires_in => 1.month) do
+      = render "layouts/analytics"
+    .col-md-12.container
+      = render "layouts/dashboard/side_bar"
+      #dashboard.col-md-10
+        = yield

@@ -1,5 +1,5 @@
 class Dashboard::ProjectsController < InheritedResources::Base
-  layout "layouts/dashboard"
+  layout "layouts/dashboard2"
   before_filter :authenticate_user!
   before_filter :restricted_access
 

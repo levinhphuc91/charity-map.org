@@ -13,10 +13,11 @@
     = yield :head
 %body 
   = render "layouts/facebook_script"
-  = render "layouts/header"
+  = render "layouts/item-based/header"
   = yield
   - cache("analytics", :expires_in => 1.month) do
     = render "layouts/analytics"
+  = render "layouts/item-based/footer"
 
 :javascript
   $(window).scroll(function() {

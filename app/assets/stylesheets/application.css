@@ -14,6 +14,7 @@
  *= require morris
  *= require about
  *= require bootstrap_old
+ *= require bootstrap-responsive_old.min.css
  *= require dashboard
  *= require donation
  *= require main

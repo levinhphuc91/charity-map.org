@@ -38,7 +38,7 @@
 
 - unless @markers.nil?
   .body-container--plain-row{:style => "margin-bottom: -90px;"}
-    = render "layouts/map", height: "500px", markers: @markers, marker: nil
+    = render "layouts/map", height: "500px", markers: @markers
 
 :javascript
   $('#project_search').typeahead({

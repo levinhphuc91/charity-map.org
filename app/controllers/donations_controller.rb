@@ -2,7 +2,7 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
-  # layout "layouts/item-based", only: [:index]
+  layout "layouts/item-based", only: [:index]
 
   def index
     @project = Project.find(params[:project_id])

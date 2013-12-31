@@ -52,7 +52,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def update
-    update!(notice: "Updated!") { params[:href] if params[:href] }
+    update!(notice: "Cập nhật thành công.") { params[:href] if params[:href] }
   end
 
   def submit

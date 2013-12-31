@@ -43,14 +43,24 @@ body
     background-color: #ffffff
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 3px rgba(0, 0, 0, 0.2), 0 0 6px rgba(0, 0, 0, 0.1)
 
-ul#cm-menu
-  li
-    a 
-      color: rgba(255,255,255,0.8) !important
-      .scroll
-        color: #333 !important
-      &:hover 
-        color: rgba(255,255,255,1) !important
+ul#cm-first-menu
+  li a 
+    color: rgba(255,255,255,0.8) !important
+  &.scroll
+    li a
+      color: #333 !important
+  &:hover 
+    color: rgba(255,255,255,1) !important
+
+ul#cm-second-menu
+  li a
+    color: rgba(255,255,255,0.8) !important
+  &.scroll
+    li a
+      color: #333 !important
+  &:hover 
+    color: rgba(255,255,255,1) !important
+
 ul.project-links
   li
     a

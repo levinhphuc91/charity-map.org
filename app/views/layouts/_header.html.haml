@@ -1,42 +1,19 @@
-#header
-  .container
-    .pull-left
-      = link_to root_path do
-        = image_tag "logo.png"
-    .pull-right
-      / = link_to projects_path do
-      /   .navigation-box 
-      /     .navigation-text Các Dự Án
-      - unless signed_in?
-        = link_to pages_about_path do
-          .navigation-box 
-            .navigation-text Giới Thiệu
-        = link_to new_user_session_path do
-          .navigation-box 
-            .navigation-text Đăng Nhập
-        = link_to new_user_registration_path do
-          .navigation-box 
-            .navigation-text Đăng Ký
-      - else
-        = link_to dashboard_path do
-          .navigation-box 
-            .navigation-text Quản Lý
-        = link_to users_settings_path do
-          .navigation-box 
-            .navigation-text Hồ Sơ
-        = link_to destroy_user_session_path do
-          .navigation-box 
-            .navigation-text Đăng Xuất
-      .language-bar
-        .language-bar--text
-          - if params[:locale] == "en"
-            %span.active= link_to "VN", locale: "vi"
-            &nbsp;/
-            EN
-          - else
-            / %span.active= link_to "EN", locale: "en"
-            / &nbsp;/
-            / VN
-            %span.inactive{:"data-toggle" => "tooltip", :title => "first tooltip"} EN
-            &nbsp;/
-            VN
+%nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+  .row.col-md-10.col-md-offset-1
+    %a#cm-logo.navbar-brand{href: "#"} Charity Map
+    - unless signed_in?
+      %ul#cm-second-menu.nav.navbar-nav.navbar-right
+        %li= link_to "Đăng Nhập", new_user_session_path
+        %li= link_to "Đăng Ký", new_user_registration_path
+      %ul#cm-first-menu.nav.navbar-nav.navbar-right
+        %li
+          = link_to pages_about_path do
+            <strong>Giới Thiệu</strong>
+    - else
+      %ul#cm-second-menu.nav.navbar-nav.navbar-right
+        %li= link_to "Quản Lý", dashboard_path
+        %li= link_to "Hồ Sơ", users_settings_path
+        %li= link_to "Đăng Xuất", destroy_user_session_path
+      %ul#cm-first-menu.nav.navbar-nav.navbar-right
+        %li
+          %a{href: "#"} Credits: <strong>20.000 VNĐ</strong>

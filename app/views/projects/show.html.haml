@@ -4,124 +4,105 @@
   /[if lt IE 9]
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-%body
-  %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
-    .row.col-md-10.col-md-offset-1
-      %a#cm-logo.navbar-brand{href: "#"} Charity Map
-      %ul#cm-menu.nav.navbar-nav.navbar-right
-        %li
-          %a{href: "#"} Quản Lí
-        %li
-          %a{href: "#"} Hồ Sơ
-        %li
-          %a{href: "#"} Đăng Xuất
-      %ul#cm-menu.nav.navbar-nav.navbar-right
-        %li
-          %a{href: "#"} Credits: <strong>20.000 VNĐ</strong>
-        / %li
-        /   %a{href: "#"} Giới Thiệu
-        / %li
-        /   %a{href: "#"} Đăng Kí
-        / %li
-        /   %a{href: "#"} Đăng Nhập
-  .overlay.proj-cover{style: "background-image: url('/assets/61150027.jpg')"}
-    .overlay
-  %header.proj-header.row.col-md-8.col-md-offset-2
-    %nav.navbar.proj-details{role: "navigation"}
-      .row.col-md-8.col-md-offset-2.clearfix
-        %ul.nav.navbar-nav.project-links
-          %li= link_to "Thông Tin", root_path
-          %li
-            = link_to "#project_updates" do
-              Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-          %li
-            = link_to project_donations_path(@project) do
-              Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
-          %li
-            = link_to "#project_comments" do
-              Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-    %h1.text-shadow= @project.title
-    %span
-      %i.glyphicon.glyphicon-map-marker>
-      = @project.location
-    .group-details
-      %span
-        - if @user.avatar? 
-          = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
-        - else
-          = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
-      %h1 #{link_to @user.name, user_profile_path(@user)}
-      %span.quote "#{@project.brief}"
-  %section.content.row.col-md-8.col-md-offset-2
-    = render "projects/side_bar/metrics_box", project: @project
-    %p= markdown @project.description
-    %ul.products.row
-      .col-md-3
-        %li.item
-          %a{href: "#"}
-            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-            .item-desc.text-center
-              %span.price 200.000 VNĐ
-              %hr/
-              %span.name Áo thun hiệu con Ó
-              %span.qtt 12 cái 
 
-      .col-md-3
-        %li.item
-          %a{href: "#"}
-            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-            .item-desc.text-center
-              %span.price 200.000 VNĐ
-              %hr/
-              %span.name Áo thun hiệu con Ó
-              %span.qtt 3 cái 
-      .col-md-3
-        %li.item
-          %a{href: "#"}
-            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-            .item-desc.text-center
-              %span.price 200.000 VNĐ
-              %hr/
-              %span.name Áo thun hiệu con Ó
-              %span.qtt 6 cái 
-      .col-md-3
-        %li.item
-          %a{href: "#"}
-            %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-            .item-desc.text-center
-              %span.price 200.000 VNĐ
-              %hr/
-              %span.name Áo thun hiệu con Ó
-              %span.qtt 800 cái 
-  #footer.row.col-md-10.col-md-offset-1
-    .col-md-6
-      %p
-        %b &copy; BẢN ĐỒ TỪ THIỆN 2013
-      %p Bản Đồ Từ Thiện (Charity Map) là trang web gây quỹ cộng đồng dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
-    .col-md-2
-      %p
-        %b Về Chúng Tôi
-      %p 
-        Đội Ngũ
-        %br/
-        Báo Chí
-        %br/
-        Những Con Số
-    .col-md-2
-      %p 
-        %b Tổ Chức Xã Hội
-      %p 
-        Hướng Dẫn Sử Dụng
-        %br/
-        Chiến Dịch Gây Quỹ
-        %br/
-        Câu Hỏi
-    .col-md-2
-      %p 
-        %b Mạnh Thường Quân
-      %p
-        Phương Thức Ủng Hộ
-        %br/
-        Quy Định Bảo Mật
-        %br/ 
-        Liên Hệ
+.overlay.proj-cover{style: "background-image: url('/assets/61150027.jpg')"}
+  .overlay
+%header.proj-header.row.col-md-8.col-md-offset-2
+  %nav.navbar.proj-details{role: "navigation"}
+    .row.col-md-8.col-md-offset-2.clearfix
+      %ul.nav.navbar-nav.project-links
+        %li= link_to "Thông Tin", root_path
+        %li
+          = link_to "#project_updates" do
+            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
+        %li
+          = link_to project_donations_path(@project) do
+            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
+        %li
+          = link_to "#project_comments" do
+            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+  %h1.text-shadow= @project.title
+  %span
+    %i.glyphicon.glyphicon-map-marker>
+    = @project.location
+  .group-details
+    %span
+      - if @user.avatar? 
+        = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
+      - else
+        = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+    %h1 #{link_to @user.name, user_profile_path(@user)}
+    %span.quote "#{@project.brief}"
+%section.content.row.col-md-8.col-md-offset-2
+  = render "projects/side_bar/metrics_box", project: @project
+  %p= markdown @project.description
+  %ul.products.row
+    .col-md-3
+      %li.item
+        %a{href: "#"}
+          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+          .item-desc.text-center
+            %span.price 200.000 VNĐ
+            %hr/
+            %span.name Áo thun hiệu con Ó
+            %span.qtt 12 cái 
+
+    .col-md-3
+      %li.item
+        %a{href: "#"}
+          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+          .item-desc.text-center
+            %span.price 200.000 VNĐ
+            %hr/
+            %span.name Áo thun hiệu con Ó
+            %span.qtt 3 cái 
+    .col-md-3
+      %li.item
+        %a{href: "#"}
+          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+          .item-desc.text-center
+            %span.price 200.000 VNĐ
+            %hr/
+            %span.name Áo thun hiệu con Ó
+            %span.qtt 6 cái 
+    .col-md-3
+      %li.item
+        %a{href: "#"}
+          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+          .item-desc.text-center
+            %span.price 200.000 VNĐ
+            %hr/
+            %span.name Áo thun hiệu con Ó
+            %span.qtt 800 cái 
+#footer.row.col-md-10.col-md-offset-1
+  .col-md-6
+    %p
+      %b &copy; BẢN ĐỒ TỪ THIỆN 2013
+    %p Bản Đồ Từ Thiện (Charity Map) là trang web gây quỹ cộng đồng dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
+  .col-md-2
+    %p
+      %b Về Chúng Tôi
+    %p 
+      Đội Ngũ
+      %br/
+      Báo Chí
+      %br/
+      Những Con Số
+  .col-md-2
+    %p 
+      %b Tổ Chức Xã Hội
+    %p 
+      Hướng Dẫn Sử Dụng
+      %br/
+      Chiến Dịch Gây Quỹ
+      %br/
+      Câu Hỏi
+  .col-md-2
+    %p 
+      %b Mạnh Thường Quân
+    %p
+      Phương Thức Ủng Hộ
+      %br/
+      Quy Định Bảo Mật
+      %br/ 
+      Liên Hệ

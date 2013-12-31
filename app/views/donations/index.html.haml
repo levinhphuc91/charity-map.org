@@ -27,7 +27,9 @@
     %span.glyphicon.glyphicon-map-marker
     = @project.location
 %section.row.col-md-8.col-md-offset-2
-
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
   .row
     = line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: (@project.funding_goal+1), height: "300px"
   .row

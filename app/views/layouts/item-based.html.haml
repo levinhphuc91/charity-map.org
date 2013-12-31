@@ -12,19 +12,19 @@
     %link{:href => "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
     = csrf_meta_tags
     = yield :head
-%body 
-  = render "layouts/facebook_script"
-  = render "layouts/item-based/header"
-  = yield
-  - cache("analytics", :expires_in => 1.month) do
-    = render "layouts/analytics"
-  = render "layouts/item-based/footer"
+  %body 
+    = render "layouts/facebook_script"
+    = render "layouts/item-based/header"
+    = yield
+    - cache("analytics", :expires_in => 1.month) do
+      = render "layouts/analytics"
+    = render "layouts/item-based/footer"
 
-:javascript
-  $(window).scroll(function() {
-    if ( $(window).scrollTop() >= 30 ) {
-      $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').addClass('scroll');
-    } else {
-      $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').removeClass('scroll');
-    }
-  });
+  :javascript
+    $(window).scroll(function() {
+      if ( $(window).scrollTop() >= 30 ) {
+        $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').addClass('scroll');
+      } else {
+        $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').removeClass('scroll');
+      }
+    });

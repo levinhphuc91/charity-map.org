@@ -23,6 +23,9 @@
     %span.glyphicon.glyphicon-map-marker
     = @project.location
 %section.row.col-md-8.col-md-offset-2
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
   = render "projects/side_bar/metrics_box", project: @project
   %hr/
   - if @project_updates.empty?

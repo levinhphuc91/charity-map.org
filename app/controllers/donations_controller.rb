@@ -2,7 +2,6 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
-  layout "layouts/item-based", only: [:index]
 
   def index
     @project = Project.find(params[:project_id])
@@ -15,6 +14,7 @@ class DonationsController < InheritedResources::Base
     @ext_donation = ExtDonation.new
     @ext_donations = @project.ext_donations
     @max = (@project.donations_sum > @project.funding_goal ? @project.donations_sum : @project.funding_goal)
+    render layout: "layouts/item-based"
   end
 
   def show

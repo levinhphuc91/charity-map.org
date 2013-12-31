@@ -24,10 +24,16 @@
           .hint THỜI GIAN GÂY QUỸ
   .row.text-center.action-box
     - if @project.accepting_donation?
-      = link_to project_path(@project, anchor: "project-rewards") do
-        %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
-          %span.glyphicon.glyphicon-gift
-          &nbsp;ủng hộ dự án
+      - if @project.item_based
+        = link_to project_path(@project, anchor: "project-rewards") do
+          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-gift
+            &nbsp;ủng hộ dự án
+      - else
+        = link_to new_project_donation_path(@project) do
+          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-gift
+            &nbsp;ủng hộ dự án
     - else
       %button.col-md-3.btn.btn-success.disabled.btn-lg{type: "button"}
         %span.glyphicon.glyphicon-gift

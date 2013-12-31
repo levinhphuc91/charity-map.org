@@ -22,7 +22,7 @@ class ProjectsController < InheritedResources::Base
       store_location_with_path(new_project_path)
       redirect_to users_settings_path, notice: "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
     else 
-      new!
+      render layout: "layouts/dashboard2"
     end
   end
 

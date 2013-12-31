@@ -4,7 +4,7 @@
       %span.glyphicon.glyphicon-briefcase.icon
       %h3 1. Hoàn Chỉnh Hồ Sơ
       %span Tên, địa chỉ, số điện thoại
-    .col-md-4.step-item{class: ("yet" if !current_user.facebook_credentials.empty?)}
+    .col-md-4.step-item{class: ("yet" if current_user.facebook_credentials)}
       %span.glyphicon.glyphicon-share.icon
       %h3 2. Kết Nối Facebook
       %span Nhận cập nhật ngay trên Notification

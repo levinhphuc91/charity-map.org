@@ -3,7 +3,6 @@ class ProjectsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show, :search, :autocomplete, :abbr]
   before_filter :restricted_access, only: :submit
   impressionist actions: [:show]
-  layout "layouts/item-based", ony: :show
 
   def index
     if params[:filter] && params[:filter] == "funding"
@@ -40,6 +39,7 @@ class ProjectsController < InheritedResources::Base
         redirect_to pages_home_path, alert: "Permission denied."
       end
     end
+    render layout: "layouts/item-based"
   end
 
   def edit

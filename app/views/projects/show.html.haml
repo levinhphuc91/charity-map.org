@@ -1,17 +1,41 @@
 = content_for :head do
+  %meta{property: "og:image", content: "#{@project.photo_url(:thumb)}"}/
+  %meta{property: "og:description", content: "#{@project.brief}"}/
   / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   / WARNING: Respond.js doesn't work if you view the page via file://
   /[if lt IE 9]
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
-.overlay.proj-cover{style: "background-image: url('/assets/61150027.jpg')"}
+.overlay.proj-cover{style: "background-image: url('#{@project.photo_url}')"}
   .overlay
 %header.proj-header.row.col-md-8.col-md-offset-2
+  .proj-title
+    .text-shadow= @project.title
+    / .row
+    /   .col-md-6{style: "text-align: right;"}
+    /     %span
+    /     - if @user.avatar? 
+    /       = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
+    /     - else
+    /       = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+    /   .col-md-6{style: "text-align: left;"}
+    /     #{link_to @user.name, user_profile_path(@user)}
+    /     %br/ 
+    /     %span.glyphicon.glyphicon-map-marker
+    /     = @project.location
+    / .group-details
+    /   %span
+    /     - if @user.avatar? 
+    /       = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
+    /     - else
+    /       = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+    /   %h1 #{link_to @user.name, user_profile_path(@user)}
+    /   %span.quote "#{@project.brief}"
   %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.col-md-offset-2.clearfix
+    .row.col-md-8.clearfix
       %ul.nav.navbar-nav.project-links
-        %li= link_to "Thông Tin", project_path(@project)
+        %li= link_to "Thông Tin", project_path(@project), class: "active"
         %li
           = link_to project_project_updates_path(@project) do
             Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
@@ -21,19 +45,21 @@
         %li
           = link_to project_project_comments_path(@project) do
             Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-  %h1.text-shadow= @project.title
-  %span
-    %i.glyphicon.glyphicon-map-marker
-    = @project.location
+%section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px;"}
   .group-details
-    %span
-      - if @user.avatar? 
-        = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
-      - else
-        = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
-    %h1 #{link_to @user.name, user_profile_path(@user)}
-    %span.quote "#{@project.brief}"
-%section.content.row.col-md-8.col-md-offset-2
+    .row
+      .col-md-2.text-center
+        %span
+          - if @user.avatar? 
+            = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
+          - else
+            = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+      .col-md-10
+        %span.quote
+          "#{@project.brief}"
+          %br/ 
+          &mdash; <strong>#{link_to @user.name, user_profile_path(@user)}</strong>
+
   = render "projects/side_bar/metrics_box", project: @project
   %p#project-info= markdown @project.description
   %ul.products.row

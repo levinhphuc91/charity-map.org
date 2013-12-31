@@ -81,6 +81,7 @@ ul.navbar-right
 
 .overlay
   position: absolute
+  background-position: center
   bottom: 0
   left: 0
   width: 100%
@@ -138,6 +139,14 @@ ul.navbar-right
   margin-bottom: 60px
 
 .proj-header
+  height: 320px
+  .proj-title
+    margin-top: 100px
+    line-height: 70px
+    height: 170px
+    font-weight: 700
+    font-size: 5em
+    word-wrap: break-word
   .comment-header h1
     font-size: 2em
     margin-top: 60px
@@ -161,8 +170,8 @@ ul.navbar-right
   margin: 40px 0 40px 0
   .group-ava
     display: inline-block
-    width: 180px
-    height: 180px
+    width: 120px
+    height: 120px
     background: #fff
     padding: 5px
     border-color: #fff
@@ -177,11 +186,15 @@ i
   color: #333
 
 .proj-details
-  border-top: solid 0px rgba(255, 255, 255, 0.2)
+  border-top: solid 1px rgba(255, 255, 255, 0.3) !important
   margin-top: -4px
   .navbar-nav > li > a
     text-transform: uppercase
     font-weight: 700
+    &.active
+      margin-top: -1px
+      border-top: solid 1px rgba(255, 255, 255, 1) !important
+      color: #fff !important
 
 .content
   p

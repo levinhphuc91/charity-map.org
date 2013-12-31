@@ -23,7 +23,7 @@
             %span #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
           .hint THỜI GIAN GÂY QUỸ
   .row.text-center.action-box
-    = link_to new_project_donation_path(project) do
+    = link_to project_path(@project, anchor: "project-rewards") do
       %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
         %span.glyphicon.glyphicon-gift
         &nbsp;ủng hộ dự án

@@ -11,19 +11,19 @@
   %nav.navbar.proj-details{role: "navigation"}
     .row.col-md-8.col-md-offset-2.clearfix
       %ul.nav.navbar-nav.project-links
-        %li= link_to "Thông Tin", root_path
+        %li= link_to "Thông Tin", project_path(@project)
         %li
-          = link_to "#project_updates" do
+          = link_to project_project_updates_path(@project) do
             Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
         %li
           = link_to project_donations_path(@project) do
             Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
         %li
-          = link_to "#project_comments" do
+          = link_to project_project_comments_path(@project) do
             Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
   %h1.text-shadow= @project.title
   %span
-    %i.glyphicon.glyphicon-map-marker>
+    %i.glyphicon.glyphicon-map-marker
     = @project.location
   .group-details
     %span
@@ -35,7 +35,7 @@
     %span.quote "#{@project.brief}"
 %section.content.row.col-md-8.col-md-offset-2
   = render "projects/side_bar/metrics_box", project: @project
-  %p= markdown @project.description
+  %p#project-info= markdown @project.description
   %ul.products.row
     .col-md-3
       %li.item

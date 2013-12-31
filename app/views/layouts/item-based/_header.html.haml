@@ -4,16 +4,17 @@
     - unless signed_in?
       %ul#cm-second-menu.nav.navbar-nav.navbar-right
         %li= link_to "Đăng Nhập", new_user_session_path
-        %li= link_to "Đăng Ký", new_user_registration_path
-      %ul#cm-first-menu.nav.navbar-nav.navbar-right
         %li
-          = link_to pages_about_path do
-            <strong>Giới Thiệu</strong>
+          = link_to new_user_registration_path do
+            %span.glyphicon.glyphicon-user
+            %strong Đăng Ký
+      %ul#cm-first-menu.nav.navbar-nav.navbar-right
+        %li= link_to "Giới Thiệu", pages_about_path
     - else
       %ul#cm-second-menu.nav.navbar-nav.navbar-right
-        %li= link_to "Quản Lý", dashboard_path
-        %li= link_to "Hồ Sơ", users_settings_path
         %li= link_to "Đăng Xuất", destroy_user_session_path
       %ul#cm-first-menu.nav.navbar-nav.navbar-right
-        %li
-          %a{href: "#"} Credits: <strong>20.000 VNĐ</strong>
+        / %li
+        /   %a{href: "#"} Credits: <strong>20.000 VNĐ</strong>
+        %li= link_to "Quản Lý", dashboard_path
+        %li= link_to "Hồ Sơ", users_settings_path

@@ -1,0 +1,7 @@
+%nav.navbar.proj-details{role: "navigation"}
+  .row.col-md-8.col-md-offset-2.clearfix
+    %ul.nav.navbar-nav
+      %li= link_to "Thông Tin", project_path(@project)
+      %li= link_to "Cập Nhật", project_project_updates_path(@project)
+      %li= link_to "Mạnh Thường Quân", project_donations_path(@project)
+      %li= link_to "Bình Luận", project_project_comments_path(@project)

@@ -1,38 +1,20 @@
-%body
-  %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
-    .row.col-md-10.col-md-offset-1
-      %a#cm-logo.navbar-brand{href: "#"} Charity Map
-      %ul#cm-menu.nav.navbar-nav.navbar-right
-        %li
-          %a{href: "#"} Đăng Kí
-        %li
-          %a{href: "#"} Đăng Nhập
-
-  .comment-cover{style: "background-image: url('http://i1150.photobucket.com/albums/o617/redsvn/2013/12/image_3_zing_1.jpg~original')"}
-    .overlay
-  %header.proj-header.row.col-md-8.col-md-offset-2
-    %nav.navbar.proj-details{role: "navigation"}
-      .row.col-md-8.col-md-offset-2.clearfix
-        %ul.nav.navbar-nav
-          %li
-            %a{href: "#"} Thông Tin
-          %li
-            %a{href: "#"} Cập Nhật
-          %li
-            %a{href: "#"} Mạnh Thường Quân
-          %li
-            %a{href: "#"} Bình Luận
-    .comment-header
-      %h1 Ấm Tình Mùa Xuân 2014
-      %span
-        %i.glyphicon.glyphicon-user>
-        Chia Sẻ Yêu Thương
-  %section.row.col-md-8.col-md-offset-2
-    = render "projects/side_bar/metrics_box", project: @project
-    %hr/
-    .list-group
-      = link_to project_project_update_path(@project, @project_update), class: "list-group-item" do
-        %h4.list-group-item-heading
-          = @project_update.title
-          %span.label.label-success.pull-right= human_time @project_update.created_at
-        %p.list-group-item-text= limit_display(@project_update.content, 800)
+.comment-cover{style: "background-image: url('/assets/61150027.jpg')"}
+  .overlay
+%header.proj-header.row.col-md-8.col-md-offset-2
+  = render "layouts/item-based/navigation", project: @project
+  .comment-header
+    %h1= @project.title
+    %span.glyphicon.glyphicon-user
+    = @project.user.name
+    &sdot;
+    %span.glyphicon.glyphicon-map-marker
+    = @project.location
+%section.row.col-md-8.col-md-offset-2
+  = render "projects/side_bar/metrics_box", project: @project
+  %hr/
+  .list-group
+    .list-group-item
+      %h4.list-group-item-heading
+        = @project_update.title
+        %span.label.label-success.pull-right= human_time @project_update.created_at
+      %p.list-group-item-text= @project_update.content.html_safe

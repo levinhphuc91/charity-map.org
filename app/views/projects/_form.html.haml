@@ -119,10 +119,14 @@
         .form-group.col-md-3
           = f.input :location, label: false, placeholder: "Địa Điểm", :input_html => {:class => "form-control"}
   .submit-bar
-    = link_to project_path(@project) do
-      %button.btn.btn-danger.cancel-prj{type: "button"} Hủy
-    = link_to projects_submit_path(id: @project.id) do
-      %button.btn.btn-success.save-prj{type: "button"} Chuyển sang trạng thái gây quỹ
+    - if params[:controller] == "projects" && params[:action] == "edit"
+      = link_to project_path(@project) do
+        %button.btn.btn-danger.cancel-prj{type: "button"} Hủy
+      = link_to projects_submit_path(id: @project.id) do
+        %button.btn.btn-success.save-prj{type: "button"} Chuyển sang trạng thái gây quỹ
+    - else
+      = link_to dashboard_path do
+        %button.btn.btn-danger.cancel-prj{type: "button"} Hủy
     = f.submit "Lưu", class: "submit btn btn-success save-prj"
 
 :javascript

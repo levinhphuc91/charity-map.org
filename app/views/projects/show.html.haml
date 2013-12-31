@@ -7,7 +7,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
-.overlay.proj-cover{style: "background-image: url('#{@project.photo_url}')"}
+.overlay.proj-cover{style: "background-image: url('#{@project.photo_url(:banner)}')"}
   .overlay
 %header.proj-header.row.col-md-8.col-md-offset-2
   .proj-title
@@ -49,29 +49,29 @@
   .group-details
     .row
       .col-md-2.text-center
-        %span
-          - if @user.avatar? 
-            = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
-          - else
-            = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+        = link_to user_profile_path(@user) do
+          %span
+            - if @user.avatar? 
+              = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
+            - else
+              = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
       .col-md-10
-        %span.quote
-          "#{@project.brief}"
-          %br/ 
-          &mdash; <strong>#{link_to @user.name, user_profile_path(@user)}</strong>
+        %span.quote= @project.brief
 
   = render "projects/side_bar/metrics_box", project: @project
   %p#project-info= markdown @project.description
   %ul.products.row
-    .col-md-3
-      %li.item
-        %a{href: "#"}
-          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-          .item-desc.text-center
-            %span.price 200.000 VNĐ
-            %hr/
-            %span.name Áo thun hiệu con Ó
-            %span.qtt 12 cái 
+    - if @project.item_based
+      - @project.project_rewards.each do |reward|
+        .col-md-3
+          %li.item
+            %a{href: "#"}
+              %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+              .item-desc.text-center
+                %span.price= human_currency reward.value
+                %hr/
+                %span.name= reward.name
+                %span.qtt= reward.quantity
 
     .col-md-3
       %li.item

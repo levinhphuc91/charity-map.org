@@ -1,32 +1,32 @@
 #cm-footer.row.col-md-10.col-md-offset-1
   .col-md-6
     %p
-      %b &copy; BẢN ĐỒ TỪ THIỆN 2013
-    %p Bản Đồ Từ Thiện (Charity Map) là trang web gây quỹ cộng đồng dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
+      %b &copy; CHARITY MAP 2014
+    %p Charity Map (Bản Đồ Từ Thiện) là trang web gây quỹ cộng đồng, quản lý quỹ và liên lạc với mạnh thường quân dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
   .col-md-2
     %p
-      %b Về Chúng Tôi
+      %b VỀ CHÚNG TÔI
     %p 
-      Đội Ngũ
+      = link_to "Đội Ngũ", pages_about_path
       %br/
       Báo Chí
       %br/
       Những Con Số
   .col-md-2
     %p 
-      %b Tổ Chức Xã Hội
+      %b TỔ CHỨC XÃ HỘI
     %p 
-      Hướng Dẫn Sử Dụng
+      = link_to "Hướng Dẫn Sử Dụng", Configuration[:guide_url], target: "_blank"
       %br/
-      Chiến Dịch Gây Quỹ
+      = link_to "Chiến Dịch Gây Quỹ", Configuration[:campaign_url], target: "_blank"
       %br/
-      Câu Hỏi
+      = link_to "Câu Hỏi", Configuration[:faq_url], target: "_blank"
   .col-md-2
     %p 
-      %b Mạnh Thường Quân
+      %b MẠNH THƯỜNG QUÂN
     %p
-      Phương Thức Ủng Hộ
+      = link_to "Phương Thức Ủng Hộ", Configuration[:donation_means_url], target: "_blank"
       %br/
-      Quy Định Bảo Mật
+      = link_to "Quy Định Bảo Mật", Configuration[:privacy_url], target: "_blank"
       %br/ 
-      Liên Hệ
+      = link_to "Liên Hệ", Configuration[:contact_url], target: "_blank"

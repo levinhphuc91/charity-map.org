@@ -1,6 +1,6 @@
 %nav#cm-header.top-nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
   .row.col-md-10.col-md-offset-1
-    %a#cm-logo.navbar-brand{href: "#"} Charity Map
+    = link_to "Charity Map", root_path, id: "cm-logo", class: "navbar-brand"
     - unless signed_in?
       %ul#cm-second-menu.nav.navbar-nav.navbar-right
         %li= link_to "Đăng Nhập", new_user_session_path

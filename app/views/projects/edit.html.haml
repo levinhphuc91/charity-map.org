@@ -1,18 +1,7 @@
-.body-container--plain-row
-  .body-container--content
-    .devider
-      .item
-        %i.icon-edit-sign 
-        Chỉnh Sửa Thông Tin: #{@project.title}
-      .note
-        #{link_to "Đến Trang Dự Án", @project}
-        &sdot;
-        #{link_to "Về lại Trang Quản Lý", dashboard_project_path(@project)}
-        - if @project.status == "DRAFT"
-          &sdot;
-          = link_to "Đăng Ký Gây Vốn", projects_submit_path(id: @project.id)
-
-    = render 'form'
+#project-edit
+  .header
+    %h1 Tạo Dự Án
+  = render 'form'
 
 :javascript
   $(document).ready(function() {

@@ -1,7 +1,7 @@
 class ProjectsController < InheritedResources::Base
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show, :search, :autocomplete, :abbr]
-  before_filter :restricted_access, only: :submit
+  before_filter :restricted_access, only: [:submit, :edit]
   impressionist actions: [:show]
 
   def index
@@ -43,12 +43,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def edit
-    @project = Project.find(params[:id])
-    if @project.belongs_to?(current_user)
-      edit!
-    else
-      redirect_to :dashboard, alert: "Permission denied."
-    end
+    render layout: "layouts/dashboard2"
   end
 
   def update

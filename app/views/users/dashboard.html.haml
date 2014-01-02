@@ -1,15 +1,103 @@
+/ orders table
+.table-wrapper.orders-table
+  .row.head
+    .col-md-12
+      %h4 Orders
+  .row.filter-block
+    .pull-right
+      .btn-group.pull-right
+        %button.glow.left.large All
+        %button.glow.middle.large Pending
+        %button.glow.right.large Completed
+      %input.search.order-search{placeholder: "Search for an order..", type: "text"}/
+  .row
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-md-2
+            Order ID
+          %th.col-md-2
+            %span.line
+            Date
+          %th.col-md-2
+            %span.line
+            Name
+          %th.col-md-2
+            %span.line
+            Status
+          %th.col-md-2
+            %span.line
+            Items
+          %th.col-md-2
+            %span.line
+            Total amount
+      %tbody
+        / row
+        %tr.first
+          %td
+            %a{href: "#"} #459
+          %td
+            Jan 03, 2013
+          %td
+            %a{href: "#"} John Smith
+          %td
+            %span.label.label-success Completed
+          %td
+            3
+          %td
+            $ 3,500.00
+        %tr
+          %td
+            %a{href: "#"} #510
+          %td
+            Feb 22, 2013
+          %td
+            %a{href: "#"} Anna Richards
+          %td
+            %span.label.label-info Pending
+          %td
+            5
+          %td
+            $ 800.00
+        %tr
+          %td
+            %a{href: "#"} #590
+          %td
+            Mar 03, 2013
+          %td
+            %a{href: "#"} Steven McFly
+          %td
+            %span.label.label-success Completed
+          %td
+            2
+          %td
+            $ 1,350.00
+        %tr
+          %td
+            %a{href: "#"} #618
+          %td
+            Jan 03, 2013
+          %td
+            %a{href: "#"} George Williams
+          %td
+            %span.label Canceled
+          %td
+            8
+          %td
+            $ 3,499.99
+/ end orders table
 #verify-steps
   .row
     .col-md-4.step-item{class: ("yet" unless current_user.blank_contact?)}
-      %span.glyphicon.glyphicon-briefcase.icon
+      %i.icon-briefcase{:style => "font-size: 40px;"}
       %h3 1. Hoàn Chỉnh Hồ Sơ
       %span Tên, địa chỉ, số điện thoại
     .col-md-4.step-item{class: ("yet" if current_user.facebook_credentials)}
-      %span.glyphicon.glyphicon-share.icon
+      %i.icon-facebook-sign{:style => "font-size: 40px;"}
       %h3 2. Kết Nối Facebook
       %span Nhận cập nhật ngay trên Notification
     .col-md-4.step-item{class: ("yet" if current_user.verified?)}
-      %span.glyphicon.glyphicon-ok.icon
+      %i.icon-ok-sign{:style => "font-size: 40px;"}
       %h3 3. Xác Thực Tài Khoản
       %span Để viết giới thiệu dự án & gây quỹ
 %hr/

@@ -1,14 +1,37 @@
-- if (!current_user.verified_by_phone) && (current_user.verifications.where(:status => "UNUSED").empty?)
-  .devider
-    .item Xác Nhận Bằng Điện Thoại
-  %p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo mẫu: 0908123456, không thêm mã quốc gia vào.
-  .row-fluid
-    = form_tag(users_verification_code_via_phone_path, :method => :post) do
-      = text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "span12"
-      = submit_tag "Gửi Mã", :class => "submit"
-- elsif !current_user.verifications.where(:status => "UNUSED").empty?
-  = render "layouts/verify_code_via_phone"
-- else
-  %p
-    %i.icon-ok-sign
-    Tài khoản đã được xác nhận.
+= content_for :head do
+  %style 
+    form li {list-style-type: none !important;};
+
+#pad-wrapper.form-page
+  - if (!current_user.verified_by_phone) && (current_user.verifications.where(:status => "UNUSED").empty?)
+    .row
+      %h3 Xác Nhận Bằng Điện Thoại
+      %p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo mẫu: 0908123456, không thêm mã quốc gia vào.
+    .row.form-wrapper
+      = form_tag(users_verification_code_via_phone_path, :method => :post) do
+        .field-box
+          %label Số ĐT 
+          .col-md-7
+            = text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "form-control inline-input"
+        = submit_tag "Gửi Mã", :class => "btn-flat default"
+
+  - elsif !current_user.verifications.where(:status => "UNUSED").empty?
+    .row
+      %h3 
+        %i.icon-male
+        Hoàn tất xác nhận danh tính
+      %p Điền vào ô bên dưới đoạn mã 6 chữ số đã được gửi đến số 0#{current_user.phone} của bạn:
+    .row.form-wrapper
+      = form_tag(users_verification_code_via_phone_path, :method => :post) do
+        .field-box
+          %label Mã (xx-xx-xx)
+          .col-md-7
+            = text_field_tag :phone_code, nil, class: "form-control inline-input"
+        = submit_tag "Xác Nhận", class: "btn-flat default"
+      %p
+      %p Chưa nhận được mã? #{link_to "Gửi lại", users_resend_verification_path} tới số #{current_user.phone}.
+  - else
+    .row
+      %h3
+        %i.icon-ok-sign
+        Tài khoản đã được xác nhận.

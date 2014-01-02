@@ -1,0 +1,111 @@
+/ navbar
+%header.navbar.navbar-inverse{role: "banner"}
+  .navbar-header
+    %button#menu-toggler.navbar-toggle{"data-toggle" => "collapse", type: "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    = link_to root_path, class: "navbar-brand" do
+      = image_tag "charitymap-dashboard-logo.png"
+  %ul.nav.navbar-nav.pull-right.hidden-xs
+    %li.hidden-xs.hidden-sm
+      %input.search{type: "text"}/
+    %li.notification-dropdown.hidden-xs.hidden-sm
+      %a.trigger{href: "#"}
+        %i.icon-warning-sign
+        %span.count 8
+      .pop-dialog
+        .pointer.right
+          .arrow
+          .arrow_border
+        .body
+          %a.close-icon{href: "#"}
+            %i.icon-remove-sign
+          .notifications
+            %h3 You have 6 new notifications
+            %a.item{href: "#"}
+              %i.icon-signin
+              New user registration
+              %span.time
+                %i.icon-time
+                13 min.
+            %a.item{href: "#"}
+              %i.icon-signin
+              New user registration
+              %span.time
+                %i.icon-time
+                18 min.
+            %a.item{href: "#"}
+              %i.icon-envelope-alt
+              New message from Alejandra
+              %span.time
+                %i.icon-time
+                28 min.
+            %a.item{href: "#"}
+              %i.icon-signin
+              New user registration
+              %span.time
+                %i.icon-time
+                49 min.
+            %a.item{href: "#"}
+              %i.icon-download-alt
+              New order placed
+              %span.time
+                %i.icon-time
+                1 day.
+            .footer
+              %a.logout{href: "#"} View all notifications
+    / %li.notification-dropdown.hidden-xs.hidden-sm
+    /   %a.trigger{href: "#"}
+    /     %i.icon-envelope
+    /   .pop-dialog
+    /     .pointer.right
+    /       .arrow
+    /       .arrow_border
+    /     .body
+    /       %a.close-icon{href: "#"}
+    /         %i.icon-remove-sign
+    /       .messages
+    /         %a.item{href: "#"}
+    /           = image_tag "dashboard/contact-img.png", class: "display"
+    /           .name Alejandra Galván
+    /           .msg
+    /             There are many variations of available, but the majority have suffered alterations.
+    /           %span.time
+    /             %i.icon-time
+    /             13 min.
+    /         %a.item{href: "#"}
+    /           = image_tag "dashboard/contact-img2.png", class: "display"
+    /           .name Alejandra Galván
+    /           .msg
+    /             There are many variations of available, have suffered alterations.
+    /           %span.time
+    /             %i.icon-time
+    /             26 min.
+    /         %a.item.last{href: "#"}
+    /           = image_tag "dashboard/contact-img.png", class: "display"
+    /           .name Alejandra Galván
+    /           .msg
+    /             There are many variations of available, but the majority have suffered alterations.
+    /           %span.time
+    /             %i.icon-time
+    /             48 min.
+    /         .footer
+    /           %a.logout{href: "#"} View all messages
+    %li.dropdown
+      %a.dropdown-toggle.hidden-xs.hidden-sm{"data-toggle" => "dropdown", href: "#"}
+        Cá Nhân
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to "Tùy Chỉnh", users_settings_path
+        %li= link_to "Đóng Góp", users_donations_path
+        %li= link_to "Xác Nhận TK", users_verify_path
+        %li= link_to "Tin Nhắn", messages_path
+    %li.settings.hidden-xs.hidden-sm
+      = link_to users_settings_path do
+        %i.icon-cog
+    %li.settings.hidden-xs.hidden-sm
+      = link_to root_path do
+        %i.icon-share-alt
+/ end navbar

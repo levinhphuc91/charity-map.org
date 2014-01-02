@@ -1,37 +1,57 @@
-.devider
-	.item
-		%i.icon-edit-sign 
-		Chỉnh Sửa Thông Tin
+= content_for :head do
+  = stylesheet_link_tag    "wrapdashboard/optional/user-profile", media: "all", "data-turbolinks-track" => true
+  %style 
+    form li {list-style-type: none !important;};
+#pad-wrapper.form-page
+  .row.form-wrapper
+    / left column
+    .col-md-8.column
+      - if !@user.errors.empty?
+        .alert.alert-warning
+          - @user.errors.full_messages.each do |error_message| 
+            = error_message 
+            %br/
+      = semantic_form_for @user,:method => :post,  url: users_update_settings_path do |f|
+        = f.input  :id, :as => :hidden
+        .field-box
+          %label Email
+          .col-md-7
+            = f.input :email, label: false, input_html: {type: "text", class: "form-control inline-input"}
+        .field-box
+          %label Họ và Tên
+          .col-md-7
+            = f.input :full_name, label: false, input_html: {type: "text", class: "form-control inline-input"}, :wrapper_html => { :style => "list-style-type: none;" }
+        .field-box
+          %label Liên Lạc
+          .col-md-7
+            = f.input :address, label: false, :input_html => { type: "text", class: "form-control inline-input" }
+        .field-box
+          %label Giới Thiệu:
+          .col-md-7
+            = f.input :bio, label: false, :input_html => { :rows => 15, class: "form-control" }
+        .field-box
+          %label Số Điện Thoại
+          .col-md-7
+            .input-group
+              %span.input-group-addon 84
+              = f.input :phone, label: false, input_html: {type: "text", class: "form-control"}
+        .field-box
+          %label Ảnh Đại Diện
+          .col-md-7
+            = image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+            = f.file_field :avatar 
+            = f.hidden_field :avatar_cache        
+        .field-box
+          %label Tổ chức?
+          %label.checkbox-inline
+            = f.check_box :org
+            Click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng portfolio
 
-.row-fluid
-	.span12
-		.error_messages
-			%p
-				- if @user.errors.full_messages
-					- @user.errors.full_messages.each do |error_message| 
-						= error_message 
-						%br/
-
-		.update-user-profile
-			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-				= f.input  :id, :as => :hidden
-				= f.inputs :email
-				= f.input  :full_name #, input_html: { disabled: true } unless current_user.phone.blank?
-				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
-				= f.input :bio, :input_html => { :cols => 100, :rows => 15 }
-				= f.input  :address, as: :text, :input_html => {:rows => 5}
-				.row-fluid
-					.span8.offset3.hint= render "layouts/markdown"
-				.clearfix
-				= f.input :phone #, input_html: { disabled: true } unless current_user.phone.blank?
-				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
-				= f.file_field :avatar 
-				= f.hidden_field :avatar_cache 
-				%hr/
-				%p
-					= f.check_box :org
-					Tổ chức (click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng portfolio)
-				%hr/
-				.pull-right.bttn.bttn-blue= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
-				.pull-left
-					= f.submit "Cập nhật Thông Tin", class: "submit"
+        .col-md-offset-2.col-md-8
+          = f.submit "CẬP NHẬT THÔNG TIN", class: "btn-flat default"
+    / right column
+    .col-md-4.column.pull-right
+      = link_to "Xem Trang Của Bạn", user_profile_path(current_user), class: "btn-flat icon large pull-right"
+      = image_tag(@user.avatar_url(:large), class: "avatar img-circle") if @user.avatar? 
+      %h2.name= @user.name
+      %span.area= @user.email

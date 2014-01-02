@@ -1,44 +1,36 @@
-#sidebar.col-md-2
-  %ul
+/ sidebar
+#sidebar-nav
+  %ul#dashboard-menu
+    %li.active
+      - if params[:action] == "dashboard"
+        .pointer
+          .arrow
+          .arrow_border
+      = link_to dashboard_path do
+        %i.icon-home
+        %span Home
     - if (["dashboard/projects", "project_updates", "recommendations", "project_rewards", "invites"].include?(params[:controller]) && @project)
-      %h3.side-heading= limit_display @project.title, 15
-      %li
-        %span.glyphicon.glyphicon-pencil
-        = link_to "Chỉnh Sửa", edit_project_path(@project)
-      %li
-        %span.glyphicon.glyphicon-send
-        = link_to "Gửi Thư Mời", project_invites_path(@project)
-      %li
-        %span.glyphicon.glyphicon-usd
-        = link_to "Quản Lí Quỹ", project_project_rewards_path(@project)
-      %h3.side-heading Trang Quản Lý
-      %li
-        %span.glyphicon.glyphicon-share-alt
-        = link_to "Trở Về", dashboard_path
+      %li.active
+        %a.dropdown-toggle{href: "#"}
+          %i.icon-signal
+          %span= @project.title
+          %i.icon-chevron-down
+        %ul.submenu
+          %li= link_to "Chỉnh Sửa", edit_project_path(@project)
+          %li= link_to "Gửi Thư Mời", project_invites_path(@project)
+          %li= link_to "Quản Lí Quỹ", project_project_rewards_path(@project)
     - else
-      %h3.side-heading Dự Án Của Bạn
-      - current_user.projects.each do |project|
-        %li
-          %span.glyphicon.glyphicon-inbox
-          = link_to limit_display(project.title,20),dashboard_project_path(project)
       %li
-        %span.glyphicon.glyphicon-pencil
-        = link_to "Tạo Mới", new_project_path
-    - unless (["dashboard/projects", "project_updates", "recommendations", "project_rewards", "invites"].include?(params[:controller]) && @project)
-      %h3.side-heading Cá Nhân
-      %li
-        %span.glyphicon.glyphicon-wrench
-        = link_to "Tùy Chỉnh", users_settings_path
-      %li
-        %span.glyphicon.glyphicon-gift
-        = link_to "Đóng Góp", users_donations_path
-      %li
-        %span.glyphicon.glyphicon-info-sign
-        = link_to "Xác Nhận TK", users_verify_path
-      %li
-        %span.glyphicon.glyphicon-envelope
-        = link_to "Tin Nhắn", messages_path
-      %h3.side-heading Hệ Thống
-      %li
-        %span.glyphicon.glyphicon-certificate
-        = link_to "Tin Tức, Cập Nhật", Configuration[:blog_url], target: "_blank"
+        %a.dropdown-toggle{href: "#"}
+          %i.icon-signal
+          %span Dự Án
+          %i.icon-chevron-down
+        %ul.submenu
+          - current_user.projects.each do |project|
+            %li= link_to project.title,dashboard_project_path(project)
+          %li= link_to "Tạo Mới", new_project_path
+    
+    %li
+      = link_to Configuration[:blog_url], target: "_blank" do
+        %i.icon-share-alt
+        %span Cập Nhật

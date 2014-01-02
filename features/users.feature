@@ -26,7 +26,7 @@ Feature: User
       # And I select "Hồ Chí Minh" from "City"
       And I fill in "Bio" with "Charity Map co-founders"
       And I fill in "Phone" with "0908 230 591"
-      And I press "Cập nhật Thông Tin"
+      And I press "CẬP NHẬT THÔNG TIN"
     Then I should see "Cập nhật thành công."
     When I follow "Xem Trang Của Bạn"
     Then I should see "Người dùng chưa tạo dự án trên hệ thống."
@@ -185,5 +185,5 @@ Feature: User
       And I go to the users settings page
     Then the "user_org" checkbox should not be checked
     # When I check "portfolio"
-    #   And I press "Cập nhật Thông Tin"
+    #   And I press "CẬP NHẬT THÔNG TIN"
     # Then the "portfolio" checkbox should be checked

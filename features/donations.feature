@@ -14,7 +14,7 @@ Feature: Donation
 	 		And I fill in "Full name" with "Hoang Minh Tus"
 	 		And I fill in "Address" with "This is my address"
 	 		And I fill in "Phone" with "+123456"
-	 		And I press "Cập nhật Thông Tin"
+	 		And I press "CẬP NHẬT THÔNG TIN"
 	 	Then I should see "Cập nhật thành công."
 	 		And I should see "Đóng Góp Push The World"
 

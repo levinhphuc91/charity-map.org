@@ -15,7 +15,6 @@
     = stylesheet_link_tag    "cm-dashboard", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "wrapdashboard", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag    "wrapdashboard/bootstrap/bootstrap-overrides", media: "all", "data-turbolinks-track" => true
-    / = stylesheet_link_tag    "cm-dashboard", media: "all", "data-turbolinks-track" => true
     %link{:href => "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
     = csrf_meta_tags
     = yield :head
@@ -27,6 +26,8 @@
     = render "layouts/dashboard/side_bar"
     / main container
     .content
+      - if alert || notice
+        .alert.alert-warning= alert || notice
       = yield
     = javascript_include_tag "wrapdashboard", "data-turbolinks-track" => true
     = javascript_include_tag "dashboard/jquery-ui-1.10.2.custom.min", "data-turbolinks-track" => true

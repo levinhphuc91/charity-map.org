@@ -1,9 +1,17 @@
-.row-fluid
-  .devider
-    .item Đóng Góp Của Bạn
-.row-fluid
-  - if current_user.donations.empty?
-    %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
-  - else
+= content_for :head do
+  = stylesheet_link_tag    "wrapdashboard/optional/tables", media: "all", "data-turbolinks-track" => true
+#pad-wrapper
+  .table-wrapper.orders-table
+    .row.head
+      .col-md-12
+        %h4 Đóng Góp Của Bạn
+    
+    .row.filter-block
+      .pull-right
+        .btn-group.pull-right
+          %button.glow.left.large Tất Cả
+          %button.glow.middle.large Đang Xử Lý
+          %button.glow.right.large Hoàn Tất
+        / %input.search.order-search{placeholder: "Search for an order..", type: "text"}/
     - cache("user_donations", :expires_in => 12.hours) do
       = render "layouts/donation_display", donations: current_user.donations

@@ -33,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def donations
+    render layout: "layouts/dashboard2"
   end
 
   def verify

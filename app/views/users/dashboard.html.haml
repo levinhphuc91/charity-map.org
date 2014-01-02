@@ -1,152 +1,155 @@
-/ orders table
-.table-wrapper.orders-table
-  .row.head
-    .col-md-12
-      %h4 Orders
-  .row.filter-block
-    .pull-right
-      .btn-group.pull-right
-        %button.glow.left.large All
-        %button.glow.middle.large Pending
-        %button.glow.right.large Completed
-      %input.search.order-search{placeholder: "Search for an order..", type: "text"}/
-  .row
-    %table.table.table-hover
-      %thead
-        %tr
-          %th.col-md-2
-            Order ID
-          %th.col-md-2
-            %span.line
-            Date
-          %th.col-md-2
-            %span.line
-            Name
-          %th.col-md-2
-            %span.line
-            Status
-          %th.col-md-2
-            %span.line
-            Items
-          %th.col-md-2
-            %span.line
-            Total amount
-      %tbody
-        / row
-        %tr.first
-          %td
-            %a{href: "#"} #459
-          %td
-            Jan 03, 2013
-          %td
-            %a{href: "#"} John Smith
-          %td
-            %span.label.label-success Completed
-          %td
-            3
-          %td
-            $ 3,500.00
-        %tr
-          %td
-            %a{href: "#"} #510
-          %td
-            Feb 22, 2013
-          %td
-            %a{href: "#"} Anna Richards
-          %td
-            %span.label.label-info Pending
-          %td
-            5
-          %td
-            $ 800.00
-        %tr
-          %td
-            %a{href: "#"} #590
-          %td
-            Mar 03, 2013
-          %td
-            %a{href: "#"} Steven McFly
-          %td
-            %span.label.label-success Completed
-          %td
-            2
-          %td
-            $ 1,350.00
-        %tr
-          %td
-            %a{href: "#"} #618
-          %td
-            Jan 03, 2013
-          %td
-            %a{href: "#"} George Williams
-          %td
-            %span.label Canceled
-          %td
-            8
-          %td
-            $ 3,499.99
-/ end orders table
-#verify-steps
-  .row
-    .col-md-4.step-item{class: ("yet" unless current_user.blank_contact?)}
-      %i.icon-briefcase{:style => "font-size: 40px;"}
-      %h3 1. Hoàn Chỉnh Hồ Sơ
-      %span Tên, địa chỉ, số điện thoại
-    .col-md-4.step-item{class: ("yet" if current_user.facebook_credentials)}
-      %i.icon-facebook-sign{:style => "font-size: 40px;"}
-      %h3 2. Kết Nối Facebook
-      %span Nhận cập nhật ngay trên Notification
-    .col-md-4.step-item{class: ("yet" if current_user.verified?)}
-      %i.icon-ok-sign{:style => "font-size: 40px;"}
-      %h3 3. Xác Thực Tài Khoản
-      %span Để viết giới thiệu dự án & gây quỹ
-%hr/
-#prj-list
-  .empty
-    %h4 Tạo dự án trên charity-map.org để gây quỹ, quản lý quỹ và tham gia vào cộng đồng các nhóm, tổ chức xã hội và các mạnh thường quân
-    = link_to new_project_path do
-      %button.btn.btn-lg.btn-success.save-prj{type: "button"}
-        %span.glyphicon.glyphicon-plus
-        - if current_user.projects.empty?
-          Tạo Dự Án Đầu Tiên
-        - else
-          Tạo Dự Án
-  .list
-    .draft-item
-      .col-md-2.item-left
-        %span.glyphicon.glyphicon-inbox
-      .col-md-10
-        .item-banner
-          %img{alt: "", src: "https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-ash4/s720x720/1531541_10152105376855446_1439574613_n.jpg", style: "top: -80%", width: "525px"}/
-        %a.banner-text-bg{href: ""}
-        .item-details
-          .name
-            %a{href: ""} Ấm Tình Mùa Xuân
-          .desc
-            %i Bản Nháp
-        .item-action
-          .actions
-            %button.btn.btn-default{type: "button"}
-              %span.glyphicon.glyphicon-pencil.icon>
-              Chỉnh Sửa
-    .funding-item
-      .col-md-2.item-left
-        %span.glyphicon.glyphicon-inbox
-      .col-md-10
-        .item-banner
-          %img{alt: "", src: "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2013/11/typing-786x305.jpg", style: "top: -80%", width: "525px"}/
-        %a.banner-text-bg{href: ""}
-        .item-details
-          .name
-            %a{href: ""} Anh Hùng Bàn Phím
-          .desc
-            Hoàn Thành
-            %i 25%
-            \- Còn
-            %i 25 ngày
-        .item-action
-          .actions
-            %button.btn.btn-default{type: "button"}
-              %span.glyphicon.glyphicon-signal.icon>
-              Quản Lí
-    .funded-item
+= content_for :head do
+  = stylesheet_link_tag    "wrapdashboard/optional/tables", media: "all", "data-turbolinks-track" => true
+#pad-wrapper
+  / orders table
+  .table-wrapper.orders-table
+    .row.head
+      .col-md-12
+        %h4 Orders
+    .row.filter-block
+      .pull-right
+        .btn-group.pull-right
+          %button.glow.left.large All
+          %button.glow.middle.large Pending
+          %button.glow.right.large Completed
+        %input.search.order-search{placeholder: "Search for an order..", type: "text"}/
+    .row
+      %table.table.table-hover
+        %thead
+          %tr
+            %th.col-md-2
+              Order ID
+            %th.col-md-2
+              %span.line
+              Date
+            %th.col-md-2
+              %span.line
+              Name
+            %th.col-md-2
+              %span.line
+              Status
+            %th.col-md-2
+              %span.line
+              Items
+            %th.col-md-2
+              %span.line
+              Total amount
+        %tbody
+          / row
+          %tr.first
+            %td
+              %a{href: "#"} #459
+            %td
+              Jan 03, 2013
+            %td
+              %a{href: "#"} John Smith
+            %td
+              %span.label.label-success Completed
+            %td
+              3
+            %td
+              $ 3,500.00
+          %tr
+            %td
+              %a{href: "#"} #510
+            %td
+              Feb 22, 2013
+            %td
+              %a{href: "#"} Anna Richards
+            %td
+              %span.label.label-info Pending
+            %td
+              5
+            %td
+              $ 800.00
+          %tr
+            %td
+              %a{href: "#"} #590
+            %td
+              Mar 03, 2013
+            %td
+              %a{href: "#"} Steven McFly
+            %td
+              %span.label.label-success Completed
+            %td
+              2
+            %td
+              $ 1,350.00
+          %tr
+            %td
+              %a{href: "#"} #618
+            %td
+              Jan 03, 2013
+            %td
+              %a{href: "#"} George Williams
+            %td
+              %span.label Canceled
+            %td
+              8
+            %td
+              $ 3,499.99
+  / end orders table
+  #verify-steps
+    .row
+      .col-md-4.step-item{class: ("yet" unless current_user.blank_contact?)}
+        %i.icon-briefcase{:style => "font-size: 40px;"}
+        %h3 1. Hoàn Chỉnh Hồ Sơ
+        %span Tên, địa chỉ, số điện thoại
+      .col-md-4.step-item{class: ("yet" if current_user.facebook_credentials)}
+        %i.icon-facebook-sign{:style => "font-size: 40px;"}
+        %h3 2. Kết Nối Facebook
+        %span Nhận cập nhật ngay trên Notification
+      .col-md-4.step-item{class: ("yet" if current_user.verified?)}
+        %i.icon-ok-sign{:style => "font-size: 40px;"}
+        %h3 3. Xác Thực Tài Khoản
+        %span Để viết giới thiệu dự án & gây quỹ
+  %hr/
+  #prj-list
+    .empty
+      %h4 Tạo dự án trên charity-map.org để gây quỹ, quản lý quỹ và tham gia vào cộng đồng các nhóm, tổ chức xã hội và các mạnh thường quân
+      = link_to new_project_path do
+        %button.btn.btn-lg.btn-success.save-prj{type: "button"}
+          %span.glyphicon.glyphicon-plus
+          - if current_user.projects.empty?
+            Tạo Dự Án Đầu Tiên
+          - else
+            Tạo Dự Án
+    .list
+      .draft-item
+        .col-md-2.item-left
+          %span.glyphicon.glyphicon-inbox
+        .col-md-10
+          .item-banner
+            %img{alt: "", src: "https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-ash4/s720x720/1531541_10152105376855446_1439574613_n.jpg", style: "top: -80%", width: "525px"}/
+          %a.banner-text-bg{href: ""}
+          .item-details
+            .name
+              %a{href: ""} Ấm Tình Mùa Xuân
+            .desc
+              %i Bản Nháp
+          .item-action
+            .actions
+              %button.btn.btn-default{type: "button"}
+                %span.glyphicon.glyphicon-pencil.icon>
+                Chỉnh Sửa
+      .funding-item
+        .col-md-2.item-left
+          %span.glyphicon.glyphicon-inbox
+        .col-md-10
+          .item-banner
+            %img{alt: "", src: "http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2013/11/typing-786x305.jpg", style: "top: -80%", width: "525px"}/
+          %a.banner-text-bg{href: ""}
+          .item-details
+            .name
+              %a{href: ""} Anh Hùng Bàn Phím
+            .desc
+              Hoàn Thành
+              %i 25%
+              \- Còn
+              %i 25 ngày
+          .item-action
+            .actions
+              %button.btn.btn-default{type: "button"}
+                %span.glyphicon.glyphicon-signal.icon>
+                Quản Lí
+      .funded-item

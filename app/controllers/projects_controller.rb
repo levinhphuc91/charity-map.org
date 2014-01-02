@@ -26,6 +26,12 @@ class ProjectsController < InheritedResources::Base
     end
   end
 
+  def create
+    create! do |success, failure|
+      failure.html { render layout: "layouts/dashboard2" }
+    end
+  end
+
   def show
     @project = Project.find(params[:id])
     @user = @project.user

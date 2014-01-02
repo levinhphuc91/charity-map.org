@@ -5,7 +5,7 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 
 gem 'pg'
-gem 'devise', '~> 3.2.2'
+gem 'devise', '~> 3.0.3'
 gem 'haml-rails'
 gem 'inherited_resources'
 gem 'simple_form'
@@ -21,7 +21,6 @@ gem 'ledermann-rails-settings', :require => 'rails-settings' # User settings
 gem 'rack-ssl-enforcer'
 gem 'nprogress-rails'
 gem 'impressionist'
-gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

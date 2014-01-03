@@ -32,7 +32,7 @@
       .alert.alert-info= notice || alert
 
   #chart-details
-    .row.chart= line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: (@project.funding_goal+1), height: "300px"
+    .row.chart= line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: @max + 10000000, height: "300px"
     .row.details
       %ul
         %li.col-md-3

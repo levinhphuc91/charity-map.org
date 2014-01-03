@@ -19,3 +19,4 @@
 //= require morris
 //= require nprogress
 //= require nprogress-turbolinks
+$(".tooltip").tooltip();

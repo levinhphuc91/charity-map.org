@@ -54,7 +54,10 @@
                       %li= msg
               .form-group
                 = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
-                = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+                - if signed_in?
+                  = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+                - else
+                  = f.input       :user_id, :as => :hidden
                 = f.input       :content, placeholder: "Nhập bình luận của bạn", :label => false, :input_html => {:class => "form-control"}
                 %p
                 = f.submit "gửi bình luận", class: "col-md-3 btn btn-success btn-sm pull-right"              

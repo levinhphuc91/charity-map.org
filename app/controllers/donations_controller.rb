@@ -13,7 +13,7 @@ class DonationsController < InheritedResources::Base
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
     @ext_donation = ExtDonation.new
     @ext_donations = @project.ext_donations
-    @max = (@project.donations_sum > @project.funding_goal ? @project.donations_sum : @project.funding_goal)
+    @max = (@project.donations_sum > @project.funding_goal ? @project.donations_sum + 10000000 : @project.funding_goal)
   end
 
   def show

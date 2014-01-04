@@ -94,7 +94,7 @@
               .sub-headline #{link_to "Ủng Hộ", project_donations_path(@project)}
             - cache("project_donations", :expires_in => 1.hour) do
               - @project.donations.successful[0..4].each do |donation|
-                %p <b>#{link_to human_time(donation.created_at), project_donation_path(@project, donation)}</b> &sdot; #{donation.anon ? "Ẩn Danh" : donation.user.name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
+                %p <b>#{link_to human_time(donation.created_at), project_donations_path(@project)}</b> &sdot; #{donation.anon ? "Ẩn Danh" : donation.user.name} ủng hộ #{human_currency donation.amount} (#{human_donation_type donation.collection_method})
             - if @project.donations.count > 5
               .row-fluid
                 .pull-right

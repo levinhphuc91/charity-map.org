@@ -19,7 +19,7 @@
     %br/ 
     \== Số tài khoản:  0071000707388
 - else
-  = markdown @project.bank_info.html_safe
+  = h(@project.bank_info).gsub(/\n/, '<br/>').html_safe
 
 %p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản: <b>#{@donation.euid}</b>.
 

@@ -1,35 +1,21 @@
 - unless donations.empty?
-  %table.table.table-bordered
-    %tr
-      %th MÃ
-      %th DỰ ÁN
-      %th SỐ TIỀN / PHƯƠNG THỨC
-      %th TRẠNG THÁI
-
-    - donations.each do |donation|
-      - if donation.status == "SUCCESSFUL" || (current_user && current_user.projects.exists?(@project) != nil && (donation.status == "PENDING" || donation.status == "REQUEST_VERIFICATION"))  || (current_user && current_user.staff && donation.status == "PENDING" && donation.collection_method == "COD") 
-        %tr
-          %td
-            %span.euid= link_to donation.euid, project_donation_path(donation.project, donation)
-          %td #{human_time(donation.created_at)} &sdot; #{link_to limit_display(donation.project.title, 30), project_path(donation.project)}
-          %td
-            %i.icon-money 
-            #{human_currency donation.amount} &nbsp;&nbsp;&nbsp;
-            %br/ 
-            = link_to project_donation_path(donation.project, donation) do
-              %i.icon-cogs 
-              #{human_donation_type(donation.collection_method)}
-            
-          %td
-            .row-fluid
-              .span6
-                = human_donation_status(donation)
-              .span6
-                - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING" && current_user && current_user.donations.exists?(@donation) != nil
-                  (#{link_to "Đã Chuyển?", donations_request_verification_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với người làm dự án là bạn đã tiến hành chuyển tiền vào tài khoản. Thao tác này không thể undo."})
-
-              - if donation.collection_method == "BANK_TRANSFER" && donation.status == "REQUEST_VERIFICATION" && current_user && (current_user.projects.exists?(@project) != nil)
-                = link_to "Đã nhận tiền?", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với mạnh thường quân là bạn đã nhận tiền chuyển vào tài khoản. Thao tác này không thể undo."
-
-              - if donation.collection_method == "COD" && donation.status == "PENDING" && current_user && current_user.staff
-                = link_to "Đã nhận tiền?", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, hệ thống sẽ thông báo với mạnh thường quân là bạn đã nhận tiền mặt. Thao tác này không thể undo."
+  - donations.each do |donation|
+    .donation
+      - if donation.status == "SUCCESSFUL"
+        .date.centered= human_time(donation.created_at)
+        / .collection_method
+        /   %span.centered= human_donation_type donation.collection_method
+        .in_words <strong>#{ donation.anon ? "Ẩn Danh" : donation.user.name }</strong> ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
+      - else
+        .date.centered= human_time(donation.created_at)
+        / .collection_method
+        /   %span.centered= human_donation_type donation.collection_method
+        .in_words 
+          - if donation.anon
+            %strong Ẩn Danh
+          - else
+            %strong= link_to donation.user.name, user_profile_path(donation.user)
+          ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
+        .action
+          - if current_user && donation.project.authorized_edit_for?(current_user)
+            = link_to "Đã nhận tiền?", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với mạnh thường quân là bạn đã nhận tiền chuyển vào tài khoản. Thao tác này không thể undo."

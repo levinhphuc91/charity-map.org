@@ -49,7 +49,6 @@
             %hr/ 
         - else
           = render "layouts/donation_display", donations: @donations
-    .sub-headline Ngoài Hệ Thống
     - @ext_donations.order("collection_time DESC").each do |donation|
       .donation
         .date.centered= human_time donation.collection_time

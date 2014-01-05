@@ -5,7 +5,12 @@
         .date.centered= human_time(donation.created_at)
         / .collection_method
         /   %span.centered= human_donation_type donation.collection_method
-        .in_words <strong>#{ donation.anon ? "Ẩn Danh" : donation.user.name }</strong> ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
+        .in_words
+          - if donation.anon
+            %strong Ẩn Danh
+          - else
+            %strong= link_to donation.user.name, user_profile_path(donation.user)
+          ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
       - else
         .date.centered= human_time(donation.created_at)
         / .collection_method

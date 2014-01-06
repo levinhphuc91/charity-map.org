@@ -3,7 +3,7 @@
 %header.proj-header.row.col-md-8.col-md-offset-2{style: "height: 100px;"}
   / = render "layouts/item-based/navigation", project: @project
   %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
+    .row.col-md-12.clearfix
       %ul.nav.navbar-nav.project-links
         %li= link_to "Thông Tin", project_path(project), class: ("active" if params[:controller] == "projects")
         %li
@@ -15,13 +15,11 @@
         %li
           = link_to project_project_comments_path(project), class: ("active" if params[:controller] == "project_comments") do
             Bình Luận #{"(#{project.project_comments.count})" if project.project_comments.count > 0}
-        %li
-          = link_to project_project_comments_path(project), class: ("active" if params[:controller] == "project_comments") do
-            Bình Luận #{"(#{project.project_comments.count})" if project.project_comments.count > 0}
-  / .comment-header
-  /   %h1= project.title
-  /   %span.glyphicon.glyphicon-user
-  /   = project.user.name
-  /   &sdot;
-  /   %span.glyphicon.glyphicon-map-marker
-  /   = project.location
+
+/ .comment-header
+/   %h1= project.title
+/   %span.glyphicon.glyphicon-user
+/   = project.user.name
+/   &sdot;
+/   %span.glyphicon.glyphicon-map-marker
+/   = project.location

@@ -31,9 +31,6 @@ CharityMap::Application.routes.draw do
   get   'pages/about'
   get   'pages/faqs'
   get   'pages/guidelines'
-
-  get   'projects/submit'
-
   get   'donations/request_verification'
 
   resources :projects do
@@ -42,6 +39,7 @@ CharityMap::Application.routes.draw do
       get 'search'
       get 'invite_ext_donor'
     end
+    get   'submit', on: :member
     resources :invites do
       get 'send_out', on: :collection
     end

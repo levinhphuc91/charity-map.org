@@ -81,19 +81,14 @@ Feature: Project
   Scenario: To be submitted for review
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
-    When I go to the login page
-      And I fill in "user_email" with "testing@man.net"
-      And I fill in "user_password" with "secretpass"
-      And I press "Đăng Nhập"
-      And I go to the dashboard
-      And I follow "Push The World"
-      And I follow "Chỉnh Sửa"
-      And I follow "Đăng Ký Gây Vốn"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" with the user above 
+    When I login as "testing@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Tiến Hành Gây Quỹ"
     Then I should see "Phải có ít nhất một Đề mục đóng góp (project reward)."
       And I fill in "project_reward_value" with "100000"
       And I fill in "project_reward_description" with "Test Description"
-      And I press "Lưu" 
+      And I press "Lưu"
     When I go to the project page of "Push The World"
       And I follow "Tiến Hành Gây Quỹ"
     Then I should see "Dự án chuyển sang trạng thái gây quỹ."
@@ -231,7 +226,7 @@ Feature: Project
     When I login as "follower@man.net"
       And I go to the project page of "Push The World"
       And I follow "nhận cập nhật"
-    Then I should see "Đăng ký nhận cập nhật từ dự án thành công."
+    Then I should see "đang nhận cập nhật"
 
   Scenario: Send project update to followers via email
     Given the date is 2013-09-11
@@ -252,7 +247,7 @@ Feature: Project
       And I press "Cập Nhật"
     Then an email should have been sent with:
       """
-      From: tu@charity-map.org
+      From: team@charity-map.org
       To: follower@man.net
       Subject: Cập nhật mới từ dự án Push The World
       """
@@ -298,7 +293,7 @@ Feature: Project
     Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
     Then an email should have been sent with:
       """
-      From: tu@charity-map.org
+      From: team@charity-map.org
       To: invited@gmail.com
       Subject: Đang gây quỹ: Dự án Push The World
       """

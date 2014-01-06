@@ -92,8 +92,6 @@ class ProjectsController < InheritedResources::Base
   private
     def restricted_access
       @project = Project.find(params[:id])
-      unless @project.belongs_to?(current_user)
-        redirect_to :root, alert: "Permission denied."
-      end
+      redirect_to :root, alert: "Permission denied." if !signed_in? || !@project.authorized_edit_for?(current_user)
     end
 end

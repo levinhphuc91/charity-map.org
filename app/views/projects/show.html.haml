@@ -33,7 +33,7 @@
     /   %h1 #{link_to @user.name, user_profile_path(@user)}
     /   %span.quote "#{@project.brief}"
   %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
+    .row.col-md-12.clearfix
       %ul.nav.navbar-nav.project-links
         %li= link_to "Thông Tin", project_path(@project), class: "active"
         %li
@@ -45,8 +45,10 @@
         %li
           = link_to project_project_comments_path(@project) do
             Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-        / - if current_user && @project.belongs_to?(current_user)
-        /   %li= link_to "Chỉnh Sửa", edit_project_path(@project), style: "color: #3498db !important;"
+        - if current_user && @project.authorized_edit_for?(current_user)
+          %li= link_to "Chỉnh Sửa", edit_project_path(@project), style: "color: #3498db !important;"
+          - if @project.status == "DRAFT"
+            %li= link_to "Tiến Hành Gây Quỹ", submit_project_path(@project), style: "color: #5cb85c !important;"
 %section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px;"}
   - if notice || alert
     .row

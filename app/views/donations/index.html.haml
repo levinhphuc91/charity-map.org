@@ -17,7 +17,7 @@
     /   &sdot;
     /   %span.glyphicon.glyphicon-map-marker
     /   = @project.location
-    .row.chart= line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: @max + 10000000, height: "300px"
+    .row.chart= line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: @max, height: "300px"
     .row.details
       %ul
         %li.col-md-3
@@ -47,6 +47,10 @@
       / .dates
       /   .ago 2 ngày trước
       /   .date Thứ 5, ngày 2 tháng 1
+      
+      - @donations.each do |donation|
+        = render "layouts/donation_display", donation: donation
+
       - @ext_donations.order("collection_time DESC").each do |donation|
         .donation-item
           .item-desc
@@ -55,22 +59,24 @@
               .avatar= image_tag "default_avatar.png"
             %strong #{ donation.anon ? "Ẩn Danh" : donation.donor }
             ủng hộ #{human_currency donation.amount}
-            - if current_user && @project.authorized_edit_for?(current_user)
-              = link_to edit_project_ext_donation_path(@project, donation) do
-                .links-right
-                  %span.glyphicon.glyphicon-pencil
-              = link_to project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} do
-                .links-right
-                  %span.glyphicon.glyphicon-trash
 
             - if donation.collection_method == "COD"
-              %a{href: "#"}
+              %a.action{href: "#"}
                 .links-right
                   %span.glyphicon.glyphicon-usd
             - else
-              %a{href: "#"}
+              %a.action{href: "#"}
                 .links-right
                   %span.glyphicon.glyphicon-credit-card
+            
+            - if current_user && @project.authorized_edit_for?(current_user)
+              = link_to edit_project_ext_donation_path(@project, donation), class: "action" do
+                .links-right
+                  %span.glyphicon.glyphicon-pencil
+              = link_to project_ext_donation_path(@project, donation), class: "action", :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} do
+                .links-right
+                  %span.glyphicon.glyphicon-trash
+
     
 - if current_user && @project.authorized_edit_for?(current_user)
   #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}

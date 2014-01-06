@@ -24,7 +24,8 @@
       = f.input :description, label: false, :input_html => {:class => "span12"}
   .row-fluid
     .span12
-      .sub-headline Ảnh (Nếu Có)
-      = f.input :photo, label: false, :input_html => {:class => "span12"}
+      .sub-headline Ảnh (175 x 175px)
+      = f.file_field :photo
+      = f.hidden_field :photo_cache 
   .row-fluid
     .pull-right= f.submit "Lưu", class: "submit"

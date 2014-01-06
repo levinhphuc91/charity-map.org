@@ -67,15 +67,16 @@
 
   = render "projects/side_bar/metrics_box", project: @project
   %p#project-info= markdown @project.description
+  %hr/ 
   %ul#project-rewards.products.row
     - if @project.item_based
-      - @project.project_rewards.each do |reward|
+      - @project.project_rewards.order(:value).each do |reward|
         .col-md-3
           %li.item
             = link_to new_project_donation_path(@project, project_reward_id: reward.id) do
-              %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
+              .product-shot= image_tag reward.photo_url(:thumb)
               .item-desc.text-center
                 %span.price= human_currency reward.value
                 %hr/
-                %span.name= reward.name
-                %span.qtt= reward.quantity
+                %span.name= reward.try(:name)
+                %span.qtt (SL: #{reward.quantity})

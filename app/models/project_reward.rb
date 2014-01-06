@@ -18,10 +18,11 @@ class ProjectReward < ActiveRecord::Base
 
   belongs_to :project
   has_many :donations
+  mount_uploader :photo, ItemUploader
   
   attr_accessible :name, :value, :photo, :description, :quantity, :project_id
 
   validates :value, :description, :project_id, presence: true
   validates :value, numericality: { :greater_than_or_equal_to => 10000 }
-  validates :value, :uniqueness => {:scope => :project_id}
+  # validates :value, :uniqueness => {:scope => :project_id}
 end

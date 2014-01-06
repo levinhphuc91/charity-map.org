@@ -2,18 +2,15 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show]
-  # layout "layouts/item-based", only: [:index]
 
   def index
     @project = Project.find(params[:project_id])
-    if current_user && (@project.belongs_to?(current_user) || (current_user.staff))
-      @donations = @project.donations.order("date(updated_at) DESC")
-    else
-      @donations = @project.donations.successful.order("date(updated_at) DESC")
-    end
+    @donations = (current_user && @project.authorized_edit_for?(current_user)) ? @project.donations.order("date(updated_at) DESC") : @project.donations.successful.order("date(updated_at) DESC")
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
     @ext_donation = ExtDonation.new
     @ext_donations = @project.ext_donations
+    @max = (@project.donations_sum > @project.funding_goal ? @project.donations_sum + 10000000 : @project.funding_goal)
+    render layout: "layouts/item-based"
   end
 
   def show
@@ -28,7 +25,7 @@ class DonationsController < InheritedResources::Base
       store_location_with_path(new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
-      if @project.accepting_donation?
+      if @project.accepting_donations?
         if @project.item_based
           @project_reward = ProjectReward.find(params[:project_reward_id])
         end
@@ -70,7 +67,7 @@ class DonationsController < InheritedResources::Base
   def confirm
     require 'social_share'
     @donation = Donation.find_by_euid(params[:euid])
-    if @donation.collection_method == "BANK_TRANSFER" && @donation.status == "REQUEST_VERIFICATION" && @donation.project.belongs_to?(current_user)
+    if @donation.collection_method == "BANK_TRANSFER" && @donation.status != "SUCCESSFUL" && @donation.project.authorized_edit_for?(current_user)
       @donation.update :status => "SUCCESSFUL"
       UserMailer.delay.bank_transfer_confirm_donation(@donation)
       SendMessage.delay.fb({
@@ -78,7 +75,7 @@ class DonationsController < InheritedResources::Base
         :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
       ) if (@donation.user.provider == "facebook" && Rails.env.production?)
       redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
-    elsif @donation.collection_method == "COD" && @donation.status == "PENDING" && current_user.staff
+    elsif @donation.collection_method == "COD" && @donation.status != "SUCCESSFUL" && @donation.project.authorized_edit_for?(current_user)
       @donation.update :status => "SUCCESSFUL"
       UserMailer.delay.cod_confirm_donation(@donation)
       SendMessage.delay.fb({

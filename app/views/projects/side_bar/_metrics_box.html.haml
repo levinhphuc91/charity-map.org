@@ -18,22 +18,35 @@
           %strong
             %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} NGÀY
           .hint THỜI GIAN CÒN LẠI
-        - else
+        - elsif project.start_date > Date.today
           %strong
-            %span #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
-          .hint THỜI GIAN GÂY QUỸ
+            %span= human_time(project.start_date)
+          .hint BẮT ĐẦU GÂY QUỸ
+        - elsif project.end_date < Date.today
+          %strong
+            %span= human_time(project.end_date)
+          .hint KẾT THÚC GÂY QUỸ
   .row.text-center.action-box
-    = link_to new_project_donation_path(project) do
-      %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+    - if @project.accepting_donations?
+      - if @project.item_based
+        = link_to project_path(@project, anchor: "project-rewards") do
+          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-gift
+            &nbsp;ủng hộ dự án
+      - else
+        = link_to new_project_donation_path(@project) do
+          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-gift
+            &nbsp;ủng hộ dự án
+    - else
+      %button.col-md-3.btn.btn-success.disabled.btn-lg{type: "button"}
         %span.glyphicon.glyphicon-gift
-        &nbsp;ủng hộ dự án
+        &nbsp;đang không gây quỹ
     - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
-      %button.col-md-offset-1.col-md-3.btn.btn-default.disabled.btn-lg{type: "button"}
-        %span.glyphicon.glyphicon-ok
-        &nbsp;đang nhận cập nhật
+      = render "project_follows/following_button"
     - else
       = link_to initiate_project_project_follows_path(project), remote: true do
-        %button.col-md-offset-1.col-md-3.btn.btn-default.btn-lg{type: "button"}
+        %button#project_follow.col-md-offset-1.col-md-3.btn.btn-default.btn-lg{type: "button"}
           %span.glyphicon.glyphicon-list-alt
           &nbsp;nhận cập nhật
     .col-md-2.btn.col-md-offset-1

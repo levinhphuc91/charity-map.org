@@ -1,81 +1,142 @@
 = content_for :head do
-  = javascript_include_tag "//www.google.com/jsapi", "chartkick" 
-.body-container--plain-row
-  .body-container--content
-    = line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: (@project.funding_goal+1), height: "300px"
-.body-container--plain-row
-  .body-container--content
-    / - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
-    / .row-fluid
-    /   #chart{style: "height: 250px;"}
-    - if current_user && @project.authorized_edit_for?(current_user)
-      %hr/ 
-      .devider
-        .item Thêm Ủng Hộ Ngoài Hệ Thống
-        .note Dự án: #{link_to @project.title, @project}
-      = render "ext_donations/form"
+  = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+  = stylesheet_link_tag    "cm-donation", media: "all", "data-turbolinks-track" => true
+
+= render "layouts/item-based/cover.html.haml", project: @project
+  
+%section.row.col-md-8.col-md-offset-2
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
+
+  #chart-details
+    / .comment-header.centered
+    /   %h1= @project.title
+    /   %span.glyphicon.glyphicon-user
+    /   = @project.user.name
+    /   &sdot;
+    /   %span.glyphicon.glyphicon-map-marker
+    /   = @project.location
+    .row.chart= line_chart [{:name => "Tiến Độ", :data => funding_progress(@project)}, {:name => "Mục Tiêu", :data => {@project.end_date.to_s=>@project.funding_goal.to_i}}], max: @max, height: "300px"
+    .row.details
+      %ul
+        %li.col-md-3
+          %strong= @project.donations_count
+          %span Mạnh Thường Quân
+        %li.col-md-3
+          %strong #{number_with_precision @project.donations_sum * 100/ @project.funding_goal, precision: 0}%
+          %span Mục Tiêu Cần Đạt
+        %li.col-md-3
+          - if @project.start_date < Date.today && @project.end_date > Date.today
+            %strong #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i}
+            %span Thời Gian Còn Lại (Ngày)
+          - else
+            %strong= @project.end_date.strftime("%d/%m")
+            %span Kết Thúc Gây Quỹ
+        - if current_user && @project.authorized_edit_for?(current_user)
+          %li.col-md-3.donate{"data-target" => "#myModal", "data-toggle" => "modal"}
+            %strong
+              %i.glyphicon.glyphicon-usd
+        - else
+          %li.col-md-3.donate
+            = link_to new_project_donation_path(@project) do
+              %strong
+                %i.glyphicon.glyphicon-heart
+    #list-donations
+      %h4 Danh Sách Đóng Góp
+      / .dates
+      /   .ago 2 ngày trước
+      /   .date Thứ 5, ngày 2 tháng 1
+      
+      - @donations.each do |donation|
+        = render "layouts/donation_display", donation: donation
+
+      - @ext_donations.order("collection_time DESC").each do |donation|
+        .donation-item
+          .item-desc
+            #{human_time donation.collection_time} &sdot;
+            %a{href: "#"}
+              .avatar= image_tag "default_avatar.png"
+            %strong #{ donation.anon ? "Ẩn Danh" : donation.donor }
+            ủng hộ #{human_currency donation.amount}
+
+            - if donation.collection_method == "COD"
+              %a.action{href: "#"}
+                .links-right
+                  %span.glyphicon.glyphicon-usd
+            - else
+              %a.action{href: "#"}
+                .links-right
+                  %span.glyphicon.glyphicon-credit-card
+            
+            - if current_user && @project.authorized_edit_for?(current_user)
+              = link_to edit_project_ext_donation_path(@project, donation), class: "action" do
+                .links-right
+                  %span.glyphicon.glyphicon-pencil
+              = link_to project_ext_donation_path(@project, donation), class: "action", :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} do
+                .links-right
+                  %span.glyphicon.glyphicon-trash
 
     
-    %hr/ 
-    .devider
-      .item Danh Sách Đóng Góp
-      .note Dự án: #{link_to @project.title, @project}
-    / - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
-    /   .row-fluid.sub-headline.righted
-    /     Sắp xếp theo: &nbsp;
-    /     = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
-    /     &sdot;
-    /     = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
-    /     &sdot;
-    /     = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
+- if current_user && @project.authorized_edit_for?(current_user)
+  #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h4#myModalLabel.modal-title Thêm Ủng Hộ Ngoài Hệ Thống
+        .modal-body
+          .note Dự án: #{link_to @project.title, @project}
+          = render "ext_donations/form" 
+        / .modal-footer
+        /   %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+        /   %button.btn.btn-primary{type: "button"} Save changes
 
-    - cache("project_donations", :expires_in => 1.hour) do
-      - unless params[:sort_by]
-        = render "layouts/donation_display", donations: @donations
-      - else
-        - case params[:sort_by]
-        - when "updated_at"
-          - @donations.each do |key, donation_arr|
-            .updated_at
-              .sub-headline= human_time(key)
-              = render "layouts/donation_display", donations: donation_arr
-            %hr
-        - when "collection_method"
-          - @donations.each do |key, donation_arr|
-            .donation_type 
-              .devider
-                .item= human_donation_type(key)
-              = render "layouts/donation_display", donations: donation_arr
-            %hr/ 
-        - else
-          = render "layouts/donation_display", donations: @donations
-    .sub-headline Ngoài Hệ Thống
-    - @ext_donations.order("collection_time DESC").each do |donation|
-      .donation
-        .date.centered= human_time donation.collection_time
-        / .collection_method
-        /   %span.centered= human_donation_type donation.collection_method
-        .impact
-          .bar{:style => "width: #{((donation.amount / donation.project.donations_average * 100)/2 + 50).to_i}%;"}
-        .in_words <strong>#{ donation.anon ? "Ẩn Danh" : donation.donor }</strong> ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})
-        .action
-          - if current_user && @project.authorized_edit_for?(current_user)
-            #{link_to "Mời sử dụng hệ thống", invite_ext_donor_projects_path(:ext_donation_id => donation.id)} &sdot; #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
-    / %table.table.table-bordered
-    /   %tr
-    /     %th Ngày
-    /     %th Người Ủng Hộ
-    /     %th Số Tiền
-    /     %th Ghi Chú
-    /     - if current_user && @project.authorized_edit_for?(current_user)
-    /       %th Lệnh
-    / %tr 
-    /   %td= human_time donation.collection_time
-    /   %td= donation.anon ? "Ẩn Danh" : donation.donor
-    /   %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}
-    /   %td= donation.try(:note)
-    /   - if current_user && @project.authorized_edit_for?(current_user)
-    /     %td #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
+/ - if current_user && ((@project.belongs_to?(current_user)) || (current_user.staff))
+/   .row-fluid.sub-headline.righted
+/     Sắp xếp theo: &nbsp;
+/     = link_to "thời gian", project_donations_path(@project, :sort_by => "updated_at")
+/     &sdot;
+/     = link_to "phương thức đóng góp", project_donations_path(@project, :sort_by => "collection_method")
+/     &sdot;
+/     = link_to "khoản đóng góp", project_donations_path(@project, :sort_by => "amount")
+
+/ - cache("project_donations", :expires_in => 1.hour) do
+/   - unless params[:sort_by]
+/     = render "layouts/donation_display", donations: @donations
+/   - else
+/     - case params[:sort_by]
+/     - when "updated_at"
+/       - @donations.each do |key, donation_arr|
+/         .updated_at
+/           .sub-headline= human_time(key)
+/           = render "layouts/donation_display", donations: donation_arr
+/         %hr
+/     - when "collection_method"
+/       - @donations.each do |key, donation_arr|
+/         .donation_type 
+/           .devider
+/             .item= human_donation_type(key)
+/           = render "layouts/donation_display", donations: donation_arr
+/         %hr/ 
+/     - else
+/       = render "layouts/donation_display", donations: @donations
+/   .clearfix
+/ %table.table.table-bordered
+/   %tr
+/     %th Ngày
+/     %th Người Ủng Hộ
+/     %th Số Tiền
+/     %th Ghi Chú
+/     - if current_user && @project.authorized_edit_for?(current_user)
+/       %th Lệnh
+/ %tr 
+/   %td= human_time donation.collection_time
+/   %td= donation.anon ? "Ẩn Danh" : donation.donor
+/   %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}
+/   %td= donation.try(:note)
+/   - if current_user && @project.authorized_edit_for?(current_user)
+/     %td #{link_to "Sửa", edit_project_ext_donation_path(@project, donation)} &sdot; #{link_to "Xoá", project_ext_donation_path(@project, donation), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} }
 
 :javascript
   $(".collection_time").datepicker({

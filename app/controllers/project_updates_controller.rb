@@ -1,13 +1,12 @@
 class ProjectUpdatesController < InheritedResources::Base
 
   before_filter :authenticate_user!, except: [:index, :show]
-  layout "layouts/dashboard"
-  layout "layouts/item-based", only: [:index, :show]
+  layout "layouts/dashboard", except: [:index, :show]
 
   def index
     @project = Project.find(params[:project_id])
     @project_updates = @project.project_updates
-    index!
+    render layout: "layouts/item-based"
   end
 
   def new
@@ -44,5 +43,6 @@ class ProjectUpdatesController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @user = @project.user
     @project_update = @project.project_updates.where(:id => params[:id]).first
+    render layout: "layouts/item-based"
   end
 end

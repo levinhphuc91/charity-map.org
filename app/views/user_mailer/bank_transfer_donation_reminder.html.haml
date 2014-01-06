@@ -4,19 +4,22 @@
 
 %p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
 
-%p 
-  \== Ngân hàng:     TMCP Vietcombank (Bank for Foreign Trade of Vietnam)
-  %br/ 
-  \== Chi nhánh:     Tp. Hồ Chí Minh (Ho Chi Minh City)
-  %br/ 
-  \== Địa chỉ:       29 Bến Chương Dương, Quận 1, TP. Hồ Chí Minh, Việt Nam
-  %br/ 
-  \== SWIFT CODE:    BFTVVNVX007
+- if @project.bank_info.blank?
+  %p 
+    \== Ngân hàng:     TMCP Vietcombank (Bank for Foreign Trade of Vietnam)
+    %br/ 
+    \== Chi nhánh:     Tp. Hồ Chí Minh (Ho Chi Minh City)
+    %br/ 
+    \== Địa chỉ:       29 Bến Chương Dương, Quận 1, TP. Hồ Chí Minh, Việt Nam
+    %br/ 
+    \== SWIFT CODE:    BFTVVNVX007
 
-%p 
-  \== Chủ tài khoản: Hoàng Minh Tú
-  %br/ 
-  \== Số tài khoản:  0071000707388
+  %p 
+    \== Chủ tài khoản: Hoàng Minh Tú
+    %br/ 
+    \== Số tài khoản:  0071000707388
+- else
+  = h(@project.bank_info).gsub(/\n/, '<br/>').html_safe
 
 %p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản. Mã đặc biệt: #{@donation.euid}.
 

@@ -107,9 +107,8 @@ class Project < ActiveRecord::Base
     return average.to_i
   end
 
-  def accepting_donation?
-    status == "REVIEWED" 
-    # && start_date < Date.today && end_date > Date.today
+  def accepting_donations?
+    status == "REVIEWED" && start_date < Date.today && end_date > Date.today
   end
 
   def belongs_to?(target_user)

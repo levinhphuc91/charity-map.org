@@ -1,42 +1,30 @@
-%table.table.table-hover
-  %thead
-    %tr
-      %th.col-md-2
-        Mã ủng hộ
-      %th.col-md-2
-        %span.line
-        Dự án
-      %th.col-md-2
-        %span.line
-        Số tiền
-      %th.col-md-2
-        %span.line
-        Phương thức
-      %th.col-md-2
-        %span.line
-        Trạng thái
-      %th.col-md-2
-        %span.line
-        Lệnh
-  %tbody
-    - if donations.empty?
-      %tr
-        %td{colspan: "6"} Chưa có dữ liệu.
+.donation-item
+  .item-desc
+    #{human_time donation.created_at} &sdot;
+    = link_to user_profile_path(donation.user) do
+      .avatar
+        - if donation.user.avatar? 
+          = image_tag(donation.user.avatar_url(:small)) 
+        - else
+          = image_tag "default_avatar.png"
+        
+    %strong
+      - if donation.anon
+        %strong Ẩn Danh
+      - else
+        %strong= link_to donation.user.name, user_profile_path(donation.user)
+    ủng hộ #{human_currency donation.amount}
+
+    - if donation.collection_method == "COD"
+      %a.action{href: "#"}
+        .links-right
+          %span.glyphicon.glyphicon-usd
     - else
-      - donations.each do |donation|
-        %tr.first
-          %td #{link_to donation.euid, project_donation_path(donation.project, donation)} &sdot; #{human_time(donation.created_at)}
-          %td #{link_to limit_display(donation.project.title, 30), project_path(donation.project)} 
-          %td #{human_currency donation.amount}
-          %td= human_donation_type(donation.collection_method)
-          %td
-            %span.label.label-default= human_donation_status(donation)
-          %td
-            - if donation.collection_method == "BANK_TRANSFER" && donation.status == "PENDING" && current_user && current_user.donations.exists?(@donation) != nil
-              #{link_to "Thông Báo Đã Chuyển", donations_request_verification_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với người làm dự án là bạn đã tiến hành chuyển tiền vào tài khoản. Thao tác này không thể undo."}
-
-            - if donation.collection_method == "BANK_TRANSFER" && donation.status == "REQUEST_VERIFICATION" && current_user && (current_user.projects.exists?(@project) != nil)
-              = link_to "Đã nhận tiền?", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, chúng tôi sẽ thông báo với mạnh thường quân là bạn đã nhận tiền chuyển vào tài khoản. Thao tác này không thể undo."
-
-            - if donation.collection_method == "COD" && donation.status == "PENDING" && current_user && current_user.staff
-              = link_to "Đã nhận tiền?", confirm_donation_path(euid: donation.euid), :confirm => "Khi click OK, hệ thống sẽ thông báo với mạnh thường quân là bạn đã nhận tiền mặt. Thao tác này không thể undo."
+      %a.action{href: "#"}
+        .links-right
+          %span.glyphicon.glyphicon-credit-card
+    
+    - if current_user && donation.project.authorized_edit_for?(current_user) && donation.status != "SUCCESSFUL"
+      = link_to confirm_donation_path(euid: donation.euid), class: "action", :confirm => "Khi click OK, chúng tôi sẽ thông báo với mạnh thường quân là bạn đã nhận tiền chuyển vào tài khoản. Thao tác này không thể undo." do
+        .links-right
+          Xác nhận ủng hộ

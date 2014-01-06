@@ -35,7 +35,6 @@ class ProjectsController < InheritedResources::Base
   def show
     @project = Project.find(params[:id])
     @user = @project.user
-    @new_comment = ProjectComment.new
     @project_follow = ProjectFollow.new
     if(current_user)
       @followed_project = (ProjectFollow.find_by_project_id_and_user_id(@project.id, current_user.id)) != nil ? true : false
@@ -53,7 +52,7 @@ class ProjectsController < InheritedResources::Base
   end
 
   def update
-    update!(notice: "Updated!") { params[:href] if params[:href] }
+    update!(notice: "Cập nhật thành công.") { params[:href] if params[:href] }
   end
 
   def submit
@@ -94,8 +93,6 @@ class ProjectsController < InheritedResources::Base
   private
     def restricted_access
       @project = Project.find(params[:id])
-      unless @project.belongs_to?(current_user)
-        redirect_to :root, alert: "Permission denied."
-      end
+      redirect_to :root, alert: "Permission denied." if !signed_in? || !@project.authorized_edit_for?(current_user)
     end
 end

@@ -58,4 +58,10 @@
         - if @user.donations.successful.empty?
           Chưa có đóng góp nào được ghi nhận trên hệ thống.
         - else
-          = render "layouts/donation_display", donations: @user.donations.successful
+          - @user.donations.successful.each do |donation|
+            - unless donation.anon
+              .date.centered= human_time(donation.created_at)
+              / .collection_method
+              /   %span.centered= human_donation_type donation.collection_method
+              .in_words
+                %strong #{link_to donation.user.name, user_profile_path(donation.user)} ủng hộ <strong>#{human_currency donation.amount}</strong> (#{human_donation_type donation.collection_method})

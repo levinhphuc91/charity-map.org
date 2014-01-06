@@ -33,7 +33,8 @@ Feature: Project
     Then  I should see "Push the world"
       And I should see page title as "Push the world"
       And I should see "Here comes a description"
-      And I should see "Hiện chưa có cập nhật nào."
+    When I follow "Cập Nhật"
+    Then I should see "Hiện dự án Push the world chưa có cập nhật nào."
 
   # @javascript
   # Scenario: To be created unsuccessfully
@@ -69,6 +70,8 @@ Feature: Project
       And I fill in "user_password" with "secretpass"
       And I press "Đăng Nhập"
       And I go to the project page of "Push The World"
+      And I follow "Quản Lý"
+      And I follow "Push The World"
       And I follow "Chỉnh Sửa"
       And I fill in "project_title" with "Kick The School"
       And I press "Lưu" within ".project"
@@ -78,19 +81,14 @@ Feature: Project
   Scenario: To be submitted for review
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
-    When I go to the login page
-      And I fill in "user_email" with "testing@man.net"
-      And I fill in "user_password" with "secretpass"
-      And I press "Đăng Nhập"
-      And I go to the dashboard
-      And I follow "Push The World"
-      And I follow "Chỉnh Sửa"
-      And I follow "Đăng Ký Gây Vốn"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" with the user above 
+    When I login as "testing@man.net"
+      And I go to the project page of "Push The World"
+      And I follow "Tiến Hành Gây Quỹ"
     Then I should see "Phải có ít nhất một Đề mục đóng góp (project reward)."
       And I fill in "project_reward_value" with "100000"
       And I fill in "project_reward_description" with "Test Description"
-      And I press "Lưu" 
+      And I press "Lưu"
     When I go to the project page of "Push The World"
       And I follow "Tiến Hành Gây Quỹ"
     Then I should see "Dự án chuyển sang trạng thái gây quỹ."
@@ -123,13 +121,13 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
-      And I follow "Thêm Cập Nhật"
       And I fill in "Tên cập nhật" with "Test Update Title"
       And I fill in "Nội dung cập nhật" with "Test Update Content"
       And I press "Cập Nhật"
     Then I should see "Vừa thêm Cập nhật dự án mới."
     Then I should see "Test Update Content"
     When I go to the project page of "Push The World"
+      And I follow "Cập Nhật"
     Then I should see "Test Update Content"
       And I follow "Test Update Title"
     Then the URL should contain "projects/push-the-world/project_updates"
@@ -142,7 +140,6 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
-      And I follow "Thêm Cập Nhật"
     Then I should see "Permission denied."
 
   Scenario: Add new reward on dashboard/project page
@@ -166,24 +163,24 @@ Feature: Project
       And I follow "Xóa"
     Then I should see "Xóa đề mục đóng góp thành công."
 
-  Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
-    Given the date is 2013-09-11
-      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
-    And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
-    When I login as "testing@man.net"
-      And I go to the project page of "Push The World"
-      And I follow "Viết Lời Giới Thiệu"
-    Then I should see "Permission denied"
-      And there is a user with the email "reviewer@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
-      And I am not authenticated
-      And I login as "reviewer@man.net"
-      And I go to the project page of "Push The World"
-      And I follow "Viết Lời Giới Thiệu"
-      And I fill in "Content" with "This is such a good project"
-      And I press "Create Recommendation"
-    Then I should see "Lời giới thiệu đã được lưu."
-      And I should see "This is such a good project"
-      And I should see "[Edit]" within ".edit_recommendation"
+  # Scenario: To be given recommendations only in "REVIEWED" or "FINISHED" state
+  #   Given the date is 2013-09-11
+  #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
+  #   And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+  #   When I login as "testing@man.net"
+  #     And I go to the project page of "Push The World"
+  #     And I follow "Viết Lời Giới Thiệu"
+  #   Then I should see "Permission denied"
+  #     And there is a user with the email "reviewer@man.net" and the password "secretpass" and the password confirmation "secretpass" and the verified_by_phone "true"
+  #     And I am not authenticated
+  #     And I login as "reviewer@man.net"
+  #     And I go to the project page of "Push The World"
+  #     And I follow "Viết Lời Giới Thiệu"
+  #     And I fill in "Content" with "This is such a good project"
+  #     And I press "Create Recommendation"
+  #   Then I should see "Lời giới thiệu đã được lưu."
+  #     And I should see "This is such a good project"
+  #     And I should see "[Edit]" within ".edit_recommendation"
 
   Scenario: Add new comment on project page
     Given the date is 2013-09-11
@@ -191,9 +188,11 @@ Feature: Project
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
     When I login as "testing@man.net"
       And I go to the project page of "Push The World"
-      And I fill in "project_comment_content" with "It's a new comment" within "#new_project_comment"
-      And I press "Gửi" within "#new_project_comment"
-    Then I should see "It's a new comment"
+      And I follow "Bình Luận"
+      And I fill in "project_comment_content" with "It's a new comment"
+      And I press "gửi bình luận"
+    Then I should see "Bình luận vừa được thêm."
+      And I should see "It's a new comment"
 
   Scenario: Allows only Youtube or Vimeo video link
     Given the date is 2013-09-11
@@ -226,8 +225,8 @@ Feature: Project
       And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
     When I login as "follower@man.net"
       And I go to the project page of "Push The World"
-      And I follow "Theo Dõi"
-    Then I should see "Bắt đầu theo dõi dự án này."
+      And I follow "nhận cập nhật"
+    Then I should see "đang nhận cập nhật"
 
   Scenario: Send project update to followers via email
     Given the date is 2013-09-11
@@ -236,20 +235,19 @@ Feature: Project
       And there is a user with the email "follower@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456"
     When I login as "follower@man.net"
       And I go to the project page of "Push The World"
-      And I follow "Theo Dõi"
-    Then I should see "Bắt đầu theo dõi dự án này."
+      And I follow "nhận cập nhật"
+    Then I should see "Đăng ký nhận cập nhật từ dự án thành công."
     When I am not authenticated
       And I login as "testing@man.net"
       And I go to the edit page of the project "Push The World"
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
-      And I follow "Thêm Cập Nhật"
       And I fill in "Tên cập nhật" with "Test Update Title"
       And I fill in "Nội dung cập nhật" with "Test Update Content"
       And I press "Cập Nhật"
     Then an email should have been sent with:
       """
-      From: tu@charity-map.org
+      From: team@charity-map.org
       To: follower@man.net
       Subject: Cập nhật mới từ dự án Push The World
       """
@@ -290,12 +288,12 @@ Feature: Project
     When I fill in "project_invite_sms_content" with "Test Content SMS"
       And I fill in "project_invite_email_content" with "Test Email Content"
       And I press "Lưu"
-    Then I should see "Updated!"
+    Then I should see "Cập nhật thành công."
     When I follow "Gửi Thư Mời"
     Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
     Then an email should have been sent with:
       """
-      From: tu@charity-map.org
+      From: team@charity-map.org
       To: invited@gmail.com
       Subject: Đang gây quỹ: Dự án Push The World
       """
@@ -329,7 +327,7 @@ Feature: Project
   #     And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
   #   When I login as "testing@man.net"
   #     And I go to the edit page of the project "Push The World"
-  #     And I follow "Thêm Cập Nhật"
+  #     And I follow "Cập Nhật"
   #     And I attach the file "spec/files/image.jpg" to "project_update_photo"
   #     And I fill in "project_update_content" with "Test Content"
   #     And I press "Cập Nhật"

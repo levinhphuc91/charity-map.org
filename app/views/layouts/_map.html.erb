@@ -102,23 +102,6 @@
     <% end  %>
   <% end %>
 
-  <% unless marker.nil?  %>
-    var <%= "myLatlng#{marker.id}" %> = new google.maps.LatLng(<%= marker.latitude %>, <%= marker.longitude %>);
-    var <%= "content#{marker.id}" %> = "<%= escape_javascript(render 'layouts/infowindow', project: marker) %>";
-    var <%= "marker#{marker.id}" %> = new google.maps.Marker({
-      position: <%= "myLatlng#{marker.id}" %>,
-      map: map,
-      icon: '<%= image_path("careicon-red.png") %>'
-    });
-
-    google.maps.event.addListener(<%= "marker#{marker.id}" %>, 'click', function() {
-      infowindow.close();
-      infowindow.setContent(<%= "content#{marker.id}" %>);
-      infowindow.open(map,<%= "marker#{marker.id}" %>);
-      // map.setCenter(<%= "myLatlng#{marker.id}" %>);
-    });
-  <% end %>
-
   }
   google.maps.event.addDomListener(window, 'load', initialize);
   </script>

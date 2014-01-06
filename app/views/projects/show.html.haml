@@ -33,7 +33,7 @@
     /   %h1 #{link_to @user.name, user_profile_path(@user)}
     /   %span.quote "#{@project.brief}"
   %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
+    .row.col-md-12.clearfix
       %ul.nav.navbar-nav.project-links
         %li= link_to "Thông Tin", project_path(@project), class: "active"
         %li
@@ -45,7 +45,14 @@
         %li
           = link_to project_project_comments_path(@project) do
             Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+        - if current_user && @project.authorized_edit_for?(current_user)
+          %li= link_to "Chỉnh Sửa", edit_project_path(@project), style: "color: #3498db !important;"
+          - if @project.status == "DRAFT"
+            %li= link_to "Tiến Hành Gây Quỹ", submit_project_path(@project), style: "color: #5cb85c !important;"
 %section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px;"}
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
   .group-details
     .row
       .col-md-2.text-center
@@ -60,43 +67,15 @@
 
   = render "projects/side_bar/metrics_box", project: @project
   %p#project-info= markdown @project.description
-  %ul.products.row
+  %ul#project-rewards.products.row
     - if @project.item_based
       - @project.project_rewards.each do |reward|
         .col-md-3
           %li.item
-            %a{href: "#"}
+            = link_to new_project_donation_path(@project, project_reward_id: reward.id) do
               %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
               .item-desc.text-center
                 %span.price= human_currency reward.value
                 %hr/
                 %span.name= reward.name
                 %span.qtt= reward.quantity
-
-    .col-md-3
-      %li.item
-        %a{href: "#"}
-          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-          .item-desc.text-center
-            %span.price 200.000 VNĐ
-            %hr/
-            %span.name Áo thun hiệu con Ó
-            %span.qtt 3 cái 
-    .col-md-3
-      %li.item
-        %a{href: "#"}
-          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-          .item-desc.text-center
-            %span.price 200.000 VNĐ
-            %hr/
-            %span.name Áo thun hiệu con Ó
-            %span.qtt 6 cái 
-    .col-md-3
-      %li.item
-        %a{href: "#"}
-          %img{alt: "Áo thun", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/mountains-1_e6de688a-2825-4b57-8635-ff9ae796b25a_large.jpeg?v=1384830567"}/
-          .item-desc.text-center
-            %span.price 200.000 VNĐ
-            %hr/
-            %span.name Áo thun hiệu con Ó
-            %span.qtt 800 cái 

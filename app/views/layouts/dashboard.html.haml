@@ -32,7 +32,7 @@
                 .line #{link_to "Thư Mời", project_invites_path(@project)}
                 .line #{link_to "Thống Kê Đóng Góp", project_donations_path(@project)} (#{@project.donations_count})
                 .line #{link_to "Đề Mục Đóng Góp", project_project_rewards_path(@project)} (#{@project.project_rewards.count})
-                .line #{link_to "Cập Nhật", project_project_updates_path(@project)} (#{@project.project_updates.count})
+                .line #{link_to "Cập Nhật", new_project_project_update_path(@project)} (#{@project.project_updates.count})
                 .line #{link_to "Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
               .chunk
                 .line.heading

@@ -1,28 +1,9 @@
-.comment-cover{style: "background-image: url('#{@project.photo_url}')"}
-  .overlay
-%header.proj-header.row.col-md-8.col-md-offset-2
-  / = render "layouts/item-based/navigation", project: @project
-  %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
-      %ul.nav.navbar-nav.project-links
-        %li= link_to "Thông Tin", project_path(@project), class: ("active" if params[:controller] == "projects")
-        %li
-          = link_to project_project_updates_path(@project), class: ("active" if params[:controller] == "project_updates") do
-            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-        %li
-          = link_to project_donations_path(@project), class: ("active" if params[:controller] == "donations") do
-            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
-        %li
-          = link_to project_project_comments_path(@project), class: ("active" if params[:controller] == "project_comments") do
-            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-  .comment-header
-    %h1= @project.title
-    %span.glyphicon.glyphicon-user
-    = @project.user.name
-    &sdot;
-    %span.glyphicon.glyphicon-map-marker
-    = @project.location
+= render "layouts/item-based/cover.html.haml", project: @project
+
 %section.row.col-md-8.col-md-offset-2
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
   = render "projects/side_bar/metrics_box", project: @project
   %hr/
   - if @project_updates.empty?
@@ -34,4 +15,4 @@
           %h4.list-group-item-heading
             = update.title
             %span.label.label-success.pull-right= human_time update.created_at
-          %p.list-group-item-text= limit_display(update.content, 800)
+          %p.list-group-item-text= markdown limit_display(update.content, 600)

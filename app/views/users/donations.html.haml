@@ -14,4 +14,5 @@
           %button.glow.right.large Hoàn Tất
         / %input.search.order-search{placeholder: "Search for an order..", type: "text"}/
     - cache("user_donations", :expires_in => 12.hours) do
-      = render "layouts/donation_display", donations: current_user.donations
+      - current_user.donations.each do |donation|
+        = render "layouts/donation_display", donation: donation

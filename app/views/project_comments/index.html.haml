@@ -5,32 +5,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
-.comment-cover{style: "background-image: url('#{@project.photo_url}')"}
-  .overlay
-%header.proj-header.row.col-md-8.col-md-offset-2
-  / = render "layouts/item-based/navigation", project: @project
-  %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
-      %ul.nav.navbar-nav.project-links
-        %li= link_to "Thông Tin", project_path(@project), class: ("active" if params[:controller] == "projects")
-        %li
-          = link_to project_project_updates_path(@project), class: ("active" if params[:controller] == "project_updates") do
-            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-        %li
-          = link_to project_donations_path(@project), class: ("active" if params[:controller] == "donations") do
-            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
-        %li
-          = link_to project_project_comments_path(@project), class: ("active" if params[:controller] == "project_comments") do
-            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-  .comment-header
-    %h1= @project.title
-    %span.glyphicon.glyphicon-user
-    = @project.user.name
-    &sdot;
-    %span.glyphicon.glyphicon-map-marker
-    = @project.location
+= render "layouts/item-based/cover.html.haml", project: @project
 
 %section.content.row.col-md-8.col-md-offset-2
+  - if notice || alert
+    .row
+      .alert.alert-info= notice || alert
   = render "projects/side_bar/metrics_box", project: @project
   %hr/
   .row
@@ -40,24 +20,38 @@
       %ul.media-list
         %li.comment.row
           %a.pull-left{href: "#"}
-            %img.media-object{alt: "...", src: "http://d13yacurqjgara.cloudfront.net/users/11041/avatars/small/B.png?1386650061"}/
+            - if current_user && current_user.avatar?
+              = image_tag(current_user.avatar_url(:medium), class: "img-circle group-ava media-object", size: "50x50ro")
+            - else
+              = image_tag("ph_project-thumbnail.jpg", class: "media-object")
           .media-body.col-md-11.pull-right
-            %form{role: "form"}
+            = simple_form_for [@project, @new_comment] do |f|
+              - if @new_comment.errors.any?
+                #error_explanation
+                  %h2= "#{pluralize(@new_comment.errors.count, "error")} prohibited this project from being saved:"
+                  %ul
+                    - @new_project.errors.full_messages.each do |msg|
+                      %li= msg
               .form-group
-                %label.sr-only{for: "comment"} Email address
-                %textarea#comment.form-control{placeholder: "Nhập bình luận của bạn", rows: "4"}
-              %button.col-md-3.btn.btn-success.btn-sm.pull-right{type: "button"} gửi bình luận
+                = f.input       :project_id, :as => :hidden, :input_html => {:value => @project.id}
+                - if signed_in?
+                  = f.input       :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+                - else
+                  = f.input       :user_id, :as => :hidden
+                = f.input       :content, placeholder: "Nhập bình luận của bạn", :label => false, :input_html => {:class => "form-control"}
+                %p
+                = f.submit "gửi bình luận", class: "col-md-3 btn btn-success btn-sm pull-right"              
         %hr/
-        %li.media
-          %a.pull-left{href: "#"}
-            %img.media-object{alt: "...", src: "http://d13yacurqjgara.cloudfront.net/users/11041/avatars/small/B.png?1386650061"}/
-          .media-body
-            %h4.media-heading Media heading
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-          %hr/
-          .media
-            %a.pull-left{href: "#"}
-              %img.media-object{alt: "...", src: "http://d13yacurqjgara.cloudfront.net/users/11041/avatars/small/B.png?1386650061"}/
-            .media-body
-              %h4.media-heading Media heading
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        %li
+          - @project_comments.each do |comment|
+            .media
+              = link_to user_profile_path(comment.user), class: "pull-left" do
+                / TODO: resize
+                - if comment.user.avatar? 
+                  = image_tag(comment.user.avatar_url(:medium), class: "img-circle group-ava", size: "80x80")
+                - else
+                  = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+              .media-body.pull-left
+                %h4.media-heading= comment.user.name
+                = comment.content
+            %hr/

@@ -43,7 +43,7 @@
           .project-bar
             = link_to project_path(project) do
               .top-image
-                - if project.accepting_donation?
+                - if project.accepting_donations?
                   .status
                     %i.icon-rocket
                     Đang Gây Quỹ

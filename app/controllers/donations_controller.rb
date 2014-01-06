@@ -29,7 +29,7 @@ class DonationsController < InheritedResources::Base
       store_location_with_path(new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
-      if @project.accepting_donation?
+      if @project.accepting_donations?
         if @project.item_based
           @project_reward = ProjectReward.find(params[:project_reward_id])
         end

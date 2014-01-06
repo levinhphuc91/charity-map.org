@@ -1,20 +1,11 @@
-.comment-cover{style: "background-image: url('/assets/61150027.jpg')"}
-  .overlay
-%header.proj-header.row.col-md-8.col-md-offset-2
-  = render "layouts/item-based/navigation", project: @project
-  .comment-header
-    %h1= @project.title
-    %span.glyphicon.glyphicon-user
-    = @project.user.name
-    &sdot;
-    %span.glyphicon.glyphicon-map-marker
-    = @project.location
+= render "layouts/item-based/cover.html.haml", project: @project
+
 %section.row.col-md-8.col-md-offset-2
   = render "projects/side_bar/metrics_box", project: @project
   %hr/
-  .list-group
+  #project_updates.list-group
     .list-group-item
       %h4.list-group-item-heading
         = @project_update.title
         %span.label.label-success.pull-right= human_time @project_update.created_at
-      %p.list-group-item-text= @project_update.content.html_safe
+      %p.list-group-item-text= markdown @project_update.content.html_safe

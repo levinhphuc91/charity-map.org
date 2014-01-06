@@ -23,7 +23,7 @@
             %span #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
           .hint THỜI GIAN GÂY QUỸ
   .row.text-center.action-box
-    - if @project.accepting_donation?
+    - if @project.accepting_donations?
       - if @project.item_based
         = link_to project_path(@project, anchor: "project-rewards") do
           %button.col-md-3.btn.btn-success.btn-lg{type: "button"}

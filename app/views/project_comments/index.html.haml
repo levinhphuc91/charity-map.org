@@ -5,30 +5,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
-.comment-cover{style: "background-image: url('#{@project.photo_url}')"}
-  .overlay
-%header.proj-header.row.col-md-8.col-md-offset-2
-  / = render "layouts/item-based/navigation", project: @project
-  %nav.navbar.proj-details{role: "navigation"}
-    .row.col-md-8.clearfix
-      %ul.nav.navbar-nav.project-links
-        %li= link_to "Thông Tin", project_path(@project), class: ("active" if params[:controller] == "projects")
-        %li
-          = link_to project_project_updates_path(@project), class: ("active" if params[:controller] == "project_updates") do
-            Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
-        %li
-          = link_to project_donations_path(@project), class: ("active" if params[:controller] == "donations") do
-            Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
-        %li
-          = link_to project_project_comments_path(@project), class: ("active" if params[:controller] == "project_comments") do
-            Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
-  .comment-header
-    %h1= @project.title
-    %span.glyphicon.glyphicon-user
-    = @project.user.name
-    &sdot;
-    %span.glyphicon.glyphicon-map-marker
-    = @project.location
+= render "layouts/item-based/cover.html.haml", project: @project
 
 %section.content.row.col-md-8.col-md-offset-2
   - if notice || alert

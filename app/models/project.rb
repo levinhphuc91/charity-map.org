@@ -107,7 +107,7 @@ class Project < ActiveRecord::Base
     return average.to_i
   end
 
-  def accepting_donation?
+  def accepting_donations?
     status == "REVIEWED" && start_date < Date.today && end_date > Date.today
   end
 

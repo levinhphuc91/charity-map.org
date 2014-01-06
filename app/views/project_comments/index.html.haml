@@ -20,7 +20,10 @@
       %ul.media-list
         %li.comment.row
           %a.pull-left{href: "#"}
-            %img.media-object{alt: "...", src: "http://d13yacurqjgara.cloudfront.net/users/11041/avatars/small/B.png?1386650061"}/
+            - if current_user && current_user.avatar?
+              = image_tag(current_user.avatar_url(:medium), class: "img-circle group-ava media-object", size: "50x50")
+            - else
+              = image_tag("ph_project-thumbnail.jpg", class: "media-object")
           .media-body.col-md-11.pull-right
             = simple_form_for [@project, @new_comment] do |f|
               - if @new_comment.errors.any?
@@ -45,10 +48,10 @@
               = link_to user_profile_path(comment.user), class: "pull-left" do
                 / TODO: resize
                 - if comment.user.avatar? 
-                  = image_tag(comment.user.avatar_url(:medium), class: "img-circle group-ava")
+                  = image_tag(comment.user.avatar_url(:medium), class: "img-circle group-ava", size: "80x80")
                 - else
                   = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
-              .media-body
+              .media-body.pull-left
                 %h4.media-heading= comment.user.name
                 = comment.content
             %hr/

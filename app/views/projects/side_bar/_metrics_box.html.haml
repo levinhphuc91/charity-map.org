@@ -18,10 +18,14 @@
           %strong
             %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} NGÀY
           .hint THỜI GIAN CÒN LẠI
-        - else
+        - elsif project.start_date > Date.today
           %strong
-            %span #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
-          .hint THỜI GIAN GÂY QUỸ
+            %span= human_time(project.start_date)
+          .hint BẮT ĐẦU GÂY QUỸ
+        - elsif project.end_date < Date.today
+          %strong
+            %span= human_time(project.end_date)
+          .hint KẾT THÚC GÂY QUỸ
   .row.text-center.action-box
     - if @project.accepting_donations?
       - if @project.item_based

@@ -31,7 +31,7 @@
             %strong #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i}
             %span Thời Gian Còn Lại (Ngày)
           - else
-            %strong #{human_time(@project.end_date)}
+            %strong= @project.end_date.strftime("%d/%m")
             %span Kết Thúc Gây Quỹ
         - if current_user && @project.authorized_edit_for?(current_user)
           %li.col-md-3.donate{"data-target" => "#myModal", "data-toggle" => "modal"}

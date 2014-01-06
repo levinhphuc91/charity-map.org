@@ -39,12 +39,10 @@
         %span.glyphicon.glyphicon-gift
         &nbsp;đang không gây quỹ
     - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
-      %button.col-md-offset-1.col-md-3.btn.btn-default.disabled.btn-lg{type: "button"}
-        %span.glyphicon.glyphicon-ok
-        &nbsp;đang nhận cập nhật
+      = render "project_follows/following_button"
     - else
-      = link_to initiate_project_project_follows_path(project) do
-        %button.col-md-offset-1.col-md-3.btn.btn-default.btn-lg{type: "button"}
+      = link_to initiate_project_project_follows_path(project), remote: true do
+        %button#project_follow.col-md-offset-1.col-md-3.btn.btn-default.btn-lg{type: "button"}
           %span.glyphicon.glyphicon-list-alt
           &nbsp;nhận cập nhật
     .col-md-2.btn.col-md-offset-1

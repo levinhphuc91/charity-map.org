@@ -25,6 +25,7 @@ class ProjectReward < ActiveRecord::Base
   validates :value, :description, :project_id, presence: true
   validates :value, numericality: { :greater_than_or_equal_to => 10000 }
   # validates :value, :uniqueness => {:scope => :project_id}
+  validate :quantity_can_not_be_nil_for_item_based_projects
 
   def active_item
     return (quantity - self.project.donations.successful.where(:project_reward_id => self.id).count)
@@ -36,4 +37,5 @@ class ProjectReward < ActiveRecord::Base
         errors.add(:quantity, "không thể bỏ trống") if quantity.blank?
       end
     end
+    # TODO: ADD TEST?
 end

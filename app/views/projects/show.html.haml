@@ -67,16 +67,21 @@
 
   = render "projects/side_bar/metrics_box", project: @project
   %p#project-info= markdown @project.description
-  %hr/ 
-  %ul#project-rewards.products.row
-    - if @project.item_based
+  
+  - if @project.item_based
+    / %hr/
+    #project-rewards.products.row
       - @project.project_rewards.order(:value).each do |reward|
         .col-md-3
-          %li.item
-            = link_to new_project_donation_path(@project, project_reward_id: reward.id) do
+          .product
+            .item
               .product-shot= image_tag reward.photo_url(:thumb)
               .item-desc.text-center
-                %span.price= human_currency reward.value
-                %hr/
-                %span.name= reward.try(:name)
-                %span.qtt (SL: #{reward.quantity})
+                .info
+                  %span.name= reward.try(:name)
+                  / %span.qtt (SL: #{reward.quantity})
+              - if reward.active_item > 0
+                = link_to new_project_donation_path(@project, project_reward_id: reward.id) do
+                  .action #{human_currency reward.value} &sdot; <strong>ỦNG HỘ</strong>
+              - else
+                .action.disabled #{human_currency reward.value} &sdot; <strong>HẾT</strong>

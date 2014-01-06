@@ -22,14 +22,15 @@ class DonationsController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
-      store_location_with_path(new_project_donation_path(@project))
+      store_location_with_path(params[:project_reward_id] ? new_project_donation_path(@project, project_reward_id: params[:project_reward_id]) : new_project_donation_path(@project))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
     else
       if @project.accepting_donations?
         if @project.item_based
           @project_reward = ProjectReward.find(params[:project_reward_id])
         end
-        new!
+        @donation = Donation.new
+        render layout: "layouts/item-based"
       else
         redirect_to @project, alert: "Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau."
       end

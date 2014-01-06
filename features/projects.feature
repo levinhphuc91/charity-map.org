@@ -290,7 +290,7 @@ Feature: Project
       And I press "Lưu"
     Then I should see "Cập nhật thành công."
     When I follow "Gửi Thư Mời"
-    Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
+    # Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
     Then an email should have been sent with:
       """
       From: team@charity-map.org

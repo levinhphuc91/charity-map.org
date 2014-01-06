@@ -16,7 +16,7 @@ Feature: Donation
 	 		And I fill in "Phone" with "+123456"
 	 		And I press "Cập nhật Thông Tin"
 	 	Then I should see "Cập nhật thành công."
-	 		And I should see "Đóng Góp Push The World"
+	 		And I should see "Các Câu Hỏi Thường Gặp"
 
 	Scenario: Email with bank account info to be sent for Bank Transfer donations
 		Given the date is "2013-09-10"
@@ -31,7 +31,7 @@ Feature: Donation
 	 		And I fill in "donation_amount" with "12345"
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
-	 		And I press "Tiếp Tục"
+	 		And I press "Ủng Hộ Push The World"
 	 	Then an email should have been sent with:
 		  """
 		  From: team@charity-map.org
@@ -61,7 +61,7 @@ Feature: Donation
 	 		And I fill in "donation_amount" with "12345"
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
-	 		And I press "Tiếp Tục"
+	 		And I press "Ủng Hộ Push The World"
 	 	Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
 	 	Then "donor@man.net" should receive an email
 		When I open the email

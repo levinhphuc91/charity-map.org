@@ -19,10 +19,21 @@ class ProjectReward < ActiveRecord::Base
   belongs_to :project
   has_many :donations
   mount_uploader :photo, ItemUploader
-  
+
   attr_accessible :name, :value, :photo, :description, :quantity, :project_id
 
   validates :value, :description, :project_id, presence: true
   validates :value, numericality: { :greater_than_or_equal_to => 10000 }
   # validates :value, :uniqueness => {:scope => :project_id}
+
+  def active_item
+    return (quantity - self.project.donations.successful.where(:project_reward_id => self.id).count)
+  end
+
+  private
+    def quantity_can_not_be_nil_for_item_based_projects
+      if self.project.item_based?
+        errors.add(:quantity, "không thể bỏ trống") if quantity.blank?
+      end
+    end
 end

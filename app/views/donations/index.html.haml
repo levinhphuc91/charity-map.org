@@ -39,7 +39,7 @@
               %i.glyphicon.glyphicon-usd
         - else
           %li.col-md-3.donate
-            = link_to new_project_donation_path(@project) do
+            = link_to project_path(@project, anchor: "project-rewards") do
               %strong
                 %i.glyphicon.glyphicon-heart
     #list-donations

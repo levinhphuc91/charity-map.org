@@ -123,7 +123,7 @@ class UsersController < ApplicationController
       @verification.update_attributes :receipt => params
       render text: "#{params}", status: :ok
     else
-      render :text => "Error.", status: :bad_request
+      render :text => "Error.", status: :ok
     end
   end
 

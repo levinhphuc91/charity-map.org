@@ -1,38 +1,36 @@
 = form_for [@project, @ext_donation] do |f|
   = f.hidden_field :project_id, value: @project.id
-  .row-fluid
-    .span4
-      .sub-headline Người Ủng Hộ *
-      = f.text_field :donor, required: true, class: "span12"
-      .hint Họ & Tên
-    .span4
-      .sub-headline Số Tiền *
-      = f.text_field :amount, required: true, class: "span12"
-      .hint bằng VNĐ
-    .span4
-      .sub-headline Phương Thức Ủng Hộ
-      = f.select :collection_method, [["Chuyển Khoản Ngân Hàng", "BANK_TRANSFER"], ["Thu Tiền Tận Nơi", "COD"]]
-      / = f.text_field :collection_method, class: "span12"
-      .hint Chuyển Khoản NH / Thu Tiền Tận Nơi
-  .row-fluid
-    .span4
-      .sub-headline Email
-      = f.text_field :email, class: "span12"
-    .span4
-      .sub-headline Số ĐT
-      = f.text_field :phone, class: "span12"
-    .span4
-      .sub-headline Ngày Ghi Nhận *
-      = f.text_field :collection_time, required: true, class: "span12 collection_time"
-  .row-fluid
-    .span8
-      .sub-headline Ghi Chú
-      = f.text_area :note, class: "span12"
-    .span4
-      .row-fluid
-        .span6
-          .sub-headline Ẩn Danh?
-          = f.check_box :anon
-        .span6.righted
-          %p 
-          = f.submit "Thêm", class: "submit"
+  #ext-donation-form
+    / Tên Dự Án
+    .form-item.col-md-6
+      %label{for: "Tên Dự Án"} Họ & Tên*
+      %span.example
+        Ví Dụ
+        %i Nguyễn Văn Linh
+      = f.text_field :donor, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Ngày Ghi Nhận Ủng Hộ"} Ngày Ghi Nhận*
+      = f.text_field :collection_time, required: true, class: "form-control collection_time"
+    .form-item.col-md-6
+      %label{for: "Số Tiền Ủng Hộ"} Số Tiền (VNĐ)*
+      = f.text_field :amount, required: true, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Phương Thức Ủng Hộ"} Phương Thức Ủng Hộ*
+      = f.select :collection_method, [["Chuyển Khoản Ngân Hàng", "BANK_TRANSFER"],["Thu Tiền Tận Nơi","COD"]], class: "form-control"
+    .clearfix
+    .form-item.col-md-6
+      %label{for: "Email"} Email
+      = f.text_field :email, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Số Điện Thoại"} Số Điện Thoại
+      = f.text_field :phone, class: "form-control"
+    .form-item.col-md-12
+      %label{for: "Ghi Chú"} Ghi Chú
+      %span.example
+        (đường link tài khoản Facebook, số tham chiếu ngân hàng, v.v)
+      = f.text_area :note, class: "form-control", row: 2
+      .anonymous-check
+        %label Ẩn Danh?
+        = f.check_box :anon, class: "check"
+
+    = f.submit "Thêm Ủng Hộ", class: "btn btn-success"

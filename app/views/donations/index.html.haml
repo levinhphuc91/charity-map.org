@@ -1,6 +1,7 @@
 = content_for :head do
   = javascript_include_tag "//www.google.com/jsapi", "chartkick"
   = stylesheet_link_tag    "cm-donation", media: "all", "data-turbolinks-track" => true
+  = stylesheet_link_tag    "jquery.ui.datepicker", media: "all", "data-turbolinks-track" => true
 
 = render "layouts/item-based/cover.html.haml", project: @project
   

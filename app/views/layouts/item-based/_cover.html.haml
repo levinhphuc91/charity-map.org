@@ -1,4 +1,4 @@
-.comment-cover{style: "background-image: url('#{project.photo_url}')"}
+.comment-cover{style: "background-image: url('#{project.photo_url(:narrowed_banner)}')"}
   .overlay
 %header.proj-header.row.col-md-8.col-md-offset-2{style: "height: 100px;"}
   / = render "layouts/item-based/navigation", project: @project

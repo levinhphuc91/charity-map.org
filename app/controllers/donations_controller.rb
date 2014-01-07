@@ -68,24 +68,24 @@ class DonationsController < InheritedResources::Base
   def confirm
     require 'social_share'
     @donation = Donation.find_by_euid(params[:euid])
-    if @donation.collection_method == "BANK_TRANSFER" && @donation.status != "SUCCESSFUL" && @donation.project.authorized_edit_for?(current_user)
-      @donation.update :status => "SUCCESSFUL"
-      UserMailer.delay.bank_transfer_confirm_donation(@donation)
-      SendMessage.delay.fb({
-        :link => "http://www.charity-map.org#{project_path(@donation.project)}",
-        :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
-      redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
-    elsif @donation.collection_method == "COD" && @donation.status != "SUCCESSFUL" && @donation.project.authorized_edit_for?(current_user)
-      @donation.update :status => "SUCCESSFUL"
-      UserMailer.delay.cod_confirm_donation(@donation)
-      SendMessage.delay.fb({
-        :link => "http://www.charity-map.org#{project_path(@donation.project)}",
-        :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-      ) if (@donation.user.provider == "facebook" && Rails.env.production?)
-      redirect_to dashboard_path, notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
+    if (@donation.project.authorized_edit_for?(current_user) && @donation.status != "SUCCESSFUL")
+      @donation.update_attributes status: "SUCCESSFUL"
+      if (@donation.collection_method == "BANK_TRANSFER")
+        UserMailer.delay.bank_transfer_confirm_donation(@donation)
+        SendMessage.delay.fb({
+          :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+          :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
+        ) if (@donation.user.provider == "facebook" && Rails.env.production?)
+      elsif (@donation.collection_method == "COD")
+        UserMailer.delay.cod_confirm_donation(@donation)
+        SendMessage.delay.fb({
+          :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+          :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
+        ) if (@donation.user.provider == "facebook" && Rails.env.production?)
+      end
+      redirect_to project_donations_path(@donation.project), notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
     else
-      redirect_to dashboard_path, alert: "Permission denied"
+      redirect_to dashboard_path
     end
   end
 end

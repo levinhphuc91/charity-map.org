@@ -18,13 +18,13 @@
   .row
     .comment-box
       %ul.media-list
-        %li.comment.row
-          %a.pull-left{href: "#"}
+        .comment.row
+          .col-md-1.text-center
             - if current_user && current_user.avatar?
               = image_tag(current_user.avatar_url(:medium), class: "img-circle group-ava media-object", size: "50x50")
             - else
               = image_tag("ph_project-thumbnail.jpg", class: "media-object")
-          .media-body.col-md-11.pull-right
+          .media-body.col-md-11
             = simple_form_for [@project, @new_comment] do |f|
               - if @new_comment.errors.any?
                 #error_explanation

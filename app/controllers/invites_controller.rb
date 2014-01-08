@@ -27,9 +27,9 @@ class InvitesController < InheritedResources::Base
       redirect_to action: :index
       flash[:alert] = "Nội dung thư mời chưa đầy đủ."
     else
-      SMS.delay.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content) if (!@invite.phone.blank? && !@invite.sent?)
+      @sms = SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content) if (!@invite.phone.blank? && !@invite.sent?)
       UserMailer.delay.prefunding_invite(@invite) if (!@invite.email.blank? && !@invite.sent?)
-      @invite.update_attributes(status: "SENT")
+      @invite.update_attributes(status: @sms)
       redirect_to action: :index
       flash[:notice] = "Hệ thống đã nhận được yêu cầu gửi thư mời."
     end

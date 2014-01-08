@@ -288,9 +288,9 @@ Feature: Project
     When I fill in "project_invite_sms_content" with "Test Content SMS"
       And I fill in "project_invite_email_content" with "Test Email Content"
       And I press "Lưu"
-    Then I should see "Cập nhật thành công."
+    Then I should see "Cập nhật dự án thành công."
     When I follow "Gửi Thư Mời"
-    # Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
+    Then I should see "Thư mời đã được gửi đi."
     Then an email should have been sent with:
       """
       From: team@charity-map.org

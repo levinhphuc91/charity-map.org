@@ -14,7 +14,7 @@
       E: #{invite.email}
   %td 
     %p 
-      - if invite.status != "SENT"
+      - if invite.status == "NEW"
         = link_to 'Sửa', edit_project_invite_path(invite.project, invite)
         &sdot;
         = link_to 'Xoá', project_invite_path(invite.project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }

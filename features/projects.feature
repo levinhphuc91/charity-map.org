@@ -292,7 +292,7 @@ Feature: Project
       And I press "Lưu"
     Then I should see "Updated!"
     When I follow "Gửi Thư Mời"
-    Then I should see "Hệ thống đã nhận được yêu cầu gửi thư mời."
+    Then I should see "Thư mời đã được gửi đi."
     Then an email should have been sent with:
       """
       From: tu@charity-map.org

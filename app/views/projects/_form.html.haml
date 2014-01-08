@@ -57,10 +57,12 @@
             %li Số tài khoản
       .span8
         = f.input :bank_info, label: false, :input_html => {:class => "span12"}
-    .row-fluid
-      .span4.sub-headline Có tặng hiện vật?
-      .span8
-        = f.check_box :item_based
+    - if params[:action] != "edit"
+      .row-fluid
+        .span4.sub-headline Có tặng hiện vật?
+        .hint Dành cho các dự án có tặng kèm hiện vật với mỗi ủng hộ. Lưu ý: một khi bạn đã chọn/không chọn chức năng này thì sẽ không thể thay đổi.
+        .span8
+          = f.check_box :item_based
     %hr/ 
     .row-fluid
       .span3.sub-headline

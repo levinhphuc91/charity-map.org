@@ -76,7 +76,11 @@
           .col-md-3
             .product
               .item
-                .product-shot= image_tag reward.photo_url(:thumb)
+                .product-shot
+                  - if reward.photo?
+                    = image_tag reward.photo_url(:thumb)
+                  - else
+                    = image_tag "item_default.jpg"
                 .item-desc.text-center
                   .info
                     %span.name= reward.try(:name)

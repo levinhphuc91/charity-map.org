@@ -171,10 +171,9 @@ body, td { font-family: HelveticaNeue, sans-serif; }
                                     <p align="center" class="article-title"><singleline label="Title"><a href="http://www.charity-map.org">
                                         <h3><%= link_to @invite.project.title, project_url(@invite.project) %></h3>
                                     </a></singleline></p>
-                                    <hr />
                                     <div align="left" class="article-content">
                                         <multiline label="Description">
-                                          <%= h(@invite.project.invite_email_content).gsub(/\n/, '<br/>').html_safe %>
+                                          <%= @invite.project.invite_email_content.gsub(/\n/, '<br/>').html_safe %>
                                         </multiline>
                                     </div>
                                 </td>

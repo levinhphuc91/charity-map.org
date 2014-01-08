@@ -292,7 +292,7 @@ Feature: Project
       And I press "Lưu"
     Then I should see "Cập nhật dự án thành công."
     When I follow "Gửi Thư Mời"
-    Then I should see "Thư mời đã được gửi đi."
+    # Then I should see "Thư mời đã được gửi đi."
     Then an email should have been sent with:
       """
       From: tu@charity-map.org
@@ -303,8 +303,10 @@ Feature: Project
     When I open the email
     Then I should see "Push The World" in the email body
       And I should see "Test Email Content" in the email body
-      And I should see "Tôi muốn ủng hộ" in the email body
-    When I follow "Tôi muốn ủng hộ" in the email
+      And I should see "Thông Tin Về Dự Án" in the email body
+      And I should see "Tiến Độ Gây Quỹ" in the email body
+      And I should see "Về:" in the email body
+    When I follow "Thông Tin Về Dự Án" in the email
     Then I should see "Push The World"
   
   Scenario: Add ext donations

@@ -169,11 +169,11 @@ body, td { font-family: HelveticaNeue, sans-serif; }
                             <tbody><tr>
                                 <td class="w580" width="580">
                                     <p align="center" class="article-title"><singleline label="Title"><a href="http://www.charity-map.org">
-                                        <%= @invite.project.title %>
+                                        <h3><%= link_to @invite.project.title, project_url(@invite.project) %></h3>
                                     </a></singleline></p>
                                     <div align="left" class="article-content">
                                         <multiline label="Description">
-                                          <%= h(@invite.project.invite_email_content).gsub(/\n/, '<br/>').html_safe %>
+                                          <%= @invite.project.invite_email_content.gsub(/\n/, '<br/>').html_safe %>
                                         </multiline>
                                     </div>
                                 </td>
@@ -259,14 +259,14 @@ body, td { font-family: HelveticaNeue, sans-serif; }
         <tr>
             <td class="w30" width="30"></td>
             <td class="w580" width="360" valign="top">
-            <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"><span><strong>Bản Đồ Từ Thiện</strong> (Charity Map) được xây dựng nhằm mục đích hỗ trợ các dự án xã hội tại Việt Nam gây quỹ từ cộng đồng hiệu quả và minh bạch hơn. Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.</span></p></span>
+            <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"><span style="color: #fff;"><strong>Bản Đồ Từ Thiện</strong> (Charity Map) được xây dựng nhằm mục đích hỗ trợ các dự án xã hội tại Việt Nam gây quỹ từ cộng đồng hiệu quả và minh bạch hơn. Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.</span></p></span>
             <!-- <p align="left" class="footer-content-left"><preferences lang="en">Edit your subscription</preferences> | <unsubscribe>Unsubscribe</unsubscribe></p> -->
             </td>
             <td class="hide w0" width="60"></td>
             <td class="hide w0" width="160" valign="top">
             <p id="street-address" align="right" class="footer-content-right"><span><a href="http://www.charity-map.org">www.charity-map.org</a></span><br>
 <span><a href="mailto:team@charity-map.org">team@charity-map.org</a></span><br>
-<span>TP. Hồ Chí Minh, Việt Nam</span></p>
+<span style="color: #fff;">TP. Hồ Chí Minh, Việt Nam</span></p>
             </td>
             <td class="w30" width="30"></td>
         </tr>

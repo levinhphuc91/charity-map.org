@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   has_many :projects # admin relationship
   has_many :ext_projects
   has_many :recommendations
-  has_many :verifications
+  has_one  :verification
   has_many :project_follows
   has_many :relationships, :foreign_key => "follower_id", dependent: :destroy
   has_many :following, :through => :relationships, :source => :followed

@@ -1,4 +1,4 @@
-- if (!current_user.verified_by_phone) && (current_user.verifications.where(:status => "UNUSED").empty?)
+- if (!current_user.verified_by_phone) && (current_user.verification.nil?)
   .devider
     .item Xác Nhận Bằng Điện Thoại
   %p Để tạo hoặc giới thiệu một dự án, bạn cần phải xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo mẫu: 0908123456, không thêm mã quốc gia vào.
@@ -6,7 +6,7 @@
     = form_tag(users_verification_code_via_phone_path, :method => :post) do
       = text_field_tag :phone_number, current_user.phone || "0908-xxx-xxx", class: "span12"
       = submit_tag "Gửi Mã", :class => "submit"
-- elsif !current_user.verifications.where(:status => "UNUSED").empty?
+- elsif (!current_user.verification.nil?) && (current_user.verification.status == "UNUSED")
   = render "layouts/verify_code_via_phone"
 - else
   %p

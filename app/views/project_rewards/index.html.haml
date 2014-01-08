@@ -18,9 +18,10 @@
           = link_to edit_project_project_reward_path(@project, reward) do
             %i.icon-edit
             Sửa
-      %h4= reward.name
-      &sdot; #{human_currency reward.value} &sdot; SL: #{reward.quantity}
+      %h3= reward.name
+      %h4 #{human_currency reward.value} &sdot; SL: #{reward.quantity}
       %p= markdown reward.description
+      %hr/
 - else
   - @project_rewards.each do |reward|
     .row-fluid
@@ -29,8 +30,6 @@
           = link_to edit_project_project_reward_path(@project, reward) do
             %i.icon-edit
             Sửa
-        = link_to project_project_reward_path(@project, reward), method: :delete do
-          %i.icon-minus-sign
       %h4 #{human_currency reward.value} 
       %p= markdown reward.description
 

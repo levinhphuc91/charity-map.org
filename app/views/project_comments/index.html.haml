@@ -11,10 +11,9 @@
   - if notice || alert
     .row
       .alert.alert-info= notice || alert
-  = render "projects/side_bar/metrics_box", project: @project
-  %hr/
+  
   .row
-    .alert.alert-info Hãy chia sẻ bình luận của bạn về dự án này
+    .alert.alert-info Hãy chia sẻ bình luận của bạn về dự án <strong>#{@project.title}</strong>
   .row
     .comment-box
       %ul.media-list
@@ -23,7 +22,7 @@
             - if current_user && current_user.avatar?
               = image_tag(current_user.avatar_url(:medium), class: "img-circle group-ava media-object", size: "50x50")
             - else
-              = image_tag("ph_project-thumbnail.jpg", class: "media-object")
+              = image_tag("logo_square.png", class: "img-circle group-ava media-object", size: "50x50")
           .media-body.col-md-11
             = simple_form_for [@project, @new_comment] do |f|
               - if @new_comment.errors.any?
@@ -50,8 +49,10 @@
                 - if comment.user.avatar? 
                   = image_tag(comment.user.avatar_url(:medium), class: "img-circle group-ava", size: "80x80")
                 - else
-                  = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+                  = image_tag("logo_square.png", class: "img-circle group-ava", size: "80x80")
               .media-body.pull-left
                 %h4.media-heading= comment.user.name
                 = comment.content
             %hr/
+
+  = render "projects/side_bar/metrics_box", project: @project

@@ -21,11 +21,11 @@ Feature: User
     Given I am a new, authenticated user
       And I am on the users settings page
       And I fill in "user_email" with "saidrebyn@gmail.com"
-      And I fill in "Full name" with "Hoang Minh Tu"
-      And I fill in "Address" with "10.5B D5 Binh Thanh"
+      And I fill in "Họ và Tên*" with "Hoang Minh Tu"
+      And I fill in "Địa chỉ*" with "10.5B D5 Binh Thanh"
       # And I select "Hồ Chí Minh" from "City"
       And I fill in "Bio" with "Charity Map co-founders"
-      And I fill in "Phone" with "0908 230 591"
+      And I fill in "Số ĐT*" with "0908 230 591"
       And I press "Cập nhật Thông Tin"
     Then I should see "Cập nhật thành công."
     When I follow "Xem Trang Của Bạn"

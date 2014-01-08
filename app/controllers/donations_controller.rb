@@ -23,7 +23,7 @@ class DonationsController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
       store_location_with_path(params[:project_reward_id] ? new_project_donation_path(@project, project_reward_id: params[:project_reward_id]) : new_project_donation_path(@project))
-      redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án #{@project.title}"
+      redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án #{@project.title} (họ và tên, địa chỉ, số điện thoại)."
     else
       if @project.accepting_donations?
         if @project.item_based

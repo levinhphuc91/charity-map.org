@@ -60,6 +60,12 @@ CharityMap::Application.routes.draw do
     resources :projects
   end
 
+  namespace :admin do
+    get 'pages/projects'
+    get 'pages/donations'
+    get 'pages/users'
+  end
+
   resources :users, :except => [ :create, :new ] do
     get "show_message", :on => :collection
     get "new_message", :on => :collection

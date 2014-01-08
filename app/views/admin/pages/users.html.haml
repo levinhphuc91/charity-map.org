@@ -1,0 +1,30 @@
+.body-container--plain-row
+  .body-container--content
+    = render "admin/pages/navigation"
+    %h1 User
+    %table.table.table-bordered
+      %thead
+        %tr 
+          %th ID
+          %th NAME
+          %th EMAIL
+          %th USER SINCE
+      %tbody
+        - @users.each do |user| 
+          %tr
+            %th= user.id
+            %th= user.name
+            %th= user.email
+            %th= human_time user.created_at
+          - if (!user.projects.empty? || !user.donations.empty?)
+            %tr 
+              %td{:colspan => 2, style: "color: #ccc;"}
+                %strong PROJECTS:
+                %ul 
+                  - user.projects.each do |project|
+                    %li= link_to project.title, project_path(project)
+              %td{:colspan => 2, style: "color: #ccc;"}
+                %strong DONATIONS:
+                %ul 
+                  - user.donations.each do |donation|
+                    %li #{link_to "#{donation.project.title}", project_path(donation.project)} #{human_currency donation.amount}

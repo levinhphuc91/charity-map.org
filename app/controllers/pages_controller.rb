@@ -11,4 +11,7 @@ class PagesController < ApplicationController
 
   def guidelines
   end
+
+  def projects
+  end
 end

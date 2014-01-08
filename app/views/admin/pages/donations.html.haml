@@ -1,0 +1,46 @@
+.body-container--plain-row
+  .body-container--content
+    = render "admin/pages/navigation"
+    %h1 Platform Donations
+    %table.table.table-bordered
+      %thead
+        %tr 
+          %th EUID
+          %th PROJECT
+          %th STATUS
+          %th AMOUNT
+          %th COLLECTION METHOD
+          %th CREATED AT
+      %tbody
+        - @donations.each do |donation| 
+          %tr
+            %td= link_to donation.euid, project_donation_path(donation.project, donation)
+            %td <b>#{link_to donation.project.title, project_path(donation.project)}</b><br/>#{link_to donation.user.name, user_profile_path(donation.user)}
+            %td= human_donation_status donation
+            %th= human_currency donation.amount
+            %td= human_donation_type donation.collection_method
+            %td= human_time donation.created_at
+          %tr 
+            %td{:colspan => 6, style: "color: #ccc;"}= donation.note.html_safe
+
+.body-container--plain-row
+  .body-container--content
+    %h1 Non-platform Donations
+    %table.table.table-bordered
+      %thead
+        %tr 
+          %th EUID
+          %th PROJECT
+          %th AMOUNT
+          %th COLLECTION METHOD
+          %th CREATED AT
+      %tbody
+        - @ext_donations[0..19].each do |donation| 
+          %tr
+            %td= link_to donation.id
+            %td <b>#{link_to donation.project.title, project_path(donation.project)}</b><br/>#{donation.donor}
+            %th= human_currency donation.amount
+            %td= human_donation_type donation.collection_method
+            %td= human_time donation.created_at
+          %tr
+            %td{:colspan => 5, style: "color: #ccc;"} #{donation.email} &mdash; #{donation.phone} &mdash; #{donation.note.html_safe}

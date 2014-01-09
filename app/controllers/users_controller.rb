@@ -132,8 +132,7 @@ class UsersController < ApplicationController
   def verification_delivery_receipt
     if params["msisdn"]
       @user = User.find_by_phone("#{params["msisdn"].gsub("84","0")}")
-      @verification = @user.verifications.where(:status => "UNUSED").first
-      @verification.update_attributes :receipt => params
+      @user.verification.update_attributes :receipt => params
       render text: "#{params}", status: :ok
     else
       render :text => "Error.", status: :ok

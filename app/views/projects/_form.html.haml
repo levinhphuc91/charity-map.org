@@ -12,7 +12,7 @@
       .span9.offset3= image_tag(@project.photo_url(:portfolio)) if @project.photo?
     .row-fluid
       .span4.sub-headline
-        Ảnh Dự Án (660x300px)
+        Ảnh Dự Án (cỡ tối ưu: 1200*600px)
       .span8
         = f.file_field :photo
         = f.hidden_field :photo_cache
@@ -33,6 +33,16 @@
     .row-fluid
       .span4
         .sub-headline Mô Tả Dự Án
+        .hint
+          Điền đầy đủ thông tin:
+          %ul
+            %li Mục tiêu / Sứ mệnh
+            %li Câu chuyện, trường hợp, hoàn cảnh
+            %li Mục tiêu gây quỹ, thời gian hoàn thành
+            %li Kế hoạch tiến hành dự án sau khi gây quỹ
+            %li Nhân lực, đội ngũ thực hiện dự án
+          %hr/ 
+        .sub-headline Trình Bày
         .hint
           = render "layouts/markdown"
 
@@ -56,13 +66,13 @@
             %li Chủ tài khoản
             %li Số tài khoản
       .span8
-        = f.input :bank_info, label: false, :input_html => {:class => "span12"}
+        = f.input :bank_info, label: false, :input_html => {:class => "span12", size: "20x5"}
     - if params[:action] != "edit"
       .row-fluid
-        .span4.sub-headline Có tặng hiện vật?
-        .hint Dành cho các dự án có tặng kèm hiện vật với mỗi ủng hộ. Lưu ý: một khi bạn đã chọn/không chọn chức năng này thì sẽ không thể thay đổi.
+        .span4.sub-headline Ủng hộ được tặng hiện vật?
         .span8
-          = f.check_box :item_based
+          = f.check_box :item_based, class: "pull-left", style: "margin-right: 10px; margin-bottom: 10px;"
+          %p Dành cho các dự án có <strong>tặng kèm hiện vật với mỗi ủng hộ</strong>. Lưu ý: một khi bạn đã chọn/không chọn chức năng này thì sẽ không thể thay đổi.
     %hr/ 
     .row-fluid
       .span3.sub-headline

@@ -25,14 +25,14 @@
 				.clearfix
 				
 				= f.input :bio, :input_html => { :cols => 100, :rows => 15 }
-				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
-				= f.file_field :avatar 
+				= f.input :avatar, as: :file, label: "Ảnh đại diện"
 				= f.hidden_field :avatar_cache 
+				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
 				%hr/
-				%p
+				%p 
 					= f.check_box :org
-					Tổ chức (click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng portfolio)
+					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
 				%hr/
-				.pull-right.bttn.bttn-blue= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+				.pull-right{style: "margin-top: 20px;"}= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
 				.pull-left
 					= f.submit "Cập nhật Thông Tin", class: "submit"

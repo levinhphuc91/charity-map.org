@@ -86,6 +86,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_ext_project_from_portfolio
+    @ext_project = ExtProject.find(params[:ext_project])
+    if (@ext_project.user == current_user) && @ext_project.destroy!
+      redirect_to users_profile_path, notice: "Xoá dự án trước đây thành công."
+    else
+      redirect_to users_profile_path, alert: "Xoá dự án trước đây không thành công."
+    end
+  end
+
   def verification_code_via_phone
     if params[:phone_number]
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s

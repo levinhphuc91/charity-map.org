@@ -1,5 +1,7 @@
 .project-bar
   .top-image
+    - if current_user && project.user == current_user
+      .delete-icon= link_to "Xoá", users_delete_ext_project_from_portfolio_path(ext_project: project.id), method: :post, confirm: "Bạn có chắc muốn xoá #{project.title} không?"
     .info
       .title= project.title
       .location

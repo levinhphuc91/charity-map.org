@@ -12,6 +12,7 @@ CharityMap::Application.routes.draw do
   post  'users/add_figure_to_portfolio'
   get   'users/delete_figure_from_portfolio'
   post  'users/add_ext_project_to_portfolio'
+  post  'users/delete_ext_project_from_portfolio'
   post  'users/verification_code_via_phone'
   get   'users/resend_verification'
   get   'users/verification_delivery_receipt'

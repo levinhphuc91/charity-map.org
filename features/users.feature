@@ -178,12 +178,15 @@ Feature: User
     Then I should see "Permission denied"
       And the URL should not contain "/dashboard"
 
+  # TODO: add test for Xoa du an truoc day
   Scenario: To be able to have a portfolio profile
     Given the date is "2014-09-01"
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "testing@man.net"
       And I go to the users settings page
     Then the "user_org" checkbox should not be checked
-    # When I check "portfolio"
-    #   And I press "Cập nhật Thông Tin"
-    # Then the "portfolio" checkbox should be checked
+    When I check "user_org"
+      And I press "Cập nhật Thông Tin"
+    Then the "user_org" checkbox should be checked
+    When I follow "Xem Trang Của Bạn"
+    Then I should see "Dự Án Trước Đây"

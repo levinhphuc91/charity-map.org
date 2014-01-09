@@ -1,28 +1,32 @@
 = simple_form_for [@project, @donation] do |f|
-  .row-fluid
-    .span12
-      - if @donation.errors.any?
-        #error_explanation
-          %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
-          %ul
-            - @donation.errors.full_messages.each do |msg|
-              %li= msg
-  .row-fluid
-    .span6
+  .col-md-6.col-md-offset-3
+    - if @donation.errors.any?
+      #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
+        %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+        - @donation.errors.full_messages.each do |msg|
+          &sdot; #{msg}<br/>
+  = f.hidden_field :project_reward_id, value: params[:project_reward_id]
+  .money-donation-form.col-md-12
+    .col-md-6
       = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
       = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-      .sub-headline Số Tiền (VNĐ)
-      = f.input :amount, :label => false, :input_html => {value: params[:amount] || nil, :class => "span12 custom-fields"}
-      .sub-headline Phương Thức Đóng Góp
-      = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tại nhà", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12"}
-      .sub-headline Ẩn Danh?
-      = f.input :anon, label: false
-    .span6
-      .sub-headline Ghi Chú
-      = f.input :note, :label => false, :input_html => {:class => "span12 custom-fields", :size => "20x5"}
-  %hr/ 
-  .row-fluid
-    = f.submit "Tiếp Tục", class: "submit"
+      %span.money-icon VNĐ
+      %label{for: "Số Lượng"} Hãy nhập số tiền bạn muốn ủng hộ
+      = f.input :amount, :label => false, :input_html => {value: params[:amount] || nil, :class => "form-control money", type: "text"}
+    .col-md-6
+      .donation-form
+        %label{for: "Phương Thức Đóng Góp"} Phương Thức Đóng Góp
+        = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12 form-control"}
+      
+      %label{for: "Ghi Chú"} Thông Tin Liên Lạc, Ghi Chú
+      = f.input :note, :label => false, :input_html => {value: "#{current_user.name} / #{current_user.address} / #{current_user.phone}",:class => "form-control", :size => "20x5"}
+      %p
+      .donation-form
+        %label Ẩn danh?
+        = f.input :anon, label: false, :input_html => {class: "check"}
+      
+      = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
+
 
 :javascript
   $('.reward').on('click', function() {

@@ -41,7 +41,8 @@ gem 'protected_attributes'
 gem 'awesome_print', :require => 'ap'
 gem 'carrierwave'
 gem 'carrierwave_direct'
-gem 'fog'
+gem 'carrierwave-aws'
+# gem 'fog'
 gem 'mini_magick'
 gem 'delayed_job_active_record'
 gem 'rails_12factor', group: :production
@@ -109,7 +110,7 @@ end
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

@@ -1,19 +1,19 @@
 .row.donation-stats
   .donation-funded-wrap
     .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
-  %ul.donation-stats.row
+  .donation-stats.row
     .col-md-4
-      %li.funded
+      .funded
         %strong
           %span= human_currency project.funding_goal
         .hint MỤC TIÊU
     .col-md-4
-      %li.raised
+      .raised
         %strong
           %span= human_currency project.donations_sum
         .hint ĐÃ NHẬN ĐƯỢC
     .col-md-4
-      %li.deadline
+      .deadline
         - if project.start_date < Date.today && project.end_date > Date.today
           %strong
             %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} NGÀY

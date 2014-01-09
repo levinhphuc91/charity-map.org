@@ -1,0 +1,26 @@
+.body-container--plain-row
+  .body-container--content
+    = render "admin/pages/navigation"
+    %h1 Projects
+    %table.table.table-bordered
+      %thead
+        %tr 
+          %th TITLE
+          %th FUNDING GOAL
+          %th START DATE - END DATE
+          %th STATUS
+          %th CREATED AT
+          %th USER
+          %th ITEM BASED?
+      %tbody
+        - @projects.each do |project| 
+          %tr
+            %th= link_to project.title, project_path(project)
+            %td= human_currency project.funding_goal
+            %td #{human_time project.start_date} &mdash; #{human_time project.end_date}
+            %td= (human_project_status project).html_safe
+            %td= human_time project.created_at
+            %td #{link_to project.user.name, user_profile_path(project.user)} (#{project.user.email})
+            %td= project.item_based ? "YES" : "NO"
+          %tr
+            %td{:colspan => 7, style: "color: #ccc;"}= project.brief.html_safe

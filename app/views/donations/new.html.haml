@@ -1,49 +1,89 @@
-.project-show
-  .body-container--plain-row
-    .body-container--content
-      %p
-        .top-title.centered Đóng Góp #{@project.title}
-        .top-creator-and-location.centered thực hiện bởi <b>#{@project.user.name}</b> tại <b>#{@project.location}</b>
+= content_for :head do
+  = stylesheet_link_tag    "cm-donation", media: "all", "data-turbolinks-track" => true
+
+/ = render "layouts/item-based/cover.html.haml", project: @project
   
-  / .body-container--plain-row
-  /   .body-container--content  
-  /     .row-fluid
-  /       = render "projects/bar_display", :project => @project
-      
-  .body-container--plain-row
-    .body-container--content
-      .side-bar
-        .container
-          .sub-headline Đề Mục Đóng Góp
-          - @project.project_rewards.each do |reward|
-            .row-fluid.reward{:"data-amount" => reward.value.to_i}
-              %h4 Đóng Góp #{human_currency reward.value} hoặc hơn
-              %p= reward.description
-      .bordered-box
-        .row-fluid
-        - if @project.item_based
-          = render 'form_for_reward'
-        - else
-          = render 'form'
-        %hr/
-        .sub-headline Câu Hỏi
-        .row-fluid
-          %h4 Đóng góp bằng cách nào?
-          %p Dự án gây quỹ trên Charity Map có thể nhận đóng góp qua hai kênh: <strong>thu tiền tại nhà/công ty</strong> (tình nguyện viên của chúng tôi sẽ liên hệ bạn để đến tận nơi tiếp nhận đóng góp) và <strong>chuyển khoản qua ngân hàng</strong>. Ngoài ra mạnh thường quân có tài khoản Paypal có thể gửi tiền về charitymap.vn@gmail.com.
-        .row-fluid 
-          %h4 Đóng góp của tôi có bị đánh thuế không?
-          %p Không. Toàn bộ số tiền sẽ được <strong>100% miễn thuế</strong>.
-        .row-fluid
-          %h4 Tôi có phải trả thêm phí?
-          %p Hệ thống Charity Map <strong>không thu phí xử lý giao dịch</strong>. Tuy nhiên, bạn có thể phải trả một khoản phí khi tiến hành chuyển khoản qua ngân hàng (tùy theo ngân hàng, số tiền này ngân hàng thu).
-        .row-fluid 
-          %h4 Bao giờ ủng hộ của tôi đến được với người nhận?
-          %p Một tuần sau khi thời gian gây quỹ của dự án kết thúc. <strong>#{@project.title}</strong> sẽ kết thúc việc gây quỹ vào ngày <strong>#{human_time @project.end_date}</strong>.
-        .row-fluid 
-          %h4 Tại sao Charity Map không thu bất kỳ khoản phí nào? 
-          %p Charity Map hoạt động với tiêu chí: 100% số tiền ủng hộ cho từ thiện nên được chuyển đến tay những người cần. Trung bình để xử lý một giao dịch, chi phí phải bỏ ra là 5% (so với giá trị của số tiền ủng hộ, dành cho hệ thống, nhân lực, bên trung gian). Chúng tôi rất may mắn được các doanh nghiệp, mạnh thường quân quan tâm và hỗ trợ khoản này. Nếu bạn có nhã ý đóng góp riêng cho phần chi phí này, vui lòng liên hệ với chúng tôi tại team@charity-map.org hoặc số ĐT 0908 230 591. Charity Map chân thành cảm ơn.
+.row
+  .col-md-10.col-md-offset-1
+    - if notice || alert
+      .row
+        .alert.alert-info= notice || alert
+  .col-md-6.col-md-offset-3{style: "text-align: center;"}
+    %h1= link_to @project.title, project_path(@project)
+    %span.glyphicon.glyphicon-user
+    = link_to @project.user.name, user_profile_path(@project.user)
+    &sdot;
+    %span.glyphicon.glyphicon-map-marker
+    = @project.location
+    %hr
+%section.row.col-md-10.col-md-offset-1
+  - if @project.item_based
+    = render 'form_for_reward'
+  - else
+    = render 'form'
 
-.cleared
+.row
+  .col-md-6.col-md-offset-3{style: "text-align: center;"}
+    %h1 Các Câu Hỏi Thường Gặp
+    %hr
+.row
+  .list-group.col-md-8.col-md-offset-2
+    %a.list-group-item{href: "#", style: "padding-top: 20px;"}
+      %h4.list-group-item-heading Ủng hộ bằng cách nào?
+      %p.list-group-item-text Dự án gây quỹ trên Charity Map có thể nhận ủng hộ qua hai kênh: <strong>thu tiền tận nơi</strong> (tình nguyện viên của chúng tôi sẽ liên hệ bạn để tiếp nhận ủng hộ) và <strong>chuyển khoản qua ngân hàng</strong> (thông tin tài khoản ngân hàng của dự án sẽ được email tới <strong>#{current_user.email}</strong> sau khi bạn hoàn tất các bước trên đây). Ngoài ra mạnh thường quân có tài khoản Paypal có thể gửi tiền về charitymap.vn@gmail.com.
+    %a.list-group-item{href: "#", style: "padding-top: 20px;"}
+      %h4.list-group-item-heading Tôi có phải trả thêm phí?
+      %p.list-group-item-text Charity Map <strong>không thu phí xử lý giao dịch</strong>. Tuy nhiên, bạn có thể phải trả một khoản phí khi tiến hành chuyển khoản qua ngân hàng (tùy theo ngân hàng, số tiền này ngân hàng thu).
+    %a.list-group-item{href: "#", style: "padding-top: 20px;"}
+      %h4.list-group-item-heading Bao giờ ủng hộ của tôi đến được với người nhận?
+      %p.list-group-item-text Một tuần sau khi thời gian gây quỹ của dự án kết thúc. <strong>#{@project.title}</strong> sẽ kết thúc việc gây quỹ vào ngày <strong>#{human_time @project.end_date}</strong>.
+    %a.list-group-item{href: "#", style: "padding-top: 20px;"}
+      %h4.list-group-item-heading Tại sao Charity Map không thu bất kỳ khoản phí nào? 
+      %p.list-group-item-text Charity Map hoạt động với tiêu chí: 100% số tiền ủng hộ cho từ thiện nên được chuyển đến tay những người cần. Trung bình để xử lý một giao dịch, chi phí phải bỏ ra là 5% (so với giá trị của số tiền ủng hộ, dành cho hệ thống, nhân lực, đối tác thứ 3). Chúng tôi rất may mắn được các doanh nghiệp, mạnh thường quân quan tâm và hỗ trợ khoản này. Nếu bạn có nhã ý đóng góp riêng cho phần chi phí này, vui lòng liên hệ với chúng tôi tại team@charity-map.org hoặc số ĐT 0908 230 591. Charity Map chân thành cảm ơn.
+/     #donation-packs.col-md-4
+/       %ul
+/         %li.project-reward
+/           %h4 Hỗ trợ 50.000đ hay hơn
+/           %span.backer
+/             %i.glyphicon.glyphicon-heart>
+/             5 người hỗ trợ
+/           %img{alt: "", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/white-mug1_large.jpg?v=1385474611"}/
+/           %p
+/             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere volutpat tellus, ac condimentum odio. Morbi tellus dolor, placerat sed scelerisque vel, vehicula porta arcu.
+/         %li.project-reward
+/           %h4 Hỗ trợ 50.000đ hay hơn
+/           %span.backer
+/             %i.glyphicon.glyphicon-heart>
+/             5 người hỗ trợ
+/           %img{alt: "", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/white-mug1_large.jpg?v=1385474611"}/
+/           %p
+/             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere volutpat tellus, ac condimentum odio. Morbi tellus dolor, placerat sed scelerisque vel, vehicula porta arcu.
+/         %li.project-reward
+/           %h4 Hỗ trợ 50.000đ hay hơn
+/           %span.backer
+/             %i.glyphicon.glyphicon-heart>
+/             5 người hỗ trợ
+/           %img{alt: "", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/white-mug1_large.jpg?v=1385474611"}/
+/           %p
+/             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere volutpat tellus, ac condimentum odio. Morbi tellus dolor, placerat sed scelerisque vel, vehicula porta arcu.
+/         %li.project-reward
+/           %h4 Hỗ trợ 50.000đ hay hơn
+/           %span.backer
+/             %i.glyphicon.glyphicon-heart>
+/             5 người hỗ trợ
+/           %img{alt: "", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/white-mug1_large.jpg?v=1385474611"}/
+/           %p
+/             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere volutpat tellus, ac condimentum odio. Morbi tellus dolor, placerat sed scelerisque vel, vehicula porta arcu.
+/         %li.project-reward
+/           %h4 Hỗ trợ 50.000đ hay hơn
+/           %span.backer
+/             %i.glyphicon.glyphicon-heart>
+/             5 người hỗ trợ
+/           %img{alt: "", src: "http://cdn.shopify.com/s/files/1/0167/4484/products/white-mug1_large.jpg?v=1385474611"}/
+/           %p
+/             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere volutpat tellus, ac condimentum odio. Morbi tellus dolor, placerat sed scelerisque vel, vehicula porta arcu.
 
-/     .photo-box
-/       image_tag @project.photo_url(:banner), size: "658x230"
+.clearfix
+
+:javascript
+  $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').addClass('scroll');

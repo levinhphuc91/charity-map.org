@@ -21,12 +21,12 @@ Feature: User
     Given I am a new, authenticated user
       And I am on the users settings page
       And I fill in "user_email" with "saidrebyn@gmail.com"
-      And I fill in "Full name" with "Hoang Minh Tu"
-      And I fill in "Address" with "10.5B D5 Binh Thanh"
+      And I fill in "Họ và Tên*" with "Hoang Minh Tu"
+      And I fill in "Địa chỉ*" with "10.5B D5 Binh Thanh"
       # And I select "Hồ Chí Minh" from "City"
       And I fill in "Bio" with "Charity Map co-founders"
-      And I fill in "Phone" with "0908 230 591"
-      And I press "CẬP NHẬT THÔNG TIN"
+      And I fill in "Số ĐT*" with "0908 230 591"
+      And I press "Cập nhật Thông Tin"
     Then I should see "Cập nhật thành công."
     When I follow "Xem Trang Của Bạn"
     Then I should see "Người dùng chưa tạo dự án trên hệ thống."
@@ -178,12 +178,15 @@ Feature: User
     Then I should see "Permission denied"
       And the URL should not contain "/dashboard"
 
+  # TODO: add test for Xoa du an truoc day
   Scenario: To be able to have a portfolio profile
     Given the date is "2014-09-01"
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "testing@man.net"
       And I go to the users settings page
     Then the "user_org" checkbox should not be checked
-    # When I check "portfolio"
-    #   And I press "CẬP NHẬT THÔNG TIN"
-    # Then the "portfolio" checkbox should be checked
+    When I check "user_org"
+      And I press "Cập nhật Thông Tin"
+    Then the "user_org" checkbox should be checked
+    When I follow "Xem Trang Của Bạn"
+    Then I should see "Dự Án Trước Đây"

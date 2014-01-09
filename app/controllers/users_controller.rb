@@ -88,19 +88,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_ext_project_from_portfolio
+    @ext_project = ExtProject.find(params[:ext_project])
+    if (@ext_project.user == current_user) && @ext_project.destroy!
+      redirect_to users_profile_path, notice: "Xoá dự án trước đây thành công."
+    else
+      redirect_to users_profile_path, alert: "Xoá dự án trước đây không thành công."
+    end
+  end
+
   def verification_code_via_phone
     if params[:phone_number]
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
         sms = SMS.send(sender_id: true, to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        @verification.update status: sms
         current_user.update(phone: @phone_number) if current_user.phone.blank?  
         redirect_to users_verify_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
       else
         redirect_to users_verify_path, alert: "Không thành công. Vui lòng thử lại."
       end
     elsif params[:phone_code]
-      @verification = Verification.where(user_id: current_user.id, code: params[:phone_code], status: "UNUSED").first
+      @verification = current_user.verification
       unless current_user.verified_by_phone
         current_user.update verified_by_phone: true
         @verification.update status: "USED"
@@ -113,19 +123,21 @@ class UsersController < ApplicationController
 
   def resend_verification
     @phone_number = current_user.phone.gsub(/\D/, '').to_i.to_s
-    @verification = current_user.verifications.where(:status => "UNUSED").first
-    sms = SMS.send(sender_id: true, to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") #if Rails.env.production?
+    @verification = current_user.verification
+    if @verification.status == "UNUSED"
+      @sms = SMS.send(sender_id: true, to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+      @verification.update status: @sms
+    end
     redirect_to users_verify_path, notice: "Mã xác nhận đã được gửi đi tới số 0#{@phone_number}."
   end
 
   def verification_delivery_receipt
     if params["msisdn"]
       @user = User.find_by_phone("#{params["msisdn"].gsub("84","0")}")
-      @verification = @user.verifications.where(:status => "UNUSED").first
-      @verification.update_attributes :receipt => params
+      @user.verification.update_attributes :receipt => params
       render text: "#{params}", status: :ok
     else
-      render :text => "Error.", status: :bad_request
+      render :text => "Error.", status: :ok
     end
   end
 

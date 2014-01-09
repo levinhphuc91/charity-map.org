@@ -52,16 +52,16 @@ class ProjectsController < InheritedResources::Base
   end
 
   def update
-    update!(notice: "Cập nhật thành công.") { params[:href] if params[:href] }
+    update!(notice: "Cập nhật dự án thành công.") { params[:href] if params[:href] }
   end
 
   def submit
     if @project.project_rewards.empty?
       redirect_to project_project_rewards_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
     else
-      if @project.update_attributes status: "REVIEWED"
+      if @project.update_attributes(status: "REVIEWED")
         redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
-        AdminMailer.delay.new_pending_project(@project)
+        AdminMailer.delay.new_pending_project(@project) if @project.status == "REVIEWED"
       end
     end
   end

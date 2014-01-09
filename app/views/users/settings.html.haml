@@ -47,6 +47,7 @@
             = f.check_box :org
             Click chọn nếu bạn là tổ chức/nhóm cần sử dụng trang đại diện dạng portfolio
 
+<<<<<<< HEAD
         .col-md-offset-2.col-md-8
           = f.submit "CẬP NHẬT THÔNG TIN", class: "btn-flat default"
     / right column
@@ -55,3 +56,38 @@
       = image_tag(@user.avatar_url(:large), class: "avatar img-circle") if @user.avatar? 
       %h2.name= @user.name
       %span.area= @user.email
+=======
+.row-fluid
+	.span12
+		.error_messages
+			%p
+				- if @user.errors.full_messages
+					- @user.errors.full_messages.each do |error_message| 
+						= error_message 
+						%br/
+
+		.update-user-profile
+			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+				= f.input  :id, :as => :hidden
+				= f.inputs :email
+				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
+				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
+				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
+				= f.input  :address, label: "Địa chỉ*", as: :text, :input_html => {:rows => 5}
+				.row-fluid
+					.span8.offset3.hint= render "layouts/markdown"
+				.clearfix
+				
+				= f.input :bio, :input_html => { :cols => 100, :rows => 15 }
+				= f.input :avatar, as: :file, label: "Ảnh đại diện"
+				= f.hidden_field :avatar_cache 
+				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+				%hr/
+				%p 
+					= f.check_box :org
+					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
+				%hr/
+				.pull-right{style: "margin-top: 20px;"}= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+				.pull-left
+					= f.submit "Cập nhật Thông Tin", class: "submit"
+>>>>>>> restyle

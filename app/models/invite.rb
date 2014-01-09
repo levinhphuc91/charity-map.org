@@ -24,4 +24,9 @@ class Invite < ActiveRecord::Base
     return true if status == "SENT"
     false
   end
+
+  def new?
+    return true if status == "NEW"
+    false
+  end
 end

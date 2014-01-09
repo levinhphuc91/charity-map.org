@@ -12,7 +12,7 @@ class SMS
         raise "#{key} cannot be nil" if value.nil?
       end
 
-      if params[:sender_id]
+      if params[:sender_id] == true
         nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
         response = nexmo.send_message!({
           :to => "84#{params[:to]}", 
@@ -27,6 +27,8 @@ class SMS
           :text => params[:text]
         })
       end
+
+      return response
     end
   end
 end

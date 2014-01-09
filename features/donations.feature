@@ -10,13 +10,13 @@ Feature: Donation
 	 	When I login as "donor@man.net"
 		 	And I go to the project page of "Push The World"
 	 		And I follow "ủng hộ dự án"
-	 	Then I should see "Vui lòng điền đầy đủ thông tin liên hệ trước khi ủng hộ dự án Push The World"
-	 		And I fill in "Full name" with "Hoang Minh Tus"
-	 		And I fill in "Address" with "This is my address"
-	 		And I fill in "Phone" with "+123456"
-	 		And I press "CẬP NHẬT THÔNG TIN"
+	 	Then I should see "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án Push The World (họ và tên, địa chỉ, số điện thoại)."
+	 		And I fill in "Họ và Tên*" with "Hoang Minh Tus"
+	 		And I fill in "Địa chỉ*" with "This is my address"
+	 		And I fill in "Số ĐT*" with "+123456"
+	 		And I press "Cập nhật Thông Tin"
 	 	Then I should see "Cập nhật thành công."
-	 		And I should see "Đóng Góp Push The World"
+	 		And I should see "Các Câu Hỏi Thường Gặp"
 
 	Scenario: Email with bank account info to be sent for Bank Transfer donations
 		Given the date is "2013-09-10"
@@ -31,7 +31,7 @@ Feature: Donation
 	 		And I fill in "donation_amount" with "12345"
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
-	 		And I press "Tiếp Tục"
+	 		And I press "Ủng Hộ Push The World"
 	 	Then an email should have been sent with:
 		  """
 		  From: team@charity-map.org
@@ -61,7 +61,7 @@ Feature: Donation
 	 		And I fill in "donation_amount" with "12345"
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
-	 		And I press "Tiếp Tục"
+	 		And I press "Ủng Hộ Push The World"
 	 	Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
 	 	Then "donor@man.net" should receive an email
 		When I open the email
@@ -73,7 +73,7 @@ Feature: Donation
 			And I open the email
 			And I follow "đường dẫn này" in the email
       And I follow "Xác nhận ủng hộ"
-		Then I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
+		Then I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
 			And an email should have been sent with:
 			  """
 			  From: team@charity-map.org
@@ -148,7 +148,7 @@ Feature: Donation
 	 	When I login as "testing@man.net"
 	  	And I go to the donation page of the project "Push The World"
   		And I follow "Xác nhận ủng hộ"
-	  Then  I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền chuyển khoản."
+	  Then  I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
 	  Then  an email should have been sent with:
 			"""
 			From: team@charity-map.org

@@ -1,5 +1,5 @@
 class ProjectRewardsController < InheritedResources::Base 
-
+  nested_belongs_to :project
   before_filter :authenticate_user!
   layout "layouts/dashboard"
   include DonationsHelper
@@ -19,22 +19,14 @@ class ProjectRewardsController < InheritedResources::Base
   end
 
   def create
-    @project = Project.find(params[:project_id])
-    @project_reward = ProjectReward.new(params[:project_reward])
-    if @project_reward.save
-      respond_to do |format|
-        format.js
-        # format.json { render :json => @project_reward }
-        format.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
-      end
-    else
-      redirect_to project_project_rewards_path(@project), alert: "Lỗi: #{@project_reward.errors.full_messages.join(", ")}"
+    create! do |success, failure|
+      success.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
+      failure.html { redirect_to project_project_rewards_path(@project), alert: "Lỗi: #{@project_reward.errors.full_messages.join(', ')}" }
     end
   end
 
-  def edit
-    @project = Project.find(params[:project_id])
-    edit!
+  def update
+    update! { project_project_rewards_path(@project) }
   end
 
   def destroy

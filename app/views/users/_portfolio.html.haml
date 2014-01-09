@@ -200,7 +200,7 @@
   #contact-us.body-container--content.light-container
     #sub-header-box Liên Hệ
   .body-container--content.light-container
-    .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.address
+    .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.try(:address)
 
   .body-container--content.light-container
     = render "layouts/map", height: "400px", markers: @user.projects.portfolio_view.mapped

@@ -1,37 +1,50 @@
-= @project_reward.name
-= @project_reward.description
-= @project_reward.quantity
-
 = simple_form_for [@project, @donation] do |f|
-  .row-fluid
-    .span12
-      - if @donation.errors.any?
-        #error_explanation
-          %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
-          %ul
-            - @donation.errors.full_messages.each do |msg|
-              %li= msg
-  = f.hidden_field :project_reward_id, value: params[:project_reward_id]
-  .row-fluid
-    .span6
-      = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-      = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-      .sub-headline Số Lượng
-      = f.input :project_reward_quantity, :label => false, :input_html => {value: params[:amount] || nil, :class => "span12 custom-fields"}
-      .sub-headline Phương Thức Đóng Góp
-      = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tại nhà", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12"}
-      .sub-headline Ẩn Danh?
-      = f.input :anon, label: false
-    .span6
-      .sub-headline Ghi Chú
-      = f.input :note, :label => false, :input_html => {:class => "span12 custom-fields", :size => "20x5"}
-  .row-fluid
-    = f.submit "Tiếp Tục", class: "submit"
+  .col-md-6.col-md-offset-3
+    - if @donation.errors.any?
+      #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
+        %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+        - @donation.errors.full_messages.each do |msg|
+          &sdot; #{msg}<br/>
+  = f.hidden_field :project_reward_id, value: params[:project_reward_id] || params[:donation][:project_reward_id]
+  .money-donation-form.col-md-12
+    .col-md-6{style: "color: #b9b9b9 !important;"}
+      %label{for: "Tặng Phẩm"} Tặng Phẩm
+      .product
+        .photo.pull-left= image_tag @project_reward.photo_url(:thumb)
+        .info
+          %h3= @project_reward.try(:name)
+          %span= @project_reward.description
+      #something{style: "position: relative; clear: both;"}
+        = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
+        = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
+        %span.money-icon VNĐ
+        %label{for: "Số Lượng"} Số tiền ủng hộ
+        = f.input :amount, :label => false, :input_html => {value: @project_reward.value.to_i || nil, :class => "form-control money", type: "text", :"data-value" => @project_reward.value, disabled: true}
+    .col-md-6
+      .donation-form
+        %label{for: "Số Lượng"} Số Lượng (Còn Lại: #{@project_reward.active_item})
+        = f.input :project_reward_quantity, :label => false, :input_html => {:class => "form-control", type: "text"}
+      .donation-form
+        %label{for: "Phương Thức Đóng Góp"} Phương Thức Đóng Góp
+        = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12 form-control"}
+      .donation-form
+        %label Ẩn danh?
+        = f.input :anon, label: false, :input_html => {class: "check"}
+      %label{for: "Ghi Chú"} Thông Tin Liên Lạc, Ghi Chú
+      = f.input :note, :label => false, :input_html => {value: "#{current_user.name} / #{current_user.address} / #{current_user.phone}",:class => "form-control", :size => "20x5"}
+      %p
+      = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
 
 :javascript
   $('.reward').on('click', function() {
-    console.log($(this).data('amount'));
     $('.reward').css('background-color', '#fff');
     $(this).css('background-color', '#ccc');
     $('#donation_amount').val($(this).data('amount'));
+  });
+
+  $('#donation_project_reward_quantity').keyup(function () {
+    var quantity = $(this).val();
+    var value = $('#donation_amount').data("value");
+    var amount = quantity * value;
+    $('#donation_amount').val(amount);
   });

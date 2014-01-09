@@ -20,11 +20,12 @@
       = render "layouts/analytics"
     = render "layouts/item-based/footer"
 
-  :javascript
-    $(window).scroll(function() {
-      if ( $(window).scrollTop() >= 30 ) {
-        $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').addClass('scroll');
-      } else {
-        $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').removeClass('scroll');
-      }
-    });
+  - unless (params[:controller] == "donations" && params[:action] == "new")
+    :javascript
+      $(window).scroll(function() {
+        if ( $(window).scrollTop() >= 30 ) {
+          $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').addClass('scroll');
+        } else {
+          $('#cm-header, #cm-logo, #cm-first-menu, #cm-second-menu').removeClass('scroll');
+        }
+      });

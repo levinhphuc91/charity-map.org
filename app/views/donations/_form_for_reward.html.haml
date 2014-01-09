@@ -1,13 +1,11 @@
 = simple_form_for [@project, @donation] do |f|
-  .row
-    .col-md-12
-      - if @donation.errors.any?
-        #error_explanation
-          %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
-          %ul
-            - @donation.errors.full_messages.each do |msg|
-              %li= msg
-  = f.hidden_field :project_reward_id, value: params[:project_reward_id]
+  .col-md-6.col-md-offset-3
+    - if @donation.errors.any?
+      #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
+        %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+        - @donation.errors.full_messages.each do |msg|
+          &sdot; #{msg}<br/>
+  = f.hidden_field :project_reward_id, value: params[:project_reward_id] || params[:donation][:project_reward_id]
   .money-donation-form.col-md-12
     .col-md-6{style: "color: #b9b9b9 !important;"}
       %label{for: "Tặng Phẩm"} Tặng Phẩm

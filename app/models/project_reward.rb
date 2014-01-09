@@ -28,7 +28,7 @@ class ProjectReward < ActiveRecord::Base
   validate :quantity_can_not_be_nil_for_item_based_projects
 
   def active_item
-    return (quantity - self.project.donations.successful.where(:project_reward_id => self.id).count)
+    return (quantity - self.project.donations.successful.where(:project_reward_id => self.id).sum(:project_reward_quantity))
   end
 
   private

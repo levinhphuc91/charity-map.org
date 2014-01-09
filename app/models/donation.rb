@@ -33,11 +33,12 @@ class Donation < ActiveRecord::Base
   has_defaults status: "PENDING", project_reward_quantity: 1, anon: false
   before_validation :assign_euid
   before_validation :calculate_amount
-  before_validation :assign_project_reward_id
+  before_validation :assign_project_reward_id, on: :create
 
   validates :user_id, :project_id, :euid, :status, :project_reward_id,
     :amount, :collection_method, presence: true
   validate :amount_can_not_be_smaller_than_least_reward
+  validate :quantity_can_not_be_bigger_than_left_items, on: :create
 
   def belongs_to?(target_user)
     return true if self.user == target_user
@@ -51,11 +52,23 @@ class Donation < ActiveRecord::Base
     end
   end
 
+  def confirm!
+    self.update_attributes! status: "SUCCESSFUL"
+  end
+
   private
 
     def amount_can_not_be_smaller_than_least_reward
-      errors.add(:amount, "can't be smaller than least reward") if
+      errors.add(:amount, "không thể ít hơn #{self.project.project_rewards[0].value.to_i}VNĐ") if
         !(self.project.project_rewards.empty?) and !amount.blank? and (amount < self.project.project_rewards[0].value)
+    end
+    # viet test TODO
+
+    def quantity_can_not_be_bigger_than_left_items
+      if self.project.item_based
+        errors.add(:project_reward_quantity, "không thể nhiều hơn #{self.project_reward.active_item}") if
+          project_reward_quantity > self.project_reward.active_item
+      end
     end
     # viet test TODO
 

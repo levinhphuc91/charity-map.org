@@ -8,8 +8,8 @@
     .description
       Số tiền nhận được (#{number_with_precision (project.donations_sum/project.funding_goal*100), precision: 0}%)
   .figure.righted 
-    - if project.start_date < Date.today && project.end_date > Date.today
-      .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
+    - if project.start_date.beginning_of_day < Date.today && project.end_date > Date.today.end_of_day
+      .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} ngày
       .description
         %i.icon-time
         Thời gian gây quỹ

@@ -24,7 +24,7 @@
 					.span8.offset3.hint= render "layouts/markdown"
 				.clearfix
 				
-				= f.input :bio, :input_html => { :cols => 100, :rows => 15 }
+				= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
 				= f.input :avatar, as: :file, label: "Ảnh đại diện"
 				= f.hidden_field :avatar_cache 
 				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 

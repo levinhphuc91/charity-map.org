@@ -24,7 +24,7 @@ Feature: User
       And I fill in "Họ và Tên*" with "Hoang Minh Tu"
       And I fill in "Địa chỉ*" with "10.5B D5 Binh Thanh"
       # And I select "Hồ Chí Minh" from "City"
-      And I fill in "Bio" with "Charity Map co-founders"
+      And I fill in "Giới Thiệu" with "Charity Map co-founders"
       And I fill in "Số ĐT*" with "0908 230 591"
       And I press "Cập nhật Thông Tin"
     Then I should see "Cập nhật thành công."

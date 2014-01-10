@@ -20,10 +20,12 @@
           = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
     %hr/ 
     .row-fluid
-      .span4.sub-headline
-        Tên Dự Án
+      .span4
+        .sub-headline Tên Dự Án
       .span8
         = f.input :title, label: false, :input_html => {:class => "span12"}
+        - if params[:controller] == "projects" && params[:action] == "edit"
+          .hint Link dự án: <strong>#{project_url(@project)}</strong> sẽ thay đổi khi bạn đổi tên dự án.
     .row-fluid
       .span4.sub-headline
         Giới Thiệu Ngắn Gọn (giới hạn: 200 ký tự)

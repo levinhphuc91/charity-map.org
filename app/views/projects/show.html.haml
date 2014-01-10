@@ -19,7 +19,7 @@
       /     - if @user.avatar? 
       /       = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
       /     - else
-      /       = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+      /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
       /   .col-md-6{style: "text-align: left;"}
       /     #{link_to @user.name, user_profile_path(@user)}
       /     %br/ 
@@ -30,7 +30,7 @@
       /     - if @user.avatar? 
       /       = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
       /     - else
-      /       = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+      /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
       /   %h1 #{link_to @user.name, user_profile_path(@user)}
       /   %span.quote "#{@project.brief}"
     %nav.navbar.proj-details{role: "navigation"}
@@ -61,7 +61,7 @@
             - if @user.avatar? 
               = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
             - else
-              = image_tag("ph_project-thumbnail.jpg", class: "img-circle group-ava")
+              = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
       .col-md-10
         %span.quote= @project.brief
 

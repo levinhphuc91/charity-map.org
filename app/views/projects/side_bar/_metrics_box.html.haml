@@ -14,17 +14,17 @@
         .hint ĐÃ NHẬN ĐƯỢC
     .col-md-4
       .deadline
-        - if project.start_date < Date.today.beginning_of_day && project.end_date > Date.today.end_of_day
+        - if project.start_date < Time.now && project.end_date > Time.now
           %strong
             %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} NGÀY
           .hint THỜI GIAN CÒN LẠI
-        - elsif project.start_date > Date.today
+        - elsif project.start_date > Date.today.end_of_day
           %strong
             %span= human_time(project.start_date)
           .hint BẮT ĐẦU GÂY QUỸ
-        - elsif project.end_date < Date.today
+        - elsif project.end_date < Date.today.end_of_day
           %strong
-            %span= human_time(project.end_date)
+            %span= human_time(project.end_date - 1)
           .hint KẾT THÚC GÂY QUỸ
   .row.text-center.action-box
     - if @project.accepting_donations?

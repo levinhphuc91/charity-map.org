@@ -1,12 +1,15 @@
 .donation-item
   .item-desc
     #{human_time donation.created_at} &sdot;
-    = link_to user_profile_path(donation.user) do
-      .avatar
-        - if donation.user.avatar? 
-          = image_tag(donation.user.avatar_url(:small)) 
-        - else
-          = image_tag "default_avatar.png"
+    - if donation.anon
+      .avatar= image_tag "default_avatar.png"
+    - else
+      = link_to user_profile_path(donation.user) do
+        .avatar
+          - if donation.user.avatar? 
+            = image_tag(donation.user.avatar_url(:small)) 
+          - else
+            = image_tag "default_avatar.png"
         
     %strong
       - if donation.anon
@@ -16,11 +19,11 @@
     ủng hộ #{human_currency donation.amount}
 
     - if donation.collection_method == "COD"
-      %a.action{href: "#"}
+      %a.action{href: ""}
         .links-right
           %span.glyphicon.glyphicon-usd
     - else
-      %a.action{href: "#"}
+      %a.action{href: ""}
         .links-right
           %span.glyphicon.glyphicon-credit-card
     

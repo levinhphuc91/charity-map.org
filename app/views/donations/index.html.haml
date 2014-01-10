@@ -62,17 +62,17 @@
           .donation-item
             .item-desc
               #{human_time donation.collection_time} &sdot;
-              %a{href: "#"}
+              %a{href: ""}
                 .avatar= image_tag "default_avatar.png"
               %strong #{ donation.anon ? "Ẩn Danh" : donation.donor }
               ủng hộ #{human_currency donation.amount}
 
               - if donation.collection_method == "COD"
-                %a.action{href: "#"}
+                %a.action{href: ""}
                   .links-right
                     %span.glyphicon.glyphicon-usd
               - else
-                %a.action{href: "#"}
+                %a.action{href: ""}
                   .links-right
                     %span.glyphicon.glyphicon-credit-card
               

@@ -28,6 +28,8 @@
 #  facebook_credentials   :hstore
 #  org                    :boolean
 #  figures                :hstore
+#  latitude               :float
+#  longitude              :float
 #
 
 require 'spec_helper'

@@ -202,8 +202,9 @@
   .body-container--content.light-container
     .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.try(:address)
 
-  .body-container--content.light-container
-    = render "layouts/map", height: "400px", markers: @user.projects.portfolio_view.mapped
+  - if @user.coordinated?
+    .body-container--content.light-container
+      = render "layouts/plain_map", height: "400px", id: @user.id, latitude: @user.latitude, longitude: @user.longitude
 
 :javascript
   $("#new_ext_project_button").click(function() {

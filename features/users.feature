@@ -20,6 +20,7 @@ Feature: User
   Scenario: Update their profile settings
     Given I am a new, authenticated user
       And I am on the users settings page
+      And I should see "Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên Google Maps trước."
       And I fill in "user_email" with "saidrebyn@gmail.com"
       And I fill in "Họ và Tên*" with "Hoang Minh Tu"
       And I fill in "Địa chỉ*" with "10.5B D5 Binh Thanh"

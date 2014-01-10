@@ -20,11 +20,16 @@
 				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
 				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input  :address, label: "Địa chỉ*", as: :text, :input_html => {:rows => 5}
+				- unless @user.coordinated?
+					.row-fluid
+						.span8.offset3.hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
+					.clearfix
+				= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
 				.row-fluid
 					.span8.offset3.hint= render "layouts/markdown"
 				.clearfix
 				
-				= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
+				
 				= f.input :avatar, as: :file, label: "Ảnh đại diện"
 				= f.hidden_field :avatar_cache 
 				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 

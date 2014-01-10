@@ -28,6 +28,8 @@
 #  facebook_credentials   :hstore
 #  org                    :boolean
 #  figures                :hstore
+#  latitude               :float
+#  longitude              :float
 #
 
 class User < ActiveRecord::Base
@@ -46,7 +48,8 @@ class User < ActiveRecord::Base
                       
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :verified_by_phone, :provider, :uid, :facebook_credentials, :org, :figures
+    :verified_by_phone, :provider, :uid, :facebook_credentials, :org, :figures,
+    :latitude, :longitude
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
@@ -64,6 +67,9 @@ class User < ActiveRecord::Base
   
   has_defaults staff: false, verified_by_phone: false, org: false
 
+  geocoded_by :address
+  after_validation :geocode,
+    :if => lambda{ |obj| obj.address_changed? }
   # has_settings do |s|
   #   s.key :profile, :defaults => { :portfolio => false }
   # end
@@ -104,6 +110,11 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def coordinated?
+    return true if (latitude && longitude && latitude >= 0 && longitude >= 0)
+    false
   end
 
   def token_expired?

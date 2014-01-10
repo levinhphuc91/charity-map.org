@@ -77,12 +77,14 @@
                     %span.glyphicon.glyphicon-credit-card
               
               - if current_user && @project.authorized_edit_for?(current_user)
-                = link_to edit_project_ext_donation_path(@project, donation), class: "action" do
-                  .links-right
-                    %span.glyphicon.glyphicon-pencil
                 = link_to project_ext_donation_path(@project, donation), class: "action", :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} do
                   .links-right
-                    %span.glyphicon.glyphicon-trash
+                    Xoá
+                    / %span.glyphicon.glyphicon-trash
+                = link_to edit_project_ext_donation_path(@project, donation), class: "action" do
+                  .links-right
+                    Sửa
+                    / %span.glyphicon.glyphicon-pencil
 
     
 - if current_user && @project.authorized_edit_for?(current_user)

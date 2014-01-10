@@ -214,3 +214,24 @@ Feature: Donation
  #    	And I follow "Trang Cá Nhân"
  #    Then I should see "100.000 VNĐ"
     	# And I should see "Push The World"
+
+	Scenario: Add ExtDonation
+		Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+      And there is a project reward with the value "15000" and the description "Bla Bla Bla" with the project above
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_collection_time" with "25/09/2013"
+      And I fill in "ext_donation_email" with "donor@mail.net"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+    	And I should see "Tu Hoang ủng hộ 100.000 VNĐ"
+    When I follow "Sửa"
+    	And I fill in "ext_donation_amount" with "200000"
+    	And I press "Thêm"
+    Then I should see "Tu Hoang ủng hộ 200.000 VNĐ"

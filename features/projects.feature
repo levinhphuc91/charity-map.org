@@ -1,9 +1,8 @@
 Feature: Project
-  # fail for closed beta period only TODO
   Scenario: To be displayed in a box
     Given there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"
       And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above that is not unlisted
-    When I go to the home page
+    When I go to the project listing page
     Then I should see "Books from Heart"
       And I should see "This is a short brief"
 

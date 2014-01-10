@@ -99,4 +99,4 @@
           %h1.line
             %span.glyphicon.glyphicon-map-marker
       .row.map-container
-        = render "layouts/plain_map", height: "400px", id: @user.id, latitude: @user.latitude, longitude: @user.longitude, zoom: 12, content: @project.location
+        = render "layouts/plain_map", height: "400px", id: @project.id, latitude: @project.latitude, longitude: @project.longitude, zoom: 12, content: @project.location

@@ -14,9 +14,9 @@
         .hint ĐÃ NHẬN ĐƯỢC
     .col-md-4
       .deadline
-        - if project.start_date < Date.today && project.end_date > Date.today
+        - if project.start_date < Date.today.beginning_of_day && project.end_date > Date.today.end_of_day
           %strong
-            %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} NGÀY
+            %span #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} NGÀY
           .hint THỜI GIAN CÒN LẠI
         - elsif project.start_date > Date.today
           %strong

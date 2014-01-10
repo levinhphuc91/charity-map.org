@@ -16,7 +16,7 @@
       .span8
         = f.file_field :photo
         = f.hidden_field :photo_cache
-        - if params[:action] == "new"
+        - if params[:controller] == "projects" && params[:action] != "edit"
           = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
     %hr/ 
     .row-fluid

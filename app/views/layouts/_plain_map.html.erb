@@ -1,8 +1,8 @@
 <%= content_for :head do %>
   <style>
   .infowindow {
-    width: 300px;
-    min-height: 200px;
+    width: auto;
+    min-height: 20px;
   }
   #map-canvas img {
     max-width: none;
@@ -63,7 +63,7 @@
       ];
 
     var mapOptions = {
-      zoom: 14,
+      zoom: <%= zoom %>,
       zoomControl: true,
       scrollwheel: false,
       center: new google.maps.LatLng(<%= latitude %>,<%= longitude %>),
@@ -84,10 +84,23 @@
     var myLatlng = new google.maps.LatLng(10.77530, 106.69681);
 
     var <%= "myLatlng#{id}" %> = new google.maps.LatLng(<%= latitude %>, <%= longitude %>);
+    var <%= "content#{id}" %> = "<div class='infowindow'><%= escape_javascript(content) %></div>";
     var <%= "marker#{id}" %> = new google.maps.Marker({
       position: <%= "myLatlng#{id}" %>,
       map: map,
       icon: '<%= image_path("careicon-red.png") %>'
+    });
+
+    var <%= "marker#{id}" %> = new google.maps.Marker({
+      position: <%= "myLatlng#{id}" %>,
+      map: map,
+      icon: '<%= image_path("careicon-red.png") %>'
+    });
+
+    google.maps.event.addListener(<%= "marker#{id}" %>, 'click', function() {
+      infowindow.close();
+      infowindow.setContent(<%= "content#{id}" %>);
+      infowindow.open(map,<%= "marker#{id}" %>);
     });
 
   }

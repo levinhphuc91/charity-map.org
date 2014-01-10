@@ -68,10 +68,10 @@ class Project < ActiveRecord::Base
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
   validate :video_url_to_be_a_valid_service_link
   
-  geocoded_by :address
+  geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
   after_validation :geocode,
-    :if => lambda{ |obj| obj.address_changed? }
+    :if => lambda{ |obj| obj.location_changed? }
 
   extend FriendlyId
   friendly_id :title, use: :slugged

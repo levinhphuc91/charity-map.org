@@ -11,7 +11,7 @@
 
 .overlay.proj-cover{style: "background-image: url('#{@project.photo_url(:banner)}')"}
   .overlay
-%header.row
+%header
   .proj-header.col-md-8.col-md-offset-2{style: "padding-left: 0; padding-right: 0;"}
     .proj-title
       .text-shadow= @project.title
@@ -92,3 +92,11 @@
                     .action #{human_currency reward.value} &sdot; <strong>ỦNG HỘ</strong>
                 - else
                   .action.disabled #{human_currency reward.value} &sdot; <strong>HẾT</strong>
+
+    - if @project.coordinated?
+      .row{style: "margin-top: 50px; margin-bottom: 20px;"}
+        .title-with-line
+          %h1.line
+            %span.glyphicon.glyphicon-map-marker
+      .row.map-container
+        = render "layouts/plain_map", height: "400px", id: @user.id, latitude: @user.latitude, longitude: @user.longitude, zoom: 12, content: @project.location

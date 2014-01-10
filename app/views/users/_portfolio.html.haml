@@ -204,7 +204,7 @@
 
   - if @user.coordinated?
     .body-container--content.light-container
-      = render "layouts/plain_map", height: "400px", id: @user.id, latitude: @user.latitude, longitude: @user.longitude
+      = render "layouts/plain_map", height: "400px", id: @user.id, latitude: @user.latitude, longitude: @user.longitude, zoom: 14, content: @user.address
 
 :javascript
   $("#new_ext_project_button").click(function() {

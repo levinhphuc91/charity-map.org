@@ -1,6 +1,8 @@
 = content_for :head do
-  %meta{property: "og:image", content: "#{@project.photo_url(:thumb)}"}/
+  %meta{property: "og:title", content: "#{site_title}"}/
+  %meta{property: "og:image", content: "#{@project.photo_url(:banner)}"}/
   %meta{property: "og:description", content: "#{@project.brief}"}/
+  %meta{property: "og:url", content: "#{Configuration[:site_url]}/projects/#{@project.slug}"}/
   / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   / WARNING: Respond.js doesn't work if you view the page via file://
   /[if lt IE 9]

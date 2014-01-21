@@ -1,3 +1,5 @@
+require 'social_share'
+
 class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
@@ -66,7 +68,6 @@ class DonationsController < InheritedResources::Base
   end
 
   def confirm
-    require 'social_share'
     @donation = Donation.find_by_euid(params[:euid])
     if (@donation.project.authorized_edit_for?(current_user) && @donation.status != "SUCCESSFUL")
       if @donation.confirm!
@@ -74,12 +75,18 @@ class DonationsController < InheritedResources::Base
           UserMailer.delay.bank_transfer_confirm_donation(@donation)
           SendMessage.delay.fb({
             :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+            :name => "#{@donation.project.title}",
+            :picture => "#{@donation.project.photo_url(:banner)}",
+            :description => "#{@donation.project.brief}",
             :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
           ) if (@donation.user.provider == "facebook" && Rails.env.production?)
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
           SendMessage.delay.fb({
             :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+            :name => "#{@donation.project.title}",
+            :description => "#{@donation.project.brief}",
+            :picture => "#{@donation.project.photo_url(:banner)}",
             :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
           ) if (@donation.user.provider == "facebook" && Rails.env.production?)
         end

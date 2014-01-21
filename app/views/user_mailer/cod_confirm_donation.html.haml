@@ -1,17 +1,18 @@
 %p Xin chào #{@user.name.split.last},
 
-%p <b>Charity Map</b> xin thông báo chúng tôi xác nhận đã nhận tiền mặt được gửi đến ủng hộ dự án <b>#{@project.title}</b>.
+%p Dự án <b>#{@project.title}</b> xin thông báo chúng tôi xác nhận đã nhận tiền mặt được gửi đến ủng hộ. Thông tin:
 
-%p Thông tin chi tiết như sau:
-
-%p 
-  \== Dự án: #{@project.title}
-  %br/ 
-  \== Mã ủng hộ: #{@donation.euid}
-  %br/ 
-  \== Số tiền ủng hộ: #{human_currency @donation.amount}
+%ul
+  %li Dự án: <b>#{@project.title}</b>
+  %li Mã ủng hộ: <b>#{@donation.euid}</b>
+  %li Số tiền ủng hộ: <b>#{human_currency @donation.amount}</b>
+  %li Ngày ủng hộ: <b>#{human_time @donation.created_at}</b>
+  %li Ngày xác nhận: <b>#{human_time @donation.updated_at}</b>
 
 %p 
   Cảm ơn bạn đã ủng hộ dự án đăng trên <b>Charity Map</b> và chúng tôi hy vọng bạn sẽ ghé thăm site thường xuyên để theo dõi các dự án khác cũng như tiến độ thực hiện của dự án <b>#{@project.title}</b>.
+  
+%p 
+  Thân,
   %br/ 
   www.charity-map.org

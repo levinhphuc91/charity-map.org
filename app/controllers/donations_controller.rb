@@ -3,6 +3,7 @@ require 'social_share'
 class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
+  include ApplicationHelper
   before_filter :authenticate_user!, except: [:index, :show]
   layout "layouts/item-based"
 
@@ -73,7 +74,11 @@ class DonationsController < InheritedResources::Base
       if @donation.confirm!
         if (@donation.collection_method == "BANK_TRANSFER")
           UserMailer.delay.bank_transfer_confirm_donation(@donation)
-          SendMessage.delay.fb({
+          SMS.send(
+            to: phone_striped(@donation.user.phone), 
+            text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
+          ) if (@donation.user.phone)
+          SendMessage.fb({
             :link => "http://www.charity-map.org#{project_path(@donation.project)}",
             :name => "#{@donation.project.title}",
             :picture => "#{@donation.project.photo_url(:banner)}",
@@ -82,7 +87,11 @@ class DonationsController < InheritedResources::Base
           ) if (@donation.user.provider == "facebook" && Rails.env.production?)
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
-          SendMessage.delay.fb({
+          SMS.send(
+            :to => phone_striped(@donation.user.phone),
+            :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
+          ) if (@donation.user.phone)
+          SendMessage.fb({
             :link => "http://www.charity-map.org#{project_path(@donation.project)}",
             :name => "#{@donation.project.title}",
             :description => "#{@donation.project.brief}",

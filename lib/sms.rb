@@ -1,4 +1,6 @@
 require 'nexmo'
+require 'uri'
+
 class SMS
   class << self
     def send(params)
@@ -12,23 +14,24 @@ class SMS
         raise "#{key} cannot be nil" if value.nil?
       end
 
-      if params[:sender_id] == true
-        nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
-        response = nexmo.send_message!({
-          :to => "84#{params[:to]}", 
-          :from => ENV['CM_NEXMO_SENDER_ID'], 
-          :text => params[:text]
-        })
-      else
-        nexmo = Nexmo::Client.new(ENV['CM_NEXMO_2ND_SID'],ENV['CM_NEXMO_2ND_SECRET'])
-        response = nexmo.send_message!({
-          :to => "84#{params[:to]}", 
-          :from => ENV['CM_NEXMO_NO'], 
-          :text => params[:text]
-        })
+      if Rails.env.production?
+        if params[:sender_id] == true
+          nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
+          response = nexmo.send_message!({
+            :to => "84#{params[:to]}", 
+            :from => ENV['CM_NEXMO_SENDER_ID'], 
+            :text => URI.escape(params[:text])
+          })
+        else
+          nexmo = Nexmo::Client.new(ENV['CM_NEXMO_2ND_SID'],ENV['CM_NEXMO_2ND_SECRET'])
+          response = nexmo.send_message!({
+            :to => "84#{params[:to]}", 
+            :from => ENV['CM_NEXMO_NO'], 
+            :text => URI.escape(params[:text])
+          })
+        end
+        return response
       end
-
-      return response
     end
   end
 end

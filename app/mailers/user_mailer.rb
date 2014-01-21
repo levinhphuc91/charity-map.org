@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: "team@charity-map.org"
   helper :application
+  include ApplicationHelper
 
   def prefunding_invite(invite)
     @invite = invite

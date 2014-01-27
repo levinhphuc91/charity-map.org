@@ -334,6 +334,7 @@ Feature: Project
   #     And I press "Cập Nhật"
   #  Then I should see an element ".image_update"
 
+  @javascript
   Scenario: Visit project page using token
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
@@ -341,3 +342,5 @@ Feature: Project
       And there is a redirect token with the redirect class name "Project" and the redirect class id "1" and the value "123456"
     When a GET request is sent to "/fbnotif/123456"
     Then I should see "Push The World"
+    When a GET request is sent to "/fbnotif/12345"
+    Then I should see "Thực Trạng"

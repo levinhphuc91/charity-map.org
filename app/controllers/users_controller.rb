@@ -179,9 +179,9 @@ class UsersController < ApplicationController
   def fbnotif
     @token = RedirectToken.find_by_value params[:token]
     if @token
-      redirect_via_token @token
+      @url = redirect_via_token @token
     else
-      redirect_to root_path
+      @url = root_url
     end
   end
 

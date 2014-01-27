@@ -40,7 +40,7 @@
 				%hr/
 				.pull-right{style: "margin-top: 20px;"}
 					= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
-					- unless @user.facebooked?
+					- unless @user.facebook_access_granted?
 						&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
 				.pull-left
 					= f.submit "Cập nhật Thông Tin", class: "submit"

@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
     false
   end
 
-  def facebooked?
+  def facebook_access_granted?
     return true if facebook_credentials
     false
   end

@@ -10,7 +10,7 @@ puts 'Updating Configurations'
 
 {
   site_name: 'Charity Map',
-  site_url: 'http://beta.charity-map.org',
+  site_url: 'http://www.charity-map.org',
   blog_url: 'http://blog.charity-map.org',
   donation_means_url: 'http://blog.charity-map.org/private/71748357349/tumblr_myoc4q5MmM1s0r4ek',
   privacy_url: 'http://blog.charity-map.org/private/71748490687/tumblr_myoc91VcPg1s0r4ek',

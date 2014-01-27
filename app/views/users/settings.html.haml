@@ -38,6 +38,9 @@
 					= f.check_box :org
 					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
 				%hr/
-				.pull-right{style: "margin-top: 20px;"}= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+				.pull-right{style: "margin-top: 20px;"}
+					= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+					- unless @user.facebooked?
+						&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
 				.pull-left
 					= f.submit "Cập nhật Thông Tin", class: "submit"

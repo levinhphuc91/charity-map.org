@@ -48,3 +48,21 @@ Given /^I login via Facebook$/ do
   visit('/users/sign_in')
   click_link_or_button 'Đăng Nhập Bằng Facebook'
 end
+
+When /^I connect my Facebook account$/ do 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    :provider => 'facebook',
+    :uid => '123545',
+    :info => {
+      "email" => "user@man.net"
+    },
+    :credentials => {
+      :token => 'AAA',
+      :expires_at => '1609286400',
+      :expires => true
+    }
+  })
+  visit('/users/settings')
+  click_link_or_button 'Kết nối TK Facebook'
+end

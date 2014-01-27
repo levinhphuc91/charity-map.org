@@ -89,8 +89,17 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
-    user = User.where(:provider => provider, :uid => uid).first
-    unless user
+    user = User.where("uid = ? OR email = ?", uid, email).first
+    if (user && user.email == email)
+      user.update_attributes!(provider: provider,
+        uid: uid,
+        facebook_credentials: {
+          :token => credentials.token,
+          :expires_at => credentials.expires_at,
+          :expires => true
+          }
+        )
+    else
       user = User.create(provider: provider,
         uid:uid,
         facebook_credentials:{
@@ -120,6 +129,11 @@ class User < ActiveRecord::Base
   def token_expired?
     expiry = Time.at(facebook_credentials["expires_at"].to_i)
     return true if expiry < Time.now
+    false
+  end
+
+  def facebooked?
+    return true if facebook_credentials
     false
   end
 

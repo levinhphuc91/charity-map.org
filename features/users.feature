@@ -127,6 +127,23 @@ Feature: User
     When I go to the users settings page
     Then the "Email" field should contain "user@man.net"
 
+  Scenario: To be able to login using Facebook / having an existing account
+    Given there is a user with the email "user@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    When I login via Facebook
+    Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    When I go to the users settings page
+    Then the "Email" field should contain "user@man.net"
+
+  Scenario: To be able to connect his Facebook account / having an existing account
+    Given there is a user with the email "user@man.net" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "user@man.net"
+      And I go to the users settings page
+      Then I should see "Kết nối TK Facebook"
+    When I connect my Facebook account
+    Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    When I go to the users settings page
+    Then the "Email" field should contain "user@man.net"
+
   Scenario: To be sent verification code via phone
     Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "vumanhcuong@gmail.com"

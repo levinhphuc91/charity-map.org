@@ -21,7 +21,7 @@ CharityMap::Application.routes.draw do
   get   'donations/confirm', to: 'donations#confirm', as: :confirm_donation
   match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard
   post  'users/fbnotif'
-  match 'fbnotif', to: 'users#fbnotif', via: :post
+  match 'fbnotif/:token', to: 'users#fbnotif', via: :get
   
   devise_for :users, :controllers => {
     :omniauth_callbacks => "users/omniauth_callbacks",

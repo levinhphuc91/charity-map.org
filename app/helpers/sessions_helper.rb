@@ -31,4 +31,9 @@ module SessionsHelper
     session[:return_to] = path
   end
 
+  def redirect_via_token(token)
+    @object = "#{token.redirect_class_name}".constantize.find(token.redirect_class_id)
+    redirect_to @object
+    # TODO: add extra params if any
+  end
 end

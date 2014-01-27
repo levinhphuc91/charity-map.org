@@ -177,8 +177,12 @@ class UsersController < ApplicationController
   end
   
   def fbnotif
-    @project = Project.find_by_id(params[:project_id])
-    layout "layouts/blank"
+    @token = RedirectToken.find_by_value params[:token]
+    if @token
+      redirect_via_token @token
+    else
+      redirect_to root_path
+    end
   end
 
   private

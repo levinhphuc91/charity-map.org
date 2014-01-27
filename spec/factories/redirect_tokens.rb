@@ -16,7 +16,7 @@
 FactoryGirl.define do
   factory :redirect_token do
     value "MyString"
-    to_model "MyString"
-    to_id "MyString"
+    redirect_class_name "MyString"
+    redirect_class_id "MyString"
   end
 end

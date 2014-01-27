@@ -13,5 +13,14 @@ class SendMessage
       client = FbGraph::User.me(user.facebook_credentials["token"])
       client.feed!(params) if Rails.env.production?
     end
+
+    def notif(params)
+      app = FbGraph::Application.new(ENV["CM_FACEBOOK_OMNIAUTH_ID"], secret: ENV["CM_FACEBOOK_OMNIAUTH_SECRET"])
+      user = FbGraph::User.new(params[:uid])
+      app.notify!(user,
+        :href => params[:href],
+        :template => params[:template]
+      ) if Rails.env.production?
+    end
   end
 end

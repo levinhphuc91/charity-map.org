@@ -21,6 +21,6 @@ class RedirectToken < ActiveRecord::Base
   private
   def generate_token
     require 'securerandom'
-    self.value = SecureRandom.hex(24)
+    self.value = SecureRandom.hex(24) unless value
   end
 end

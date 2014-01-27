@@ -1,4 +1,5 @@
 require 'sms'
+require 'social_share'
 
 class UsersController < ApplicationController
   include SessionsHelper

@@ -1,4 +1,5 @@
 require 'fb_graph'
+
 class SendMessage
   class << self
     def fb(params, user)

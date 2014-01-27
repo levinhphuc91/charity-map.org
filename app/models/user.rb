@@ -89,8 +89,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
-    user = User.where("uid = ? OR email = ?", uid, email).first
-    if (user && user.email == email)
+    user = User.find_by_email(email)
+    if user && !user.facebook_access_granted?)
       user.update_attributes!(provider: provider,
         uid: uid,
         facebook_credentials: {
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
           :expires => true
           }
         )
-    else
+    elsif (!user)
       user = User.create(provider: provider,
         uid:uid,
         facebook_credentials:{

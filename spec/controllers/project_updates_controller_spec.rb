@@ -11,10 +11,8 @@ describe ProjectUpdatesController do
       project_reward = project.project_rewards.create(value: 100000, description: "reward description")
       donation = project.donations.create(user_id: user.id, amount: 100000, status: "SUCCESSFUL", collection_method: "BANK_TRANSFER")
       params = {title: "Update Titlte", content: "Update Content", project_id: project.id}
-      RedirectToken.any_instance.stubs(:create)
       post :create, params
-      # invitation = double('RedirectToken', :accept => true)
-      expect(RedirectToken).to have_received(:create)
+      RedirectToken.expect(:create).once
     end
   end
 end

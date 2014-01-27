@@ -48,8 +48,8 @@ class User < ActiveRecord::Base
                       
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :verified_by_phone, :provider, :uid, :facebook_credentials, :org, :figures,
-    :latitude, :longitude
+    :provider, :uid, :facebook_credentials, :facebook_friends,
+    :verified_by_phone, :org, :figures, :latitude, :longitude
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
     user = User.find_by_email(email)
-    if user && !user.facebook_access_granted?)
+    if (user && !user.facebook_access_granted?)
       user.update_attributes!(provider: provider,
         uid: uid,
         facebook_credentials: {
@@ -148,4 +148,13 @@ class User < ActiveRecord::Base
   def unfollow!(followed)
     relationships.find_by_followed_id(followed).destroy
   end
+
+  # def fetch_fb_friends
+  #   if !facebook_friends #&& Rails.env.production?
+  #     friend_ids = []
+  #     @fb = FbGraph::User.fetch(uid, :access_token => facebook_credentials["token"])
+  #     @fb.friends.each {|friend| friend_ids.push("#{friend.identifier}")}
+  #     self.update_attribute! :facebook_friends, friend_ids
+  #   end
+  # end
 end

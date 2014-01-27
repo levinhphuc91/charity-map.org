@@ -32,6 +32,8 @@
 #  longitude              :float
 #
 
+require 'fb_graph'
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -149,12 +151,13 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(followed).destroy
   end
 
-  # def fetch_fb_friends
-  #   if !facebook_friends #&& Rails.env.production?
-  #     friend_ids = []
-  #     @fb = FbGraph::User.fetch(uid, :access_token => facebook_credentials["token"])
-  #     @fb.friends.each {|friend| friend_ids.push("#{friend.identifier}")}
-  #     self.update_attribute! :facebook_friends, friend_ids
-  #   end
-  # end
+  def fetch_fb_friends
+    if !facebook_friends && !Rails.env.test?
+      friend_ids = []
+      @fb = FbGraph::User.fetch(uid, :access_token => facebook_credentials["token"])
+      @fb.friends.each {|friend| friend_ids.push("#{friend.identifier}")}
+      self.facebook_friends = {"ids" => friend_ids}
+      self.save
+    end
+  end
 end

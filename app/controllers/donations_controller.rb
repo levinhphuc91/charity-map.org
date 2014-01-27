@@ -1,4 +1,5 @@
 require 'social_share'
+require 'uri'
 
 class DonationsController < InheritedResources::Base
   include DonationsHelper
@@ -72,6 +73,7 @@ class DonationsController < InheritedResources::Base
     @donation = Donation.find_by_euid(params[:euid])
     if (@donation.project.authorized_edit_for?(current_user) && @donation.status != "SUCCESSFUL")
       if @donation.confirm!
+        @token = RedirectToken.create(redirect_class_name: "Donation", redirect_class_id: @donation.id)
         if (@donation.collection_method == "BANK_TRANSFER")
           UserMailer.delay.bank_transfer_confirm_donation(@donation)
           SMS.send(
@@ -84,7 +86,11 @@ class DonationsController < InheritedResources::Base
             :picture => "#{@donation.project.photo_url(:banner)}",
             :description => "#{@donation.project.brief}",
             :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-          ) if (@donation.user.provider == "facebook" && Rails.env.production?)
+          ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
+          SendMessage.notif(uid: @donation.user.uid,
+            href: "/fbnotif/#{@token.value}",
+            template: URI.escape("Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận.")
+          ) if @donation.user.facebook_access_granted?
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
           SMS.send(
@@ -97,7 +103,11 @@ class DonationsController < InheritedResources::Base
             :description => "#{@donation.project.brief}",
             :picture => "#{@donation.project.photo_url(:banner)}",
             :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-          ) if (@donation.user.provider == "facebook" && Rails.env.production?)
+          ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
+          SendMessage.notif(uid: @donation.user.uid,
+            href: "/fbnotif/#{@token.value}",
+            template: URI.escape("Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận.")
+          ) if @donation.user.facebook_access_granted?
         end
         redirect_to project_donations_path(@donation.project), notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
       else

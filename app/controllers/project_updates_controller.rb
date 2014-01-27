@@ -25,16 +25,20 @@ class ProjectUpdatesController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @project_update = ProjectUpdate.new(params[:project_update])
     if @project_update.save
+      @token = RedirectToken.create(redirect_class_name: "ProjectUpdate", redirect_class_id: @project_update.id)
       @project.project_follows.each do |pf|
         UserMailer.delay.send_updates_to_project_followers(@project_update, pf.user)
+        SendMessage.notif(uid: pf.user.uid,
+          href: "/fbnotif/#{@token.value}",
+          template: "#{@project_update.title} (#{@project.title})"
+        ) if pf.user.facebook_access_granted?
       end
       @project.donations.successful.each do |donation|
         UserMailer.delay.send_updates_to_project_followers(@project_update, donation.user)
-        @token = RedirectToken.create(redirect_class_name: "Project", redirect_class_id: @project.id)
         SendMessage.notif(uid: donation.user.uid,
           href: "/fbnotif/#{@token.value}",
           template: "#{@project_update.title} (#{@project.title})"
-        ) if donation.user.facebooked?
+        ) if donation.user.facebook_access_granted?
       end
       respond_to do |format|
         format.json { render :json => @project_update }

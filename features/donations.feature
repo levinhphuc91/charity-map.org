@@ -80,6 +80,8 @@ Feature: Donation
 			  To: donor@man.net
 			  Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
 			  """
+		When I get redirected via the last redirect token
+    Then the URL should contain "/projects/push-the-world/donations"
 
 	Scenario: Donation list for normal user
 		Given the date is 2013-09-11
@@ -155,6 +157,8 @@ Feature: Donation
 			To: donor@man.net
 			Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
 			"""
+		When I get redirected via the last redirect token
+    Then the URL should contain "/projects/push-the-world/donations"
 
 	Scenario: Confirm COD donations
 	  Given the date is 2013-09-11
@@ -174,6 +178,8 @@ Feature: Donation
 			To: donor@man.net
 			Subject: Xác nhận đã nhận tiền mặt ủng hộ dự án Push The World
 			"""
+		When I get redirected via the last redirect token
+    Then the URL should contain "/projects/push-the-world/donations"
 
   # TODO: fix for new context
 	# Scenario: Convert ExtDonation to Donation

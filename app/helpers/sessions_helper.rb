@@ -33,7 +33,16 @@ module SessionsHelper
 
   def redirect_via_token(token)
     @object = "#{token.redirect_class_name}".constantize.find(token.redirect_class_id)
-    url = token.redirect_class_name == "Project" ? "#{project_url(@object, protocol: 'http')}" : "#{root_url(protocol: 'http')}"
+    case token.redirect_class_name
+    when "Project"
+      url = "#{project_url(@object, protocol: 'http')}"
+    when "ProjectUpdate"
+      url = "#{project_project_update_url(@object.project, @object, protocol: 'http')}"
+    when "Donation"
+      url = "#{project_donations_url(@object.project, protocol: 'http')}"
+    else
+      url = "#{root_url(protocol: 'http')}"
+    end
     return url
     # redirect_to @object
     # TODO: add extra params if any

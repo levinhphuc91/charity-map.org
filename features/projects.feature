@@ -130,6 +130,8 @@ Feature: Project
     Then I should see "Test Update Content"
       And I follow "Test Update Title"
     Then the URL should contain "projects/push-the-world/project_updates"
+    When I get redirected via the last redirect token
+    Then I should see "Test Update Content"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
     Given the date is 2013-09-11

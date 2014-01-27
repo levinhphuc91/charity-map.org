@@ -461,6 +461,7 @@ DEPENDENCIES
   raphael-rails
   rb-fsevent
   redcarpet
+  rspec-mocks
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc

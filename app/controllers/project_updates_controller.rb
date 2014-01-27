@@ -1,5 +1,6 @@
-class ProjectUpdatesController < InheritedResources::Base
+require 'social_share'
 
+class ProjectUpdatesController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
   layout "layouts/dashboard", except: [:index, :show]
 
@@ -29,6 +30,11 @@ class ProjectUpdatesController < InheritedResources::Base
       end
       @project.donations.successful.each do |donation|
         UserMailer.delay.send_updates_to_project_followers(@project_update, donation.user)
+        @token = RedirectToken.create(redirect_class_name: "Project", redirect_class_id: @project.id)
+        SendMessage.notif(uid: donation.user.uid,
+          href: "/fbnotif/#{@token.value}",
+          template: "#{@project_update.title} (#{@project.title})"
+        ) if donation.user.facebooked?
       end
       respond_to do |format|
         format.json { render :json => @project_update }

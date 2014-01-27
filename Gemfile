@@ -58,6 +58,7 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'mocha'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
  

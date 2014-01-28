@@ -89,7 +89,7 @@ class DonationsController < InheritedResources::Base
           ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
           SendMessage.notif(uid: @donation.user.uid,
             href: "/fbnotif/#{@token.value}",
-            template: URI.escape("Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận.")
+            template: "Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận."
           ) if @donation.user.facebook_access_granted?
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
@@ -106,7 +106,7 @@ class DonationsController < InheritedResources::Base
           ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
           SendMessage.notif(uid: @donation.user.uid,
             href: "/fbnotif/#{@token.value}",
-            template: URI.escape("Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận.")
+            template: "Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận."
           ) if @donation.user.facebook_access_granted?
         end
         redirect_to project_donations_path(@donation.project), notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."

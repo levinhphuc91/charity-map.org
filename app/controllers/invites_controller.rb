@@ -1,3 +1,5 @@
+require 'uri'
+
 class InvitesController < InheritedResources::Base
   nested_belongs_to :project
   before_filter :authenticate_user!
@@ -28,7 +30,7 @@ class InvitesController < InheritedResources::Base
       flash[:alert] = "Nội dung thư mời chưa đầy đủ."
     else
       if (!@invite.phone.blank? && @invite.new?)
-        @sms = SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
+        @sms = SMS.send(to: phone_striped(@invite.phone), text: URI.escape(@invite.project.invite_sms_content))
       end
       if (!@invite.email.blank? && @invite.new?)
         UserMailer.prefunding_invite(@invite).deliver

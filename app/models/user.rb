@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
     user = User.find_by_email(email)
-    if (user && !user.facebook_access_granted?)
+    if (user && !user.facebook_access_granted?) || (user && user.token_expired?)
       user.update_attributes!(provider: provider,
         uid: uid,
         facebook_credentials: {

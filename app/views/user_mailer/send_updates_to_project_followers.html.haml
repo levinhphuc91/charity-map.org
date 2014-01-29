@@ -1,13 +1,8 @@
-%p Xin chào #{@follower.name.split.last},
+%h4 Chào #{@follower.name.split.last},
 
-%p <b>Charity Map</b> xin thông báo dự án <b>#{link_to @project.title, project_path(@project)}</b> có cập nhật mới.
+%p Dự án <b>#{link_to @project.title, project_path(@project)}</b> vừa đăng tải một cập nhật mới. Thông tin cập nhật như sau:
 
-%p Thông tin cập nhật như sau:
+%h3 #{@project_update.title}
+%p Ngày cập nhật: #{human_time(@project_update.created_at)}
 
-%p 
-  \== Ngày cập nhật: #{human_time(@project_update.created_at)}
-  %br/ 
-  \== Nội dung cập nhật: #{markdown @project_update.content}
-
-%p 
-  www.charity-map.org
+#{markdown @project_update.content}

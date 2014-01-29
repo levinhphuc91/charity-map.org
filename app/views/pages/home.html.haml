@@ -1,65 +1,144 @@
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .span6{style: "padding-top: 40px;"}
-        .headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
-        %p 
-        = link_to pages_about_path do
-          .bttn.bttn-green Đọc Thêm
-      .span6
-        = image_tag "ph_homepage-banner.jpg"
+= content_for :head do
+  = stylesheet_link_tag    "homepage/animate", media: "all", "data-turbolinks-track" => true
+  = stylesheet_link_tag    "homepage/home", media: "all", "data-turbolinks-track" => true
+  %style 
+    body {padding-top: 0 !important}
 
-- unless current_user
-  .body-container--dark-row
-    .body-container--content
-      .row-fluid{style: "margin-top: 10px;"}
-        .span6
-          %p{style: "margin-top: 10px;"}
-            = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
-            %b Chỉ tốn 1 phút
-            %br/ 
-            để đăng ký và bắt đầu ủng hộ
-        = form_tag(new_user_registration_path, :method => :get) do
-          .span4
-            = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
-          .span2
-            .pull-right
-              #homepage-registration-by-email.bttn.bttn-green
-                %i.icon-anchor
-                &nbsp;Đăng Ký
-- else
-  %hr/ 
+%section.header-cover
+  .header-content
+    %header
+      %nav.home-nav
+        %ul
+          %li= link_to "Về Chúng Tôi", pages_about_path
+          %li= link_to "Blog", "//blog.charity-map.org"
+          %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
+    .animated.fadeInDown
+      %h1 Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
+      / %p Với Charity Maps bạn có thể blah blah blah & bleh bleh bleh
+      = link_to "Đăng nhập bằng facebook", "users/auth/facebook", class: "facebook"
+      %span
+        hoặc đăng nhập bằng email
+        = link_to "ở đây", new_user_session_path, class: "mail"
+%section.partners
+  .partners-content
+    %h2 Các tổ chức tin dùng charity-map.org
+    %p= link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
+    .partners-list
+      %ul
+        %li
+          = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
+          .partner-name CLB Cầu Vai Xanh
+        %li
+          %img.img-circle{alt: "", src: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s160x160/1465233_180341662156946_1527726664_a.jpg"}/
+          .partner-name Huy Cùi Bắp
+        %li
+          = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
+          .partner-name  Nhóm Bàn Tay Nhỏ
+        %li
+          = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
+          .partner-name Chia Sẻ Yêu Thương
+        %li
+          = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
+          .partner-name Công Bằng Y Tế
+%section.projects
+  .project-content
+    %h2
+      Các dự án
+      = succeed "/" do
+        %a{href: ""} đang gây quỹ
+      %a{href: ""} tiêu biểu
+    %p Vì sao bạn nên gây quỹ trên Charity Maps?
+    .project-slider
+      .project-details
+        .col-md-2
+          %a{href: "/user/38"}
+            %span
+              %img.img-circle.group-ava{alt: "Large logo nhom", src: "https://s3.amazonaws.com/ksr/projects/786773/photo-little.jpg?1390360874"}/
+        .col-md-10
+          %strong Ấm Tình Mùa Xuân
+          %ul
+            %li
+              %i.glyphicon.glyphicon-user
+              %span CLB Cầu Vai Xanh
+            %li
+              %i.glyphicon.glyphicon-map-marker
+              %span Bình Thuận
+            %li
+              %i.glyphicon.glyphicon-calendar
+              %span Còn 4 ngày
+          .donation-funded-wrap
+            .donation-funded{style: "width: 64%"}
+      .project-goal.col-md-10.col-md-offset-2
+        .col-md-6.mota-ngan
+          %span Viết sao cho vừa đủ vừa đẹp như vầy thôi, đừng dài quá, đừng ngắn quá. Như vậy mới có người gọi là copy-writer đó biết chưa? Viết thêm chút này nữa là vừa đẹp.
+        .col-md-4
+          .goal
+            %strong
+              %span 50.000.000 VNĐ
+            .hint MỤC TIÊU
 
-.body-container--plain-row
-  .body-container--content
-    .row-fluid{style: "text-align: center;"}
-      = image_tag "misc/closed-beta-msg.jpg"
+/ .body-container--plain-row
+/   .body-container--content
+/     .row-fluid
+/       .span6{style: "padding-top: 40px;"}
+/         .headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
+/         %p 
+/         = link_to pages_about_path do
+/           .bttn.bttn-green Đọc Thêm
+/       .span6
+/         = image_tag "ph_homepage-banner.jpg"
 
-.body-container--plain-row
-  .body-container--content
-    .project-search
-      = form_tag search_projects_path, method: :get do
-        .row-fluid
-          .span8
-            = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
-          .span4
-            = submit_tag "Tìm", class: "submit"
+/ - unless current_user
+/   .body-container--dark-row
+/     .body-container--content
+/       .row-fluid{style: "margin-top: 10px;"}
+/         .span6
+/           %p{style: "margin-top: 10px;"}
+/             = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
+/             %b Chỉ tốn 1 phút
+/             %br/ 
+/             để đăng ký và bắt đầu ủng hộ
+/         = form_tag(new_user_registration_path, :method => :get) do
+/           .span4
+/             = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
+/           .span2
+/             .pull-right
+/               #homepage-registration-by-email.bttn.bttn-green
+/                 %i.icon-anchor
+/                 &nbsp;Đăng Ký
+/ - else
+/   %hr/ 
 
-%hr/ 
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      %p.centered
-        Generously seed funded through a <br/>
-        = link_to "http://piaweb.princeton.edu" do
-          %b Princeton in Asia Carrie Gordon Fellowship<br/><br/>
-          = image_tag "about/pia.jpg"
+/ .body-container--plain-row
+/   .body-container--content
+/     .row-fluid{style: "text-align: center;"}
+/       = image_tag "misc/closed-beta-msg.jpg"
 
-:javascript
-  $('#project_search').typeahead({
-    name: "project",
-    prefetch: "/projects/autocomplete"
-  });
+/ .body-container--plain-row
+/   .body-container--content
+/     .project-search
+/       = form_tag search_projects_path, method: :get do
+/         .row-fluid
+/           .span8
+/             = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
+/           .span4
+/             = submit_tag "Tìm", class: "submit"
+
+/ %hr/ 
+/ .body-container--plain-row
+/   .body-container--content
+/     .row-fluid
+/       %p.centered
+/         Generously seed funded through a <br/>
+/         = link_to "http://piaweb.princeton.edu" do
+/           %b Princeton in Asia Carrie Gordon Fellowship<br/><br/>
+/           = image_tag "about/pia.jpg"
+
+// :javascript
+//   $('#project_search').typeahead({
+//     name: "project",
+//     prefetch: "/projects/autocomplete"
+//   });
 
 / .body-container--plain-row
 /   .body-container--content

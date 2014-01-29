@@ -1,0 +1,261 @@
+@import url(//fonts.googleapis.com/css?family=Noticia+Text:400&subset=vietnamese);
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&subset=vietnamese);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,600&subset=vietnamese);
+
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+.header-cover {
+	background: image-url('hp/header-cover.jpeg') no-repeat;
+	background-size: cover;
+	padding: 58px 0 210px;
+}
+
+.header-content {
+	width: 940px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 20px;
+	line-height: 28px;
+	font-weight: 300;
+	color: rgba(255,255,255,0.6);
+}
+
+.header-content h1 {
+	font-family: 'Noticia Text', serif;
+	color: #fff;
+	text-shadow: 0 2px 1px rgba(0,0,0,0.15);
+	margin-bottom: 20px;
+}
+
+h2 {
+	font-family: 'Noticia Text', serif;
+	color: #34495e;
+	margin-bottom: 20px;
+}
+
+.header-content span {
+	font-size: 16px;
+}
+
+header {
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+	padding-bottom: 28px;
+	overflow: hidden;
+	margin-bottom: 122px;
+}
+
+.header-content ul {
+	list-style: none;
+}
+
+.header-content li {
+	display: inline-block;
+	text-transform: uppercase;
+}
+
+.header-content li a {
+	color: rgba(255,255,255,0.8);
+	font-size: 14px;
+	padding: 10px 24px;
+	letter-spacing: 1px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.header-content li a:hover {
+	text-decoration: none;
+	color: rgba(255,255,255,1);
+}
+
+.header-content li a.dki {
+	border: solid 1px rgba(255,255,255,0.3);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.header-content li a.dki:hover {
+	background-color: rgba(255,255,255,0.3);
+}
+
+a.facebook {
+	display: block;
+	margin: 40px auto 10px auto;
+	width: 245px;
+	background: #3b5998 image-url('hp/fb.png') 10px 11px no-repeat;
+	color: #fff;
+	padding: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	font-size: 18px;
+	text-align: right;
+}
+
+a.facebook:hover {
+	text-decoration: none;
+	background:#5977b8 image-url('hp/fb.png') 10px 11px no-repeat;
+}
+
+a.mail {
+	color: #fff;
+}
+
+.home-nav {
+	float: right;
+	margin-top: 10px;
+}
+
+.partners-content {
+	padding-top: 60px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 300;
+}
+
+.partners-list {
+	margin-top: 60px;
+}
+
+.partners-list ul {
+	list-style: none;
+	padding-bottom: 120px;
+}
+
+.partners-list ul li {
+	display: inline-block;
+	margin: 0 50px;
+	position: relative;
+}
+
+.partners-list li .partner-name {
+	display: none;
+}
+.partners-list li:hover .partner-name {
+	display: block;
+	cursor: pointer;
+	position: absolute;
+	background: rgba(52, 152, 219,0.6);
+	width: 220px;
+	color: #fff;
+	top:30px;
+	left: -40px;
+	padding: 18px;
+}
+
+.partners-list ul li img {
+	width: 140px;
+	height: 140px;
+}
+
+.projects {
+	margin-top: -10px;
+}
+
+.project-content {
+	background: #fdfdfd;
+	border-top: solid 1px rgba(0, 0, 0,0.2);
+	padding-top: 30px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 300;
+}
+
+.project-details {
+	margin: 60px auto;
+	width: 800px;
+	text-align: left;
+}
+
+.project-details span.quote {
+	font-family:"Noticia Text",serif;
+	font-size:1 em;
+	font-style:italic;
+	font-weight:400;
+	text-align:center;
+	line-height:1.8em;
+	color:#333333
+}
+
+.project-details .group-ava {
+		display:inline-block;
+		width:140px;
+		height:140px;
+		background:white;
+		padding:5px;
+		border:3px solid #f6f6f6
+}
+
+.project-details h1 {
+	color:#333333;
+	font-size:3em
+}
+
+.project-details ul {
+	list-style: none;
+}
+
+.project-details ul li {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-family: 'Noticia Text', serif;
+}
+
+
+.project-details i {
+	padding-right:20px
+}
+
+.project-details strong {
+	margin-left: 60px;
+	margin-top: 25px;
+	display: block;
+}
+
+.project-goal {
+	text-align: left;
+	margin-top: 40px;
+}
+
+.project-goal .mota-ngan {
+	font-family: 'Noticia Text', serif;
+	font-size: 18px;
+	line-height: 36px;
+}
+
+.donation-funded-wrap {
+	display:inline;
+	float:left;
+	margin:5px 0px 5px 60px;
+	width:600px;
+	border-radius:6px;
+	left:0px;
+	height:8px;
+	background:#d0d5cb;
+	padding:0;
+	overflow:hidden
+}
+.donation-funded {
+	background:#76cc1e;
+	border-radius:6px;
+	height:8px
+}
+
+.project-goal .goal {
+	padding: 40px;
+}
+
+.project-goal .goal strong {
+	font-size: 30px;
+}
+
+.project-goal .hint {
+color: #858585;
+font-weight: normal;
+}

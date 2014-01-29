@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def home
     @markers = Project.listed.mapped
+    render layout: "layouts/homepage"
   end
 
   def about

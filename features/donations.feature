@@ -318,5 +318,22 @@ Feature: Donation
       And I fill in "ext_donation_email" with "donor@mail.net"
       And I uncheck "notification"
       And I press "Thêm"
+      And I fill in "ext_donation_donor" with "Donor without Email"
+      And I fill in "ext_donation_amount" with "200000"
+      And I fill in "ext_donation_collection_time" with "25/09/2013"
+      And I press "Thêm"
     Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
       And no email should have been sent
+    # Try sending updates to ExtDonation
+    When I go to the dashboard of the project "Push The World"
+      And I follow "Cập Nhật"
+      And I fill in "Tên cập nhật" with "Test Update Title"
+      And I fill in "Nội dung cập nhật" with "Test Update Content"
+      And I press "Cập Nhật"
+    Then I should see "Vừa thêm Cập nhật dự án mới."
+      And an email should have been sent with:
+        """
+        From: team@charity-map.org
+        To: donor@mail.net
+        Subject: Cập nhật mới từ dự án Push The World
+        """

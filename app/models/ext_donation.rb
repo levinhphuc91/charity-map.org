@@ -35,4 +35,8 @@ class ExtDonation < ActiveRecord::Base
   def generate_token
     self.create_token
   end
+
+  def name
+    donor
+  end
 end

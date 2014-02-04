@@ -40,6 +40,7 @@ class ProjectUpdatesController < InheritedResources::Base
           template: "#{@project_update.title} (#{@project.title})"
         ) if donation.user.facebook_access_granted?
       end
+      @project.ext_donations.each {|donation| UserMailer.delay.send_updates_to_project_followers(@project_update, donation) if !donation.email.blank?}
       respond_to do |format|
         format.json { render :json => @project_update }
         format.html { redirect_to project_project_updates_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }

@@ -7,6 +7,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  ext_donation_id :integer
+#  status          :string(255)
 #
 
 require 'spec_helper'

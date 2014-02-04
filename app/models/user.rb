@@ -30,6 +30,7 @@
 #  figures                :hstore
 #  latitude               :float
 #  longitude              :float
+#  facebook_friends       :hstore
 #
 
 require 'fb_graph'

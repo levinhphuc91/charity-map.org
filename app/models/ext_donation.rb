@@ -14,6 +14,7 @@
 #  email             :string(255)
 #  phone             :string(255)
 #  anon              :boolean
+#  status            :string(255)
 #
 
 class ExtDonation < ActiveRecord::Base

@@ -193,7 +193,7 @@ Feature: User
       And there is a project with the title "Books from Heart" and the brief "This is a short brief" and the description "Giving away libraries for suburban schools." and the start date "2014-09-02" and the end date "2014-09-30" and the funding goal "5000000" and the location "Ho Chi Minh City" and the status "FINISHED" with the user above
     When I login as "vumanhcuong01@gmail.com"
       And I go to the dashboard of the project "Books from Heart"
-    Then I should see "Permission denied"
+    Then I should see "Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy."
       And the URL should not contain "/dashboard"
 
   # TODO: add test for Xoa du an truoc day

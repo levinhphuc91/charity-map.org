@@ -12,6 +12,7 @@ body {
 	background: image-url('hp/header-cover.jpeg') no-repeat;
 	background-size: cover;
 	padding: 58px 0 210px;
+	background-position: center;
 }
 
 .header-content {
@@ -102,6 +103,14 @@ a.facebook:hover {
 
 a.mail {
 	color: #fff;
+}
+
+.logo-nav {
+	float: left;
+	margin-top: 20px;
+	background: image-url('charitymap-logo-without_shadow.png') no-repeat -8px -7px;
+	width: 143px;
+	height: 17px;
 }
 
 .home-nav {

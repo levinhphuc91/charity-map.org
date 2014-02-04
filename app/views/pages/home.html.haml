@@ -7,75 +7,79 @@
 %section.header-cover
   .header-content
     %header
+      %nav.logo-nav
       %nav.home-nav
         %ul
           %li= link_to "Về Chúng Tôi", pages_about_path
           %li= link_to "Blog", "//blog.charity-map.org"
-          %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
+          - if user_signed_in?
+            %li= link_to "Đăng Xuất", destroy_user_session_path, class: "dki"
+          - else
+            %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
     .animated.fadeInDown
       %h1 Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
       / %p Với Charity Maps bạn có thể blah blah blah & bleh bleh bleh
       = link_to "Đăng nhập bằng facebook", "users/auth/facebook", class: "facebook"
       %span
-        hoặc đăng nhập bằng email
-        = link_to "ở đây", new_user_session_path, class: "mail"
-%section.partners
-  .partners-content
-    %h2 Các tổ chức tin dùng charity-map.org
-    %p= link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
-    .partners-list
-      %ul
-        %li
-          = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
-          .partner-name CLB Cầu Vai Xanh
-        %li
-          %img.img-circle{alt: "", src: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s160x160/1465233_180341662156946_1527726664_a.jpg"}/
-          .partner-name Huy Cùi Bắp
-        %li
-          = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
-          .partner-name  Nhóm Bàn Tay Nhỏ
-        %li
-          = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
-          .partner-name Chia Sẻ Yêu Thương
-        %li
-          = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
-          .partner-name Công Bằng Y Tế
-%section.projects
-  .project-content
-    %h2
-      Các dự án
-      = succeed "/" do
-        %a{href: ""} đang gây quỹ
-      %a{href: ""} tiêu biểu
-    %p Vì sao bạn nên gây quỹ trên Charity Maps?
-    .project-slider
-      .project-details
-        .col-md-2
-          %a{href: "/user/38"}
-            %span
-              %img.img-circle.group-ava{alt: "Large logo nhom", src: "https://s3.amazonaws.com/ksr/projects/786773/photo-little.jpg?1390360874"}/
-        .col-md-10
-          %strong Ấm Tình Mùa Xuân
-          %ul
-            %li
-              %i.glyphicon.glyphicon-user
-              %span CLB Cầu Vai Xanh
-            %li
-              %i.glyphicon.glyphicon-map-marker
-              %span Bình Thuận
-            %li
-              %i.glyphicon.glyphicon-calendar
-              %span Còn 4 ngày
-          .donation-funded-wrap
-            .donation-funded{style: "width: 64%"}
-      .project-goal.col-md-10.col-md-offset-2
-        .col-md-6.mota-ngan
-          %span Viết sao cho vừa đủ vừa đẹp như vầy thôi, đừng dài quá, đừng ngắn quá. Như vậy mới có người gọi là copy-writer đó biết chưa? Viết thêm chút này nữa là vừa đẹp.
-        .col-md-4
-          .goal
-            %strong
-              %span 50.000.000 VNĐ
-            .hint MỤC TIÊU
+        hoặc đăng nhập 
+        = link_to "bằng email", new_user_session_path, class: "mail"
+/ %section.partners
+/   .partners-content
+/     %h2 Các tổ chức tin dùng charity-map.org
+/     %p= link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
+/     .partners-list
+/       %ul
+/         %li
+/           = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
+/           .partner-name CLB Cầu Vai Xanh
+/         %li
+/           %img.img-circle{alt: "", src: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s160x160/1465233_180341662156946_1527726664_a.jpg"}/
+/           .partner-name Huy Cùi Bắp
+/         %li
+/           = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
+/           .partner-name  Nhóm Bàn Tay Nhỏ
+/         %li
+/           = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
+/           .partner-name Chia Sẻ Yêu Thương
+/         %li
+/           = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
+/           .partner-name Công Bằng Y Tế
+/ %section.projects
+/   .project-content
+/     %h2
+/       Các dự án
+/       = succeed "/" do
+/         %a{href: ""} đang gây quỹ
+/       %a{href: ""} tiêu biểu
+/     %p Vì sao bạn nên gây quỹ trên Charity Maps?
+/     .project-slider
+/       .project-details
+/         .col-md-2
+/           %a{href: "/user/38"}
+/             %span
+/               %img.img-circle.group-ava{alt: "Large logo nhom", src: "https://s3.amazonaws.com/ksr/projects/786773/photo-little.jpg?1390360874"}/
+/         .col-md-10
+/           %strong Ấm Tình Mùa Xuân
+/           %ul
+/             %li
+/               %i.glyphicon.glyphicon-user
+/               %span CLB Cầu Vai Xanh
+/             %li
+/               %i.glyphicon.glyphicon-map-marker
+/               %span Bình Thuận
+/             %li
+/               %i.glyphicon.glyphicon-calendar
+/               %span Còn 4 ngày
+/           .donation-funded-wrap
+/             .donation-funded{style: "width: 64%"}
+/       .project-goal.col-md-10.col-md-offset-2
+/         .col-md-6.mota-ngan
+/           %span Viết sao cho vừa đủ vừa đẹp như vầy thôi, đừng dài quá, đừng ngắn quá. Như vậy mới có người gọi là copy-writer đó biết chưa? Viết thêm chút này nữa là vừa đẹp.
+/         .col-md-4
+/           .goal
+/             %strong
+/               %span 50.000.000 VNĐ
+/             .hint MỤC TIÊU
 
 / .body-container--plain-row
 /   .body-container--content
@@ -188,3 +192,8 @@
 /     }
     
 /   });
+
+:javascript
+  $(document).ready(function(){
+    $('.header-cover').height($(window).height()-260);
+  });

@@ -90,7 +90,7 @@ CharityMap::Application.routes.draw do
   # See how all your routes lay out with 'rake routes'.
 
   # You can have the root of your site routed with 'root'
-  root 'pages#about'
+  root 'pages#home'
   match ':short_code', to: 'projects#abbr', via: :all
 
   # Example of regular route:

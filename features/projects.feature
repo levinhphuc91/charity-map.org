@@ -345,4 +345,4 @@ Feature: Project
     When a GET request is sent to "/fbnotif/123456"
     Then I should see "Push The World"
     When a GET request is sent to "/fbnotif/12345"
-    Then I should see "Thực Trạng"
+    Then I should see "Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy."

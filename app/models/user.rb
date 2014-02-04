@@ -155,8 +155,8 @@ class User < ActiveRecord::Base
   def fetch_fb_friends
     if !facebook_friends && !Rails.env.test?
       friend_ids = []
-      @fb = FbGraph::User.fetch(uid, :access_token => facebook_credentials["token"])
-      @fb.friends.each {|friend| friend_ids.push("#{friend.identifier}")}
+      @fb = FbGraph::User.new(uid, :access_token => facebook_credentials["token"])
+      @fb.fetch.friends.each {|friend| friend_ids.push("#{friend.identifier}")}
       self.facebook_friends = {"ids" => friend_ids}
       self.save
     end

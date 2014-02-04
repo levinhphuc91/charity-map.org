@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   has_many :project_comments
   has_many :donations
-  has_many :projects, through: :donations
+  # has_many :projects, through: :donations
   has_many :projects # admin relationship
   has_many :ext_projects
   has_many :recommendations
@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
   has_many :following, :through => :relationships, :source => :followed
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship"
   has_many :followers, :through => :reverse_relationships
+  has_many :managements
   
   has_defaults staff: false, verified_by_phone: false, org: false
 

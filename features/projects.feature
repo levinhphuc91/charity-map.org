@@ -346,3 +346,35 @@ Feature: Project
     Then I should see "Push The World"
     When a GET request is sent to "/fbnotif/12345"
     Then I should see "Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy."
+
+  Scenario: Add member
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thành Viên"
+      Then I should see "THÊM THÀNH VIÊN MỚI"
+    When I fill in "email" with "tu@charity-map.org"
+      And I press "Thêm"
+    Then I should see "Không tìm được tài khoản với email đã nhập."
+    When there is a user with the email "tu@charity-map.org" and the password "secretpass" and the password confirmation "secretpass"
+      And I fill in "email" with "tu@charity-map.org"
+      And I press "Thêm"
+      Then I should see "Thêm thành viên vào dự án thành công."
+      Then I should see "(Xoá)"
+      And I am not authenticated
+      And I login as "tu@charity-map.org"
+      Then an email should have been sent with:
+        """
+        From: team@charity-map.org
+        To: tu@charity-map.org
+        Subject: Bạn là thành viên mới của dự án Push The World
+        """
+      And "tu@charity-map.org" should receive an email
+      When I open the email
+      When I follow "đường dẫn này" in the email
+      Then the URL should contain "dashboard"
+      And I follow "Push The World"
+      And I follow "Thành Viên"
+      Then I should not see "THÊM THÀNH VIÊN MỚI"

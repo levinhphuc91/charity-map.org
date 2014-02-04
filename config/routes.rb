@@ -58,7 +58,11 @@ CharityMap::Application.routes.draw do
   end
 
   namespace :dashboard do
-    resources :projects
+    resources :projects do
+      get 'members', on: :member
+      post 'add_member', on: :member
+      delete 'remove_member', on: :member
+    end
   end
 
   namespace :admin do

@@ -53,6 +53,8 @@ class Project < ActiveRecord::Base
   has_many :recommendations
   has_many :project_follows
   belongs_to :user # admin relationship
+  has_many :managements
+  has_many :editors, through: :managements, source: :user
 
   before_validation :assign_status
   before_validation :generate_short_code
@@ -117,8 +119,11 @@ class Project < ActiveRecord::Base
   end
 
   def authorized_edit_for?(target_user)
-    return true if (self.belongs_to?(target_user)) || (target_user.staff)
-    false
+    (self.belongs_to?(target_user)) || (target_user.staff) || (self.editors.exists?(target_user))
+  end
+
+  def authorized_super_edit_for?(target_user)
+    (self.belongs_to?(target_user)) || (target_user.staff)
   end
 
   def generate_short_code

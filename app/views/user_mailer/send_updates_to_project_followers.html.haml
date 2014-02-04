@@ -1,6 +1,6 @@
 %h4 Chào #{@follower.name.split.last},
 
-%p Dự án <b>#{link_to @project.title, project_path(@project)}</b> vừa đăng tải một cập nhật mới. Thông tin cập nhật như sau:
+%p Dự án <b>#{link_to @project.title, project_url(@project)}</b> vừa đăng tải một cập nhật mới. Thông tin cập nhật như sau:
 
 %h3 #{@project_update.title}
 %p Ngày cập nhật: #{human_time(@project_update.created_at)}

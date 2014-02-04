@@ -1,0 +1,32 @@
+.devider
+  .item Thành Viên
+  .note Dự án: #{link_to @project.title, project_path(@project)}
+
+%table.table.table-bordered
+  %tr 
+    %td{style: "width: 30px;"}
+      - if @project.user.avatar? 
+        = image_tag(@project.user.avatar_url(:small), size: "20x20")
+      - else
+        = image_tag("default_avatar.png", size: "20x20")
+    %td #{@project.user.name} (#{@project.user.email})
+    %td Quản Lý
+  - @managements.each do |management|
+    %tr 
+      %td 
+        - if management.user.avatar? 
+          = image_tag(management.user.avatar_url(:small)) 
+        - else
+          = image_tag "default_avatar.png"
+      %td #{management.user.name} (#{management.user.email})
+      %td Thành Viên (#{link_to("Xoá", remove_member_dashboard_project_path(@project, user_id: management.user.id), method: :delete) if @project.authorized_super_edit_for?(current_user)})
+  - if @project.authorized_super_edit_for?(current_user)
+    %tr
+      = form_tag add_member_dashboard_project_path(@project) do
+        %td Thêm Thành Viên Mới
+        %td
+          = text_field_tag :email
+          .hint Điền email (đã đăng ký tài khoản) của thành viên mới.
+          = check_box_tag :notification, "true", checked: "checked"
+          .hint Gửi email thông báo
+        %td= submit_tag "Thêm", class: "submit"

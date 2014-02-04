@@ -6,7 +6,10 @@ class ExtDonationsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.html { redirect_to project_donations_url(@project), notice: "Thêm ủng hộ ngoài hệ thống thành công." }
+      success.html {
+        UserMailer.delay.invite_ext_donor(@ext_donation) if params[:notification] == "true" && !@ext_donation.email.blank?
+        redirect_to project_donations_url(@project), notice: "Thêm ủng hộ ngoài hệ thống thành công."
+      }
       failure.html { redirect_to project_donations_url(@project), alert: "#{@ext_donation.errors.full_messages.join(', ')}" }
     end
   end

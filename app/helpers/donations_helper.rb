@@ -1,4 +1,16 @@
 module DonationsHelper
+  def create_donation_from_ext(resource, ext_donation)
+    resource.donations.create(
+      status: "SUCCESSFUL", amount: ext_donation.amount,
+      note: "Converted from External Donation #{ext_donation.try(:email)} #{ext_donation.try(:phone)} #{ext_donation.try(:note)}",
+      collection_method: ext_donation.collection_method,
+      project_id: ext_donation.project_id,
+      created_at: ext_donation.collection_time,
+      project_reward_quantity: 1
+    )
+    ext_donation.token.update_attribute :status, "USED"
+  end
+
   def auto_select_project_reward(project, donation_amount)
     @rewards = project.project_rewards
     @donation_amount = donation_amount.to_f

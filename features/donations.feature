@@ -185,47 +185,7 @@ Feature: Donation
 		When I get redirected via the last redirect token
     Then the URL should contain "/projects/push-the-world/donations"
 
-  # TODO: fix for new context
-	# Scenario: Convert ExtDonation to Donation
-	# 	Given the date is 2013-09-11
- #      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
- #      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
- #      And there is a project reward with the value "15000" and the description "Bla Bla Bla" with the project above
- #    When I login as "testing@man.net"
- #      And I go to the dashboard of the project "Push The World"
- #      And I follow "Thống Kê Đóng Góp"
- #      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
- #    When I fill in "ext_donation_donor" with "Tu Hoang"
- #      And I fill in "ext_donation_amount" with "100000"
- #      And I fill in "ext_donation_collection_time" with "25/09/2013"
- #      And I fill in "ext_donation_email" with "donor@mail.net"
- #      And I press "Thêm"
- #    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
- #      And I should see "Mời sử dụng hệ thống"
- #    When I follow "Mời sử dụng hệ thống"
- #    Then an email should have been sent with:
- #      """
- #      From: team@charity-map.org
- #      To: donor@mail.net
- #      Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
- #      """
- #    	And "donor@mail.net" should receive an email
- #    	And I am not authenticated
- #    When I open the email
- #    Then I should see "đường dẫn này" in the email body
- #    When I follow "đường dẫn này" in the email
- #    Then I should see "Đăng Ký"
- #    	And I should see "donor@mail.net" in the "user_email" input
- #    	And I fill in "user_password" with "12345678"
- #    	And I fill in "user_password_confirmation" with "12345678"
- #    And I press "Đăng Ký"
- #    Then I should see "Xin chào! Bạn đã đăng ký thành công."
- #    	And I follow "Quản Lý"
- #    	And I follow "Trang Cá Nhân"
- #    Then I should see "100.000 VNĐ"
-    	# And I should see "Push The World"
-
-	Scenario: Add ExtDonation
+	Scenario: Convert ExtDonation to Donation
 		Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
       And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
@@ -240,8 +200,117 @@ Feature: Donation
       And I fill in "ext_donation_email" with "donor@mail.net"
       And I press "Thêm"
     Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+    Then an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: donor@mail.net
+      Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
+      """
+    	And "donor@mail.net" should receive an email
+    	And I am not authenticated
+    When I open the email
+    Then I should see "đường dẫn này" in the email body
+    When I follow "đường dẫn này" in the email
+    Then I should see "Đăng Ký"
+    	And I should see "donor@mail.net" in the "user_email" input
+    	And I fill in "user_password" with "12345678"
+    	And I fill in "user_password_confirmation" with "12345678"
+    And I press "Đăng Ký"
+    Then I should see "Xin chào! Bạn đã đăng ký thành công."
+    	And I follow "Quản Lý"
+    	And I follow "Trang Cá Nhân"
+    Then I should see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    # Case: Token being used for more than one time
+    When I am not authenticated
+    And I open the email
+    Then I should see "đường dẫn này" in the email body
+    When I follow "đường dẫn này" in the email
+      And I should not see "donor@mail.net" in the "user_email" input
+      And I fill in "user_email" with "stranger_email_who_tries_to_use_the_token@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I fill in "user_password_confirmation" with "12345678"
+    And I press "Đăng Ký"
+    Then I should see "Xin chào! Bạn đã đăng ký thành công."
+      And I follow "Quản Lý"
+      And I follow "Trang Cá Nhân"
+    Then I should not see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+
+  Scenario: Convert ExtDonation to Donation (logging via Facebook)
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+      And there is a project reward with the value "15000" and the description "Bla Bla Bla" with the project above
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_collection_time" with "25/09/2013"
+      And I fill in "ext_donation_email" with "user@man.net"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+    Then an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: user@man.net
+      Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
+      """
+      And "user@man.net" should receive an email
+      And I am not authenticated
+    When I open the email
+    Then I should see "đường dẫn này" in the email body
+    When I follow "đường dẫn này" in the email
+    Then I should see "Đăng Ký"
+      And I should see "user@man.net" in the "user_email" input
+    When Facebook login is mocked
+    And I follow "Đăng Ký Bằng Facebook"
+    Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+      And I follow "Quản Lý"
+      And I follow "Trang Cá Nhân"
+    Then I should see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+
+	Scenario: Add ExtDonation 
+		Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+      And there is a project reward with the value "15000" and the description "Bla Bla Bla" with the project above
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_collection_time" with "25/09/2013"
+      And I fill in "ext_donation_email" with "donor@mail.net"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+      Then an email should have been sent with:
+        """
+        From: team@charity-map.org
+        To: donor@mail.net
+        Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
+        """
     	And I should see "Tu Hoang ủng hộ 100.000 VNĐ"
     When I follow "Sửa"
     	And I fill in "ext_donation_amount" with "200000"
     	And I press "Thêm"
     Then I should see "Tu Hoang ủng hộ 200.000 VNĐ"
+
+  Scenario: Add ExtDonation (without sending notification)
+    Given the date is 2013-09-11
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a project with the title "Push The World" and the description "test project update" and the start date "2013-09-22" and the end date "2013-09-30" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above 
+      And there is a project reward with the value "15000" and the description "Bla Bla Bla" with the project above
+    When I login as "testing@man.net"
+      And I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+      Then I should see "Thêm Ủng Hộ Ngoài Hệ Thống"
+    When I fill in "ext_donation_donor" with "Tu Hoang"
+      And I fill in "ext_donation_amount" with "100000"
+      And I fill in "ext_donation_collection_time" with "25/09/2013"
+      And I fill in "ext_donation_email" with "donor@mail.net"
+      And I uncheck "notification"
+      And I press "Thêm"
+    Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+      And no email should have been sent

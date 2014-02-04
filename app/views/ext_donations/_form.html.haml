@@ -29,8 +29,11 @@
       %span.example
         (đường link tài khoản Facebook, số tham chiếu ngân hàng, v.v)
       = f.text_area :note, class: "form-control", row: 2
-      .anonymous-check
-        %label Ẩn Danh?
-        = f.check_box :anon, class: "check"
+    .form-item.col-md-12
+      %label Gửi email xác nhận tới MTQ
+      = check_box_tag :notification, true, class: "check"
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      %label Ẩn Danh?
+      = f.check_box :anon, class: "check"
 
     = f.submit "Thêm Ủng Hộ", class: "btn btn-success"

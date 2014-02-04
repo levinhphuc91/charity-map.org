@@ -6,7 +6,7 @@
         %p Đã có tài khoản? <strong>#{link_to "Đăng nhập", new_user_session_path}</strong>.
       .body-bar.centered
         - resource_class.omniauth_providers.each do |provider|
-          = link_to omniauth_authorize_path(resource_name, provider) do
+          = link_to omniauth_authorize_path(resource_name, provider, token: (params[:token] if params[:token])) do
             .facebook-login Đăng Ký Bằng Facebook
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
         .body-bar{:style => "border-top: 1px solid #ccc;"}
@@ -16,7 +16,7 @@
               = hidden_field_tag "token", params[:token]
             %p 
               %b Email
-              - if params[:token]
+              - if params[:token] && @ext_donation
                 = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => @ext_donation.email || nil}
               - else
                 = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}

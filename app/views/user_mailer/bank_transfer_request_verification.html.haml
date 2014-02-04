@@ -1,19 +1,13 @@
-%p Xin chào #{@user.name.split.last},
+%h4 Xin chào #{@user.name.split.last},
 
-%p Hệ thống vừa ghi nhận một yêu cầu xác nhận tiền đã được gửi đến tài khoản của dự án #{@project.title} vào ngày #{human_time(@donation.updated_at)}.
+%p Hệ thống vừa ghi nhận một yêu cầu xác nhận tiền đã được gửi đến tài khoản của dự án #{@project.title} vào ngày #{human_time(@donation.updated_at)}. Thông tin chi tiết như sau:
 
-%p Thông tin chi tiết như sau:
-
-%p 
-  \== Ngày gửi yêu cầu: #{human_time(@donation.updated_at)}
-  %br/ 
-  \== Dự án: #{@project.title}
-  %br/ 
-  \== Mã ủng hộ: #{@donation.euid}
-  %br/ 
-  \== Số tiền ủng hộ: #{human_currency @donation.amount}
-  %br/ 
-  \== Số ĐT người ủng hộ: #{@donation.user.phone}
+%ul 
+  %li Ngày gửi yêu cầu: #{human_time(@donation.updated_at)}
+  %li Dự án: #{@project.title}
+  %li Mã ủng hộ: #{@donation.euid}
+  %li Số tiền ủng hộ: #{human_currency @donation.amount}
+  %li Số ĐT người ủng hộ: #{@donation.user.phone}
 
 %p 
   Vui lòng truy cập #{link_to "link", project_donations_url(@donation.project)} để xác nhận.

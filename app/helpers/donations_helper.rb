@@ -8,6 +8,7 @@ module DonationsHelper
       created_at: ext_donation.collection_time,
       project_reward_quantity: 1
     )
+    ext_donation.update_attribute :status, "CONVERTED_TO_PLATFORM_DONATION"
     ext_donation.token.update_attribute :status, "USED"
   end
 

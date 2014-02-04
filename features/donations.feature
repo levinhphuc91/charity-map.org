@@ -250,6 +250,7 @@ Feature: Donation
       And I fill in "ext_donation_email" with "user@man.net"
       And I press "Thêm"
     Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
+    And I should see "Tu Hoang ủng hộ 100.000 VNĐ"
     Then an email should have been sent with:
       """
       From: team@charity-map.org
@@ -269,6 +270,11 @@ Feature: Donation
       And I follow "Quản Lý"
       And I follow "Trang Cá Nhân"
     Then I should see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    Given I am not authenticated
+    When I login as "testing@man.net"
+    When I go to the dashboard of the project "Push The World"
+      And I follow "Thống Kê Đóng Góp"
+    Then I should not see "Tu Hoang ủng hộ 100.000 VNĐ"
 
 	Scenario: Add ExtDonation 
 		Given the date is 2013-09-11

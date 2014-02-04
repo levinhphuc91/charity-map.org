@@ -17,12 +17,14 @@
 #
 
 class ExtDonation < ActiveRecord::Base
+  default_scope where(:status => "NEW")
+
   belongs_to :project
   has_one :token
   attr_accessible :donor, :amount, :note, :email, :phone,
     :collection_method, :collection_time, :project_id, :token_id, :anon
-  validates :donor, :amount, :collection_time, :project_id, presence: true
-  has_defaults anon: false
+  validates :donor, :amount, :collection_time, :project_id, :status, presence: true
+  has_defaults anon: false, status: "NEW"
 
   after_create :generate_token
 

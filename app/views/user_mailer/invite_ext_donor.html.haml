@@ -9,7 +9,7 @@
   %li Ngày xác nhận: <b>#{human_time Time.now}</b>
 
 %p 
-  Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{@project.title}</b>, vui lòng truy cập #{link_to "đường dẫn này", new_user_registration_path(:token => @ext_donation.token.value)}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án <b>#{@project.title}</b>.
+  Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{@project.title}</b>, vui lòng truy cập #{link_to "đường dẫn này", new_user_registration_url(:token => @ext_donation.token.value)}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án <b>#{@project.title}</b>.
   
 %p 
   Thân,

@@ -101,16 +101,37 @@ a.facebook:hover {
 	background:#5977b8 image-url('hp/fb.png') 10px 11px no-repeat;
 }
 
+a.dashboard {
+	display: block;
+	margin: 40px auto 10px auto;
+	width: 200px;
+	// background: lighten(#3F4830, 10%);
+	border: 1px solid darken(#ffffff, 20%);
+	color: #fff;
+	padding: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	font-size: 18px;
+	text-align: center;
+}
+
+a.dashboard:hover {
+	text-decoration: none;
+	background: lighten(#3F4830, 30%);
+	border: 1px solid lighten(#3F4830, 30%);
+}
+
 a.mail {
 	color: #fff;
 }
 
 .logo-nav {
 	float: left;
-	margin-top: 20px;
-	background: image-url('charitymap-logo-without_shadow.png') no-repeat -8px -7px;
-	width: 143px;
-	height: 17px;
+	margin-top: 8px;
+	background: image-url('charitymap-logo-plain.png') no-repeat;
+	width: 242px;
+	height: 40px;
 }
 
 .home-nav {

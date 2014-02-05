@@ -11,22 +11,20 @@
         %nav.logo-nav
       %nav.home-nav
         %ul
+          %li= link_to "Về Chúng Tôi", pages_about_path
+          %li= link_to "Blog", "//blog.charity-map.org"
           - if user_signed_in?
-            %li= link_to "Quản Lý", dashboard_path
-            %li= link_to "Hồ Sơ", users_settings_path
             %li= link_to "Đăng Xuất", destroy_user_session_path, class: "dki"
           - else
-            %li= link_to "Về Chúng Tôi", pages_about_path
-            %li= link_to "Blog", "//blog.charity-map.org"
             %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
     .animated.fadeInDown
       %h1 Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
       / %p Với Charity Maps bạn có thể blah blah blah & bleh bleh bleh
       - if user_signed_in?
         %span
-          #{link_to "Về Chúng Tôi", pages_about_path, class: "mail"} / #{link_to "Blog", "//blog.charity-map.org", class: "mail"}
+          = link_to "Đến Trang Quản Lý", dashboard_path, class: "dashboard"
       - else
-        = link_to "Đăng nhập bằng facebook", "users/auth/facebook", class: "facebook"
+        = link_to "Đăng nhập bằng Facebook", "users/auth/facebook", class: "facebook"
         %span
           hoặc đăng nhập 
           = link_to "bằng email", new_user_session_path, class: "mail"

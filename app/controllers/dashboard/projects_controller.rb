@@ -17,9 +17,8 @@ class Dashboard::ProjectsController < InheritedResources::Base
 
   def add_member
     @user = User.find_by_email params[:email]
-    if @user
-      @management = @project.managements.create(user_id: @user.id)
-      UserMailer.delay.add_member_to_project(@management) if params[:notification] == "true"
+    if @user && @project.managements.create!(user_id: @user.id)
+      UserMailer.delay.add_member_to_project(@project, @user) if params[:notification] == "true"
       redirect_to members_dashboard_project_path(@project), notice: "Thêm thành viên vào dự án thành công."
     else
       redirect_to members_dashboard_project_path(@project), alert: "Không tìm được tài khoản với email đã nhập."

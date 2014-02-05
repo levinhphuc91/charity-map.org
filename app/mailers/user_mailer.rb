@@ -63,9 +63,8 @@ class UserMailer < ActionMailer::Base
     mail(to: @ext_donation.email, subject: "Cảm ơn bạn đã ủng hộ dự án #{@project.title}")
   end
 
-  def add_member_to_project(management)
-    @management = management
-    @project, @user = @management.project, @management.user
+  def add_member_to_project(project, user)
+    @project, @user = project, user
     mail(to: @user.email, subject: "Bạn là thành viên mới của dự án #{@project.title}")
   end
 end

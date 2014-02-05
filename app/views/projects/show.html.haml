@@ -107,17 +107,17 @@
         <br/><br/>
         %div <strong>#{link_to @project.user.name, user_profile_path(@project.user)}</strong>
         Quản Lý Dự Án
-    - if !@project.managements.empty?
-      - @project.editors.each do |editor|
-        .col-md-3.text-center
-          %span
-            - if editor.avatar?
-              = image_tag(editor.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
-            - else
-              = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
-          <br/><br/>
-          %div <strong>#{link_to editor.name, user_profile_path(editor)}</strong>
-          Thành Viên Dự Án
+      - if !@project.managements.empty?
+        - @project.editors.each do |editor|
+          .col-md-3.text-center
+            %span
+              - if editor.avatar?
+                = image_tag(editor.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
+              - else
+                = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
+            <br/><br/>
+            %div <strong>#{link_to editor.name, user_profile_path(editor)}</strong>
+            Thành Viên Dự Án
 
     - if @project.coordinated?
       .row{style: "margin-top: 50px; margin-bottom: 20px;"}

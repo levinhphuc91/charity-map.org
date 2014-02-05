@@ -93,6 +93,32 @@
                 - else
                   .action.disabled #{human_currency reward.value} &sdot; <strong>HẾT</strong>
 
+    .row{style: "margin-top: 50px; margin-bottom: 20px;"}
+      .title-with-line
+        %h1.line
+          %span.glyphicon.glyphicon-user
+    .row
+      .col-md-3.text-center
+        %span
+          - if @project.user.avatar?
+            = image_tag(@project.user.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
+          - else
+            = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
+        <br/><br/>
+        %div <strong>#{link_to @project.user.name, user_profile_path(@project.user)}</strong>
+        Quản Lý Dự Án
+    - if !@project.managements.empty?
+      - @project.editors.each do |editor|
+        .col-md-3.text-center
+          %span
+            - if editor.avatar?
+              = image_tag(editor.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
+            - else
+              = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
+          <br/><br/>
+          %div <strong>#{link_to editor.name, user_profile_path(editor)}</strong>
+          Thành Viên Dự Án
+
     - if @project.coordinated?
       .row{style: "margin-top: 50px; margin-bottom: 20px;"}
         .title-with-line

@@ -32,6 +32,7 @@ Feature: Project
     Then  I should see "Push the world"
       And I should see page title as "Push the world"
       And I should see "Here comes a description"
+      And I should see "Quản Lý Dự Án"
     When I follow "Cập Nhật"
     Then I should see "Hiện dự án Push the world chưa có cập nhật nào."
 
@@ -363,6 +364,9 @@ Feature: Project
       And I press "Thêm"
       Then I should see "Thêm thành viên vào dự án thành công."
       Then I should see "(Xoá)"
+    When I go to the project page of "Push The World"
+    Then I should see "tu"
+      And I should see "Thành Viên Dự Án"
       And I am not authenticated
       And I login as "tu@charity-map.org"
       Then an email should have been sent with:

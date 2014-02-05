@@ -1,8 +1,10 @@
 %h4 Chào #{@follower.name.split.last},
 
-%p Dự án <b>#{link_to @project.title, project_url(@project)}</b> vừa đăng tải một cập nhật mới. Thông tin cập nhật như sau:
+%p Dự án <b>#{link_to @project.title, project_url(@project)}</b> vừa đăng tải một cập nhật mới: <strong>#{@project_update.title}</strong> (ngày cập nhật: #{human_time(@project_update.created_at)} / click vào #{link_to "đường dẫn này", project_project_update_url(@project, @project_update)} để đọc thêm thông tin)
 
-%h3 #{@project_update.title}
-%p Ngày cập nhật: #{human_time(@project_update.created_at)}
+%p 
+  Thân,
+  %br/ 
+  %a{:href => "http://www.charity-map.org"} www.charity-map.org
 
-#{markdown @project_update.content}
+%p <b>Ghi chú</b>: <i>Bạn nhận được email này vì bạn đã theo đuôi hoặc đã từng ủng hộ cho dự án <b>#{link_to @project.title, project_url(@project)}</b>.</i>

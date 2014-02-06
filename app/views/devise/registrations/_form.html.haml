@@ -1,0 +1,9 @@
+.alert.alert-info
+  Một lần nữa, cảm ơn bạn đã ủng hộ dự án <strong>#{@project.title if @project}</strong>. Mỗi ủng hộ được gửi về dự án qua hệ thống của charity-map.org, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất. Để tiện theo dõi, <strong>mời bạn đăng ký tài khoản</strong> dưới đây.
+
+.row.text-center
+  = link_to "/users/auth/facebook?token=#{params[:token] if params[:token]}", class: "facebook" do
+    .facebook-login Đăng Ký Bằng Facebook
+  %span
+    hoặc đăng ký
+    = link_to "bằng email", new_user_registration_path(:token => params[:token]), class: "mail"

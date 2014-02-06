@@ -28,6 +28,10 @@ class ProjectsController < InheritedResources::Base
 
   def show
     @project = Project.find(params[:id])
+    if params[:token]
+      @token = Token.find_by_value params[:token]
+      @ext_donation = @token.ext_donation if @token && !@token.used?
+    end
     @user = @project.user
     @project_follow = ProjectFollow.new
     if(current_user)

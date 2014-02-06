@@ -126,3 +126,15 @@
             %span.glyphicon.glyphicon-map-marker
       .row.map-container
         = render "layouts/plain_map", height: "400px", id: @project.id, latitude: @project.latitude, longitude: @project.longitude, zoom: 12, content: @project.location
+
+- if params[:token] && !user_signed_in?
+  #signupFormUsingToken.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h4#myModalLabel.modal-title Cảm ơn <b>#{@ext_donation.name if @ext_donation}</b>
+        .modal-body
+          = render "devise/registrations/form"
+  :javascript
+    setTimeout(function(){$('#signupFormUsingToken').modal({show: true})}, 1500);

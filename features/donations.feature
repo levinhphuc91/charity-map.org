@@ -207,11 +207,15 @@ Feature: Donation
       Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
       """
     	And "donor@mail.net" should receive an email
-    	And I am not authenticated
     When I open the email
     Then I should see "đường dẫn này" in the email body
     When I follow "đường dẫn này" in the email
-    Then I should see "Đăng Ký"
+    Then I should not see "Cảm ơn Tu Hoang"
+    And I am not authenticated
+      When I follow "đường dẫn này" in the email
+      Then I should see "Cảm ơn Tu Hoang"
+      And I should see "hoặc đăng ký bằng email"
+      And I follow "bằng email"
     	And I should see "donor@mail.net" in the "user_email" input
     	And I fill in "user_password" with "12345678"
     	And I fill in "user_password_confirmation" with "12345678"
@@ -225,6 +229,7 @@ Feature: Donation
     And I open the email
     Then I should see "đường dẫn này" in the email body
     When I follow "đường dẫn này" in the email
+      And I follow "bằng email"
       And I should not see "donor@mail.net" in the "user_email" input
       And I fill in "user_email" with "stranger_email_who_tries_to_use_the_token@gmail.com"
       And I fill in "user_password" with "12345678"
@@ -262,8 +267,8 @@ Feature: Donation
     When I open the email
     Then I should see "đường dẫn này" in the email body
     When I follow "đường dẫn này" in the email
-    Then I should see "Đăng Ký"
-      And I should see "user@man.net" in the "user_email" input
+    Then I should see "Push The World"
+      And I should see "Cảm ơn Tu Hoang"
     When Facebook login is mocked
     And I follow "Đăng Ký Bằng Facebook"
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."

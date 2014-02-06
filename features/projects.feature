@@ -380,7 +380,7 @@ Feature: Project
       And "tu@charity-map.org" should receive an email
       When I open the email
       When I follow "đường dẫn này" in the email
-      Then the URL should contain "dashboard"
+      Then the URL should contain "dashboard?utm_campaign=EmailOnNewProjectMember&utm_medium=link&utm_source=email"
       And I follow "Push The World"
       And I follow "Thành Viên"
       Then I should not see "Thêm Thành Viên Mới"

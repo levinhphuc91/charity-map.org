@@ -10,6 +10,6 @@
   %li Số ĐT người ủng hộ: #{@donation.user.phone}
 
 %p 
-  Vui lòng truy cập #{link_to "link", project_donations_url(@donation.project)} để xác nhận.
+  Vui lòng truy cập #{link_to "đường dẫn này", project_donations_url(@donation.project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} để xác nhận.
   %br/ 
-  www.charity-map.org
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org

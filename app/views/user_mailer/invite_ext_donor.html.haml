@@ -1,20 +1,19 @@
 %p Xin chào #{@ext_donation.donor.split.last},
 
-%p Dự án <b>#{@project.title}</b> xin thông báo chúng tôi xác nhận đã nhận ủng hộ của bạn. Thông tin:
+%p Dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b> xin thông báo chúng tôi xác nhận đã nhận ủng hộ của bạn. Thông tin:
 
 %ul
-  %li Dự án: <b>#{@project.title}</b>
   %li Số tiền ủng hộ: <b>#{human_currency @ext_donation.amount}</b>
   %li Ngày ủng hộ: <b>#{human_time @ext_donation.collection_time}</b>
   %li Ngày xác nhận: <b>#{human_time Time.now}</b>
 
 %p 
-  Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{@project.title}</b>, vui lòng truy cập #{link_to "đường dẫn này", new_user_registration_url(:token => @ext_donation.token.value)}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án <b>#{@project.title}</b>.
+  Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{@project.title}</b>, vui lòng truy cập #{link_to "đường dẫn này", new_user_registration_url(:token => @ext_donation.token.value, utm_campaign: "ConvertExtD2PUsers", utm_source: "email", utm_medium: "link")}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b>.
   
 %p 
   Thân,
   %br/ 
-  www.charity-map.org
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
 
 
 - if @ext_donation.anon

@@ -40,7 +40,7 @@ Feature: Donation
 			And I should see "Techcombank" in the email
 			And "donor@man.net" should receive an email
 			And I open the email
-			And I follow "link" in the email
+			And I follow "đường dẫn này" in the email
 		Then I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
 			And an email should have been sent with:
 			  """
@@ -49,7 +49,7 @@ Feature: Donation
 			  """
 			 And "testing@man.net" should receive an email
 			And I open the email
-			And I follow "link" in the email
+			And I follow "đường dẫn này" in the email
 		Then the URL should contain "projects/push-the-world/donations"
 
 	Scenario: Request verification for bank transfer on dashboard
@@ -69,13 +69,13 @@ Feature: Donation
 	 	Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
 	 	Then "donor@man.net" should receive an email
 		When I open the email
-			And I follow "link" in the email
+			And I follow "đường dẫn này" in the email
 		Then I should see "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
 	  When I am not authenticated
 		  And I login as "testing@man.net"
 	  	And "testing@man.net" should receive an email
 			And I open the email
-			And I follow "link" in the email
+			And I follow "đường dẫn này" in the email
       And I follow "Xác nhận ủng hộ"
 		Then I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
 			And an email should have been sent with:

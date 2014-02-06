@@ -1,6 +1,6 @@
 %h4 Xin chào #{@user.name.split.last},
 
-%p Vào ngày #{human_time(@donation.created_at)}, bạn đã đăng ký ủng hộ dự án #{@project.title} (do #{@project.user.name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
+%p Vào ngày #{human_time(@donation.created_at)}, bạn đã đăng ký ủng hộ dự án #{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} (do #{@project.user.name} khởi tạo) bằng hình thức #{human_donation_type @donation.collection_method}.
 
 %p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
 
@@ -22,11 +22,11 @@
   - else
     = h(@project.bank_info).gsub(/\n/, '<br/>').html_safe
 
-%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản. Mã đặc biệt: #{@donation.euid}. Khi bạn đã chuyển khoản, vui lòng click vào #{link_to "link", request_verification_url(euid: @donation.euid)} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map:
+%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản. Mã đặc biệt: #{@donation.euid}. Khi bạn đã chuyển khoản, vui lòng click vào #{link_to "đường dẫn này", request_verification_url(euid: @donation.euid)} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map:
 
 %p 
   Cảm ơn bạn đã sử dụng Charity Map,
   %br/ 
-  www.charity-map.org
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
 
 %p Lưu ý: hệ thống sẽ tự động hủy giao dịch ủng hộ sau mười ngày nếu bạn không gửi yêu cầu xác nhận đã chuyển tiền.

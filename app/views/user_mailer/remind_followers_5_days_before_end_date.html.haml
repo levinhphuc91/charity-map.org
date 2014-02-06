@@ -3,7 +3,7 @@
 %p <b>Charity Map</b> xin thông báo dự án <b>#{@project.title}</b> sẽ kết thúc chiến dịch gây quỹ trong 5 ngày tới.
 
 %p 
-  Vui lòng truy cập #{link_to "đường dẫn này", project_url(@project)} để biết thêm chi tiết.
+  Vui lòng truy cập #{link_to "đường dẫn này", project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} để biết thêm chi tiết.
 
 %p
-  www.charity-map.org
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org

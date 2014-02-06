@@ -1,8 +1,8 @@
 %h4 Chào <b>#{@user.name.split.last}</b>,
 
-%p <b>#{@project.user.name}</b> (#{@project.user.email}) vừa thêm bạn vào danh sách thành viên thực hiện dự án <b>#{link_to @project.title, project_url(@project)}</b>. Mời bạn click vào #{link_to "đường dẫn này", dashboard_url} để đến trang quản lý.
+%p <b>#{@project.user.name}</b> (#{@project.user.email}) vừa thêm bạn vào danh sách thành viên thực hiện dự án <b>#{link_to @project.title, project_url(@project)}</b>. Mời bạn click vào #{link_to "đường dẫn này", dashboard_url(utm_campaign: "EmailOnNewProjectMember", utm_source: "email", utm_medium: "link")} để đến trang quản lý.
 
 %p 
   Thân,
   <br/>
-  www.charity-map.org
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org

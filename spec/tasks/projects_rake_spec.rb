@@ -11,8 +11,8 @@ describe 'foo namespace rake task' do
   describe 'foo:bar' do
 
     let :run_rake_task do
-      Rake::Task["project:change_project_status_to_finished_after_funding_dur"].reenable
-      Rake.application.invoke_task "project:change_project_status_to_finished_after_funding_dur"
+      Rake::Task["projects:change_status_to_finished_after_end_date"].reenable
+      Rake.application.invoke_task "projects:change_status_to_finished_after_end_date"
     end
 
     it "should bake a bar" do

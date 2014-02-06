@@ -1,6 +1,6 @@
-namespace :project do
+namespace :projects do
   desc "change project status after funding duration"
-  task :change_project_status_to_finished_after_funding_dur => :environment do
+  task :change_status_to_finished_after_end_date => :environment do
     @projects = Project.where("end_date <= ?", Time.now.midnight)
     @projects.each do |project|
       project.update status: "FINISHED"

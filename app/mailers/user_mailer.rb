@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "team@charity-map.org"
+  default from: "Charity Map <team@charity-map.org>"
   helper :application
   include ApplicationHelper
   layout "user_mailer"
@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
   	@donation = donation
     @user = @donation.user
     @project = @donation.project
-    mail(to: @user.email, subject: "Tin nhắn: bạn đã chuyển khoản cho dự án #{@project.title}?")
+    mail(to: @user.email, subject: "Nhắc nhở: Chuyển khoản dành cho dự án #{@project.title}?")
   end
 
   def bank_transfer_request_verification(donation)

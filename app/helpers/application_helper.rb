@@ -49,6 +49,8 @@ module ApplicationHelper
       "Đợi Xác Nhận"
     when "SUCCESSFUL"
       "Thành Công"
+    when "FAILED"
+      "Đã Huỷ"
     end
   end
 

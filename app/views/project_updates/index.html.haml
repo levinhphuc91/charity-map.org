@@ -10,9 +10,12 @@
     Hiện dự án <strong>#{@project.title}</strong> chưa có cập nhật nào.
   - else
     .list-group
-      - @project_updates.each do |update|
+      - @project_updates.each_with_index do |update, index|
         = link_to project_project_update_path(@project, update), class: "list-group-item" do
           %h4.list-group-item-heading
             = update.title
-            %span.label.label-success.pull-right= human_time update.created_at
-          %p.list-group-item-text= markdown limit_display(update.content, 400)
+            %span.label.label-success.pull-right
+              Cập nhật #{index + 1} (#{human_time update.created_at})
+          %p.list-group-item-text
+            Click để xem thêm thông tin.
+            / = markdown limit_display(update.content, 400)

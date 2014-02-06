@@ -125,10 +125,11 @@ Feature: Project
       And I fill in "Nội dung cập nhật" with "Test Update Content"
       And I press "Cập Nhật"
     Then I should see "Vừa thêm Cập nhật dự án mới."
-    Then I should see "Test Update Content"
+    Then I should see "Test Update Title"
+    Then I should see "Cập nhật 1"
     When I go to the project page of "Push The World"
       And I follow "Cập Nhật"
-    Then I should see "Test Update Content"
+    Then I should see "Click để xem thêm thông tin."
       And I follow "Test Update Title"
     Then the URL should contain "projects/push-the-world/project_updates"
     When I get redirected via the last redirect token

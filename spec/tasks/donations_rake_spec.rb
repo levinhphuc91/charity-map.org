@@ -43,4 +43,20 @@ describe 'donations:' do
       end
     end
   end
+
+  describe 'bank_transfer_mark_as_failed' do
+    let :run_rake_task do
+      Rake::Task["donations:bank_transfer_mark_as_failed"].reenable
+      Rake.application.invoke_task "donations:bank_transfer_mark_as_failed"
+    end
+
+    it "mark #failed for bank-transfer donations beyond 15 days" do
+      Timecop.freeze(@donation.created_at + 15.days) do
+        expect{
+          run_rake_task
+          @donation.reload
+        }.to change{@donation.status}.from("PENDING").to("FAILED")
+      end
+    end
+  end
 end

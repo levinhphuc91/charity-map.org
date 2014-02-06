@@ -27,6 +27,7 @@ class ExtDonation < ActiveRecord::Base
   validates :donor, :amount, :collection_time, :project_id, :status, presence: true
   has_defaults anon: false, status: "NEW"
 
+  before_validation :email_provided_not_belongs_to_any_users
   after_create :generate_token
 
   scope :bank_transfer, -> { where(collection_method: "BANK_TRANSFER") }
@@ -37,6 +38,13 @@ class ExtDonation < ActiveRecord::Base
   end
 
   def name
-    donor
+    donor || email.split("@").first
+  end
+
+  def email_provided_not_belongs_to_any_users
+    if email
+      @user = User.find_by(email: email)
+      errors.add(:email, "đã được đăng ký thành viên trên Charity Map. Vui lòng liên hệ MTQ để tiến hành ủng hộ qua hệ thống.") if @user
+    end
   end
 end

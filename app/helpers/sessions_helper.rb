@@ -35,14 +35,15 @@ module SessionsHelper
     @object = "#{token.redirect_class_name}".constantize.find(token.redirect_class_id)
     case token.redirect_class_name
     when "Project"
-      url = "#{project_url(@object, protocol: 'http')}"
+      url = "#{project_url(@object, protocol: 'http')}?utm_campaign=NotifOnProject"
     when "ProjectUpdate"
-      url = "#{project_project_update_url(@object.project, @object, protocol: 'http')}"
+      url = "#{project_project_update_url(@object.project, @object, protocol: 'http')}?utm_campaign=NotifOnPUpdate"
     when "Donation"
-      url = "#{project_donations_url(@object.project, protocol: 'http')}"
+      url = "#{project_donations_url(@object.project, protocol: 'http')}?utm_campaign=NotifOnDonation"
     else
       url = "#{root_url(protocol: 'http')}"
     end
+    url += "&utm_source=fb&utm_medium=notif"
     return url
     # redirect_to @object
     # TODO: add extra params if any

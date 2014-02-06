@@ -133,6 +133,7 @@ Feature: Project
     Then the URL should contain "projects/push-the-world/project_updates"
     When I get redirected via the last redirect token
     Then I should see "Test Update Content"
+    And the URL should contain "?utm_campaign=NotifOnPUpdate"
 
   Scenario: Add updates unsuccessfully (status != FINISHED != REVIEWED)
     Given the date is 2013-09-11

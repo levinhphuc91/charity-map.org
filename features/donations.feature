@@ -85,7 +85,7 @@ Feature: Donation
 			  Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
 			  """
 		When I get redirected via the last redirect token
-    Then the URL should contain "/projects/push-the-world/donations"
+    Then the URL should contain "/projects/push-the-world/donations?utm_campaign=NotifOnDonation"
 
 	Scenario: Donation list for normal user
 		Given the date is 2013-09-11
@@ -162,7 +162,7 @@ Feature: Donation
 			Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
 			"""
 		When I get redirected via the last redirect token
-    Then the URL should contain "/projects/push-the-world/donations"
+    Then the URL should contain "/projects/push-the-world/donations?utm_campaign=NotifOnDonation"
 
 	Scenario: Confirm COD donations
 	  Given the date is 2013-09-11
@@ -183,7 +183,7 @@ Feature: Donation
 			Subject: Xác nhận đã nhận tiền mặt ủng hộ dự án Push The World
 			"""
 		When I get redirected via the last redirect token
-    Then the URL should contain "/projects/push-the-world/donations"
+    Then the URL should contain "/projects/push-the-world/donations?utm_campaign=NotifOnDonation"
 
 	Scenario: Convert ExtDonation to Donation
 		Given the date is 2013-09-11

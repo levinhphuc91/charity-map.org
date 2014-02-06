@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"].provider, request.env["omniauth.auth"].uid, request.env["omniauth.auth"].credentials, request.env["omniauth.auth"].info.email, current_user)
-    @user.fetch_fb_friends
+    # @user.fetch_fb_friends
     if request.env["omniauth.params"]["token"]
       @token = Token.find_by_value(request.env["omniauth.params"]["token"])
       create_donation_from_ext(@user, @token.ext_donation) if @token && !@token.used?

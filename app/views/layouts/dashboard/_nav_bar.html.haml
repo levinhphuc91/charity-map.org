@@ -11,10 +11,11 @@
   %ul.nav.navbar-nav.pull-right.hidden-xs
     %li.hidden-xs.hidden-sm
       %input.search{type: "text"}/
+    / - if current_user.blank_contact? || !current_user.facebook_credentials || !current_user.verified?
     %li.notification-dropdown.hidden-xs.hidden-sm
       %a.trigger{href: "#"}
         %i.icon-warning-sign
-        %span.count 8
+        %span.count= (current_user.blank_contact? ? 1 : 0) + (!current_user.facebook_credentials ? 1 : 0) + (!current_user.verified? ? 1 : 0)
       .pop-dialog
         .pointer.right
           .arrow
@@ -23,39 +24,31 @@
           %a.close-icon{href: "#"}
             %i.icon-remove-sign
           .notifications
-            %h3 You have 6 new notifications
-            %a.item{href: "#"}
-              %i.icon-signin
-              New user registration
-              %span.time
-                %i.icon-time
-                13 min.
-            %a.item{href: "#"}
-              %i.icon-signin
-              New user registration
-              %span.time
-                %i.icon-time
-                18 min.
-            %a.item{href: "#"}
-              %i.icon-envelope-alt
-              New message from Alejandra
-              %span.time
-                %i.icon-time
-                28 min.
-            %a.item{href: "#"}
-              %i.icon-signin
-              New user registration
-              %span.time
-                %i.icon-time
-                49 min.
-            %a.item{href: "#"}
-              %i.icon-download-alt
-              New order placed
-              %span.time
-                %i.icon-time
-                1 day.
-            .footer
-              %a.logout{href: "#"} View all notifications
+            %h3 Bạn còn #{(current_user.blank_contact? ? 1 : 0) + (!current_user.facebook_credentials ? 1 : 0) + (!current_user.verified? ? 1 : 0)} bước nữa để có 1 hồ sơ hoàn chỉnh
+            - if current_user.blank_contact?
+              = link_to users_settings_path, class: "item" do
+                %i.icon-signin
+                Cung cấp thông tin
+                %span.time
+                  %i.icon-time
+                  2 phút
+            - if !current_user.facebook_credentials
+              - resource_class.omniauth_providers.each do |provider|
+                = link_to omniauth_authorize_path(resource_name, provider) do
+                  %i.icon-signin
+                  Kết nối Facebook
+                  %span.time
+                    %i.icon-time
+                    1 phút
+            - if !current_user.verified?
+              = link_to users_verify_path, class: "item" do
+                %i.icon-signin
+                Xác nhận tài khoản
+                %span.time
+                  %i.icon-time
+                  3 phút
+            / .footer
+            /   %a.logout{href: "#"} View all notifications
     / %li.notification-dropdown.hidden-xs.hidden-sm
     /   %a.trigger{href: "#"}
     /     %i.icon-envelope
@@ -101,7 +94,7 @@
         %li= link_to "Tùy Chỉnh", users_settings_path
         %li= link_to "Đóng Góp", users_donations_path
         %li= link_to "Xác Nhận TK", users_verify_path
-        %li= link_to "Tin Nhắn", messages_path
+        / %li= link_to "Tin Nhắn", messages_path
     %li.settings.hidden-xs.hidden-sm
       = link_to users_settings_path do
         %i.icon-cog

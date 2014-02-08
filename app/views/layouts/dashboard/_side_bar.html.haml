@@ -8,7 +8,7 @@
           .arrow_border
       = link_to dashboard_path do
         %i.icon-home
-        %span Home
+        %span Quản Lý
     - if (["dashboard/projects", "project_updates", "recommendations", "project_rewards", "invites"].include?(params[:controller]) && @project)
       %li.active
         %a.dropdown-toggle{href: "#"}

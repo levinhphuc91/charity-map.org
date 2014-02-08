@@ -1,0 +1,23 @@
+%h1 Listing gift_cards
+
+%table
+  %tr
+    %th Recipient email
+    %th Amount
+    %th References
+    %th
+    %th
+    %th
+
+  - @gift_cards.each do |gift_card|
+    %tr
+      %td= gift_card.recipient_email
+      %td= gift_card.amount
+      %td= gift_card.references
+      %td= link_to 'Show', gift_card
+      %td= link_to 'Edit', edit_dashboard_gift_card_path(gift_card)
+      %td= link_to 'Destroy', gift_card, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Gift card', new_dashboard_gift_card_path

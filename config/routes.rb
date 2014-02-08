@@ -63,6 +63,7 @@ CharityMap::Application.routes.draw do
       post 'add_member', on: :member
       delete 'remove_member', on: :member
     end
+    resources :gift_cards
   end
 
   namespace :admin do

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Recipient email:
+  = @gift_card.recipient_email
+%p
+  %b Amount:
+  = @gift_card.amount
+%p
+  %b References:
+  = @gift_card.references
+
+= link_to 'Edit', edit_dashboard_gift_card_path(@gift_card)
+\|
+= link_to 'Back', dashboard_gift_cards_path

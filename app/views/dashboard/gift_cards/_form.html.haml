@@ -1,0 +1,8 @@
+= semantic_form_for @gift_card do |f|
+  = f.inputs do
+    = f.input :recipient_email
+    = f.input :amount
+    = f.input :references
+
+  = f.actions do
+    = f.action :submit, :as => :input

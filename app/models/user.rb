@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship"
   has_many :followers, :through => :reverse_relationships
   has_many :managements
+  has_many :gift_cards
   
   has_defaults staff: false, verified_by_phone: false, org: false
 

@@ -1,8 +1,26 @@
-= semantic_form_for @gift_card do |f|
-  = f.inputs do
-    = f.input :recipient_email
-    = f.input :amount
-    = f.input :references
-
-  = f.actions do
-    = f.action :submit, :as => :input
+.row
+  .col-md-8
+    .form-page
+      .form-wrapper
+        = simple_form_for @gift_card, url: dashboard_gift_cards_path do |f|
+          .field-box
+            %label *Email Người Nhận
+            .col-md-7
+              = f.text_field :recipient_email, class: "form-control", disabled: (params[:action] == "edit" ? true : false)
+          .field-box
+            %label *Giá Trị (VNĐ)
+            .col-md-7= f.text_field :amount, class: "form-control", disabled: (params[:action] == "edit" ? true : false)
+          = f.simple_fields_for :references do |d|
+            .field-box
+              %label *Tên Người Nhận
+              .col-md-7= d.text_field :recipient_name, value: @gift_card.try(:references["recipient_name"]), class: "form-control"
+            .field-box
+              %label Tên chương trình
+              .col-md-7= d.text_field :campaign_name, value: @gift_card.try(:references["campaign_name"]), class: "form-control"
+            .field-box
+              %label Thông Tin Thêm
+              .col-md-7= d.text_area :extra_info, value: @gift_card.try(:references["extra_info"]), class: "form-control"
+          .field-box
+            %label{:for => ""} 
+            .col-md-7
+              = f.submit :submit, :as => :input, class: "btn-glow primary btn-next"

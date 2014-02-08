@@ -1,23 +1,59 @@
-%h1 Listing gift_cards
+= content_for :head do 
+  = stylesheet_link_tag "wrapdashboard/optional/index.css", media: "all", "data-turbolinks-track" => true
 
-%table
-  %tr
-    %th Recipient email
-    %th Amount
-    %th References
-    %th
-    %th
-    %th
+= render "stats"
 
-  - @gift_cards.each do |gift_card|
-    %tr
-      %td= gift_card.recipient_email
-      %td= gift_card.amount
-      %td= gift_card.references
-      %td= link_to 'Show', gift_card
-      %td= link_to 'Edit', edit_dashboard_gift_card_path(gift_card)
-      %td= link_to 'Destroy', gift_card, :method => :delete, :data => { :confirm => 'Are you sure?' }
+#pad-wrapper
+  .table-products.section
+    .row.head
+      .col-md-12
+        %h4
+          Danh sách Gift Cards
+          %small gửi đi từ #{human_time current_user.created_at}
+    .row.filter-block
+      .col-md-8.col-md-offset-5
+        .ui-select
+          %select
+            %option Sắp xếp: theo ngày
+            %option Sắp xếp: theo trạng thái
+            %option Sắp xếp: theo giá trị
+        %input.search{type: "text", placeholder: "Search email hoặc card ID"}/
+        = link_to "+ Tạo gift card", new_dashboard_gift_card_path, class: "btn-flat new-product"
 
-%br
-
-= link_to 'New Gift card', new_dashboard_gift_card_path
+    .row
+      %table.table.table-hover
+        %thead
+          %tr
+            %th.col-md-3
+              / %input{type: "checkbox"}/
+              Người Nhận
+            %th.col-md-3
+              %span.line>
+              Giá Trị
+            %th.col-md-3
+              %span.line>
+              Thông Tin Thêm 
+            %th.col-md-3
+              %span.line>
+              Trạng Thái
+        %tbody
+          - if @gift_cards.empty?
+            %tr 
+              %td{colspan: 4} Hiện bạn chưa tạo gift card nào. Hãy thử #{link_to "tạo mới", new_dashboard_gift_card_path}.
+          - @gift_cards.each do |card|
+            %tr.first
+              %td
+                / %input{type: "checkbox"}/
+                .img
+                  = image_tag "dashboard/table-img.png"
+                <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
+                %br/ 
+                #{card.references["campaign_name"]}
+              %td.description
+                #{human_currency card.amount}
+              %td 
+                #{card.references["extra_info"]}
+              %td
+                %span.label.label-success #{card.status}
+                &nbsp; #{link_to "Edit", edit_dashboard_gift_card_path(card)}
+                &sdot; #{link_to "Disable", dashboard_gift_card_path(card), :method => :delete, :data => { :confirm => 'Mark as inactive?' }}

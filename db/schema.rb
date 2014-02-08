@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208031059) do
+ActiveRecord::Schema.define(version: 20140208061505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,9 @@ ActiveRecord::Schema.define(version: 20140208031059) do
     t.hstore   "references"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+    t.string   "master_transaction_id"
   end
 
   create_table "impressions", force: true do |t|

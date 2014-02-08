@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    / open sans font
+    %link{href: "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=vietnamese", rel: "stylesheet", type: "text/css"}/
+    / lato font
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic", rel: "stylesheet", type: "text/css"}/
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    %title= Configuration[:site_name]
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=980", :name => "viewport"}/
+    %link{href: image_path("favicon.ico"), rel: "shortcut icon"}/
+    = stylesheet_link_tag    "cm-dashboard", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "wrapdashboard", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "wrapdashboard/bootstrap/bootstrap-overrides", media: "all", "data-turbolinks-track" => true
+    / = stylesheet_link_tag    "cm-dashboard", media: "all", "data-turbolinks-track" => true
+    %link{:href => "http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
+    = csrf_meta_tags
+    = yield :head
+  %body
+    = render "layouts/facebook_script"
+    - cache("analytics", :expires_in => 1.month) do
+      = render "layouts/analytics"
+    = render "layouts/dashboard/nav_bar"
+    = render "layouts/dashboard/side_bar"
+    / main container
+    .content
+      = yield
+    = javascript_include_tag "wrapdashboard", "data-turbolinks-track" => true
+    = javascript_include_tag "dashboard/jquery-ui-1.10.2.custom.min", "data-turbolinks-track" => true

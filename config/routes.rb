@@ -32,6 +32,7 @@ CharityMap::Application.routes.draw do
   get   'pages/about'
   get   'pages/faqs'
   get   'pages/guidelines'
+  get   'gifts', to: 'pages#gifts'
   get   'donations/request_verification'
 
   resources :projects do

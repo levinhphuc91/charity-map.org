@@ -2,7 +2,7 @@
 
 %h4 Chào #{@gift_card.references["recipient_name"]},
 
-%p Bạn vừa nhận được một gift card từ #{link_to @gift_card.user.name, user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link")}. Để sử dụng món quà này, vui lòng truy cập #{link_to "đường dẫn này", dashboard_gift_cards_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và điền vào các thông tin cần thiết.
+%p Bạn vừa nhận được một gift card từ #{link_to @gift_card.user.name, user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link")}. Để sử dụng món quà này, vui lòng truy cập #{link_to "đường dẫn này", gifts_path(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và điền vào các thông tin cần thiết.
 
 %p 
   Thân,

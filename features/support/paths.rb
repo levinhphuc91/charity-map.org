@@ -32,6 +32,12 @@ module NavigationHelpers
     when /^the project listing page$/
       '/projects'
 
+    when /^the gift cards dashboard$/
+      '/dashboard/gift_cards'
+
+    when /^the create-new-card page$/
+      '/dashboard/gift_cards/new'
+
     when /the dashboard of the project "(.+)"/
       p = Project.find_by_title($1)
       dashboard_project_path(p)

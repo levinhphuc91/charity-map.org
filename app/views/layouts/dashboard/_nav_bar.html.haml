@@ -33,13 +33,12 @@
                   %i.icon-time
                   2 phút
             - if !current_user.facebook_credentials
-              - resource_class.omniauth_providers.each do |provider|
-                = link_to omniauth_authorize_path(resource_name, provider) do
-                  %i.icon-signin
-                  Kết nối Facebook
-                  %span.time
-                    %i.icon-time
-                    1 phút
+              = link_to "users/auth/facebook" do
+                %i.icon-signin
+                Kết nối Facebook
+                %span.time
+                  %i.icon-time
+                  1 phút
             - if !current_user.verified?
               = link_to users_verify_path, class: "item" do
                 %i.icon-signin

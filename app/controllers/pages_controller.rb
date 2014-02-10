@@ -17,4 +17,7 @@ class PagesController < ApplicationController
 
   def projects
   end
+
+  def gifts
+  end
 end

@@ -136,40 +136,44 @@
                         %span= human_currency project.funding_goal
                       .hint ĐÃ GÂY QUỸ
 
-/ %section.stats-number.clear
-/   .stats-number-content
-/     .section
-/       %h2 Những con số
-/       %p
-/         %a{href: ""} Có gì trên Charity Map?
-/     %div{style: "height: 360px; background: #ccc; margin: 30px 0;"}
-/     %h5
-/       %span Tổng Quan
-/     %ul
-/       %li
-/         .numbers 10
-/         %span.number-tag dự án
-/       %li
-/         .numbers 200
-/         %span.number-tag mạnh thường quân
-/       %li
-/         .numbers 250 TRIỆU
-/         %span.number-tag đồng được đóng góp
-/     %h5
-/       %span Chi Tiết
-/     %ul
-/       %li
-/         .numbers 25
-/         %span.number-tag cập nhật
-/       %li
-/         .numbers 6700
-/         %span.number-tag báo cáo qua email
-/       %li
-/         .numbers 1200
-/         %span.number-tag báo cáo qua sms
-/       %li
-/         .numbers 90
-/         %span.number-tag tặng phẩm được gửi đi
+- cache do
+  %section.stats-number
+    .stats-number-content
+      .section
+        %h2 Những con số
+        / %p
+        /   %a{href: ""} Có gì trên Charity Map?
+      / %div{style: "background: #ccc; margin: 30px 0;"}
+      /   = line_chart [{:name => "Tiến Độ", :data => platform_funding_progress}], height: "360px"
+      %h5
+        %span Tổng Quan
+      %ul
+        %li
+          .numbers= Project.public_view.count
+          %span.number-tag dự án
+        %li
+          .numbers= Donation.successful.count + ExtDonation.count
+          %span.number-tag mạnh thường quân
+        %li
+          .numbers= number_with_precision Donation.successful.sum(:amount) + ExtDonation.sum(:amount), precision: 0, delimiter: ","
+          %span.number-tag đồng được đóng góp
+      %h5
+        %span Chi Tiết
+      %ul
+        %li
+          .numbers= ProjectUpdate.count
+          %span.number-tag cập nhật
+        %li
+          .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("email IS NOT ?", nil).count)
+          %span.number-tag báo cáo qua email
+        %li
+          .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("phone IS NOT ?", nil).count)
+          %span.number-tag báo cáo qua sms
+        %li
+          - sum = 0
+          - Project.where(:item_based => true).each {|project| sum += project.donations.successful.sum(:project_reward_quantity)}
+          .numbers= sum
+          %span.number-tag tặng phẩm được gửi đi
 
 - if !user_signed_in?
   %section.call-action.col-md-12

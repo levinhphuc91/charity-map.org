@@ -65,34 +65,41 @@
     - if @funding_projects.empty?
       %p Hiện chưa có dự án nào.
     - else
-      - @funding_projects.each do |project|
-        .project-slider
-          .project-details
-            .col-md-2
-              = link_to user_profile_path(project.user) do
-                %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
-            .col-md-10
-              %strong= project.title
-              %ul
-                %li
-                  %i.glyphicon.glyphicon-user
-                  %span= project.user.name
-                %li
-                  %i.glyphicon.glyphicon-map-marker
-                  %span= project.location
-                %li
-                  %i.glyphicon.glyphicon-calendar
-                  %span Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} ngày
-              .donation-funded-wrap
-                .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
-          .project-goal.col-md-10.col-md-offset-2
-            .col-md-6.mota-ngan
-              %span= project.brief.html_safe
-            .col-md-4
-              .goal
-                %strong
-                  %span= human_currency project.funding_goal
-                .hint MỤC TIÊU
+      - if @funding_projects.count > 1
+        %p
+          %a.unslider-arrow.prev <
+          %a.unslider-arrow.next >
+      .project-slider
+        %ul 
+          - @funding_projects.each do |project|
+            %li
+              .project-details
+                .col-md-2
+                  = link_to user_profile_path(project.user) do
+                    %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                .col-md-10
+                  %strong= link_to project.title, project_path(project)
+                  %ul
+                    %li
+                      %i.glyphicon.glyphicon-user
+                      %span= link_to project.user.name, user_profile_path(project.user)
+                    %li
+                      %i.glyphicon.glyphicon-map-marker
+                      %span= project.location
+                    %li
+                      %i.glyphicon.glyphicon-calendar
+                      %span Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} ngày
+                  .donation-funded-wrap
+                    .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
+              .project-goal.col-md-10.col-md-offset-2
+                .col-md-6.mota-ngan
+                  %span= project.brief.html_safe
+                .col-md-4
+                  .goal
+                    %strong
+                      %span= human_currency project.funding_goal
+                    .hint MỤC TIÊU
+
 
 / %section.stats-number.clear
 /   .stats-number-content
@@ -271,3 +278,14 @@
 / - unless @markers.nil?
 /   .body-container--plain-row{:style => "margin-bottom: -90px;"}
 /     = render "layouts/map", height: "500px", markers: @markers
+
+:javascript
+  $(function() {
+    $('.project-slider').unslider();
+  });
+  var unslider = $('.project-slider').unslider();
+  $('.unslider-arrow').click(function() {
+      var fn = this.className.split(' ')[1];
+      //  Either do unslider.data('unslider').next() or .prev() depending on the className
+      unslider.data('unslider')[fn]();
+  });

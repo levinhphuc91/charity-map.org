@@ -525,3 +525,10 @@ a.action-button:hover {
 	line-height: 2;
 	font-size: 14px;
 }
+
+.project-slider { position: relative; overflow: auto; }
+.project-slider li { list-style: none; }
+.project-slider ul li { float: left; }
+
+.unslider-arrow { padding: 5px 10px 5px 10px; background-color: rgba(52, 152, 219,0.95); color: #fff; font-weight: bold;}
+.unslider-arrow:hover { cursor: pointer; text-decoration: none; color: #fff;}

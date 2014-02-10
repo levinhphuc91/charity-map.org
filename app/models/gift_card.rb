@@ -15,7 +15,11 @@
 
 class GiftCard < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :master_transaction_id, :recipient_email, :amount, :references
+  attr_accessible :master_transaction_id, :recipient_email, :amount, :references, :user_id
   validates :recipient_email, :amount, :user_id, :master_transaction_id, presence: true
   has_defaults status: "ACTIVE"
+
+  def references_to_string
+    "#{references['recipient_name']} #{references['campaign_name']} #{references['extra_info']}"
+  end
 end

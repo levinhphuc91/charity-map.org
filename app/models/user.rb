@@ -31,6 +31,7 @@
 #  latitude               :float
 #  longitude              :float
 #  facebook_friends       :hstore
+#  api_token              :string(255)
 #
 
 require 'fb_graph'
@@ -51,7 +52,7 @@ class User < ActiveRecord::Base
                       
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
-    :provider, :uid, :facebook_credentials, :facebook_friends,
+    :provider, :uid, :facebook_credentials, :facebook_friends, :api_token,
     :verified_by_phone, :org, :figures, :latitude, :longitude
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true

@@ -3,10 +3,15 @@
     .form-page
       .form-wrapper
         = simple_form_for @gift_card, url: dashboard_gift_cards_path do |f|
+          = f.hidden_field :user_id, value: current_user.id
           .field-box
             %label *Email Người Nhận
             .col-md-7
               = f.text_field :recipient_email, class: "form-control", disabled: (params[:action] == "edit" ? true : false)
+          .field-box
+            %label *Số ĐT Người Nhận
+            .col-md-7
+              = text_field_tag :recipient_phone, nil, class: "form-control"
           .field-box
             %label *Giá Trị (VNĐ)
             .col-md-7= f.text_field :amount, class: "form-control", disabled: (params[:action] == "edit" ? true : false)

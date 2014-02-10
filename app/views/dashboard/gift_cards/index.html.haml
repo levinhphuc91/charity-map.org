@@ -4,11 +4,11 @@
 = render "stats"
 
 #pad-wrapper
-  .table-products.section
+  .table-products
     .row.head
       .col-md-12
         %h4
-          Danh sách Gift Cards
+          Danh sách Gift Cards #{@cleared_credits_amount}
           %small gửi đi từ #{human_time current_user.created_at}
     .row.filter-block
       .col-md-8.col-md-offset-5
@@ -51,7 +51,9 @@
                 #{card.references["campaign_name"]}
               %td.description
                 #{human_currency card.amount}
-              %td 
+              %td
+                <b>Ngày</b>: #{human_time card.created_at}
+                %br/ 
                 #{card.references["extra_info"]}
               %td
                 %span.label.label-success #{card.status}

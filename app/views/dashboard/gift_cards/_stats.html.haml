@@ -12,11 +12,11 @@
       %span.date tổng giá trị
     .col-md-3.col-sm-3.stat
       .data
-        %span.number 322
+        %span.number #{@pending_clearance_credits_amount}
         đồng
       %span.date chuyển khoản tháng này
     .col-md-3.col-sm-3.stat.last
       .data
-        %span.number #{human_currency @cleared_credits_amount}
+        %span.number #{@cleared_credits_amount}
         đồng
       %span.date đã chuyển khoản

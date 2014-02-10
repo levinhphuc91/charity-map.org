@@ -13,7 +13,7 @@ class SMS
         raise "#{key} cannot be nil" if value.nil?
       end
 
-      if Rails.env.production?
+      if Rails.env.production? || Rails.env.development?
         if params[:sender_id] == true
           nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
           response = nexmo.send_message!({

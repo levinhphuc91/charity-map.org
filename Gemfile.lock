@@ -191,6 +191,9 @@ GEM
       activesupport (>= 3.2, < 5)
     hashie (2.0.5)
     hike (1.2.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
     i18n (0.6.9)
     impressionist (1.5.1)
@@ -439,6 +442,7 @@ DEPENDENCIES
   guard-spork
   haml-rails
   has_defaults
+  httparty
   impressionist
   inherited_resources
   jbuilder (~> 1.2)

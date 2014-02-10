@@ -32,8 +32,9 @@ class Project < ActiveRecord::Base
   scope :pending, -> { where(status: "PENDING") }
   scope :listed, -> { where(unlisted: false) }
   scope :funding, -> { where("STATUS = ? AND START_DATE < ? AND END_DATE > ? AND UNLISTED = ?",
-    "REVIEWED", Time.now, Time.now, "f").order("created_at DESC") }
-  scope :finished, -> { where(status: "FINISHED", unlisted: false).order("created_at DESC") }
+    "REVIEWED", Time.now, Time.now, "false").order("created_at DESC") }
+  scope :finished, -> { where("STATUS = ? AND END_DATE < ? AND UNLISTED = ?",
+    "REVIEWED", Time.now, "false").order("created_at DESC") }
   scope :mapped, -> { where("LATITUDE >= ? AND LONGITUDE >= ?", 0, 0) }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
@@ -111,6 +112,10 @@ class Project < ActiveRecord::Base
 
   def accepting_donations?
     status == "REVIEWED" && start_date < Time.now && end_date > Time.now
+  end
+
+  def success?
+    donations_sum > funding_goal
   end
 
   def belongs_to?(target_user)

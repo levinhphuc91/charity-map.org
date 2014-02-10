@@ -19,7 +19,7 @@
             %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
     .animated.fadeInDown
       %h1 Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
-      / %p Với Charity Maps bạn có thể blah blah blah & bleh bleh bleh
+      / %p Với Charity Map bạn có thể blah blah blah & bleh bleh bleh
       - if user_signed_in?
         %span
           = link_to "Đến Trang Quản Lý", dashboard_path, class: "dashboard"
@@ -28,63 +28,194 @@
         %span
           hoặc đăng nhập 
           = link_to "bằng email", new_user_session_path, class: "mail"
-/ %section.partners
-/   .partners-content
-/     %h2 Các tổ chức tin dùng charity-map.org
-/     %p= link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
-/     .partners-list
-/       %ul
-/         %li
-/           = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
-/           .partner-name CLB Cầu Vai Xanh
-/         %li
-/           %img.img-circle{alt: "", src: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s160x160/1465233_180341662156946_1527726664_a.jpg"}/
-/           .partner-name Huy Cùi Bắp
-/         %li
-/           = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
-/           .partner-name  Nhóm Bàn Tay Nhỏ
-/         %li
-/           = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
-/           .partner-name Chia Sẻ Yêu Thương
-/         %li
-/           = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
-/           .partner-name Công Bằng Y Tế
-/ %section.projects
-/   .project-content
-/     %h2
-/       Các dự án
-/       = succeed "/" do
-/         %a{href: ""} đang gây quỹ
-/       %a{href: ""} tiêu biểu
-/     %p Vì sao bạn nên gây quỹ trên Charity Maps?
-/     .project-slider
-/       .project-details
-/         .col-md-2
-/           %a{href: "/user/38"}
-/             %span
-/               %img.img-circle.group-ava{alt: "Large logo nhom", src: "https://s3.amazonaws.com/ksr/projects/786773/photo-little.jpg?1390360874"}/
-/         .col-md-10
-/           %strong Ấm Tình Mùa Xuân
-/           %ul
-/             %li
-/               %i.glyphicon.glyphicon-user
-/               %span CLB Cầu Vai Xanh
-/             %li
-/               %i.glyphicon.glyphicon-map-marker
-/               %span Bình Thuận
-/             %li
-/               %i.glyphicon.glyphicon-calendar
-/               %span Còn 4 ngày
-/           .donation-funded-wrap
-/             .donation-funded{style: "width: 64%"}
-/       .project-goal.col-md-10.col-md-offset-2
-/         .col-md-6.mota-ngan
-/           %span Viết sao cho vừa đủ vừa đẹp như vầy thôi, đừng dài quá, đừng ngắn quá. Như vậy mới có người gọi là copy-writer đó biết chưa? Viết thêm chút này nữa là vừa đẹp.
-/         .col-md-4
-/           .goal
-/             %strong
-/               %span 50.000.000 VNĐ
-/             .hint MỤC TIÊU
+
+%section.partners
+  .partners-content.section
+    %h2 Các tổ chức tin dùng charity-map.org
+    %p
+      = link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
+    .partners-list
+      %ul
+        %li
+          = link_to "http://www.charity-map.org/user/38" do
+            = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
+            .partner-name
+              Chia Sẻ Yêu Thương
+        %li
+          = link_to "http://www.charity-map.org/user/54" do
+            = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
+            .partner-name
+              Cầu Vai Xanh
+        %li
+          = link_to "http://www.charity-map.org/user/78" do
+            = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
+            .partner-name
+              Bàn Tay Nhỏ
+        %li
+          = link_to "#" do
+            = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
+            .partner-name
+              Công Bằng Y Tế
+
+%section.projects
+  .project-content.section.col-md-12
+    %h2
+      Dự án đang gây quỹ
+      / %a{href: ""} tiêu biểu
+    - if @funding_projects.empty?
+      %p Hiện chưa có dự án nào.
+    - else
+      .funding-project-slider
+        %ul 
+          - @funding_projects.each do |project|
+            %li 
+              .project-details
+                .col-md-2
+                  = link_to user_profile_path(project.user) do
+                    %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                .col-md-10
+                  %strong= link_to project.title, project_path(project)
+                  %ul
+                    %li
+                      %i.glyphicon.glyphicon-user
+                      %span= link_to project.user.name, user_profile_path(project.user)
+                    %li
+                      %i.glyphicon.glyphicon-map-marker
+                      %span= project.location
+                    %li
+                      %i.glyphicon.glyphicon-calendar
+                      %span Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} ngày
+                  .donation-funded-wrap
+                    .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
+              .project-goal.col-md-10.col-md-offset-2
+                .col-md-6.mota-ngan
+                  %span= project.brief.html_safe
+                .col-md-4
+                  .goal
+                    %strong
+                      %span= human_currency project.funding_goal
+                    .hint MỤC TIÊU
+
+%section.projects
+  .project-content.section.col-md-12
+    %h2
+      Dự án tiêu biểu
+      / %a{href: ""} tiêu biểu
+    - if @finished_projects.empty?
+      %p Hiện chưa có dự án nào.
+    - else
+      .finished-project-slider
+        %ul 
+          - @finished_projects.each do |project|
+            - if project.success?
+              %li
+                .project-details
+                  .col-md-2
+                    = link_to user_profile_path(project.user) do
+                      %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                  .col-md-10
+                    %strong= link_to project.title, project_path(project)
+                    %ul
+                      %li
+                        %i.glyphicon.glyphicon-user
+                        %span= link_to project.user.name, user_profile_path(project.user)
+                      %li
+                        %i.glyphicon.glyphicon-map-marker
+                        %span= project.location
+                      %li
+                        %i.glyphicon.glyphicon-calendar
+                        %span #{human_time project.end_date}
+                    .donation-funded-wrap
+                      .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
+                .project-goal.col-md-10.col-md-offset-2
+                  .col-md-6.mota-ngan
+                    %span= project.brief.html_safe
+                  .col-md-4
+                    .goal
+                      %strong
+                        %span= human_currency project.funding_goal
+                      .hint ĐÃ GÂY QUỸ
+
+- cache do
+  %section.stats-number
+    .stats-number-content
+      .section
+        %h2 Những con số
+        / %p
+        /   %a{href: ""} Có gì trên Charity Map?
+      / %div{style: "background: #ccc; margin: 30px 0;"}
+      /   = line_chart [{:name => "Tiến Độ", :data => platform_funding_progress}], height: "360px"
+      %h5
+        %span Tổng Quan
+      %ul
+        %li
+          .numbers= Project.public_view.count
+          %span.number-tag dự án
+        %li
+          .numbers= Donation.successful.count + ExtDonation.count
+          %span.number-tag mạnh thường quân
+        %li
+          .numbers= number_with_precision Donation.successful.sum(:amount) + ExtDonation.sum(:amount), precision: 0, delimiter: ","
+          %span.number-tag đồng được đóng góp
+      %h5
+        %span Chi Tiết
+      %ul
+        %li
+          .numbers= ProjectUpdate.count
+          %span.number-tag cập nhật
+        %li
+          .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("email IS NOT ?", nil).count)
+          %span.number-tag báo cáo qua email
+        %li
+          .numbers= ProjectUpdate.count * (Donation.count)
+          %span.number-tag báo cáo qua sms
+        %li
+          - sum = 0
+          - Project.where(:item_based => true).each {|project| sum += project.donations.successful.sum(:project_reward_quantity)}
+          .numbers= sum
+          %span.number-tag tặng phẩm được gửi đi
+
+- if !user_signed_in?
+  %section.call-action.col-md-12
+    .call-action-content
+      .col-md-9
+        %h2 Minh Bạch 100%
+        %p Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.
+      .col-md-3
+        = link_to "Đăng Kí và Ủng Hộ", new_user_registration_path, class: "action-button purple"
+
+.col-md-12.cm-footer
+  .col-md-6
+    %p
+      %b &copy; CHARITY MAP 2014
+    %p Charity Map (Bản Đồ Từ Thiện) là trang web gây quỹ cộng đồng, quản lý quỹ và liên lạc với mạnh thường quân dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
+  .col-md-2
+    %p
+      %b VỀ CHÚNG TÔI
+    %p 
+      = link_to "Đội Ngũ", pages_about_path
+      %br/
+      Báo Chí
+      %br/
+      Những Con Số
+  .col-md-2
+    %p 
+      %b TỔ CHỨC XÃ HỘI
+    %p 
+      = link_to "Hướng Dẫn Sử Dụng", Configuration[:guide_url], target: "_blank"
+      %br/
+      = link_to "Chiến Dịch Gây Quỹ", Configuration[:campaign_url], target: "_blank"
+      %br/
+      = link_to "Câu Hỏi", Configuration[:faq_url], target: "_blank"
+  .col-md-2
+    %p 
+      %b MẠNH THƯỜNG QUÂN
+    %p
+      = link_to "Phương Thức Ủng Hộ", Configuration[:donation_means_url], target: "_blank"
+      %br/
+      = link_to "Quy Định Bảo Mật", Configuration[:privacy_url], target: "_blank"
+      %br/ 
+      = link_to "Liên Hệ", Configuration[:contact_url], target: "_blank"
 
 / .body-container--plain-row
 /   .body-container--content
@@ -187,18 +318,13 @@
 /   .body-container--plain-row{:style => "margin-bottom: -90px;"}
 /     = render "layouts/map", height: "500px", markers: @markers
 
-/ :javascript
-/   $('#homepage-registration-by-email').click(function() {
-/     if ($('input#email')[0].value.length > 0) {
-/       $('form').submit();
-/       return false;  
-/     } else {
-/       alert("Mời bạn điền email vào khung kế bên.");
-/     }
-    
-/   });
-
 :javascript
-  $(document).ready(function(){
-    $('.header-cover').height($(window).height()-260);
+  $('.funding-project-slider').unslider({delay: 5000});
+  $('.finished-project-slider').unslider({delay: 10000});
+
+  var unslider = $('.funding-project-slider').unslider();
+  $('.unslider-arrow').click(function() {
+      var fn = this.className.split(' ')[1];
+      //  Either do unslider.data('unslider').next() or .prev() depending on the className
+      unslider.data('unslider')[fn]();
   });

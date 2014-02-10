@@ -1,5 +1,6 @@
 class Admin::PagesController < ApplicationController
   before_filter :http_authenticate
+  before_filter :authenticate_user!
 
   def projects
     @projects = Project.all

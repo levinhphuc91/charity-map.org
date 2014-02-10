@@ -95,28 +95,29 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(provider, uid, credentials, email, signed_in_resource=nil)
-    user = User.find_by_email(email)
-    if (user && !user.facebook_access_granted?) || (user && user.token_expired?)
-      user.update_attributes!(provider: provider,
-        uid: uid,
+    @provider, @uid, @credentials, @email = provider, uid, credentials, email
+    @user = User.find_by_email(@email)
+    if (@user && !@user.facebook_access_granted?) || (@user && @user.token_expired?)
+      @user.update_attributes!(provider: @provider,
+        uid: @uid,
         facebook_credentials: {
-          :token => credentials.token,
-          :expires_at => credentials.expires_at,
+          :token => @credentials.token,
+          :expires_at => @credentials.expires_at,
           :expires => true
           }
         )
-    elsif (!user)
-      user = User.create(provider: provider,
-        uid:uid,
+    elsif (!@user)
+      @user = User.create(provider: @provider,
+        uid: @uid,
         facebook_credentials:{
-          :token => credentials.token,
-          :expires_at => credentials.expires_at,
+          :token => @credentials.token,
+          :expires_at => @credentials.expires_at,
           :expires => true
           },
-        email:email,
-        password:Devise.friendly_token[0,20])
+        email: @email,
+        password: Devise.friendly_token[0,20])
     end
-    user
+    @user
   end
 
   def self.new_with_session(params, session)
@@ -139,8 +140,7 @@ class User < ActiveRecord::Base
   end
 
   def facebook_access_granted?
-    return true if facebook_credentials
-    false
+    !facebook_credentials.nil?
   end
 
   def following?(followed)

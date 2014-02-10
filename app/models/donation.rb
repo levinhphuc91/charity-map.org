@@ -20,6 +20,7 @@
 class Donation < ActiveRecord::Base
   include DonationsHelper
   scope :successful, -> { where(status: "SUCCESSFUL") }
+  default_scope { where.not(status: "FAILED") }
 
   attr_accessible :euid, :status, :user_id, :amount, :note,
     :anon, :collection_method, :project_id, :token_id,

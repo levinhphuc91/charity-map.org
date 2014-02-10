@@ -167,7 +167,7 @@
           .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("email IS NOT ?", nil).count)
           %span.number-tag báo cáo qua email
         %li
-          .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("phone IS NOT ?", nil).count)
+          .numbers= ProjectUpdate.count * (Donation.count)
           %span.number-tag báo cáo qua sms
         %li
           - sum = 0

@@ -25,7 +25,7 @@ namespace :donations do
   desc "mark #failed for bank-transfer donations beyond 15 days"
   task :bank_transfer_mark_as_failed => :environment do
   	fiften_days = Time.now.midnight - 15.days
-  	@donations = Donation.where("status = ? AND collection_method = ? AND created_at >= ?", "PENDING", "BANK_TRANSFER", fiften_days.beginning_of_day).pluck(:id)
+  	@donations = Donation.where("status = ? AND collection_method = ? AND created_at <= ?", "PENDING", "BANK_TRANSFER", fiften_days)
   	@donations.each do |donation|
       begin
         donation.update_attribute :status, "FAILED" if donation.status != "FAILED"

@@ -17,10 +17,10 @@ describe 'donations:' do
       :description => "Help me to put something here",
       start_date: Time.parse('2013-05-23'), end_date: Time.parse('2013-05-30'), 
       funding_goal: 3000000, location: "Ho Chi Minh", user_id: @user.id)
+      @project.project_rewards.create!(value: 10000, description: "Initial reward")
+      @donation = @project.donations.create!(user_id: @user.id, amount: 100000,
+          collection_method: "BANK_TRANSFER")
     end
-    @project.project_rewards.create!(value: 10000, description: "Initial reward")
-    @donation = @project.donations.create!(user_id: @user.id, amount: 100000,
-        collection_method: "BANK_TRANSFER")
   end
 
   describe 'bank_transfer_reminder' do

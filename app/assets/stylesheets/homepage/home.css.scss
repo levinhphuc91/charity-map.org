@@ -162,6 +162,16 @@ a.mail {
 	position: relative;
 }
 
+.partners-list ul li a {
+	display:block;
+  border:1px solid #d9d9d9;
+  padding: 5px;
+  border-radius:50%;
+  position:relative;
+}
+
+
+
 .partners-list li .partner-name {
 	display: none;
 }
@@ -169,10 +179,10 @@ a.mail {
 	display: block;
 	cursor: pointer;
 	position: absolute;
-	background: rgba(52, 152, 219,0.6);
+	background: rgba(52, 152, 219,0.95);
 	width: 220px;
 	color: #fff;
-	top:30px;
+	top:45px;
 	left: -40px;
 	padding: 18px;
 }
@@ -288,4 +298,230 @@ a.mail {
 .project-goal .hint {
 color: #858585;
 font-weight: normal;
+}
+
+.partners-content {
+	padding-top: 60px;
+}
+
+.partners-list {
+	margin-top: 60px;
+}
+
+.partners-list ul {
+	list-style: none;
+	padding-bottom: 120px;
+}
+
+.partners-list ul li {
+	display: inline-block;
+	margin: 0 50px;
+	position: relative;
+}
+
+.partners-list li .partner-name {
+	position: absolute;
+	background: rgba(52, 152, 219,0.6);
+	width: 220px;
+	color: #fff;
+	top:30px;
+	left: -40px;
+	padding: 18px;
+}
+
+.partners-list ul li img {
+	width: 140px;
+	height: 140px;
+}
+
+.projects {
+	margin-top: -10px;
+}
+
+.project-content {
+	background: #fdfdfd;
+	border-top: solid 1px rgba(0, 0, 0,0.2);
+	padding: 30px 0 30px 0;
+	margin-bottom: 60px;
+}
+
+.project-details {
+	margin: 60px auto;
+	width: 800px;
+	text-align: left;
+}
+
+.project-details span.quote {
+	font-family:"Noticia Text",serif;
+	font-size:1 em;
+	font-style:italic;
+	font-weight:400;
+	text-align:center;
+	line-height:1.8em;
+	color:#333333
+}
+
+.project-details .group-ava {
+		display:inline-block;
+		width:140px;
+		height:140px;
+		background:white;
+		padding:5px;
+		border:3px solid #f6f6f6
+}
+
+.project-details h1 {
+	color:#333333;
+	font-size:3em
+}
+
+.project-details ul {
+	list-style: none;
+}
+
+.project-details ul li {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-family: 'Noticia Text', serif;
+}
+
+
+.project-details i {
+	padding-right:20px
+}
+
+.project-details strong {
+	margin-left: 60px;
+	margin-top: 25px;
+	display: block;
+}
+
+.project-goal {
+	text-align: left;
+	margin-top: 40px;
+}
+
+.project-goal .mota-ngan {
+	font-family: 'Noticia Text', serif;
+	font-size: 18px;
+	line-height: 36px;
+}
+
+.donation-funded-wrap {
+	display:inline;
+	float:left;
+	margin:5px 0px 5px 60px;
+	width:600px;
+	border-radius:6px;
+	left:0px;
+	height:8px;
+	background:#d0d5cb;
+	padding:0;
+	overflow:hidden
+}
+.donation-funded {
+	background:#76cc1e;
+	border-radius:6px;
+	height:8px
+}
+
+.project-goal .goal {
+	padding: 40px;
+}
+
+.project-goal .goal strong {
+	font-size: 30px;
+}
+
+.project-goal .hint {
+color: #858585;
+font-weight: normal;
+}
+
+.section {
+	text-align: center;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 300;
+}
+
+.stats-number {
+	margin-bottom: -10px;
+}
+
+.stats-number-content {
+	width: 940px;
+	margin: 0 auto;
+	font-size: 18px;
+	line-height: 24px;
+	font-weight: 300;
+}
+
+h5 {
+    font-weight:normal;
+    line-height:0;
+    height:0;
+    border-bottom:1px solid #ddd;   
+    vertical-align:middle;
+    text-align: left !important;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-transform: uppercase;
+    color: #ccc;
+    font-weight: 300;
+
+}
+
+h5 span {
+	background-color: #fff;
+      padding: 8px;
+}
+
+.stats-number-content ul {
+	padding: 60px 0;
+	list-style: none;
+	text-align: center;
+}
+
+.stats-number-content ul li {
+	display: inline-block;
+	margin: 0 40px;
+}
+
+.stats-number-content ul li .numbers {
+	font-weight: 600;
+	font-size: 36px;
+	margin-bottom: 14px;
+	color: #001F3F;
+}
+
+.call-action {
+	border-top: solid 1px rgba(0, 0, 0,0.2);
+	padding: 60px 40px;
+	background: #fafafa url('http://subtlepatterns.com/patterns/swirl.png') repeat;
+}
+
+a.action-button {
+	background: #89c657 ;
+	color: #fff;
+	padding: 14px 36px 13px;
+	border-radius: 3px;
+	text-transform: uppercase;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 40px 4px;
+}
+
+a.action-button:hover {
+	background: #a9d27f;
+	text-decoration: none;
+}
+
+.cm-footer {
+	background: #fafafa;
+	margin-top: -10px;
+	padding: 60px 30px;
+	border-top: solid 1px rgba(51,51,51,0.1);
+	line-height: 2;
+	font-size: 14px;
 }

@@ -34,16 +34,30 @@ class Charitio
     push('/transactions', params)
   end
 
+  def create_user(params)
+    admin_push('/users/create', params)
+  end
+
   private
     def fetch(path, params = {})
-      @http = HTTParty.get("https://api.charity-map.org/v1" + path, params)
-        # :headers => { "Authorization" => "Token token=#{@token}" })
+      @http = HTTParty.get("https://api.charity-map.org/v1" + path,
+        body: params,
+        headers: { "Authorization" => "Token token=#{@token}" })
       @decode = Decode.new(@http)
     end
 
     def push(path, params)
-      @http = HTTParty.post("https://api.charity-map.org/v1" + path, params)
-      # :headers => { "Authorization" => "Token token=#{@token}" })
+      @http = HTTParty.post("https://api.charity-map.org/v1" + path,
+        body: params,
+        headers: { "Authorization" => "Token token=#{@token}" })
+      @decode = Decode.new(@http)
+    end
+
+    def admin_push(path, params)
+      @admin_token = ENV['API_CREATE_USER_TOKEN']
+      @http = HTTParty.post("https://api.charity-map.org/v1#{path}",
+        body: params,
+        headers: { "Authorization" => "Token token=#{@admin_token}" })
       @decode = Decode.new(@http)
     end
 

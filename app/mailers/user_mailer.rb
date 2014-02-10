@@ -67,4 +67,9 @@ class UserMailer < ActionMailer::Base
     @project, @user = project, user
     mail(to: @user.email, subject: "Bạn là thành viên mới của dự án #{@project.title}")
   end
+
+  def send_gift_card_info(gift_card)
+    @gift_card = gift_card
+    mail(to: @gift_card.recipient_email, subject: "Chúc mừng! Bạn vừa nhận được thẻ quà tặng từ #{@gift_card.user.name}.")
+  end
 end

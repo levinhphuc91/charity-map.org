@@ -3,11 +3,10 @@ module GiftCardsHelper
     @sum = 0
     @transactions = charitio.get_transactions(email: email)
     if @transactions.ok?
-      @transactions = @transactions.response
       @transaction_ids = []
-      @transactions.each {|transaction| @transaction_ids.push(transaction.uuid)}
-      @transaction_ids.each do |uuid|
-        @cleared_credits = charitio.get_cleared_credits(master_transaction_id: uuid)
+      @transactions.response.each {|transaction| @transaction_ids.push(transaction.uid)}
+      @transaction_ids.each do |uid|
+        @cleared_credits = charitio.get_cleared_credits(master_transaction_id: uid)
         @cleared_credits.each {|credit| @sum += credit.amount}
       end
       return @sum
@@ -22,9 +21,9 @@ module GiftCardsHelper
     if @transactions.ok?
       @transactions = @transactions.response
       @transaction_ids = []
-      @transactions.each {|transaction| @transaction_ids.push(transaction.uuid)}
-      @transaction_ids.each do |uuid|
-        @cleared_credits = charitio.get_pending_clearance_credits(master_transaction_id: uuid)
+      @transactions.each {|transaction| @transaction_ids.push(transaction.uid)}
+      @transaction_ids.each do |uid|
+        @cleared_credits = charitio.get_pending_clearance_credits(master_transaction_id: uid)
         @cleared_credits.each {|credit| @sum += credit.amount}
       end
       return @sum

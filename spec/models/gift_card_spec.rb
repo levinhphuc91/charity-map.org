@@ -11,6 +11,7 @@
 #  user_id               :integer
 #  status                :string(255)
 #  master_transaction_id :string(255)
+#  token                 :string(255)
 #
 
 require 'spec_helper'

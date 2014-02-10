@@ -14,21 +14,20 @@ class SMS
       end
 
       if Rails.env.production? || Rails.env.development?
-        if params[:sender_id] == true
-          nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
-          response = nexmo.send_message!({
-            :to => "84#{params[:to]}", 
-            :from => ENV['CM_NEXMO_SENDER_ID'], 
-            :text => params[:text]
-          })
-        else
-          nexmo = Nexmo::Client.new(ENV['CM_NEXMO_2ND_SID'],ENV['CM_NEXMO_2ND_SECRET'])
-          response = nexmo.send_message!({
-            :to => "84#{params[:to]}", 
-            :from => ENV['CM_NEXMO_NO'], 
-            :text => params[:text]
-          })
-        end
+        # if params[:sender_id] == true
+        #   nexmo = Nexmo::Client.new(ENV['CM_NEXMO_SID'],ENV['CM_NEXMO_SECRET'])
+        #   response = nexmo.send_message!({
+        #     :to => "84#{params[:to]}", 
+        #     :from => ENV['CM_NEXMO_SENDER_ID'], 
+        #     :text => params[:text]
+        #   })
+        # end
+        nexmo = Nexmo::Client.new(ENV['CM_NEXMO_2ND_SID'],ENV['CM_NEXMO_2ND_SECRET'])
+        response = nexmo.send_message!({
+          :to => "84#{params[:to]}", 
+          :from => ENV['CM_NEXMO_NO'], 
+          :text => params[:text]
+        })
         return response
       end
     end

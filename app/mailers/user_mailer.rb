@@ -70,6 +70,6 @@ class UserMailer < ActionMailer::Base
 
   def send_gift_card_info(gift_card)
     @gift_card = gift_card
-    mail(to: @gift_card.recipient_email, subject: "Chúc mừng! Bạn vừa nhận được thẻ quà tặng từ #{@gift_card.user.name}.")
+    mail(to: @gift_card.recipient_email, subject: "#{@gift_card.user.name} vừa gửi bạn một thẻ quà tặng charity-map.org!")
   end
 end

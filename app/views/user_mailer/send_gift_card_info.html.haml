@@ -1,11 +1,30 @@
-= image_tag "http://www.charity-map.org/email-thankyou.png"
+- if Rails.env.development?
+  = image_tag "http://cl.ly/image/371K0R1R1k04/email-thankyou.png"
+- else
+  = image_tag "http://www.charity-map.org/email-thankyou.png"
 
+%table 
+  %tr
+    %td{align: "right", height: "120", width: "261"}
+      %div{style: "font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1em;color:#666666"}
+        <b>CLAIM CODE</b><br/> #{@gift_card.token}
+      %div{style: "font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#666666;line-height:1em"} #{human_currency @gift_card.amount}
+    / %td{height: "120", width: "30"}
+    %td{bgcolor: "#fff", height: "120", style: "font-size:1px", width: "1px"}
+    / %td{height: "120", width: "30"}
+    %td{height: "120", width: "261"}
+      = link_to gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link") do
+        - if Rails.env.development?
+          = image_tag "http://cl.ly/image/3Q2t3b3T1S2n/email-cta.png", border: 0
+        - else
+          = image_tag "http://www.charity-map.org/email-cta.png", border: 0
+
+%p 
 %h4 Chào #{@gift_card.references["recipient_name"]},
 
-%p Bạn vừa nhận được một gift card từ #{link_to @gift_card.user.name, user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link")}. Để sử dụng món quà này, vui lòng truy cập #{link_to "đường dẫn này", gifts_path(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và điền vào các thông tin cần thiết.
+%p Bạn vừa nhận được một thẻ quà tặng từ #{link_to @gift_card.user.name, user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link")}. Mời bạn click vào nút ấn trên hoặc #{link_to "đường dẫn này", gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và bắt đầu sử dụng. Từ giờ bạn có thể gửi ủng hộ cho hơn 100 tổ chức và dự án đang gây quỹ trên #{link_to "www.charity-map.org", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email" }
 
 %p 
   Thân,
   %br/ 
-  = image_tag @gift_card.user.avatar
   %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org

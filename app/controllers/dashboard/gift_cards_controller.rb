@@ -26,7 +26,7 @@ class Dashboard::GiftCardsController < InheritedResources::Base
     if @gift_card.save
       SMS.send(to: phone_striped(params[:recipient_phone]),
         text: "(Charity Map) Ban vua nhan duoc mot gift card tu #{current_user.name}. Xin hay truy cap: www.charity-map.org/gifts va dien ma so: #{@gift_card.token} de bat dau su dung."
-      ) if params[:recipient_phone]
+      ) if !params[:recipient_phone].blank?
       UserMailer.delay.send_gift_card_info(@gift_card)
       redirect_to dashboard_gift_cards_path, notice: "New gift card added."
     else
@@ -51,7 +51,7 @@ class Dashboard::GiftCardsController < InheritedResources::Base
     def connect_backend_api
       @user = current_user
       @charitio = Charitio.new(@user.email, @user.api_token || ENV['CM_API_TOKEN'])
-      if @user.api_token.blank? && Rails.env.production?
+      if @user.api_token.blank?
         @workoff = @charitio.create_user(email: @user.email, category: "MERCHANT")
         if @workoff.ok?
           @user.update_attribute :api_token, @workoff.response["auth_token"]

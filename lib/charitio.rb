@@ -3,11 +3,12 @@ require 'uri'
 
 class Charitio
   include HTTParty
-  base_uri 'api.charity-map.org/v1'
+  BASE_URI = (Rails.env.development? ? 'staging-charitio.herokuapp.com/v1' : 'api.charity-map.org/v1')
   ssl_version :SSLv3
 
   def initialize(email, token)
     @token, @email = token, email
+    @admin_token = ENV['API_CREATE_USER_TOKEN']
   end
 
   def get_transactions(params)
@@ -19,15 +20,15 @@ class Charitio
   end
     
   def get_unprocessed_credits(params)
-    fetch('/credits/unprocessed/#{params[:master_transaction_id]}')
+    fetch('/credits/unprocessed/' + params[:master_transaction_id])
   end
 
   def get_cleared_credits(params)
-    fetch('/credits/cleared/#{params[:master_transaction_id]}')
+    fetch('/credits/cleared/' + params[:master_transaction_id])
   end
 
   def get_pending_clearance_credits(params)
-    fetch('/credits/cleared/#{params[:master_transaction_id]}')
+    fetch('/credits/cleared/' + params[:master_transaction_id])
   end
 
   def create_transaction(params)
@@ -38,24 +39,34 @@ class Charitio
     admin_push('/users/create', params)
   end
 
+  def user_balance(params)
+    admin_fetch('/users/balance', params).response["balance"]
+  end
+
   private
     def fetch(path, params = {})
-      @http = HTTParty.get("https://api.charity-map.org/v1" + path,
+      @http = HTTParty.get('https://' + BASE_URI + path,
         body: params,
         headers: { "Authorization" => "Token token=#{@token}" })
       @decode = Decode.new(@http)
     end
 
     def push(path, params)
-      @http = HTTParty.post("https://api.charity-map.org/v1" + path,
+      @http = HTTParty.post('https://' + BASE_URI + path,
         body: params,
         headers: { "Authorization" => "Token token=#{@token}" })
       @decode = Decode.new(@http)
     end
 
+    def admin_fetch(path, params)
+      @http = HTTParty.get('https://' + BASE_URI + path,
+        body: params,
+        headers: { "Authorization" => "Token token=#{@admin_token}" })
+      @decode = Decode.new(@http)
+    end
+
     def admin_push(path, params)
-      @admin_token = ENV['API_CREATE_USER_TOKEN']
-      @http = HTTParty.post("https://api.charity-map.org/v1#{path}",
+      @http = HTTParty.post('https://' + BASE_URI + path,
         body: params,
         headers: { "Authorization" => "Token token=#{@admin_token}" })
       @decode = Decode.new(@http)

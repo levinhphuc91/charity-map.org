@@ -92,4 +92,10 @@ module ApplicationHelper
   def phone_striped(number)
     return number.gsub(/\D/, '').to_i.to_s
   end
+
+  def balance(user)
+    @user = user
+    @charitio = Charitio.new(@user.email, @user.api_token)
+    return @balance = @charitio.user_balance(email: @user.email)
+  end
 end

@@ -32,6 +32,7 @@
 #  longitude              :float
 #  facebook_friends       :hstore
 #  api_token              :string(255)
+#  website                :string(255)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

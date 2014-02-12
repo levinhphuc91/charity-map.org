@@ -32,6 +32,7 @@
 #  longitude              :float
 #  facebook_friends       :hstore
 #  api_token              :string(255)
+#  website                :string(255)
 #
 
 require 'spec_helper'

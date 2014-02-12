@@ -21,6 +21,7 @@ CharityMap::Application.routes.draw do
   get   'donations/confirm', to: 'donations#confirm', as: :confirm_donation
   match 'dashboard', to: 'users#dashboard', via: :all, as: :dashboard
   post  'users/fbnotif'
+  post  'users/redeem_gift_card'
   match 'fbnotif/:token', to: 'users#fbnotif', via: :all
   
   devise_for :users, :controllers => {

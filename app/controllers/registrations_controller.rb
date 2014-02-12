@@ -1,10 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
   include DonationsHelper
+  include GiftCardsHelper
+
   def new
     if params[:token]
       @token = Token.find_by_value params[:token]
       @ext_donation = @token.ext_donation if @token && !@token.used?
     end
+    @gift_card = GiftCard.find_by(token: params[:card_token]) if params[:card_token]
     super
   end
 
@@ -14,6 +17,9 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:token]
         @token = Token.find_by_value params[:token]
         create_donation_from_ext(resource, @token.ext_donation) if !@token.used?
+      end
+      if params[:card_token] && (@gift_card = GiftCard.find_by(token: params[:card_token]))
+        redeem_gift_card_from_signup(@gift_card, resource)
       end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -29,4 +35,4 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-end 
+end

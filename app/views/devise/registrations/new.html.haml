@@ -1,3 +1,7 @@
+- if @gift_card
+  .body-container--plain-row
+    .body-container--content
+      .notice Đăng ký tài khoản (chỉ tốn 5s) để bắt đầu sử dụng thẻ quà tặng từ #{@gift_card.user.name}!
 .body-container--plain-row
   .body-container--content
     .devise--container
@@ -6,18 +10,20 @@
         %p Đã có tài khoản? <strong>#{link_to "Đăng nhập", new_user_session_path}</strong>.
       .body-bar.centered
         - resource_class.omniauth_providers.each do |provider|
-          = link_to omniauth_authorize_path(resource_name, provider, token: (params[:token] if params[:token])) do
+          = link_to omniauth_authorize_path(resource_name, provider, token: (params[:token] if params[:token]), card_token: (@gift_card.token if @gift_card)) do
             .facebook-login Đăng Ký Bằng Facebook
       = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
         .body-bar{:style => "border-top: 1px solid #ccc;"}
           %p= f.error_notification
           .form-inputs
-            - if params[:token]
-              = hidden_field_tag "token", params[:token]
+            = hidden_field_tag "token", params[:token] if params[:token]
+            = hidden_field_tag "card_token", @gift_card.token if @gift_card
             %p 
               %b Email
               - if params[:token] && @ext_donation
                 = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => @ext_donation.email || nil}
+              - elsif params[:card_token] && @gift_card
+                = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value =>  @gift_card.recipient_email || nil}
               - else
                 = f.input :email, label: false, :required => true, :autofocus => true, :input_html => {:value => params[:email] || nil}
             %p 

@@ -5,7 +5,7 @@
 
 %h4 Chào #{@gift_card.references["recipient_name"]},
 
-%p Bạn vừa nhận được một thẻ quà tặng từ #{link_to @gift_card.user.name, user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link")}. Mời bạn click vào nút ấn phía dưới hoặc #{link_to "đường dẫn này", gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và bắt đầu sử dụng. Từ giờ bạn có thể ủng hộ cho hơn 100 tổ chức và dự án xã hội đang gây quỹ trên #{link_to "www.charity-map.org", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}.
+%p Bạn vừa nhận được một thẻ quà tặng từ #{link_to @gift_card.user.name, (@gift_card.user.website.blank? ? user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link") : "#{@gift_card.user.website}")}. Mời bạn click vào nút ấn phía dưới hoặc #{link_to "đường dẫn này", gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và bắt đầu sử dụng. Từ giờ bạn có thể ủng hộ cho hơn 100 tổ chức và dự án xã hội đang gây quỹ trên #{link_to "www.charity-map.org", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}.
 
 %table 
   %tr

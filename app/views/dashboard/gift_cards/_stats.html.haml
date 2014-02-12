@@ -2,12 +2,12 @@
   .row.stats-row
     .col-md-3.col-sm-3.stat
       .data
-        %span.number #{@gift_cards.count}
+        %span.number #{@gift_cards.active.count}
         cards
-      %span.date gửi đi từ #{human_time current_user.created_at}
+      %span.date được sử dụng #{human_time current_user.created_at}
     .col-md-3.col-sm-3.stat
       .data
-        %span.number #{number_with_precision @gift_cards.sum(:amount), precision: 0, delimiter: ","}
+        %span.number #{number_with_precision @gift_cards.active.sum(:amount), precision: 0, delimiter: ","}
         đồng
       %span.date tổng giá trị
     .col-md-3.col-sm-3.stat

@@ -55,6 +55,7 @@ class Dashboard::GiftCardsController < InheritedResources::Base
         @workoff = @charitio.create_user(email: @user.email, category: "MERCHANT")
         if @workoff.ok?
           @user.update_attribute :api_token, @workoff.response["auth_token"]
+          logger.info("== API CALL: ID #{@user.id} EMAIL #{@user.email.split('@').first} #{@user.api_token[0..5]}")
         else
           redirect_to dashboard_path, alert: "#{@workoff.response}"
         end

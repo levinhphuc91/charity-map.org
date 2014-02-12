@@ -15,6 +15,8 @@
 #
 
 class GiftCard < ActiveRecord::Base
+  scope :active, -> { where(status: "ACTIVE") }
+  scope :inactive, -> { where(status: "INACTIVE") }
   belongs_to :user
   attr_accessible :master_transaction_id, :recipient_email, :amount, :references, :user_id, :token
   before_validation :generate_token
@@ -29,12 +31,16 @@ class GiftCard < ActiveRecord::Base
   end
 
   def references_to_string
-    "#{references['recipient_name']} #{references['campaign_name']} #{references['extra_info']}"
+    "#{id} #{references['recipient_name']} #{references['campaign_name']} #{references['extra_info']}"
   end
 
-  def activate(master_id)
-    self.update_attribute :master_transaction_id, master_id
+  def activate(master_id, email)
+    self.update_attributes(master_transaction_id: master_id, recipient_email: email)
     self.update_attribute :status, "ACTIVE"
+  end
+
+  def redeemable?
+    status == "INACTIVE"
   end
 
   private

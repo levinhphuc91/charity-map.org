@@ -189,6 +189,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def redeem_gift_card
+    @gift_card = GiftCard.find_by(token: params[:card_token]) if params[:card_token]
+    redeem_gift_card_from_signup(@gift_card, @user) if @gift_card
+    redirect_to users_settings_path, notice: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm #{@gift_card.amount}."
+  end
+
   private
     def signed_in_user
       unless signed_in?

@@ -1,0 +1,10 @@
+- if user_signed_in?
+  = form_tag users_redeem_gift_card_path do
+    = hidden_field_tag :email, current_user.email
+    = text_field_tag :card_token, (@gift_card ? @gift_card.token : nil)
+    = submit_tag "Submit"
+- else
+  = form_tag(new_user_registration_path, method: :get) do
+    = hidden_field_tag :email, (@gift_card ? @gift_card.recipient_email : nil)
+    = text_field_tag :card_token, (@gift_card ? @gift_card.token : nil)
+    = submit_tag "Submit"

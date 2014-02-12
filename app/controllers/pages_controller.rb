@@ -19,5 +19,7 @@ class PagesController < ApplicationController
   end
 
   def gifts
+    @gift_card = GiftCard.find_by(token: params[:token]) if params[:token]
+    render layout: "layouts/item-based"
   end
 end

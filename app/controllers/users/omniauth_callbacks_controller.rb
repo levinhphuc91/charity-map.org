@@ -1,20 +1,27 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include DonationsHelper
+  include GiftCardsHelper
 
   def facebook
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.find_for_facebook_oauth(request.env["omniauth.auth"].provider, request.env["omniauth.auth"].uid, request.env["omniauth.auth"].credentials, request.env["omniauth.auth"].info.email, current_user)
+    @auth = request.env["omniauth.auth"]
+    @user = User.find_for_facebook_oauth(@auth.provider, @auth.uid, @auth.credentials, @auth.info.email, current_user)
     # @user.fetch_fb_friends
-    if request.env["omniauth.params"]["token"]
-      @token = Token.find_by_value(request.env["omniauth.params"]["token"])
+    @extra_params = request.env["omniauth.params"]
+    if @extra_params && !@extra_params["token"].blank?
+      @token = Token.find_by_value(@extra_params["token"])
       create_donation_from_ext(@user, @token.ext_donation) if @token && !@token.used?
+    end
+
+    if @extra_params && !@extra_params["card_token"].blank?
+      @gift_card = GiftCard.find_by(token: @extra_params["card_token"])
+      redeem_gift_card_from_signup(@gift_card, @user) if @gift_card
     end
 
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
     else
-      # session["devise.facebook_data"] = request.env["omniauth.auth"]
+      # session["devise.facebook_data"] = @auth
       redirect_to new_user_registration_url
     end
   end

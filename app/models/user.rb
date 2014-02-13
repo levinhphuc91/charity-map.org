@@ -36,6 +36,7 @@
 #
 
 require 'fb_graph'
+require 'charitio'
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
@@ -56,7 +57,10 @@ class User < ActiveRecord::Base
     :website, :provider, :uid, :facebook_credentials, :facebook_friends,
     :api_token, :verified_by_phone, :org, :figures, :latitude, :longitude
 
+  before_validation :fetch_api_token
+
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
+  validates :api_token, presence: true
   has_many :project_comments
   has_many :donations
   # has_many :projects, through: :donations
@@ -142,6 +146,23 @@ class User < ActiveRecord::Base
     expiry = Time.at(facebook_credentials["expires_at"].to_i)
     return true if expiry < Time.now
     false
+  end
+
+  def fetch_api_token
+    if api_token.blank?
+      @charitio = Charitio.new(email, "")
+      @workoff = @charitio.create_user(email: email, category: "INDIVIDUAL")
+      if @workoff.ok?
+        self.api_token = @workoff.response["auth_token"]
+      else
+        logger.error(%Q{\
+          [#{Time.zone.now}][User#fetch_api_token Charitio.create_user] \
+            Affected user: Truncated email: #{email.split('@').first} \
+            API response: #{@workoff.response} \
+          }
+        )
+      end
+    end
   end
 
   def facebook_access_granted?

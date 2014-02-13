@@ -220,7 +220,7 @@ class UsersController < ApplicationController
 
     def connect_backend_api
       if user_signed_in? && (@user = current_user)
-        @charitio = Charitio.new(@user.email, @user.api_token)
+        @charitio = Charitio.new(@user.email, @user.api_token || "")
         if @user.api_token.blank?
           @workoff = @charitio.create_user(email: @user.email, category: "INDIVIDUAL")
           if @workoff.ok?

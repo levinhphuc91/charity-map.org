@@ -1,0 +1,22 @@
+.row-fluid
+  .devider
+    .item Thẻ Quà Tặng Của Bạn
+.row-fluid
+  - if @gift_cards.empty?
+    %p Hiện bạn chưa có thẻ quà tặng nào.
+  - else
+    %table.table.table-striped
+      %tr 
+        %th Ngày
+        %th Người Tặng
+        %th Trị Giá
+        %th Trạng Thái
+      - @gift_cards.each do |card|
+        %tr 
+          %td= human_time card.created_at
+          %td= link_to card.user.name, (card.user.website.blank? ? user_profile_path(card.user) : card.user.website)
+          %td= human_currency card.amount
+          %td
+            #{card.human_status}
+            - if card.redeemable?
+              &sdot; #{link_to "Redeem", gifts_path(token: card.token)}

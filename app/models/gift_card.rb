@@ -67,6 +67,17 @@ class GiftCard < ActiveRecord::Base
     status == "INACTIVE"
   end
 
+  def human_status
+    case status
+    when "INACTIVE"
+      "Chưa Dùng"
+    when "ACTIVE"
+      "Đã Dùng"
+    else
+      status
+    end
+  end
+
   private
   def generate_token
     require 'securerandom'

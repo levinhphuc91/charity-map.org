@@ -1,7 +1,7 @@
 = content_for :head do 
   = stylesheet_link_tag "wrapdashboard/optional/index.css", media: "all", "data-turbolinks-track" => true
 
-- cache do
+- cache("stats#{current_user.api_token[0..5]}", :expires_in => 1.hour) do
   = render "stats"
 
 #pad-wrapper
@@ -12,23 +12,21 @@
           Danh sách Gift Cards
           %small gửi đi từ #{human_time current_user.created_at}
     .row.filter-block
-      .col-md-8.col-md-offset-5
-        .ui-select
-          %select
-            %option Sắp xếp: theo ngày
-            %option Sắp xếp: theo trạng thái
-            %option Sắp xếp: theo giá trị
-        %input.search{type: "text", placeholder: "Search email hoặc card ID"}/
+      .col-md-7.col-md-offset-5.text-right
+        / = form_tag(dashboard_gift_cards_path, method: :get, id: "order_form") do
+        /   .ui-select
+        /     = select_tag "order", options_for_select([["Sắp xếp: theo ngày", "created_at"], ["Sắp xếp: theo trạng thái", "status"], ["Sắp xếp: theo giá trị", "amount"]]), class: "order_option"
+        / %input.search{type: "text", placeholder: "Search email hoặc card ID"}/
         = link_to "+ Tạo gift card", new_dashboard_gift_card_path, class: "btn-flat new-product"
 
     .row
       %table.table.table-hover
         %thead
           %tr
-            %th.col-md-3
+            %th.col-md-4
               / %input{type: "checkbox"}/
               Người Nhận
-            %th.col-md-3
+            %th.col-md-2
               %span.line>
               Giá Trị
             %th.col-md-3
@@ -41,22 +39,31 @@
           - if @gift_cards.empty?
             %tr 
               %td{colspan: 4} Hiện bạn chưa tạo gift card nào. Hãy thử #{link_to "tạo mới", new_dashboard_gift_card_path}.
-          - @gift_cards.each do |card|
-            %tr.first
-              %td
-                / %input{type: "checkbox"}/
-                .img
-                  = image_tag "dashboard/table-img.png"
-                <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
-                %br/ 
-                #{card.references["campaign_name"]}
-              %td.description
-                #{human_currency card.amount}
-              %td
-                <b>Ngày</b>: #{human_time card.created_at}
-                %br/ 
-                #{card.references["extra_info"]}
-              %td
-                %span.label.label-success #{card.status}
-                &nbsp; #{link_to "Edit", edit_dashboard_gift_card_path(card)}
-                &sdot; #{link_to "Disable", dashboard_gift_card_path(card), :method => :delete, :data => { :confirm => 'Mark as inactive?' }}
+          - else
+            - @gift_cards = @gift_cards.order(params["order"].to_sym) if params["order"] && ["created_at", "amount", "status"].index(params["order"]) != nil
+            - @gift_cards.each do |card|
+              %tr.first
+                %td
+                  / %input{type: "checkbox"}/
+                  .img
+                    = image_tag "dashboard/table-img.png"
+                  <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
+                  %br/ 
+                  #{card.references["campaign_name"]}
+                %td.description
+                  #{human_currency card.amount}
+                %td
+                  <b>Ngày</b>: #{human_time card.created_at}
+                  %br/ 
+                  #{card.references["extra_info"]}
+                %td
+                  %span.label.label-success #{card.human_status}
+                  &nbsp; #{link_to "Edit", edit_dashboard_gift_card_path(card)}
+                  &sdot; #{link_to "Disable", dashboard_gift_card_path(card), :method => :delete, :data => { :confirm => 'Mark as inactive?' }}
+
+// :javascript
+//   $(document).ready(function(){
+//     $('#order').change(function() {
+//       this.form.submit();
+//     });
+//   });

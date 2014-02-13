@@ -7,6 +7,7 @@ CharityMap::Application.routes.draw do
   get   'users/follow'
   get   'users/messages', as: :messages
   get   'users/donations'
+  get   'users/gift_cards'
   get   'users/verify'
   post  'users/update_settings'
   post  'users/add_figure_to_portfolio'

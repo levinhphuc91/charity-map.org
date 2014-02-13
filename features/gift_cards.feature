@@ -57,7 +57,7 @@ Feature: Gift Card
     When I login as "mixup@gmail.com"
     And I go to the gift cards dashboard
     Then I should see "100,000" within "#total-value"
-    And I should see "ACTIVE"
+    And I should see "Đã Dùng"
     # Case: Card code being used for more than one time
     When I am not authenticated
     And I open the email

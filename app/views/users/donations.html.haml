@@ -5,6 +5,5 @@
   - if current_user.donations.empty?
     %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
   - else
-    - cache("user_donations", :expires_in => 12.hours) do
-      - current_user.donations.each do |donation|
-        = render "layouts/donation_display", donation: donation
+    - current_user.donations.each do |donation|
+      = render "layouts/donation_display", donation: donation

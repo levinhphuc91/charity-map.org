@@ -134,6 +134,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def received_gift_cards
+    GiftCard.where(recipient_email: email)
+  end
+
   def token_expired?
     expiry = Time.at(facebook_credentials["expires_at"].to_i)
     return true if expiry < Time.now

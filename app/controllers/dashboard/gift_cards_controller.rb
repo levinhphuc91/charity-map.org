@@ -10,8 +10,6 @@ class Dashboard::GiftCardsController < InheritedResources::Base
   before_filter :connect_backend_api
 
   def index
-    @cleared_credits_amount = cleared_credits_amount(@charitio, current_user.email)
-    @pending_clearance_credits_amount = pending_clearance_credits_amount(@charitio, current_user.email)
     super
   end
 
@@ -59,10 +57,10 @@ class Dashboard::GiftCardsController < InheritedResources::Base
             )
           end
         end
-        @user_info = @charitio.get_user_info(email: @user.email)
-        if @user_info.ok? && @user_info.response["category"] != "MERCHANT"
-          @charitio.update_user(email: @user.email, category: "MERCHANT")
-        end
+        # @user_info = @charitio.get_user_info(email: @user.email)
+        # if @user_info.ok? && @user_info.response["category"] != "MERCHANT"
+        #   @charitio.update_user(email: @user.email, category: "MERCHANT")
+        # end
       end
     end
 end

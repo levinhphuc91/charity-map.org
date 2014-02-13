@@ -64,7 +64,12 @@
                 %i.icon-user 
                 Cá Nhân
               .line #{link_to "Đóng Góp", users_donations_path} (#{current_user.donations.successful.count})
-              .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
+              - if !GiftCard.where(recipient_email: current_user.email).empty?
+                .line
+                  #{link_to "Thẻ Quà Tặng", users_gift_cards_path}
+                  - if !current_user.gift_cards.inactive.empty?
+                    (#{current_user.received_gift_cards.inactive.count})
+              / .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
               .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
               .line= link_to "Xác Nhận Tài Khoản", users_verify_path
               .line= link_to "Trang Cá Nhân", user_profile_path( current_user)

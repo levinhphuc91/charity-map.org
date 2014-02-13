@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   prepend_before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt, :fbnotif]
   before_filter :connect_backend_api, except: [:profile, :verification_delivery_receipt, :fbnotif]
   layout "layouts/dashboard", only: [
-    :dashboard, :settings, :messages, :donations, :update_settings, :verify,
-    :show_message, :new_message, :new_reply_message
+    :dashboard, :settings, :messages, :donations, :gift_cards, :update_settings,
+    :verify, :show_message, :new_message, :new_reply_message
   ]
   skip_before_filter :verify_authenticity_token, only: :fbnotif
   after_action :allow_facebook_iframe, only: :fbnotif
@@ -36,6 +36,10 @@ class UsersController < ApplicationController
   end
 
   def donations
+  end
+
+  def gift_cards
+    @gift_cards = GiftCard.where(recipient_email: current_user.email)
   end
 
   def verify
@@ -193,7 +197,7 @@ class UsersController < ApplicationController
     @gift_card = GiftCard.find_by(token: params[:card_token]) if params[:card_token]
     if @gift_card
       if @gift_card.redeem(@user)
-        redirect_to users_settings_path, notice: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm #{@gift_card.amount}."
+        redirect_to users_gift_cards_path, notice: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm #{@gift_card.amount}."
       else
         redirect_to gifts_path, alert: "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
       end

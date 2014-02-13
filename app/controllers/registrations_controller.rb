@@ -1,13 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
   include DonationsHelper
   include GiftCardsHelper
+  before_filter :validate_gift_card_token
 
   def new
     if params[:token]
       @token = Token.find_by_value params[:token]
       @ext_donation = @token.ext_donation if @token && !@token.used?
     end
-    @gift_card = GiftCard.find_by(token: params[:card_token]) if params[:card_token]
     super
   end
 
@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
         create_donation_from_ext(resource, @token.ext_donation) if !@token.used?
       end
       if params[:card_token] && (@gift_card = GiftCard.find_by(token: params[:card_token]))
-        redeem_gift_card_from_signup(@gift_card, resource)
+        @gift_card.redeem(resource)
       end
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -35,4 +35,11 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+
+  private
+    def validate_gift_card_token
+      if params[:card_token] && !(@gift_card = GiftCard.find_by(token: params[:card_token]))
+        redirect_to gifts_path, alert: "Mã không hợp lệ."
+      end
+    end
 end

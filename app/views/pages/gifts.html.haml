@@ -1,13 +1,28 @@
 .proj-cover.gifts
 
-%section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px; min-height: 300px;"}
-  - if user_signed_in?
-    = form_tag users_redeem_gift_card_path do
-      = hidden_field_tag :email, current_user.email
-      = text_field_tag :card_token, (@gift_card ? @gift_card.token : nil)
-      = submit_tag "Submit"
-  - else
-    = form_tag(new_user_registration_path, method: :get) do
-      = hidden_field_tag :email, (@gift_card ? @gift_card.recipient_email : nil)
-      = text_field_tag :card_token, (@gift_card ? @gift_card.token : nil)
-      = submit_tag "Submit"
+%section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px; min-height: 340px;"}
+  - if notice || alert
+    .row
+      .alert.alert-warning= notice || alert
+  .row
+    .col-md-6.text-right= image_tag "gift-box-opened.png"
+    .col-md-6.text-left
+      %p{style: "line-height: 30px;"}
+        %span.gifts-page-title Xin Chúc Mừng
+        %br/ 
+        Sử dụng thẻ quà tặng, bạn có thể ủng hộ cho hơn 100 dự án và tổ chức đang gây quỹ trên charity-map.org. Hãy điền mã số bạn được cấp (qua email, SMS, hoặc từ các đơn vị hợp tác) vào ô bên dưới và bắt đầu sử dụng.
+  .row
+    - if user_signed_in?
+      = form_tag users_redeem_gift_card_path do
+        = hidden_field_tag :email, current_user.email
+        .col-md-6.text-right
+          = text_field_tag :card_token, params[:token], placeholder: "ĐIỀN MÃ THẺ VÀO Ô NÀY", class: "form-control gift-card-code", required: true
+        .col-md-6.text-left
+          = submit_tag "Bắt đầu sử dụng thẻ", class: "btn btn-warning btn-lg"
+    - else
+      = form_tag(new_user_registration_path, method: :get) do
+        = hidden_field_tag :email, (@gift_card ? @gift_card.recipient_email : nil)
+        .col-md-6.text-right
+          = text_field_tag :card_token, params[:token], placeholder: "ĐIỀN MÃ THẺ VÀO Ô NÀY", class: "form-control gift-card-code", required: true
+        .col-md-6.text-left
+          = submit_tag "Bắt đầu sử dụng thẻ", class: "btn btn-warning btn-lg"

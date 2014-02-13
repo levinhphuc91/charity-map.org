@@ -31,26 +31,4 @@ module GiftCardsHelper
       return @sum
     end
   end
-
-  def redeem_gift_card_from_signup(gift_card, recipient)
-    if gift_card.redeemable?
-      @charitio = Charitio.new(gift_card.user.email, gift_card.user.api_token)
-      @transaction = @charitio.create_transaction(from: gift_card.user.email,
-        to: recipient.email, amount: gift_card.amount.to_f, currency: "VND",
-        references: gift_card.references_to_string)
-      if @transaction.ok?
-        gift_card.activate(@transaction.response["uid"], recipient.email)
-      else
-        logger.error(%Q{\
-          [#{Time.zone.now}][Registration#create Charitio.create_transaction] \
-            Affected user: #{recipient.id} / Truncated email: #{recipient.email.split('@').first} \
-            API response: #{@transaction.response} \
-            Params: #{{from: gift_card.user.email,
-                      to: recipient.email, amount: gift_card.amount.to_f, currency: "VND",
-                      references: gift_card.references_to_string}}
-          }
-        )
-      end
-    end
-  end
 end

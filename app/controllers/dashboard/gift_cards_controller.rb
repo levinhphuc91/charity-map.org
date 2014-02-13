@@ -46,7 +46,7 @@ class Dashboard::GiftCardsController < InheritedResources::Base
       if user_signed_in? && (@user = current_user)
         @charitio = Charitio.new(@user.email, @user.api_token)
         if @user.api_token.blank?
-          @workoff = @charitio.create_user(email: @user.email, category: "INDIVIDUAL")
+          @workoff = @charitio.create_user(email: @user.email, category: "MERCHANT")
           if @workoff.ok?
             @user.update_attribute :api_token, @workoff.response["auth_token"]
           else
@@ -58,6 +58,10 @@ class Dashboard::GiftCardsController < InheritedResources::Base
               }
             )
           end
+        end
+        @user_info = @charitio.get_user_info(email: @user.email)
+        if @user_info.ok? && @user_info.response["category"] != "MERCHANT"
+          @charitio.update_user(email: @user.email, category: "MERCHANT")
         end
       end
     end

@@ -14,7 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @extra_params && !@extra_params["card_token"].blank?
       @gift_card = GiftCard.find_by(token: @extra_params["card_token"])
-      redeem_gift_card_from_signup(@gift_card, @user) if @gift_card
+      @gift_card.redeem(@user) if @gift_card
     end
 
     if @user.persisted?

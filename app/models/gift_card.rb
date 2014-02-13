@@ -39,6 +39,30 @@ class GiftCard < ActiveRecord::Base
     self.update_attribute :status, "ACTIVE"
   end
 
+  def redeem(recipient)
+    if self.redeemable?
+      @charitio = Charitio.new(user.email, user.api_token)
+      @transaction = @charitio.create_transaction(from: user.email,
+        to: recipient.email, amount: amount.to_f, currency: "VND",
+        references: references_to_string)
+      if @transaction.ok?
+        activate(@transaction.response["uid"], recipient.email)
+        return true
+      else
+        logger.error(%Q{\
+          [#{Time.zone.now}][Registration#create Charitio.create_transaction] \
+            Affected user: #{recipient.id} / Truncated email: #{recipient.email.split('@').first} \
+            API response: #{@transaction.response} \
+            Params: #{{from: user.email,
+                      to: recipient.email, amount: amount.to_f, currency: "VND",
+                      references: references_to_string}}
+          }
+        )
+        return false
+      end
+    end
+  end
+
   def redeemable?
     status == "INACTIVE"
   end

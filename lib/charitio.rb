@@ -39,6 +39,14 @@ class Charitio
     admin_push('/users/create', params)
   end
 
+  def get_user_info(params)
+    admin_fetch('/users/show', params)
+  end
+
+  def update_user(params)
+    admin_push('/users/update', params)
+  end
+
   def user_balance(params)
     admin_fetch('/users/balance', params)
   end

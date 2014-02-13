@@ -23,6 +23,14 @@ Before '@api-call' do
     :body => File.new("#{Rails.root}/features/support/json/user_balance.json"),
     :content_type => 'application/json',
     :status => "200")
+  FakeWeb.register_uri(:get, "https://staging-charitio.herokuapp.com/v1/users/show",
+    :body => File.new("#{Rails.root}/features/support/json/create_user.json"),
+    :content_type => 'application/json',
+    :status => "200")
+  FakeWeb.register_uri(:get, "https://staging-charitio.herokuapp.com/v1/users/update",
+    :body => File.new("#{Rails.root}/features/support/json/update_user.json"),
+    :content_type => 'application/json',
+    :status => "200")
 end
 
 Before '@step-through' do

@@ -14,7 +14,8 @@
       %ul#cm-second-menu.nav.navbar-nav.navbar-right
         %li= link_to "Đăng Xuất", destroy_user_session_path
       %ul#cm-first-menu.nav.navbar-nav.navbar-right
-        / %li
-        /   %a{href: "#"} Credits: <strong>20.000 VNĐ</strong>
+        - if user_signed_in? && balance(current_user) > 0
+          %li
+            %a TK: <strong>#{human_currency balance(current_user)}</strong>
         %li= link_to "Quản Lý", dashboard_path
         %li= link_to "Hồ Sơ", users_settings_path

@@ -14,14 +14,12 @@
   .row
     - if user_signed_in?
       = form_tag users_redeem_gift_card_path do
-        = hidden_field_tag :email, current_user.email
         .col-md-6.text-right
           = text_field_tag :card_token, params[:token], placeholder: "ĐIỀN MÃ THẺ VÀO Ô NÀY", class: "form-control gift-card-code", required: true
         .col-md-6.text-left
           = submit_tag "Bắt đầu sử dụng thẻ", class: "btn btn-warning btn-lg"
     - else
       = form_tag(new_user_registration_path, method: :get) do
-        = hidden_field_tag :email, (@gift_card ? @gift_card.recipient_email : nil)
         .col-md-6.text-right
           = text_field_tag :card_token, params[:token], placeholder: "ĐIỀN MÃ THẺ VÀO Ô NÀY", class: "form-control gift-card-code", required: true
         .col-md-6.text-left

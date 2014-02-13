@@ -1,3 +1,4 @@
+@api-call
 Feature: User
 
   Scenario: To be able to retrieve password

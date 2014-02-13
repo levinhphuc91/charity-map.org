@@ -19,6 +19,7 @@
 
 		.update-user-profile
 			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+				= f.inputs :id, as: :hidden
 				= f.inputs :email
 				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false

@@ -57,7 +57,8 @@ group :development do
   gem 'letter_opener'
 end
 
-group :test, :development do
+group :test do
+  gem 'fakeweb', '~> 1.3'
   gem 'rspec-rails'
   gem 'mocha'
   gem 'shoulda-matchers'

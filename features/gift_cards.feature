@@ -1,16 +1,17 @@
+@api-call
 Feature: Gift Card
 
   Scenario: Dashboard to be rendered given a user whose (Charitio) token exists
     Given there is a user with the full name "MixUP" and the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "mixup@gmail.com"
     And I go to the gift cards dashboard
-    Then I should see ""
+    Then I should see "+ Tạo gift card"
   
   Scenario: To be created successfully
     Given there is a user with the full name "MixUP" and the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "mixup@gmail.com"
-      # And I go to the gift cards dashboard
-      # And I follow "+ Tạo gift card"
+      And I go to the gift cards dashboard
+      And I follow "+ Tạo gift card"
       And I go to the create-new-card page
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
@@ -36,27 +37,30 @@ Feature: Gift Card
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
-    # # Case: Token being used for more than one time
-    # When I am not authenticated
-    # And I open the email
-    # Then I should see "đường dẫn này" in the email body
-    # When I follow "đường dẫn này" in the email
-    #   And I follow "bằng email"
-    #   And I should not see "donor@mail.net" in the "user_email" input
-    #   And I fill in "user_email" with "stranger_email_who_tries_to_use_the_token@gmail.com"
-    #   And I fill in "user_password" with "12345678"
-    #   And I fill in "user_password_confirmation" with "12345678"
-    # And I press "Đăng Ký"
-    # Then I should see "Xin chào! Bạn đã đăng ký thành công."
-    #   And I follow "Quản Lý"
-    #   And I follow "Trang Cá Nhân"
-    # Then I should not see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    And I am not authenticated
+    When I login as "mixup@gmail.com"
+    And I go to the gift cards dashboard
+    Then I should see "100,000" within "#total-value"
+    # Case: Token being used for more than one time
+    When I am not authenticated
+    And I open the email
+    Then I should see "đường dẫn này" in the email body
+    When I follow "đường dẫn này" in the email
+      And I follow "bằng email"
+      And I should not see "donor@mail.net" in the "user_email" input
+      And I fill in "user_email" with "stranger_email_who_tries_to_use_the_token@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I fill in "user_password_confirmation" with "12345678"
+    And I press "Đăng Ký"
+    Then I should see "Xin chào! Bạn đã đăng ký thành công."
+    And I follow "Hồ Sơ"
+    Then I should not see "TK: 100.000 VNĐ"
 
   Scenario: Redeem gift card (logging via Facebook)
     Given there is a user with the full name "MixUP" and the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "mixup@gmail.com"
-      # And I go to the gift cards dashboard
-      # And I follow "+ Tạo gift card"
+      And I go to the gift cards dashboard
+      And I follow "+ Tạo gift card"
       And I go to the create-new-card page
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
@@ -78,3 +82,9 @@ Feature: Gift Card
     When Facebook login is mocked
     And I follow "Đăng Ký Bằng Facebook"
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    And I follow "Hồ Sơ"
+    Then I should see "TK: 100.000 VNĐ"
+    And I am not authenticated
+    When I login as "mixup@gmail.com"
+    And I go to the gift cards dashboard
+    Then I should see "100,000" within "#total-value"

@@ -1,3 +1,4 @@
+@api-call
 Feature: Dashboard
 
   Scenario: For new users

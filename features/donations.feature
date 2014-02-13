@@ -1,3 +1,4 @@
+@api-call
 Feature: Donation
 
 	Scenario: User without contact info to be asked to update

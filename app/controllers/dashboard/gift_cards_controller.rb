@@ -6,7 +6,7 @@ class Dashboard::GiftCardsController < InheritedResources::Base
   include GiftCardsHelper
   include ApplicationHelper
   layout "dashboard2"
-  before_filter :authenticate_user!
+  prepend_before_filter :authenticate_user!
   before_filter :connect_backend_api
 
   def index
@@ -17,12 +17,6 @@ class Dashboard::GiftCardsController < InheritedResources::Base
 
   def create
     @gift_card = GiftCard.new(params[:gift_card])
-    # @transaction = @charitio.create_transaction(from: @gift_card.user.email, 
-    #   to: @gift_card.recipient_email, amount: @gift_card.amount, currency: "VND",
-    #   references: @gift_card.references_to_string)
-    # if @transaction.ok?
-    #   @transaction = @transaction.response
-    #   @gift_card.master_transaction_id = @transaction.uid
     if @gift_card.save
       SMS.send(to: phone_striped(params[:recipient_phone]),
         text: "(Charity Map) Ban vua nhan duoc mot gift card tu #{current_user.name}. Xin hay truy cap: www.charity-map.org/gifts va dien ma so: #{@gift_card.token} de bat dau su dung."
@@ -49,15 +43,21 @@ class Dashboard::GiftCardsController < InheritedResources::Base
     end
 
     def connect_backend_api
-      @user = current_user
-      @charitio = Charitio.new(@user.email, @user.api_token || ENV['CM_API_TOKEN'])
-      if @user.api_token.blank?
-        @workoff = @charitio.create_user(email: @user.email, category: "MERCHANT")
-        if @workoff.ok?
-          @user.update_attribute :api_token, @workoff.response["auth_token"]
-          logger.info("== API CALL: ID #{@user.id} EMAIL #{@user.email.split('@').first} #{@user.api_token[0..5]}")
-        else
-          redirect_to dashboard_path, alert: "#{@workoff.response}"
+      if user_signed_in? && (@user = current_user)
+        @charitio = Charitio.new(@user.email, @user.api_token)
+        if @user.api_token.blank?
+          @workoff = @charitio.create_user(email: @user.email, category: "INDIVIDUAL")
+          if @workoff.ok?
+            @user.update_attribute :api_token, @workoff.response["auth_token"]
+          else
+            redirect_to dashboard_path, alert: "API call not going through."
+            logger.error(%Q{\
+              [#{Time.zone.now}][User#connect_backend_api Charitio.create_user] \
+                Affected user: #{@user.id} / Truncated email: #{@user.email.split('@').first} \
+                API response: #{@workoff.response} \
+              }
+            )
+          end
         end
       end
     end

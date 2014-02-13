@@ -1,6 +1,30 @@
 # Define annotations to control cucumber scenario execution
 
 # Wait for a key stroke after each step
+Before '@api-call' do
+  FakeWeb.clean_registry
+  FakeWeb.allow_net_connect = %r[^https?://127.0.0.1]
+  FakeWeb.register_uri(:get,
+    %r|http://maps.googleapis\.com/|,
+    :body => "Hello World!")
+  FakeWeb.register_uri(:post, "https://staging-charitio.herokuapp.com/v1/users/create",
+    :body => File.new("#{Rails.root}/features/support/json/create_user.json"),
+    :content_type => 'application/json',
+    :status => "201")
+  FakeWeb.register_uri(:get, "https://staging-charitio.herokuapp.com/v1/transactions",
+    :body => File.new("#{Rails.root}/features/support/json/get_transactions_not_found.json"),
+    :content_type => 'application/json',
+    :status => "400")
+  FakeWeb.register_uri(:post, "https://staging-charitio.herokuapp.com/v1/transactions",
+    :body => File.new("#{Rails.root}/features/support/json/create_transaction.json"),
+    :content_type => 'application/json',
+    :status => "201")
+  FakeWeb.register_uri(:get, "https://staging-charitio.herokuapp.com/v1/users/balance",
+    :body => File.new("#{Rails.root}/features/support/json/user_balance.json"),
+    :content_type => 'application/json',
+    :status => "200")
+end
+
 Before '@step-through' do
   print "Hit a key after each step to continue"
 end

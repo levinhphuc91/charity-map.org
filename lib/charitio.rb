@@ -3,7 +3,7 @@ require 'uri'
 
 class Charitio
   include HTTParty
-  BASE_URI = (Rails.env.development? ? 'staging-charitio.herokuapp.com/v1' : 'api.charity-map.org/v1')
+  BASE_URI = (Rails.env.production? ? 'api.charity-map.org/v1' : 'staging-charitio.herokuapp.com/v1')
   ssl_version :SSLv3
 
   def initialize(email, token)
@@ -40,7 +40,7 @@ class Charitio
   end
 
   def user_balance(params)
-    admin_fetch('/users/balance', params).response["balance"]
+    admin_fetch('/users/balance', params)
   end
 
   private

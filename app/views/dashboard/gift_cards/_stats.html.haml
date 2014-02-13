@@ -1,21 +1,21 @@
 #main-stats
   .row.stats-row
-    .col-md-3.col-sm-3.stat
+    #total-cards.col-md-3.col-sm-3.stat
       .data
         %span.number #{@gift_cards.active.count}
         cards
       %span.date được sử dụng #{human_time current_user.created_at}
-    .col-md-3.col-sm-3.stat
+    #total-value.col-md-3.col-sm-3.stat
       .data
         %span.number #{number_with_precision @gift_cards.active.sum(:amount), precision: 0, delimiter: ","}
         đồng
       %span.date tổng giá trị
-    .col-md-3.col-sm-3.stat
+    #pending-clerance-credits.col-md-3.col-sm-3.stat
       .data
         %span.number #{@pending_clearance_credits_amount}
         đồng
       %span.date chuyển khoản tháng này
-    .col-md-3.col-sm-3.stat.last
+    #cleared-credits.col-md-3.col-sm-3.stat.last
       .data
         %span.number #{@cleared_credits_amount}
         đồng

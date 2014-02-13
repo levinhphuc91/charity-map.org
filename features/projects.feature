@@ -1,3 +1,4 @@
+@api-call
 Feature: Project
   Scenario: To be displayed in a box
     Given there is a user with the id "1" and the full name "Hoang Minh Tu" and the password "12345678" and the password confirmation "12345678"

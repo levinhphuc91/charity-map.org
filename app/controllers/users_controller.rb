@@ -5,7 +5,7 @@ require 'charitio'
 class UsersController < ApplicationController
   include SessionsHelper
   include GiftCardsHelper
-  before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt, :fbnotif]
+  prepend_before_filter :authenticate_user!, except: [:profile, :verification_delivery_receipt, :fbnotif]
   before_filter :connect_backend_api, except: [:profile, :verification_delivery_receipt, :fbnotif]
   layout "layouts/dashboard", only: [
     :dashboard, :settings, :messages, :donations, :update_settings, :verify,
@@ -208,20 +208,21 @@ class UsersController < ApplicationController
     end
 
     def connect_backend_api
-      @user = current_user
-      @charitio = Charitio.new(@user.email, @user.api_token || ENV['CM_API_TOKEN'])
-      if @user.api_token.blank?
-        @workoff = @charitio.create_user(email: @user.email, category: "INDIVIDUAL")
-        if @workoff.ok?
-          @user.update_attribute :api_token, @workoff.response["auth_token"]
-        else
-          redirect_to dashboard_path, alert: "API call not going through. Please contact us at team@charity-map.org. Thanks."
-          logger.error(%Q{\
-            [#{Time.zone.now}][User#connect_backend_api Charitio.create_user] \
-              Affected user: #{@user.id} / Truncated email: #{@user.email.split('@').first} \
-              API response: #{@workoff.response} \
-            }
-          )
+      if user_signed_in? && (@user = current_user)
+        @charitio = Charitio.new(@user.email, @user.api_token)
+        if @user.api_token.blank?
+          @workoff = @charitio.create_user(email: @user.email, category: "INDIVIDUAL")
+          if @workoff.ok?
+            @user.update_attribute :api_token, @workoff.response["auth_token"]
+          else
+            redirect_to dashboard_path, alert: "API call not going through."
+            logger.error(%Q{\
+              [#{Time.zone.now}][User#connect_backend_api Charitio.create_user] \
+                Affected user: #{@user.id} / Truncated email: #{@user.email.split('@').first} \
+                API response: #{@workoff.response} \
+              }
+            )
+          end
         end
       end
     end

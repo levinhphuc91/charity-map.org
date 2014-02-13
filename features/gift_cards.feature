@@ -66,6 +66,51 @@ Feature: Gift Card
       And I press "Bắt đầu sử dụng thẻ"
       Then I should see "Mã không hợp lệ."
 
+  Scenario: To be redeemed after logging in
+    Given there is a user with the full name "MixUP" and the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
+      And there is a user with the email "tu@charity-map.org" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "mixup@gmail.com"
+      And I go to the gift cards dashboard
+      And I follow "+ Tạo gift card"
+      And I go to the create-new-card page
+      And I fill in "gift_card_recipient_email" with "tu@charity-map.org"
+      And I fill in "gift_card_references_recipient_name" with "Tu Hoang"
+      And I fill in "gift_card_amount" with "100000"
+      And I press "submit"
+    And an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: tu@charity-map.org
+      Subject: MixUP vừa gửi bạn một thẻ quà tặng charity-map.org!
+      """
+    And "tu@charity-map.org" should receive an email
+    When I open the email
+    # Recipient to redeem the card
+    And I am not authenticated
+    When I follow "đường dẫn này" in the email
+      And I press "Bắt đầu sử dụng thẻ"
+      And I should see "tu@charity-map.org" in the "user_email" input
+      And I follow "Đăng nhập"
+      And I fill in "user_email" with "tu@charity-map.org"
+      And I fill in "user_password" with "secretpass"
+      And I press "Đăng Nhập"
+      And I follow "Hồ Sơ"
+    Then I should see "TK: 100.000 VNĐ"
+    # Card giver to see cards redeemed on the dashboard
+    And I am not authenticated
+    When I login as "mixup@gmail.com"
+    And I go to the gift cards dashboard
+    Then I should see "100,000" within "#total-value"
+    And I should see "Đã Dùng"
+    And I should see "Tu Hoang (tu@charity-map.org)"
+    # Case: Card code being used for more than one time
+    When I am not authenticated
+    And I open the email
+    Then I should see "đường dẫn này" in the email body
+    When I follow "đường dẫn này" in the email
+      And I press "Bắt đầu sử dụng thẻ"
+      Then I should see "Mã không hợp lệ."
+
   Scenario: To be created successfully, final recipient email != original one
     Given there is a user with the full name "MixUP" and the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
     When I login as "mixup@gmail.com"

@@ -1,8 +1,7 @@
 = content_for :head do 
   = stylesheet_link_tag "wrapdashboard/optional/index.css", media: "all", "data-turbolinks-track" => true
 
-- cache("stats#{current_user.api_token[0..5]}", :expires_in => 1.hour) do
-  = render "stats"
+= render "stats"
 
 #pad-wrapper
   .table-products
@@ -47,7 +46,10 @@
                   / %input{type: "checkbox"}/
                   .img
                     = image_tag "dashboard/table-img.png"
-                  <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
+                  - if card.references["recipient_name"].blank?
+                    <b>#{card.recipient_email}</b>
+                  - else
+                    <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
                   %br/ 
                   #{card.references["campaign_name"]}
                 %td.description

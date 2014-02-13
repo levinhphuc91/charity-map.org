@@ -10,13 +10,14 @@
         %span.number #{number_with_precision @gift_cards.active.sum(:amount), precision: 0, delimiter: ","}
         đồng
       %span.date tổng giá trị
-    #pending-clerance-credits.col-md-3.col-sm-3.stat
-      .data
-        %span.number #{pending_clearance_credits_amount(@charitio, current_user.email)}
-        đồng
-      %span.date chuyển khoản tháng này
-    #cleared-credits.col-md-3.col-sm-3.stat.last
-      .data
-        %span.number #{cleared_credits_amount(@charitio, current_user.email)}
-        đồng
-      %span.date đã chuyển khoản
+    - cache("stats#{current_user.api_token[0..5]}", :expires_in => 1.hour) do
+      #pending-clerance-credits.col-md-3.col-sm-3.stat
+        .data
+          %span.number #{pending_clearance_credits_amount(@charitio, current_user.email)}
+          đồng
+        %span.date chuyển khoản tháng này
+      #cleared-credits.col-md-3.col-sm-3.stat.last
+        .data
+          %span.number #{cleared_credits_amount(@charitio, current_user.email)}
+          đồng
+        %span.date đã chuyển khoản

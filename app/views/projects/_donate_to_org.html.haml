@@ -1,0 +1,30 @@
+= form_tag root_path do
+  = hidden_field_tag :project_id
+  #ext-donation-form
+    / Tên Dự Án
+    .form-item.col-md-6
+      %label{for: "Tên Dự Án"} Họ & Tên*
+      %span.example
+        Ví Dụ
+        %i Nguyễn Văn Linh
+      = text_field_tag :donor, nil, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Số Điện Thoại"} Số Điện Thoại
+      = text_field_tag :phone, nil, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Số Tiền Ủng Hộ"} Số Tiền (VNĐ)*
+      = text_field_tag :amount, nil, class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Phương Thức Ủng Hộ"} Phương Thức Ủng Hộ*
+      = select_tag :collection_method, [["Chuyển Khoản Ngân Hàng", "BANK_TRANSFER"],["Thu Tiền Tận Nơi","COD"]], class: "form-control"
+    .form-item.col-md-6
+      %label{for: "Email"} Email
+      = text_field_tag :email, nil, disabled: true, required: true, class: "form-control"
+    .form-item.col-md-12
+      %label Gửi email xác nhận tới MTQ
+      = check_box_tag :notification, true, class: "check"
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      %label Ẩn Danh?
+      = check_box_tag :anon, false, class: "check"
+
+    = submit_tag "Thêm Ủng Hộ", class: "btn btn-success"

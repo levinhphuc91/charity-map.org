@@ -1,0 +1,7 @@
+- if @orgs.empty?
+  %p Không tìm thấy dữ liệu.
+- else
+  / - cache("org_lists", :expires_in => 1.day) do
+  .row
+    - @orgs.each do |org|
+      = render "projects/org", org: org

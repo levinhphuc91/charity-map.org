@@ -1,47 +1,27 @@
-.body-container--plain-row
-  .body-container--content
-    .project-search
-      = form_tag search_projects_path, method: :get do
-        .row-fluid
-          .span8
-            = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
-          .span4
-            = submit_tag "Tìm", class: "submit"
+%p 
+  = link_to "Order: Phap Ly", filter_projects_path(by: "legal"), remote: true
 
-.body-container--plain-row
-  .body-container--content
-    .row-fluid
-      .pull-left
-        - if params[:filter] && params[:filter] == "funding"
-          .headline Các Dự Án Đang Gây Quỹ
-        - elsif params[:filter] == "finished"
-          .headline Các Dự Án Đã Qua Đợt Gây Quỹ
-        - else
-          .headline Các Dự Án Trên Hệ Thống
-      .pull-right
-        = link_to new_project_path do
-          .more
-            %i.icon-plus 
-            Đăng Ký Dự Án
-    %hr
-    .row-fluid
-      - @projects.each do |project|
-        = render "projects/box_display", :project => project
-
-    - if (current_user && current_user.staff && @pending)
-      .headline Đang Đợi Xét Duyệt (admin only)
-      %hr/ 
-      .row-fluid
-        - @pending.each do |pending|
-          .pull-left
-            = render "projects/box_display", :project => pending
-
-- unless @markers.nil?
-  .body-container--plain-row{:style => "margin-bottom: -90px;"}
-    = render "layouts/map", height: "500px", markers: @markers
+%section.row.col-md-8.col-md-offset-2#organizations
+  / - cache("org_lists", :expires_in => 1.day) do
+  - @orgs.each do |org|
+    = render "projects/org", org: org
+                    
+#donatingOrg.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4#myModalLabel.modal-title Thêm Ủng Hộ Ngoài Hệ Thống
+      .modal-body
+        .note Dự án:
+        = render "projects/donate_to_org"
 
 :javascript
   $('#project_search').typeahead({
     name: "project",
     prefetch: "/projects/autocomplete"
   });
+  $('.donateButton').on('click', function() {
+    var email = $(this).attr('org-email');
+    $('#email').val(email);
+  })

@@ -41,6 +41,7 @@ CharityMap::Application.routes.draw do
   resources :projects do
     collection do
       get 'autocomplete'
+      get 'filter'
       get 'search'
       get 'invite_ext_donor'
     end

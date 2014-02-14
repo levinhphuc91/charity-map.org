@@ -14,6 +14,8 @@ class ProjectsController < InheritedResources::Base
     end
     @pending = Project.pending
     @markers = Project.listed.mapped
+    @orgs = OrganizationList.all
+    render layout: "layouts/item-based"
   end
 
   def new
@@ -91,6 +93,12 @@ class ProjectsController < InheritedResources::Base
     @ext_donation = ExtDonation.find params[:ext_donation_id]
     UserMailer.delay.invite_ext_donor(@ext_donation) unless @ext_donation.email.blank?
     redirect_to project_donations_path(@ext_donation.project)
+  end
+
+  def filter
+    if params[:by]
+      @orgs = OrganizationList.where("address IS NOT ?", nil)
+    end
   end
 
   private

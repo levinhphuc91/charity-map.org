@@ -44,6 +44,13 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject: "Xác nhận đã nhận tiền mặt ủng hộ dự án #{@project.title}")
   end
 
+  def confirm_cm_credit_donation(donation)
+    @donation = donation
+    @project = @donation.project
+    @user = @donation.user
+    mail(to: @user.email, subject: "Cảm ơn bạn đã ủng hộ dự án #{@project.title}")
+  end
+
   def send_updates_to_project_followers(project_update, follower)
     @project_update = project_update
     @project = project_update.project

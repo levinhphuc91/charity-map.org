@@ -5,7 +5,8 @@ class DonationsController < InheritedResources::Base
   include DonationsHelper
   include SessionsHelper
   include ApplicationHelper
-  before_filter :authenticate_user!, except: [:index, :show]
+  prepend_before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :check_balance, only: :create
   layout "layouts/item-based"
 
   def index
@@ -44,17 +45,30 @@ class DonationsController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     @donation = Donation.new(params[:donation])
     if @donation.save
-      if @donation.collection_method == "BANK_TRANSFER"
+      if @donation.sent_via?("BANK_TRANSFER")
         UserMailer.delay.bank_account_info(@donation)
-        redirect_to @project, notice: "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
-      elsif @donation.collection_method == "COD"
-        redirect_to @project, notice: "Cảm ơn bạn đã ủng hộ dự án! Chúng tôi sẽ liên hệ trong 3 ngày làm việc."
-      else
-        redirect_to @project, notice: "Cảm ơn bạn đã ủng hộ dự án!"
+        @notice = "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
+      elsif @donation.sent_via?("COD")
+        @notice = "Cảm ơn bạn đã ủng hộ dự án! Chúng tôi sẽ liên hệ trong 3 ngày làm việc."
+      elsif @donation.sent_via?("CM_CREDIT")
+        if @donation.confirm!
+          UserMailer.delay.confirm_cm_credit_donation(@donation)
+          @notice = "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
+        else
+          @notice = "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
+        end
       end
+      redirect_to @project, notice: @notice
     else
       @project_reward = ProjectReward.find(params[:donation][:project_reward_id])
       render :new, alert: "Không thành công. Vui lòng thử lại."
+    end
+  end
+
+  def check_balance
+    @donation = Donation.new(params[:donation])
+    if (balance(@donation.user) < @donation.amount) && @donation.sent_via?("CM_CREDIT")
+      redirect_to new_project_donation_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
     end
   end
 

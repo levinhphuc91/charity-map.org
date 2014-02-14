@@ -32,6 +32,8 @@ module ApplicationHelper
       "Thu Tiền Tận Nơi"
     when "BANK_TRANSFER"
       "Chuyển Khoản Ngân Hàng"
+    when "CM_CREDIT"
+      "Tài Khoản charity-map.org"
     else
       collection_method
     end

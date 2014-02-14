@@ -53,8 +53,35 @@ class Donation < ActiveRecord::Base
     end
   end
 
+  def sent_via?(method)
+    collection_method == method
+  end
+
   def confirm!
-    self.update_attributes! status: "SUCCESSFUL"
+    if collection_method == "CM_CREDIT"
+      if status == "PENDING"
+        @charitio = Charitio.new(user.email, user.api_token)
+        @transaction = @charitio.create_transaction(from: user.email,
+          to: project.user.email, amount: amount.to_f, currency: "VND",
+          references: "Donation ID #{euid} / Project: #{project.title} / Note: #{note}")
+        if @transaction.ok?
+          self.update_attributes! status: "SUCCESSFUL"
+          return true
+        else
+          logger.error(%Q{\
+            [#{Time.zone.now}][Donation#confirm Charitio.create_transaction] \
+              Affected donation: #{euid} \
+              API response: #{@transaction.response} \
+              Params: #{{from: user.email,
+                        to: project.user.email, amount: amount.to_f, currency: "VND"}}
+            }
+          )
+          return false
+        end
+      end
+    else
+      self.update_attributes! status: "SUCCESSFUL"
+    end
   end
 
   private

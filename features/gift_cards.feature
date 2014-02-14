@@ -128,7 +128,7 @@ Feature: Gift Card
       And I fill in "user_email" with "saidrebyn@gmail.com"
       And I fill in "user_password" with "secretpass"
       And I fill in "user_password_confirmation" with "secretpass"
-    And I press "Đăng Ký"
+      And I press "Đăng Ký"
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     And I am not authenticated
@@ -141,7 +141,6 @@ Feature: Gift Card
     When I login as "mixup@gmail.com"
       And I go to the gift cards dashboard
       And I follow "+ Tạo gift card"
-      And I go to the create-new-card page
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
       And I press "submit"
@@ -170,3 +169,55 @@ Feature: Gift Card
     And I go to the gift cards dashboard
     Then I should see "100,000" within "#total-value"
     Then I should see "user@man.net"
+
+  Scenario: Donate to a project using gift card credit
+    Given there is a user with the email "mixup@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "mixup@gmail.com"
+      And I go to the gift cards dashboard
+      And I follow "+ Tạo gift card"
+      And I fill in "gift_card_recipient_email" with "rebyn@me.com"
+      And I fill in "gift_card_amount" with "100000"
+      And I press "submit"
+    And "rebyn@me.com" should receive an email
+    When I open the email
+    And I am not authenticated
+    When I follow "đường dẫn này" in the email
+      And I press "Bắt đầu sử dụng thẻ"
+      And I fill in "user_email" with "rebyn@me.com"
+      And I fill in "user_password" with "secretpass"
+      And I fill in "user_password_confirmation" with "secretpass"
+      And I press "Đăng Ký"
+      And I follow "Hồ Sơ"
+    Then I should see "TK: 100.000 VNĐ"
+    Given the date is "2013-09-10"
+      And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nhom Lam Du An"
+      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the bank info "Techcombank" with the user above
+      And there is a project reward with the value "10000" and the description "reward description" with the project above
+    Given the date is "2013-09-13"
+      And I clear my emails
+      And I go to the project page of "Push The World"
+      And I follow "ủng hộ dự án"
+      And I fill in "user_full_name" with "Nguoi Ung Ho"
+      And I fill in "user_address" with "Ho Chi Minh"
+      And I fill in "user_phone" with "0903011591"
+      And I press "Cập nhật Thông Tin"
+      And I fill in "donation_amount" with "101000"
+      And I select "Tài khoản charity-map.org (còn 100.000 VNĐ)" from "donation_collection_method"
+      And I press "Ủng Hộ Push The World"
+    Then I should see "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+    And I fill in "donation_amount" with "100000"
+      And I select "Tài khoản charity-map.org (còn 100.000 VNĐ)" from "donation_collection_method"
+      And I press "Ủng Hộ Push The World"
+    Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
+    And an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: rebyn@me.com
+      Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
+      """
+      And I should see "Tài Khoản charity-map.org" in the email
+      And "rebyn@me.com" should receive an email
+      And I open the email
+      And I follow "Xem chi tiết" in the email
+    Then the URL should contain "projects/push-the-world/donations"
+      And I should see "Nguoi Ung Ho ủng hộ 100.000 VNĐ"

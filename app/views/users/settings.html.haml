@@ -22,8 +22,8 @@
 				= f.hidden_field :id
 				= f.inputs :email
 				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
-				/ = f.input  :city,  :as => :select, :collection => ["Hồ Chí Minh", "Hà Nội"], :include_blank => false
 				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
+				= f.input :website, label: "Website"
 				= f.input  :address, label: "Địa chỉ*", as: :text, :input_html => {:rows => 5}
 				- unless @user.coordinated?
 					.row-fluid

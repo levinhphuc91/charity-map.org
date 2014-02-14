@@ -72,7 +72,10 @@
               .project-details
                 .col-md-2
                   = link_to user_profile_path(project.user) do
-                    %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                    - if project.user.avatar?
+                      %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                    - else
+                      %span= image_tag "default_avatar.png", class: "img-circle group-ava"
                 .col-md-10
                   %strong= link_to project.title, project_path(project)
                   %ul
@@ -112,7 +115,10 @@
                 .project-details
                   .col-md-2
                     = link_to user_profile_path(project.user) do
-                      %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                      - if project.user.avatar?
+                        %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                      - else
+                        %span= image_tag "default_avatar.png", class: "img-circle group-ava"
                   .col-md-10
                     %strong= link_to project.title, project_path(project)
                     %ul
@@ -136,7 +142,7 @@
                         %span= human_currency project.funding_goal
                       .hint ĐÃ GÂY QUỸ
 
-- cache do
+- cache("stats_homepage", :expires_in => 1.hour) do
   %section.stats-number
     .stats-number-content
       .section

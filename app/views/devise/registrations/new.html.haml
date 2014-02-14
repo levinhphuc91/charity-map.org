@@ -7,7 +7,7 @@
     .devise--container
       .heading-bar.centered
         %h1 Đăng ký
-        %p Đã có tài khoản? <strong>#{link_to "Đăng nhập", new_user_session_path(card_token: (params[:card_token] if params[:card_token]))}</strong>.
+        %p Đã có tài khoản? <strong>#{link_to "Đăng nhập", new_user_session_path(card_token: (params[:card_token].upcase if params[:card_token]))}</strong>.
       .body-bar.centered
         - resource_class.omniauth_providers.each do |provider|
           = link_to omniauth_authorize_path(resource_name, provider, token: (params[:token] if params[:token]), card_token: (@gift_card.token if @gift_card)) do

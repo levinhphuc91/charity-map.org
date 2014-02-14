@@ -20,7 +20,11 @@
 		.update-user-profile
 			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
 				= f.hidden_field :id
-				= f.inputs :email
+				= f.inputs :email, disabled: (current_user.projects.portfolio_view.count > 0 ? true : false)
+				- if current_user.projects.portfolio_view.count == 0
+					.row-fluid
+						.span8.offset3.hint Bạn không thể sửa email khi đã tạo dự án. Điều này để đảm bảo các ủng hộ được gửi về đúng tài khoản.
+					.clearfix
 				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input :website, label: "Website"

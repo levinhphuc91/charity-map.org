@@ -194,7 +194,7 @@ class UsersController < ApplicationController
   end
 
   def redeem_gift_card
-    @gift_card = GiftCard.find_by(token: params[:card_token]) if params[:card_token]
+    @gift_card = GiftCard.find_by(token: params[:card_token].upcase) if params[:card_token]
     if @gift_card
       if @gift_card.redeem(@user)
         redirect_to users_gift_cards_path, notice: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm #{@gift_card.amount}."

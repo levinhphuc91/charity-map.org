@@ -11,10 +11,10 @@
         = link_to pages_about_path do
           .navigation-box 
             .navigation-text Giới Thiệu
-        = link_to new_user_session_path(card_token: (params[:card_token] if params[:card_token])) do
+        = link_to new_user_session_path(card_token: (params[:card_token].upcase if params[:card_token])) do
           .navigation-box 
             .navigation-text Đăng Nhập
-        = link_to new_user_registration_path(card_token: (params[:card_token] if params[:card_token])) do
+        = link_to new_user_registration_path(card_token: (params[:card_token].upcase if params[:card_token])) do
           .navigation-box 
             .navigation-text Đăng Ký
       - else

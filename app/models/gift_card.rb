@@ -82,7 +82,7 @@ class GiftCard < ActiveRecord::Base
   def generate_token
     require 'securerandom'
     self.token = loop do
-      random_value = SecureRandom.hex(3)
+      random_value = SecureRandom.hex(5).upcase
       break random_value unless GiftCard.exists?(token: random_value)
     end
   end

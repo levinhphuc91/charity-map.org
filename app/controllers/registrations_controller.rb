@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
         @token = Token.find_by_value params[:token]
         create_donation_from_ext(resource, @token.ext_donation) if !@token.used?
       end
-      if params[:card_token] && (@gift_card = GiftCard.find_by(token: params[:card_token]))
+      if params[:card_token] && (@gift_card = GiftCard.find_by(token: params[:card_token].upcase))
         @gift_card.redeem(resource)
       end
       if resource.active_for_authentication?
@@ -38,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
     def validate_gift_card_token
-      if params[:card_token] && !(@gift_card = GiftCard.find_by(token: params[:card_token]))
+      if params[:card_token] && !(@gift_card = GiftCard.find_by(token: params[:card_token].upcase))
         redirect_to gifts_path, alert: "Mã không hợp lệ."
       end
     end

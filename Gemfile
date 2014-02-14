@@ -22,6 +22,7 @@ gem 'rack-ssl-enforcer'
 gem 'nprogress-rails'
 gem 'impressionist'
 gem 'httparty'
+gem 'spreadsheet'
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

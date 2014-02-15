@@ -24,6 +24,7 @@ CharityMap::Application.routes.draw do
   post  'users/fbnotif'
   post  'users/redeem_gift_card'
   match 'fbnotif/:token', to: 'users#fbnotif', via: :all
+  match '/', to: 'users#fbnotif', via: :post
   
   devise_for :users, :controllers => {
     :omniauth_callbacks => "users/omniauth_callbacks",

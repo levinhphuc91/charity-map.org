@@ -1,0 +1,18 @@
+- unless @users.empty?
+  %h1 #{@users.count} new users
+  %ul 
+    - @users.each do |user|
+      %li= link_to "#{user.email}", user_profile_url(user)
+
+- unless @projects.empty?
+  %h1 #{@projects.count} new projects
+  %ul 
+    - @projects.each do |project|
+      %li= link_to project.title, project_url(project)
+
+- unless @donations.empty?
+  %h1 #{@donations.count} new donations
+  %ul
+    - @donations.each do |donation|
+      %li
+        #{link_to "#{donation.project.title.upcase}", project_donations_url(donation.project)} (#{human_currency donation.amount}) &sdot; #{link_to "#{donation.user.name}", user_profile_url(donation.user)} (#{donation.user.email})

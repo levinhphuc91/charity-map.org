@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210172942) do
+ActiveRecord::Schema.define(version: 20140214080717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,22 @@ ActiveRecord::Schema.define(version: 20140210172942) do
   add_index "messages", ["ancestry"], name: "index_messages_on_ancestry", using: :btree
   add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids", using: :btree
 
+  create_table "organization_lists", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "website"
+    t.string   "facebook"
+    t.text     "address"
+    t.string   "legal_entity"
+    t.string   "geographical_area"
+    t.hstore   "category"
+    t.string   "year_of_establishment"
+    t.text     "key_contact"
+    t.text     "bank_account"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "project_comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -351,6 +367,7 @@ ActiveRecord::Schema.define(version: 20140210172942) do
     t.float    "longitude"
     t.hstore   "facebook_friends"
     t.string   "api_token"
+    t.string   "website"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

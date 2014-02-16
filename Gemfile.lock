@@ -197,9 +197,6 @@ GEM
       multi_xml (>= 0.5.2)
     httpclient (2.3.4.1)
     i18n (0.6.9)
-    impressionist (1.5.1)
-      httpclient (~> 2.2)
-      nokogiri (~> 1.5)
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
@@ -448,7 +445,6 @@ DEPENDENCIES
   haml-rails
   has_defaults
   httparty
-  impressionist
   inherited_resources
   jbuilder (~> 1.2)
   jquery-rails

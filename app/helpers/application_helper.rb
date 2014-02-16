@@ -98,6 +98,6 @@ module ApplicationHelper
   def balance(user)
     @user = user
     @charitio = Charitio.new(@user.email, @user.api_token)
-    @charitio.user_balance(email: @user.email).response["balance"]
+    @charitio.user_balance(email: @user.email).response["balance"].to_f
   end
 end

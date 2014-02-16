@@ -43,7 +43,7 @@ class Project < ActiveRecord::Base
     :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :item_based,
     :video, :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
-  is_impressionable
+  # is_impressionable
   has_many :invites
   has_many :project_rewards
   has_many :project_updates

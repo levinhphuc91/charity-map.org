@@ -2,7 +2,7 @@ class ProjectsController < InheritedResources::Base
   include SessionsHelper
   before_filter :authenticate_user!, except: [:index, :show, :search, :autocomplete, :abbr]
   before_filter :restricted_access, only: :submit
-  impressionist actions: [:show]
+  # impressionist actions: [:show]
 
   def index
     if params[:filter] && params[:filter] == "funding"

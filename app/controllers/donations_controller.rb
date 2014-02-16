@@ -67,7 +67,7 @@ class DonationsController < InheritedResources::Base
 
   def check_balance
     @donation = Donation.new(params[:donation])
-    if (balance(@donation.user) < @donation.amount) && @donation.sent_via?("CM_CREDIT")
+    if @donation.sent_via?("CM_CREDIT") && !@donation.amount.blank? && (balance(@donation.user) < @donation.amount)
       redirect_to new_project_donation_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
     end
   end

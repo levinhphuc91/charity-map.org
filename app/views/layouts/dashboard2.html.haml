@@ -19,8 +19,7 @@
     = yield :head
   %body
     = render "layouts/facebook_script"
-    - cache("analytics", :expires_in => 1.month) do
-      = render "layouts/analytics"
+    = render "layouts/analytics"
     = render "layouts/dashboard/nav_bar"
     = render "layouts/dashboard/side_bar"
     / main container

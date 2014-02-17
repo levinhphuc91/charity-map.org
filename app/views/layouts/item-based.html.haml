@@ -16,8 +16,7 @@
     = render "layouts/facebook_script"
     = render "layouts/item-based/header"
     = yield
-    - cache("analytics", :expires_in => 1.month) do
-      = render "layouts/analytics"
+    = render "layouts/analytics"
     = render "layouts/item-based/footer"
 
   - unless (params[:controller] == "donations" && params[:action] == "new")

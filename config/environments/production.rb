@@ -97,7 +97,4 @@ CharityMap::Application.configure do
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
   }
-
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 end

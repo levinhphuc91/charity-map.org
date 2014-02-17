@@ -14,5 +14,4 @@
     = yield :head
   %body 
     = yield
-    - cache("analytics", :expires_in => 1.month) do
-      = render "layouts/analytics"
+    = render "layouts/analytics"

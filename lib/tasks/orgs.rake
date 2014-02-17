@@ -8,16 +8,6 @@ namespace :orgs do
     AdminMailer.daily_digest(@users, @projects, @donations).deliver if (@users || @donations || @projects)
   end
 
-  desc "daily digest via log"
-  task :log_me_out => :environment do
-    @users = User.where('created_at >= ?', 1.day.ago).pluck(:id)
-    logger = Rails.logger
-    logger.error(%Q{\
-      [#{Time.zone.now}][rake orgs:log_me_out] Error delivering \
-      #{@users}}
-    )
-  end
-
   desc "import organizations"
   task :import => :environment do
     @file = File.new("#{Rails.root}/public/org_list.xls")

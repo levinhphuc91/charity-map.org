@@ -1,4 +1,13 @@
 namespace :orgs do
+
+  desc "daily digest"
+  task :daily_digest => :environment do
+    @users = User.where('created_at >= ?', 1.day.ago)
+    @projects = Project.where('created_at >= ?', 1.day.ago)
+    @donations = Donation.where('created_at >= ?', 1.day.ago)
+    AdminMailer.daily_digest(@users, @projects, @donations).deliver if (@users || @donations || @projects)
+  end
+
   desc "import organizations"
   task :import => :environment do
     @file = File.new("#{Rails.root}/public/org_list.xls")

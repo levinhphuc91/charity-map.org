@@ -13,4 +13,9 @@ class AdminMailer < ActionMailer::Base
     @users, @projects, @donations = users, projects, donations
     mail(to: "team@charity-map.org", subject: "Daily Digest charity-map.org (#{Time.now.strftime("%d/%m/%Y")})")
   end
+
+  def report_error(title, message)
+    @title, @message = title, message
+    mail(to: 'tu@charity-map.org', subject: 'Error: #{@title}')
+  end
 end

@@ -117,6 +117,33 @@ Feature: User
       And I press "Send me reset password instructions"
     Then I should see "Bạn sẽ nhận được email hướng dẫn thiết lập lại mật khẩu trong vài phút nữa."
 
+  Scenario: Change password successfully
+    Given there is a user with the email "vumanhcuong@gmail.com" and the password "secretpass" and the password confirmation "secretpass"
+    When I login as "vumanhcuong@gmail.com"
+      And I go to the users settings page
+      And I fill in "Mật khẩu mới" with "123456789"
+      And I fill in "Điền lại mật khẩu mới" with "123456789"
+      And I fill in "Mật khẩu cũ để thay đổi mật khẩu" with "secretpass"
+      And I press "Thay đổi mật khẩu"
+    Then I should see "Cập nhật tài khoản thành công."
+    Given I am not authenticated
+    When I go to the login page
+      And I fill in "user_email" with "vumanhcuong@gmail.com"
+      And I fill in "user_password" with "123456789"
+      And I press "Đăng Nhập"
+    Then I should see "Đăng nhập thành công."
+    And I go to the users settings page
+      And I fill in "Mật khẩu mới" with "secretpass"
+      And I fill in "Điền lại mật khẩu mới" with "secretpass"
+      And I fill in "Mật khẩu cũ để thay đổi mật khẩu" with "1234567000"
+      And I press "Thay đổi mật khẩu"
+    Then I should see "không hợp lệ"
+      And I fill in "Mật khẩu mới" with "secretpass"
+      And I fill in "Điền lại mật khẩu mới" with "secretpass"
+      And I fill in "Mật khẩu cũ để thay đổi mật khẩu" with "123456789"
+      And I press "Thay đổi mật khẩu"
+    Then I should see "Cập nhật tài khoản thành công."
+
   Scenario: Get a new password with non-existing email
     Given there is a user with the email "vumanhcuong@gmail.com" and the id "1" and the password "12345678" and the password confirmation "12345678"
     When I go to the forgot password page

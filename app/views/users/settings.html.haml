@@ -54,3 +54,20 @@
 						&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
 				.pull-left
 					= f.submit "Cập nhật Thông Tin", class: "submit"
+
+.clearfix
+.devider
+	.item
+		%i.icon-edit-sign 
+		Đổi Mật Mã
+
+.row-fluid
+	= simple_form_for(current_user, :url => registration_path(current_user), :html => { :method => :put }) do |f|
+		= f.error_notification
+		.form-inputs
+			= f.hidden_field :email, value: current_user.email, :required => true
+			= f.input :password, label: "Mật khẩu mới", :autocomplete => "off", :required => false
+			= f.input :password_confirmation, :required => false, label: "Điền lại mật khẩu mới"
+			= f.input :current_password, label: "Mật khẩu cũ để thay đổi mật khẩu", :required => true
+		.form-actions
+			= f.button :submit, "Thay đổi mật khẩu", class: "submit"

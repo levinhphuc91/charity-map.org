@@ -12,6 +12,8 @@
     %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}/
     = csrf_meta_tags
     = yield :head
-  %body 
+  %body
+    - if notice || alert
+      %section.home-notice= notice || alert
     = yield
     = render "layouts/analytics"

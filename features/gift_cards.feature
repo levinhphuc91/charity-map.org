@@ -50,6 +50,7 @@ Feature: Gift Card
       And I fill in "user_password_confirmation" with "secretpass"
     And I press "Đăng Ký"
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
+      And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     # Card giver to see cards redeemed on the dashboard
@@ -94,6 +95,7 @@ Feature: Gift Card
       And I fill in "user_email" with "tu@charity-map.org"
       And I fill in "user_password" with "secretpass"
       And I press "Đăng Nhập"
+      And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     # Card giver to see cards redeemed on the dashboard
@@ -129,6 +131,7 @@ Feature: Gift Card
       And I fill in "user_password" with "secretpass"
       And I fill in "user_password_confirmation" with "secretpass"
       And I press "Đăng Ký"
+      And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     And I am not authenticated
@@ -162,6 +165,7 @@ Feature: Gift Card
     When Facebook login is mocked
     And I follow "Đăng Ký Bằng Facebook"
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    And I follow "Đến Trang Quản Lý"
     And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     And I am not authenticated
@@ -187,6 +191,7 @@ Feature: Gift Card
       And I fill in "user_password" with "secretpass"
       And I fill in "user_password_confirmation" with "secretpass"
       And I press "Đăng Ký"
+      And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
     Then I should see "TK: 100.000 VNĐ"
     Given the date is "2013-09-10"

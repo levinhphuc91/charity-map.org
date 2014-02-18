@@ -35,6 +35,7 @@ Feature: User
 
   Scenario: Visit dashboard, as a backer, without donations 
     Given I am a new, authenticated user
+      And I follow "Đến Trang Quản Lý"
       And I follow "Đóng Góp"
     Then I should see "Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp."
 
@@ -47,6 +48,7 @@ Feature: User
       And I fill in "user_email" with "vumanhcuong01@gmail.com"
       And I fill in "user_password" with "12345678"
       And I press "Đăng Nhập"
+      And I follow "Đến Trang Quản Lý"
       And I follow "Đóng Góp"
     Then I should see "500.000"
 
@@ -60,6 +62,7 @@ Feature: User
       And I fill in "user_email" with "vumanhcuong01@gmail.com"
       And I fill in "user_password" with "12345678"
       And I press "Đăng Nhập"
+      And I follow "Đến Trang Quản Lý"
     Then I should see "Books from Heart"
       And I should see "500.000 VNĐ được ủng hộ"
       And I should see "0% hoàn thành"

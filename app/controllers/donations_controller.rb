@@ -58,7 +58,7 @@ class DonationsController < InheritedResources::Base
           @notice = "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
         end
       end
-      redirect_to @project, notice: @notice
+      redirect_to project_path(@project, cid: @donation.id), notice: @notice
     else
       @project_reward = ProjectReward.find(params[:donation][:project_reward_id])
       render :new, alert: "Không thành công. Vui lòng thử lại."

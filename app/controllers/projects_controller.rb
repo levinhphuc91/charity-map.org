@@ -28,6 +28,7 @@ class ProjectsController < InheritedResources::Base
 
   def show
     @project = Project.find(params[:id])
+    @donation = Donation.find(params[:cid]) if params[:cid]
     if params[:token]
       @token = Token.find_by_value params[:token]
       @ext_donation = @token.ext_donation if @token && !@token.used?

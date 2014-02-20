@@ -144,9 +144,9 @@
     :javascript
       ga('require', 'ecommerce', 'ecommerce.js');
       ga('ecommerce:addTransaction', {
-        'id': #{@donation.euid},
-        'affiliation': #{@project.title},
-        'revenue': #{@donation.amount},
+        'id': '#{@donation.euid}',
+        'affiliation': '#{@project.title}',
+        'revenue': '#{@donation.amount}',
         'currency': 'VND'
       });
       ga('ecommerce:send');

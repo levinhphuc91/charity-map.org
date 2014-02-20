@@ -3,6 +3,8 @@
   = stylesheet_link_tag    "homepage/home", media: "all", "data-turbolinks-track" => true
   %style 
     body {padding-top: 0 !important}
+  - if user_signed_in?
+    = render 'layouts/conversion_tracking/after_signin_path'
 
 %section.header-cover
   .header-content

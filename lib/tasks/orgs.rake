@@ -1,5 +1,12 @@
 namespace :orgs do
 
+  desc "log me in" do
+  task :log_me_in => :environment do
+    @users = User.where('created_at >= ?', 1.day.ago).pluck(:id)
+    Rails.logger = Logger.new(STDOUT)
+    logger.error "Here comes the error"
+  end
+
   desc "daily digest"
   task :daily_digest => :environment do
     @users = User.where('created_at >= ?', 1.day.ago)

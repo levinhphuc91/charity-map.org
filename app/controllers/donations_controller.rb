@@ -95,7 +95,7 @@ class DonationsController < InheritedResources::Base
             text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
           ) if (@donation.user.phone)
           SendMessage.fb({
-            :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+            :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
             :name => "#{@donation.project.title}",
             :picture => "#{@donation.project.photo_url(:banner)}",
             :description => "#{@donation.project.brief}",
@@ -112,7 +112,7 @@ class DonationsController < InheritedResources::Base
             :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
           ) if (@donation.user.phone)
           SendMessage.fb({
-            :link => "http://www.charity-map.org#{project_path(@donation.project)}",
+            :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
             :name => "#{@donation.project.title}",
             :description => "#{@donation.project.brief}",
             :picture => "#{@donation.project.photo_url(:banner)}",

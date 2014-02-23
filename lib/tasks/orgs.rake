@@ -12,7 +12,7 @@ namespace :orgs do
     @users = User.where('created_at >= ?', 1.day.ago)
     @projects = Project.where('created_at >= ?', 1.day.ago)
     @donations = Donation.where('created_at >= ?', 1.day.ago)
-    AdminMailer.daily_digest(@users, @projects, @donations).deliver if (@users || @donations || @projects)
+    AdminMailer.daily_digest(@users, @projects, @donations).deliver if (!@users.empty? || !@donations.empty? || !@projects.empty?)
   end
 
   desc "import organizations"

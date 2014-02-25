@@ -58,10 +58,10 @@ class User < ActiveRecord::Base
     :website, :provider, :uid, :facebook_credentials, :facebook_friends,
     :api_token, :verified_by_phone, :org, :figures, :latitude, :longitude
 
-  before_validation :fetch_api_token
+  # before_validation :fetch_api_token
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
-  validates :api_token, presence: true
+  # validates :api_token, presence: true
   has_many :project_comments
   has_many :donations
   # has_many :projects, through: :donations
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
           }
         )
     elsif (!@user)
-      @user = User.create(provider: @provider,
+      @user = User.create!(provider: @provider,
         uid: @uid,
         facebook_credentials:{
           :token => @credentials.token,

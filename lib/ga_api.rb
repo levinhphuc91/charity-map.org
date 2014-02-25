@@ -1,4 +1,6 @@
 require 'rest_client'
+require 'delayed_job'
+
 class GoogleAnalyticsApi
   class << self
 

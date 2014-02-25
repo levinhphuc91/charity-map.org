@@ -433,6 +433,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   debugger
+  delayed_job
   delayed_job_active_record
   devise (~> 3.0.3)
   email_spec

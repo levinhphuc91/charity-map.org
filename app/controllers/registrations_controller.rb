@@ -24,6 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
         @gift_card.redeem(resource)
       end
       GoogleAnalyticsApi.event("SignUp", "Successful", params[:ga_client_id]) if params[:ga_client_id]
+      resource.delay.fetch_api_token
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_up(resource_name, resource)

@@ -8,6 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @auth = request.env["omniauth.auth"]
     @user = User.find_for_facebook_oauth(@auth.provider, @auth.uid, @auth.credentials, @auth.info.email, current_user)
 
+    @user.delay.fetch_api_token
     # @user.fetch_fb_friends
     @extra_params = request.env["omniauth.params"]
     if @extra_params && !@extra_params["token"].blank?

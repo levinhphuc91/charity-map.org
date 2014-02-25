@@ -75,6 +75,7 @@ CharityMap::Application.routes.draw do
     get 'pages/projects'
     get 'pages/donations'
     get 'pages/users'
+    get 'pages/updates'
   end
 
   resources :users, :except => [ :create, :new ] do

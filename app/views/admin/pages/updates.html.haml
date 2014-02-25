@@ -1,0 +1,18 @@
+.body-container--plain-row
+  .body-container--content
+    = render "admin/pages/navigation"
+    %h1 Updates
+    %table.table.table-bordered
+      %thead
+        %tr 
+          %th Date
+          %th Detail
+      %tbody
+        - @updates.each do |update| 
+          - if update.project
+            %tr 
+              %td= human_time update.created_at
+              %td
+                %b= link_to update.title, project_project_update_path(update.project || Project.first, update)
+                %br/ 
+                = link_to update.project.title, project_path(update.project)

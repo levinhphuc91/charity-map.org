@@ -3,7 +3,7 @@ class Admin::PagesController < ApplicationController
   before_filter :authenticate_user!
 
   def projects
-    @projects = Project.all
+    @projects = Project.all.order("created_at DESC")
   end
 
   def donations
@@ -13,6 +13,10 @@ class Admin::PagesController < ApplicationController
 
   def users
     @users = User.all.order("created_at DESC")
+  end
+
+  def updates
+    @updates = ProjectUpdate.all
   end
 
   protected

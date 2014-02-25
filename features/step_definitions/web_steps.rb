@@ -22,10 +22,10 @@ When /^I get redirected via the last redirect token$/ do
 end
 
 When /^I disable outgoing GA call$/ do
-  FakeWeb.unregister_uri(:get, 'https://www.google-analytics.com/collect?v=1&tid=UA-32552864-2&cid=555&t=event&ec=SignUp&ea=Successful')
+  FakeWeb.unregister_uri(:get, 'https://www.google-analytics.com/collect?v=1&tid=UA-32552864-2&cid=555&t=event&ec=SignUp&ea=Successful&ev=1')
 end
 
 When /^I enable outgoing GA call$/ do
-  FakeWeb.register_uri(:get, 'https://www.google-analytics.com/collect?v=1&tid=UA-32552864-2&cid=555&t=event&ec=SignUp&ea=Successful',
+  FakeWeb.register_uri(:get, 'https://www.google-analytics.com/collect?v=1&tid=UA-32552864-2&cid=555&t=event&ec=SignUp&ea=Successful&ev=1',
     status: 200)
 end

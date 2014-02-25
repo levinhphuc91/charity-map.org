@@ -1,8 +1,0 @@
-production: &defaults
-  endpoint: "https://www.google-analytics.com/collect"
-  version: 1
-  tracking_code: UA-32552864-2
-development:
-  <<: *defaults
-test:
-  <<: *defaults

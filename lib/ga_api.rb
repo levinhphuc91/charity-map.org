@@ -1,12 +1,11 @@
+require 'rest_client'
 class GoogleAnalyticsApi
   class << self
 
     def event(category, action, client_id = '555')
-      return unless GOOGLE_ANALYTICS_SETTINGS[:tracking_code].present?
-
       params = {
-        v: GOOGLE_ANALYTICS_SETTINGS[:version],
-        tid: GOOGLE_ANALYTICS_SETTINGS[:tracking_code],
+        v: 1,
+        tid: 'UA-32552864-2',
         cid: (Rails.env.test? ? '555' : client_id),
         t: 'event',
         ec: category,
@@ -15,7 +14,7 @@ class GoogleAnalyticsApi
       }
 
       begin
-        RestClient.get(GOOGLE_ANALYTICS_SETTINGS[:endpoint], params: params, timeout: 4, open_timeout: 4)
+        RestClient.get('http://www.google-analytics.com/collect', params: params, timeout: 4, open_timeout: 4)
         return true
       rescue  RestClient::Exception => rex
         return false

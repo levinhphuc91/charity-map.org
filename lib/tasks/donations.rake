@@ -11,12 +11,7 @@ namespace :donations do
         begin
           UserMailer.bank_transfer_donation_reminder(donation).deliver
         rescue Exception => e
-          Rails.logger.error(%Q{\
-            [#{Time.zone.now}][rake donations:bank_transfer_reminder] Error delivering \
-            reminder email to bank-transfer donations after 5 days and 10 days for Donation ID #{donation.id}: #{e.message}
-
-            #{e.backtrace}}
-          )
+          Airbrake.notify(e)
         end
     	end
     end
@@ -30,12 +25,7 @@ namespace :donations do
       begin
         donation.update_attribute :status, "FAILED" if donation.status != "FAILED"
       rescue Exception => e
-        Rails.logger.error(%Q{\
-          [#{Time.zone.now}][rake donations:bank_transfer_mark_as_failed] Error updating \
-          status for #{e.class} #{donation.id}: #{e.message}
-
-          #{e.backtrace}}
-        )
+        Airbrake.notify(e)
       end
   	end
   end  

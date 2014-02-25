@@ -49,15 +49,14 @@ class GiftCard < ActiveRecord::Base
         activate(@transaction.response["uid"], recipient.email)
         return true
       else
-        logger.error(%Q{\
+        Airbrake.notify(error_message: %Q{\
           [#{Time.zone.now}][Registration#create Charitio.create_transaction] \
-            Affected user: #{recipient.id} / Truncated email: #{recipient.email.split('@').first} \
-            API response: #{@transaction.response} \
-            Params: #{{from: user.email,
-                      to: recipient.email, amount: amount.to_f, currency: "VND",
-                      references: references_to_string}}
-          }
-        )
+          Affected user: #{recipient.id} / Truncated email: #{recipient.email.split('@').first} \
+          API response: #{@transaction.response} \
+          Params: #{{from: user.email,
+                    to: recipient.email, amount: amount.to_f, currency: "VND",
+                    references: references_to_string}}
+        })
         return false
       end
     end

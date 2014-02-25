@@ -3,8 +3,7 @@ namespace :orgs do
   desc "log me in"
   task :log_me_in => :environment do
     @users = User.where('created_at >= ?', 1.day.ago).pluck(:id)
-    Rails.logger = Logger.new(STDOUT)
-    logger.error "Here comes the error"
+    Airbrake.notify(error_message: "rake orgs:log_me_in")
   end
 
   desc "daily digest"

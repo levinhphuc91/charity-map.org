@@ -25,6 +25,8 @@ gem 'httparty'
 gem 'spreadsheet'
 gem 'createsend' # Campaign Monitor wrapper
 gem 'rest_client' # easy API interacting
+gem 'girl_friday' # Using Airbrake asynchronously
+gem 'airbrake', '~> 3.1.15'
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

@@ -49,12 +49,11 @@ class Dashboard::GiftCardsController < InheritedResources::Base
             @user.update_attribute :api_token, @workoff.response["auth_token"]
           else
             redirect_to dashboard_path, alert: "API call not going through."
-            logger.error(%Q{\
+            notify_airbrake(error_message: %Q{\
               [#{Time.zone.now}][User#connect_backend_api Charitio.create_user] \
                 Affected user: #{@user.id} / Truncated email: #{@user.email.split('@').first} \
                 API response: #{@workoff.response} \
-              }
-            )
+              })
           end
         end
         # @user_info = @charitio.get_user_info(email: @user.email)

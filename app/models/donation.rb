@@ -68,14 +68,13 @@ class Donation < ActiveRecord::Base
           self.update_attributes! status: "SUCCESSFUL"
           return true
         else
-          logger.error(%Q{\
+          Airbrake.notify(error_message: %Q{\
             [#{Time.zone.now}][Donation#confirm Charitio.create_transaction] \
               Affected donation: #{euid} \
               API response: #{@transaction.response} \
               Params: #{{from: user.email,
                         to: project.user.email, amount: amount.to_f, currency: "VND"}}
-            }
-          )
+            })
           return false
         end
       end

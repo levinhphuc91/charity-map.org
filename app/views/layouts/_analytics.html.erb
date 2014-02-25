@@ -17,13 +17,16 @@
   $(document).ready(function() {
     ga(function(tracker) {
       var clientId = tracker.get('clientId');
+      if ($('.ga-client-id').length) {
+        $('.ga-client-id').val(clientId);
+      }
       if ($('a.login-via-facebook').length) {
         $('a.login-via-facebook').each(function() {
           var _href = $(this).attr('href');
           if (_href.indexOf('?') > 0) {
-            added_param = '&ga_client_id='
+            var added_param = '&ga_client_id=';
           } else {
-            added_param = '?ga_client_id='
+            var added_param = '?ga_client_id=';
           }
           $(this).attr('href', _href + added_param + clientId);
         });

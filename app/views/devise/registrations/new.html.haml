@@ -16,6 +16,7 @@
         .body-bar{:style => "border-top: 1px solid #ccc;"}
           %p= f.error_notification
           .form-inputs
+            = hidden_field_tag "ga_client_id", "", :class => "ga-client-id"
             = hidden_field_tag "token", params[:token] if params[:token]
             = hidden_field_tag "card_token", @gift_card.token if @gift_card
             %p 

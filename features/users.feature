@@ -158,6 +158,16 @@ Feature: User
     When I go to the users settings page
     Then the "Email" field should contain "user@man.net"
 
+  Scenario: Won't be tracked by Google Analytics for logging in via FB
+    Given the date is "2013-09-10"
+      And I login via Facebook
+      Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+    When I disable outgoing GA call
+      And I am not authenticated
+      And the date is "2013-09-13"
+      And I login via Facebook
+    Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
+
   Scenario: To be able to login using Facebook / having an existing account
     Given there is a user with the email "user@man.net" and the password "secretpass" and the password confirmation "secretpass"
     When I login via Facebook

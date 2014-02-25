@@ -1,12 +1,33 @@
-<% cache("google_analytics", :expires_in => 1.month) do %>
-  <script>
+<script>
+  <% cache("google_analytics", :expires_in => 1.month) do %>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
+    <% if Rails.env.development? || Rails.env.test? %>
+    ga('create', 'UA-32552864-2', {'cookieDomain': 'none'});
+    <% else %>
     ga('create', 'UA-32552864-2', 'charity-map.org');
+    <% end %>
     ga('send', 'pageview');
+  <% end %>
+</script>
 
-  </script>
-<% end %>
+<script>
+  $(document).ready(function() {
+    ga(function(tracker) {
+      var clientId = tracker.get('clientId');
+      if ($('a.login-via-facebook').length) {
+        $('a.login-via-facebook').each(function() {
+          var _href = $(this).attr('href');
+          if (_href.indexOf('?') > 0) {
+            added_param = '&ga_client_id='
+          } else {
+            added_param = '?ga_client_id='
+          }
+          $(this).attr('href', _href + added_param + clientId);
+        });
+      }
+    });
+  });
+</script>

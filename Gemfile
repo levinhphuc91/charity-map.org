@@ -24,6 +24,7 @@ gem 'nprogress-rails'
 gem 'httparty'
 gem 'spreadsheet'
 gem 'createsend' # Campaign Monitor wrapper
+gem 'rest_client' # easy API interacting
 
 gem 'morrisjs-rails'
 gem 'raphael-rails'

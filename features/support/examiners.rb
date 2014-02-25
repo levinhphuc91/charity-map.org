@@ -35,6 +35,8 @@ Before '@api-call' do
     :body => File.new("#{Rails.root}/features/support/json/campaign_monitor_new_subscriber.json"),
     :content_type => 'application/json',
     :status => "200")
+  FakeWeb.register_uri(:get, 'https://www.google-analytics.com/collect?v=1&tid=UA-32552864-2&cid=555&t=event&ec=SignUp&ea=Successful',
+    :status => "200")
 end
 
 Before '@step-through' do

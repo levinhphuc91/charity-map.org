@@ -6,7 +6,7 @@
         %p Chưa có tài khoản? <strong>#{link_to "Đăng ký", new_user_registration_path}</strong>.
       .body-bar.centered
         - resource_class.omniauth_providers.each do |provider|
-          = link_to omniauth_authorize_path(resource_name, provider, card_token: (params[:card_token].upcase if params[:card_token])) do
+          = link_to omniauth_authorize_path(resource_name, provider, card_token: (params[:card_token].upcase if params[:card_token])), class: 'login-via-facebook' do
             .facebook-login Đăng Nhập Bằng Facebook
       = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         .body-bar{:style => "border-top: 1px solid #ccc;"}

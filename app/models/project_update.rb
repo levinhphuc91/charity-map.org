@@ -13,7 +13,7 @@
 
 class ProjectUpdate < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
-  default_scope { order('updated_at') }
+  default_scope { order('updated_at DESC') }
   belongs_to :project
 
   attr_accessible :title, :content, :project_id, :photo, :photo_cache

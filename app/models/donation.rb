@@ -33,7 +33,7 @@ class Donation < ActiveRecord::Base
 
   has_defaults status: "PENDING", project_reward_quantity: 1, anon: false
   before_validation :assign_euid
-  before_validation :calculate_amount
+  # before_validation :calculate_amount
   before_validation :assign_project_reward_id, on: :create
 
   validates :user_id, :project_id, :euid, :status, :project_reward_id,

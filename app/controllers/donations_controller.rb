@@ -27,12 +27,13 @@ class DonationsController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
-      store_location_with_path(params[:project_reward_id] ? new_project_donation_path(@project, project_reward_id: params[:project_reward_id]) : new_project_donation_path(@project))
+      store_location_with_path(params[:project_reward_id].blank? ? new_project_donation_path(@project) : new_project_donation_path(@project, project_reward_id: params[:project_reward_id]))
       redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án #{@project.title} (họ và tên, địa chỉ, số điện thoại)."
     else
       if @project.accepting_donations?
         if @project.item_based
           @project_reward = ProjectReward.find(params[:project_reward_id])
+          redirect_to @project, alert: "Bạn phải chọn một trong những tặng phẩm bên dưới." if !@project_reward
         end
         @donation = Donation.new
       else
@@ -67,8 +68,12 @@ class DonationsController < InheritedResources::Base
 
   def check_balance
     @donation = Donation.new(params[:donation])
-    if @donation.sent_via?("CM_CREDIT") && !@donation.amount.blank? && (balance(@donation.user) < @donation.amount)
-      redirect_to new_project_donation_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+    if @donation.sent_via?("CM_CREDIT") && (@donation.amount > balance(current_user))
+      if @donation.project.item_based
+        redirect_to project_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+      else
+        redirect_to new_project_donation_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+      end
     end
   end
 

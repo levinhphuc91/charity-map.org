@@ -46,7 +46,7 @@ class Project < ActiveRecord::Base
   # is_impressionable
   has_many :invites
   has_many :project_rewards
-  has_many :project_updates
+  has_many :project_updates, dependent: :destroy
   has_many :project_comments
   has_many :donations
   has_many :ext_donations

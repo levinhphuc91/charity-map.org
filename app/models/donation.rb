@@ -68,7 +68,7 @@ class Donation < ActiveRecord::Base
           self.update_attributes! status: "SUCCESSFUL"
           return true
         else
-          Airbrake.notify(error_message: %Q{\
+          Honeybadger.notify(error_message: %Q{\
             [#{Time.zone.now}][Donation#confirm Charitio.create_transaction] \
               Affected donation: #{euid} \
               API response: #{@transaction.response} \

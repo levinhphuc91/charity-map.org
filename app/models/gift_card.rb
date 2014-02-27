@@ -49,7 +49,7 @@ class GiftCard < ActiveRecord::Base
         activate(@transaction.response["uid"], recipient.email)
         return true
       else
-        Airbrake.notify(error_message: %Q{\
+        Honeybadger.notify(error_message: %Q{\
           [#{Time.zone.now}][Registration#create Charitio.create_transaction] \
           Affected user: #{recipient.id} / Truncated email: #{recipient.email.split('@').first} \
           API response: #{@transaction.response} \

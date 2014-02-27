@@ -11,7 +11,7 @@ namespace :donations do
         begin
           UserMailer.bank_transfer_donation_reminder(donation).deliver
         rescue Exception => e
-          Airbrake.notify(e)
+          Honeybadger.notify(e)
         end
     	end
     end
@@ -25,7 +25,7 @@ namespace :donations do
       begin
         donation.update_attribute :status, "FAILED" if donation.status != "FAILED"
       rescue Exception => e
-        Airbrake.notify(e)
+        Honeybadger.notify(e)
       end
   	end
   end  

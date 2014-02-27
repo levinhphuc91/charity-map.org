@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
       if @workoff.ok?
         self.api_token = @workoff.response["auth_token"]
       else
-        Airbrake.notify(error_message: %Q{\
+        Honeybadger.notify(error_message: %Q{\
           [#{Time.zone.now}][User#fetch_api_token Charitio.create_user] \
           Affected user: Truncated email: #{email.split('@').first} \
           API response: #{@workoff.response} \

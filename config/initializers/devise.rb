@@ -233,6 +233,7 @@ Devise.setup do |config|
   else
     config.omniauth :facebook, ENV["CM_FACEBOOK_OMNIAUTH_ID"], ENV["CM_FACEBOOK_OMNIAUTH_SECRET"],
      {:scope => 'email, offline_access',
+      :provider_ignores_state => true,
       :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}
     }
   end

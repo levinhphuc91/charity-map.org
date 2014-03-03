@@ -35,12 +35,9 @@ class ProjectsController < InheritedResources::Base
     end
     @user = @project.user
     @project_follow = ProjectFollow.new
-    if(current_user)
-      @followed_project = (ProjectFollow.find_by_project_id_and_user_id(@project.id, current_user.id)) != nil ? true : false
-    end
     if @project.status == "DRAFT" || @project.status == "PENDING"
       if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)) && (!current_user.staff))
-        redirect_to pages_home_path, alert: "Permission denied."
+        redirect_to(pages_home_path, alert: "Permission denied.") and return
       end
     end
     render layout: "layouts/item-based"

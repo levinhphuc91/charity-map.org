@@ -19,6 +19,8 @@ puts 'Updating Configurations'
   campaign_url: 'http://blog.charity-map.org/private/71748694349/tumblr_myocf71RIY1s0r4ek',
   guide_url: 'http://blog.charity-map.org/private/71748683880/tumblr_myocewes0Q1s0r4ek',
   email_contact: 'team@charity-map.org',
+  central_latitude: 11.775948,
+  central_longitude: 108.061523
 }.each do |name, value|
   conf = Configuration.find_or_initialize_by_name name
   conf.update({

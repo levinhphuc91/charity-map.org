@@ -10,6 +10,7 @@
   };
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <%= stylesheet_link_tag "map", media: "all", "data-turbolinks-track" => true %>
   <script type="text/javascript">
 
   function initialize() {
@@ -63,10 +64,10 @@
       ];
 
     var mapOptions = {
-      zoom: 12,
+      zoom: 7,
       zoomControl: true,
       scrollwheel: false,
-      center: new google.maps.LatLng(10.77530, 106.69681),
+      center: new google.maps.LatLng(<%= Configuration[:central_latitude] %>, <%= Configuration[:central_longitude] %>),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true,
       zoomControlOptions: {
@@ -90,7 +91,11 @@
       var <%= "marker#{marker.id}" %> = new google.maps.Marker({
         position: <%= "myLatlng#{marker.id}" %>,
         map: map,
-        icon: '<%= image_path("careicon-red.png") %>'
+        <% if marker.accepting_donations? %>
+          icon: '<%= image_path("careicon-red.png") %>'
+        <% else %>
+          icon: '<%= image_path("careicon-blue.png") %>'
+        <% end %>
       });
 
       google.maps.event.addListener(<%= "marker#{marker.id}" %>, 'click', function() {

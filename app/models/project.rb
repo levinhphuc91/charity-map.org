@@ -35,7 +35,7 @@ class Project < ActiveRecord::Base
     "REVIEWED", Time.now, Time.now, "false").order("created_at DESC") }
   scope :finished, -> { where("STATUS = ? AND END_DATE < ? AND UNLISTED = ?",
     "REVIEWED", Time.now, "false").order("created_at DESC") }
-  scope :mapped, -> { where("LATITUDE >= ? AND LONGITUDE >= ?", 0, 0) }
+  scope :mapped, -> { where("LATITUDE IS NOT ? AND LONGITUDE IS NOT ?", nil, nil) }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
 

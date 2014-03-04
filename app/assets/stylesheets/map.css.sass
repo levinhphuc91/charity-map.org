@@ -1,0 +1,70 @@
+@import 'main'
+
+.infowindow--project-container
+  font-family: "Helvetica Neue", Helvetica, sans-serif !important
+  float: left
+  width: 270px
+  min-height: 200px
+  max-height: 450px
+  overflow: hidden
+  padding: 10px
+  // border: 3px solid $light_grey
+  background-color: $white
+  // margin: auto 50px 30px auto
+  // position: relative
+  &:nth-child(3n)
+    margin: auto 0px 30px auto !important
+  .project-title
+    font-family: "Helvetica Neue", Helvetica, sans-serif !important
+    font-size: 20px
+    text-transform: uppercase
+    color: $blue
+    font-weight: bold
+  .project-info
+    font-family: "Helvetica Neue", Helvetica, sans-serif !important
+    font-size: 12px
+    line-height: 18px
+    color: $grey
+  .project-description
+    font-family: "Helvetica Neue", Helvetica, sans-serif !important
+    line-height: 20px
+    font-size: 14px
+    height: 150px
+    word-wrap: break-word
+  .project-footer-bar
+    position: absolute
+    height: 55px
+    bottom: 0
+  .project-progressbar
+    margin-top: 5px
+    width: 260px
+    border-radius: 5px
+    height: 10px
+    float: left 
+    background-color: $light_grey
+    overflow: hidden
+  .project-progressbar--green
+    z-index: 5
+    font-size: 2px
+    height: 10px
+    width: 100px
+    display: block
+    float: left
+    border-radius: 5px
+    background-color: $green
+  .project-progressbar--red
+    display: block
+    float: left
+    border-radius: 5px
+    background-color: $red
+
+  .project-metric
+    font-weight: bold
+    font-size: 14px
+    color: $black
+  .project-metric--description
+    font-family: "Helvetica Neue", Helvetica, sans-serif !important
+    font-size: 10px !important
+    text-transform: uppercase
+    color: $grey
+    font-weight: bold

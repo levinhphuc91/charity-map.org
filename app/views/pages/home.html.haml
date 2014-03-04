@@ -31,36 +31,8 @@
           hoặc đăng nhập 
           = link_to "bằng email", new_user_session_path, class: "mail"
 
-%section.partners
-  .partners-content.section
-    %h2 Các tổ chức tin dùng charity-map.org
-    %p
-      = link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
-    .partners-list
-      %ul
-        %li
-          = link_to "http://www.charity-map.org/user/38" do
-            = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
-            .partner-name
-              Chia Sẻ Yêu Thương
-        %li
-          = link_to "http://www.charity-map.org/user/54" do
-            = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
-            .partner-name
-              Cầu Vai Xanh
-        %li
-          = link_to "http://www.charity-map.org/user/78" do
-            = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
-            .partner-name
-              Bàn Tay Nhỏ
-        %li
-          = link_to "#" do
-            = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
-            .partner-name
-              Công Bằng Y Tế
-
 %section.projects
-  .project-content.section.col-md-12
+  .project-content.section.col-md-12{style: "height: 525px;"}
     %h2
       Dự án đang gây quỹ
       / %a{href: ""} tiêu biểu
@@ -101,8 +73,12 @@
                       %span= human_currency project.funding_goal
                     .hint MỤC TIÊU
 
+- unless @markers.nil?
+  %section
+    = render "layouts/map", height: "500px", markers: @markers
+
 %section.projects
-  .project-content.section.col-md-12
+  .project-content.section.col-md-12{style: "height: 525px;"}
     %h2
       Dự án tiêu biểu
       / %a{href: ""} tiêu biểu
@@ -143,6 +119,34 @@
                       %strong
                         %span= human_currency project.funding_goal
                       .hint ĐÃ GÂY QUỸ
+
+%section.partners
+  .partners-content.section
+    %h2 Các tổ chức tin dùng charity-map.org
+    %p
+      = link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
+    .partners-list
+      %ul
+        %li
+          = link_to "http://www.charity-map.org/user/38" do
+            = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
+            .partner-name
+              Chia Sẻ Yêu Thương
+        %li
+          = link_to "http://www.charity-map.org/user/54" do
+            = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
+            .partner-name
+              Cầu Vai Xanh
+        %li
+          = link_to "http://www.charity-map.org/user/78" do
+            = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
+            .partner-name
+              Bàn Tay Nhỏ
+        %li
+          = link_to "#" do
+            = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
+            .partner-name
+              Công Bằng Y Tế
 
 - cache("stats_homepage", :expires_in => 1.hour) do
   %section.stats-number
@@ -322,10 +326,6 @@
 /         - cache("finished_projects", :expires_in => 1.day) do
 /           - Project.finished.each do |project|
 /             = render "projects/box_display", :project => project
-
-/ - unless @markers.nil?
-/   .body-container--plain-row{:style => "margin-bottom: -90px;"}
-/     = render "layouts/map", height: "500px", markers: @markers
 
 :javascript
   $('.funding-project-slider').unslider({delay: 5000});

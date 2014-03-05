@@ -127,6 +127,8 @@
       .row.map-container
         = render "layouts/plain_map", height: "400px", id: @project.id, latitude: @project.latitude, longitude: @project.longitude, zoom: 12, content: @project.location
 
+    = render "projects/fundraising_project_suggestions", source: "ProjectShow"
+
 - if params[:token] && !user_signed_in?
   #signupFormUsingToken.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog

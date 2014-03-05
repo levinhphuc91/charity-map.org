@@ -2,11 +2,11 @@
   - cache("fundraising_project_suggestions", :expires_in => 1.day) do
     .row{style: "margin-top: 50px; margin-bottom: 20px;"}
       .medium-title Dự Án Đang Gây Quỹ
-    %hr/ 
+    %hr/
     .row
       - Project.suggested_fundraising.each do |project|
         - if @project && project != @project
-          .col-md-6
+          .col-md-6{style: "margin-top: 20px;"}
             .suggested-projects-wrap{style: ("background-image: url(#{project.photo_url(:banner)});" if project.photo?)}
               .overlay
               .org-avatar
@@ -14,5 +14,7 @@
                   = image_tag(project.user.avatar_url(:medium), class: "img-circle")
                 - else
                   = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle")
-              .project-title= link_to limit_display(project.title, 20), project_path(project)
-              .project-description= link_to project.user.name, user_profile_path(project.user)
+              .project-title= link_to limit_display(project.title, 20), project_path(project, utm_campaign: "SuggestedOnSite", utm_source: source)
+              .project-description
+                = link_to limit_display(project.user.name, 20), user_profile_path(project.user)
+                &sdot; #{limit_display project.location, 20}

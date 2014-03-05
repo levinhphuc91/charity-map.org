@@ -86,6 +86,7 @@
                     Sửa
                     / %span.glyphicon.glyphicon-pencil
 
+  = render "projects/fundraising_project_suggestions", source: "DonationIndex"
     
 - if current_user && @project.authorized_edit_for?(current_user)
   #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}

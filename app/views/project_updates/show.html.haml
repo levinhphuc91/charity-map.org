@@ -9,3 +9,5 @@
         = @project_update.title
         %span.label.label-success.pull-right= human_time @project_update.created_at
       %p.list-group-item-text= markdown @project_update.content.html_safe
+
+  = render "projects/fundraising_project_suggestions", source: "UpdateShow"

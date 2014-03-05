@@ -19,3 +19,5 @@
           %p.list-group-item-text
             Click để xem thêm thông tin.
             / = markdown limit_display(update.content, 400)
+
+  = render "projects/fundraising_project_suggestions", source: "UpdateIndex"

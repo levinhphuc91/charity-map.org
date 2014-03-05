@@ -38,7 +38,7 @@ class Project < ActiveRecord::Base
   scope :mapped, -> { where("LATITUDE IS NOT ? AND LONGITUDE IS NOT ?", nil, nil) }
   scope :public_view, -> { where(status: ["REVIEWED", "FINISHED"], unlisted: false).order("created_at DESC") }
   scope :portfolio_view, -> { where(status: ["REVIEWED", "FINISHED"]).order("created_at DESC") }
-  scope :suggested_fundraising, -> { where(status: ["REVIEWED"]).order("created_at DESC").select {|project| project.accepting_donations? && !project.success?} }
+  scope :suggested_fundraising, -> { where(status: ["REVIEWED"], unlisted: false).order("created_at DESC").select {|project| project.accepting_donations? && !project.success?} }
 
   attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, 
     :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :item_based,

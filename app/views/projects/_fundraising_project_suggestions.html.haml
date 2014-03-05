@@ -9,11 +9,7 @@
           .col-md-6{style: "margin-top: 20px;"}
             .suggested-projects-wrap{style: ("background-image: url(#{project.photo_url(:banner)});" if project.photo?)}
               .overlay
-              .org-avatar
-                - if project.user.avatar? 
-                  = image_tag(project.user.avatar_url(:medium), class: "img-circle")
-                - else
-                  = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle")
+              .org-avatar{style: "background-image: url(#{project.user.avatar? ? project.user.avatar_url(:medium) : '/assets/ph_project-thumbnail-bht.jpg'}); background-position: center;"}
               .project-title= link_to limit_display(project.title, 20), project_path(project, utm_campaign: "SuggestedOnSite", utm_source: source)
               .project-description
                 = link_to limit_display(project.user.name, 20), user_profile_path(project.user)

@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   def home
     @funding_projects = Project.funding
     @finished_projects = Project.finished
-    @markers = Project.listed.mapped
+    @markers = Project.public_view.mapped
     render layout: "layouts/homepage"
   end
 

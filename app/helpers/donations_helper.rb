@@ -60,8 +60,8 @@ module DonationsHelper
     @funding_progress = {}
     donations         = project.donations.successful
     ext_donations     = project.ext_donations
-    start_date        = project.start_date.to_date
-    end_date          = project.end_date.to_date
+    start_date        = (project.start_date.beginning_of_day - 1.minute).to_date
+    end_date          = (project.end_date.end_of_day + 1.minute).to_date
     start_date.upto(end_date) do |day|
       if day <= Date.today
         count = donations.where("created_at > ? AND created_at < ?", start_date, day + 1.day).sum(:amount)

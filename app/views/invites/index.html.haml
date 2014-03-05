@@ -40,6 +40,18 @@
   = f.actions do
     = f.submit "Thêm Liên Lạc", class: "submit", as: :button
 
+- if @project.user.projects.count > 1
+  %hr/
+  = form_tag import_project_invites_path(@project) do
+    .row-fluid
+      .span3
+        .sub-headline Import danh sách MTQ
+        .hint từ các dự án sau
+      .span9= select_tag :import_from, options_from_collection_for_select(@project.user.projects.select{|project| project != @project}, "id", "title")
+
+    .row-fluid
+      .span9.offset3= submit_tag "Thêm", class: "submit", as: :button
+
 .devider
   .item
     %i.icon-envelope

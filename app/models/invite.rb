@@ -18,6 +18,7 @@ class Invite < ActiveRecord::Base
   belongs_to :project
   attr_accessible :project_id, :name, :email, :phone, :status
   validates :name, presence: true
+  validates :email, uniqueness: {scope: :project_id}
   has_defaults status: "NEW"
 
   def sent?

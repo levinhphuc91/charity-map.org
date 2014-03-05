@@ -19,6 +19,34 @@ class InvitesController < InheritedResources::Base
     # create! { project_invites_url(@project) }
   end
 
+  def import
+    @project = Project.find params[:project_id]
+    if params[:import_from] && (@import_from = Project.find(params[:import_from])) && @import_from.belongs_to?(current_user)
+      if !@import_from.donations.empty?
+        @import_from.donations.each do |donation|
+          begin
+            @invite = @project.invites.create!(name: donation.user.name, email: donation.user.email, phone: donation.user.phone)
+          rescue ActiveRecord::RecordInvalid => rex
+            Honeybadger.notify(rex)
+          end
+        end
+      end
+      if !@import_from.ext_donations.empty?
+        @import_from.ext_donations.each do |donation|
+          begin
+            @invite = @project.invites.create!(name: donation.donor, email: (donation.email if !donation.email.blank?), phone: (donation.phone if !donation.phone.blank?)) if 
+            (!donation.anon) && (!donation.email.blank? || !donation.phone.blank?)
+          rescue ActiveRecord::RecordInvalid => rex
+            Honeybadger.notify(rex)
+          end
+        end
+      end
+      redirect_to project_invites_path(@project), notice: "Thêm liên lạc thành công."
+    else
+      redirect_to project_invites_path(@project), alert: "Permission denied."
+    end
+  end
+
   def update
     update! { project_invites_url(@project) }
   end

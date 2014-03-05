@@ -48,6 +48,7 @@ CharityMap::Application.routes.draw do
     get   'submit', on: :member
     resources :invites do
       get 'send_out', on: :collection
+      post 'import', on: :collection
     end
     resources :ext_donations
     resources :project_rewards

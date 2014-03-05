@@ -10,7 +10,8 @@
             .suggested-projects-wrap{style: ("background-image: url(#{project.photo_url(:banner)});" if project.photo?)}
               .overlay
               .org-avatar{style: "background-image: url(#{project.user.avatar? ? project.user.avatar_url(:medium) : '/assets/ph_project-thumbnail-bht.jpg'}); background-position: center;"}
-              .project-title= link_to limit_display(project.title, 20), project_path(project, utm_campaign: "SuggestedOnSite", utm_source: source)
-              .project-description
-                = link_to limit_display(project.user.name, 25), user_profile_path(project.user)
-                &sdot; #{limit_display project.location, 25}
+              .project-details
+                .project-title= link_to limit_display(project.title, 40), project_path(project, utm_campaign: "SuggestedOnSite", utm_source: source)
+                .project-description
+                  = link_to limit_display(project.user.name, 25), user_profile_path(project.user)
+                  &sdot; #{limit_display project.location, 25}

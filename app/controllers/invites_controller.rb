@@ -21,7 +21,7 @@ class InvitesController < InheritedResources::Base
 
   def import
     @project = Project.find params[:project_id]
-    if params[:import_from] && (@import_from = Project.find(params[:import_from])) && @import_from.belongs_to?(current_user)
+    if params[:import_from] && (@import_from = Project.find(params[:import_from])) && @import_from.authorized_edit_for?(current_user)
       if !@import_from.donations.empty?
         @import_from.donations.each do |donation|
           begin
@@ -58,7 +58,7 @@ class InvitesController < InheritedResources::Base
       flash[:alert] = "Nội dung thư mời chưa đầy đủ."
     else
       if (!@invite.phone.blank? && @invite.new?)
-        @sms = SMS.send(to: phone_striped(@invite.phone), text: URI.escape(@invite.project.invite_sms_content))
+        @sms = SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
       end
       if (!@invite.email.blank? && @invite.new?)
         UserMailer.prefunding_invite(@invite).deliver

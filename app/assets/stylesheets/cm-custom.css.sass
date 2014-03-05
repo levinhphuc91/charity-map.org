@@ -425,3 +425,52 @@ a.mail
   color: #ffffff
   background-color: darken(#7cc576, 10%)
   text-align: center
+
+.suggested-projects-wrap
+  max-width: 520px
+  max-height: 160px
+  width: 520px
+  height: 160px
+  overflow: hidden
+  border-radius: 5px
+  background-image: image-url('suggested_projects_default.jpg')
+  background-position: center
+  background-repeat: repeat-x
+  position: relative
+  .org-avatar
+    position: absolute
+    width: 80px
+    height: 80px
+    top: 40px
+    left: 60px
+    overflow: hidden
+    border: 5px solid #eee
+    border-radius: 50%
+  .project-title
+    position: absolute
+    left: 160px
+    top: 50px
+    color: #fff
+    text-shadow: 1px 1px 1px black
+    font-size: 30px
+    font-family: 'Source Sans Pro', sans-serif !important
+    font-weight: 700
+    a, a:visited, a:active, a:hover
+      text-decoration: none
+      color: #fff
+  .project-description
+    position: absolute
+    left: 160px
+    top: 85px
+    color: #fff
+    font-size: 15px
+    a, a:visited, a:active, a:hover
+      text-decoration: none
+      color: #fff
+
+.medium-title
+  color: rgb(204, 204, 204)
+  letter-spacing: 1px
+  text-align: center
+  text-transform: uppercase
+  font: normal normal 500 15px/16.5px 'Helvetica Neue', Helvetica, Arial, sans-serif

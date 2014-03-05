@@ -13,5 +13,4 @@
               .project-details
                 .project-title= link_to limit_display(project.title, 40), project_path(project, utm_campaign: "SuggestedOnSite", utm_source: source)
                 .project-description
-                  = link_to limit_display(project.user.name, 25), user_profile_path(project.user)
-                  &sdot; #{limit_display project.location, 25}
+                  #{link_to project.user.name, user_profile_path(project.user)} &sdot; #{project.location}

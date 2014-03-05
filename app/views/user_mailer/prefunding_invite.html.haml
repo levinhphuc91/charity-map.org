@@ -1,4 +1,4 @@
-%h4= link_to @invite.project.title, project_url(@invite.project)
+%h2 #{link_to @invite.project.title, project_url(@invite.project)}
 
 = @invite.project.invite_email_content.gsub(/\n/, '<br/><br/>').html_safe
 

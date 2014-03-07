@@ -244,7 +244,7 @@ GEM
       metaclass (~> 0.0.1)
     morrisjs-rails (0.4.3)
       railties (> 3.1, < 5)
-    multi_json (1.8.4)
+    multi_json (1.9.0)
     multi_test (0.0.3)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -471,6 +471,7 @@ DEPENDENCIES
   nprogress-rails
   omniauth
   omniauth-facebook
+  omniauth-oauth2 (~> 1.1.2)
   pg
   poltergeist
   protected_attributes

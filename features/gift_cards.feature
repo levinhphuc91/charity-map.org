@@ -29,6 +29,7 @@ Feature: Gift Card
       And I go to the create-new-card page
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
+      And I check "communication"
       And I press "submit"
     And an email should have been sent with:
       """
@@ -77,6 +78,7 @@ Feature: Gift Card
       And I fill in "gift_card_recipient_email" with "tu@charity-map.org"
       And I fill in "gift_card_references_recipient_name" with "Tu Hoang"
       And I fill in "gift_card_amount" with "100000"
+      And I check "communication"
       And I press "submit"
     And an email should have been sent with:
       """
@@ -121,6 +123,7 @@ Feature: Gift Card
       And I go to the create-new-card page
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
+      And I check "communication"
       And I press "submit"
     And "rebyn@me.com" should receive an email
     When I open the email
@@ -146,6 +149,7 @@ Feature: Gift Card
       And I follow "+ Tạo gift card"
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
+      And I check "communication"
       And I press "submit"
     And an email should have been sent with:
       """
@@ -181,6 +185,7 @@ Feature: Gift Card
       And I follow "+ Tạo gift card"
       And I fill in "gift_card_recipient_email" with "rebyn@me.com"
       And I fill in "gift_card_amount" with "100000"
+      And I check "communication"
       And I press "submit"
     And "rebyn@me.com" should receive an email
     When I open the email

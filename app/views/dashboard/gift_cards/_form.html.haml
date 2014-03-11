@@ -26,6 +26,9 @@
               %label Thông Tin Thêm
               .col-md-7= d.text_area :extra_info, value: @gift_card.try(:references["extra_info"]), class: "form-control"
           .field-box
+            %label Gửi thông tin qua email/SMS?
+            .col-md-7= check_box_tag :communication, "1", false
+          .field-box
             %label{:for => ""} 
             .col-md-7
               = f.submit :submit, :as => :input, class: "btn-glow primary btn-next"

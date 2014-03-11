@@ -16,10 +16,12 @@ class Dashboard::GiftCardsController < InheritedResources::Base
   def create
     @gift_card = GiftCard.new(params[:gift_card])
     if @gift_card.save
-      SMS.send(to: phone_striped(params[:recipient_phone]),
-        text: "(Charity Map) Ban vua nhan duoc mot gift card tu #{current_user.name}. Xin hay truy cap: www.charity-map.org/gifts va dien ma so: #{@gift_card.token} de bat dau su dung."
-      ) if !params[:recipient_phone].blank?
-      UserMailer.delay.send_gift_card_info(@gift_card)
+      if params[:communication] && params[:communication] == "1"
+        SMS.send(to: phone_striped(params[:recipient_phone]),
+          text: "(Charity Map) Ban vua nhan duoc mot gift card tu #{current_user.name}. Xin hay truy cap: www.charity-map.org/gifts va dien ma so: #{@gift_card.token} de bat dau su dung."
+        ) if !params[:recipient_phone].blank?
+        UserMailer.delay.send_gift_card_info(@gift_card)
+      end
       redirect_to dashboard_gift_cards_path, notice: "New gift card added."
     else
       redirect_to new_dashboard_gift_card_path, alert: "@gift_card.errors.full_messages.join(' ')"

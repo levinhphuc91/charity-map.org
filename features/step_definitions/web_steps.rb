@@ -77,6 +77,7 @@ When /^"(.*)" receives a credit of "(.*)"$/ do |email, amount|
       And I fill in "gift_card_recipient_email" with "#{email}"
       And I fill in "gift_card_amount" with "#{amount}"
       And I fill in "gift_card_references_recipient_name" with "#{email}"
+      And I check "communication"
       And I press "submit"
     And "#{email}" should receive an email
     When I open the email

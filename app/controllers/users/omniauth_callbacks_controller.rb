@@ -34,4 +34,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def failure
+    if params[:error] == "access_denied"
+      return redirect_to root_path
+    end
+    super
+  end
+
 end

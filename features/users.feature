@@ -249,3 +249,29 @@ Feature: User
     Then the "user_org" checkbox should be checked
     When I follow "Xem Trang Của Bạn"
     Then I should see "Dự Án Trước Đây"
+
+  Scenario: Receive update on fundraising projects 2 days from signup
+    Given the date is "2013-09-10"
+      And I create an item based project named "Push The World"
+      And I start fundraising for project "Push The World"
+      And I list out a project named "Push The World"
+    Given the date is "2013-09-11"
+      And I am not authenticated
+      When I go to the signup page
+      And I fill in "user_email" with "vumanhcuong0103@gmail.com"
+      And I fill in "user_password" with "12345678"
+      And I fill in "user_password_confirmation" with "12345678"
+      And I press "Đăng Ký"
+    Then I should see "Xin chào! Bạn đã đăng ký thành công."
+    Then an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: vumanhcuong0103@gmail.com
+      Subject: 1 dự án đang rất cần sự hỗ trợ của bạn
+      """
+    And "vumanhcuong0103@gmail.com" should receive an email
+    When I open the email
+    Then I should see "Push The World" in the email body
+    When I follow "Push The World" in the email
+    Then I should see "Push The World"
+    And the URL should contain "projects/push-the-world"

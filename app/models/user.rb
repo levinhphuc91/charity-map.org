@@ -86,6 +86,8 @@ class User < ActiveRecord::Base
   #   s.key :profile, :defaults => { :portfolio => false }
   # end
 
+  after_create :send_email_on_fundraising_projects
+
   def name
     return full_name unless full_name.blank?
     email.split("@").first
@@ -190,4 +192,15 @@ class User < ActiveRecord::Base
       self.save
     end
   end
+
+  def send_email_on_fundraising_projects
+    projects = Project.suggested_fundraising
+    if (projects.count > 0) && (!OutgoingMailLog.sent?(self.email, "SuggestedProjs4NewUser"))
+      UserMailer.delay(run_at: 2.days.from_now).fundraising_projects_for_new_signup(self.email, projects)
+      OutgoingMailLog.create!(email: self.email,
+        event: "SuggestedProjs4NewUser", 
+        title: "#{projects.count} dự án đang rất cần sự hỗ trợ của bạn")
+    end
+  end
+
 end

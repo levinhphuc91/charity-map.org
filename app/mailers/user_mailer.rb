@@ -79,4 +79,9 @@ class UserMailer < ActionMailer::Base
     @gift_card = gift_card
     mail(to: @gift_card.recipient_email, subject: "#{@gift_card.user.name} vừa gửi bạn một thẻ quà tặng charity-map.org!")
   end
+
+  def fundraising_projects_for_new_signup(email, projects)
+    @email, @projects = email, projects
+    mail(to: @email, subject: "#{@projects.count} dự án đang rất cần sự hỗ trợ của bạn")
+  end
 end

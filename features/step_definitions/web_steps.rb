@@ -99,3 +99,11 @@ When /^I complete my profile update$/ do
     And I press "Cập nhật Thông Tin"
   }
 end
+
+When /^I run the background jobs$/ do
+  Delayed::Worker.new.work_off
+end
+
+When /^I list out a project named "(.+?)"$/ do |name|
+  Project.find_by_title(name).update_attribute :unlisted, false
+end

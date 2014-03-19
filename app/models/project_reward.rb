@@ -2,15 +2,16 @@
 #
 # Table name: project_rewards
 #
-#  id          :integer          not null, primary key
-#  value       :float
-#  description :text
-#  project_id  :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#  name        :string(255)
-#  photo       :string(255)
-#  quantity    :integer
+#  id                   :integer          not null, primary key
+#  value                :float
+#  description          :text
+#  project_id           :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#  name                 :string(255)
+#  photo                :string(255)
+#  quantity             :integer
+#  shipping_fee_applied :boolean
 #
 
 class ProjectReward < ActiveRecord::Base
@@ -20,7 +21,9 @@ class ProjectReward < ActiveRecord::Base
   has_many :donations
   mount_uploader :photo, ItemUploader
 
-  attr_accessible :name, :value, :photo, :description, :quantity, :project_id
+  attr_accessible :name, :value, :shipping_fee_applied, :photo, :description, :quantity, :project_id
+
+  has_defaults shipping_fee_applied: true
 
   validates :value, :description, :project_id, presence: true
   validates :value, numericality: { :greater_than_or_equal_to => 10000 }

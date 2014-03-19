@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318173638) do
+ActiveRecord::Schema.define(version: 20140319042840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 20140318173638) do
     t.string   "name"
     t.string   "photo"
     t.integer  "quantity"
+    t.boolean  "shipping_fee_applied"
   end
 
   add_index "project_rewards", ["project_id"], name: "index_project_rewards_on_project_id", using: :btree

@@ -36,7 +36,10 @@
       %label{for: "Ghi Chú"} Thông Tin Liên Lạc, Ghi Chú
       = f.input :note, :label => false, :input_html => {value: "#{current_user.name} / #{current_user.address} / #{current_user.phone}",:class => "form-control", :size => "20x5"}
       %p
-      = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
+      - if @project_reward.shipping_fee_applied
+        = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
+      - else
+        = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg", confirm: "Phí vận chuyển (10.000đ nội thành, 20.000đ ngoại thành TP.HCM) chưa được tính trong ủng hộ này. Đây là một khoản phí hậu cần chúng tôi không tính trong số tiền bạn ủng hộ. Bạn có chấp nhận gửi thêm phí vận chuyển khi tặng phẩm được giao?"
 
 :javascript
   $('.reward').on('click', function() {

@@ -33,7 +33,7 @@ Feature: Donation
 	 		And I fill in "donation_note" with "Nothing"
 	 		And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
 	 		And I press "Ủng Hộ Push The World"
-    Then the URL should contain "projects/push-the-world?cid="
+    Then the URL should contain "projects/push-the-world/donations?cid="
 	 	And an email should have been sent with:
 		  """
 		  From: team@charity-map.org

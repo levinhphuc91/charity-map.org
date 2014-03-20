@@ -11,6 +11,7 @@ class DonationsController < InheritedResources::Base
 
   def index
     @project = Project.find(params[:project_id])
+    @donation = Donation.find(params[:cid]) if params[:cid]
     @donations = (current_user && @project.authorized_edit_for?(current_user)) ? @project.donations.order("date(updated_at) DESC") : @project.donations.successful.order("date(updated_at) DESC")
     @donations = sort_donations(@donations, params[:sort_by]) if (params[:sort_by])
     @ext_donation = ExtDonation.new
@@ -59,7 +60,7 @@ class DonationsController < InheritedResources::Base
           @notice = "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
         end
       end
-      redirect_to project_path(@project, cid: @donation.id), notice: @notice
+      redirect_to project_donations_path(@project, cid: @donation.id), notice: @notice
     else
       @project_reward = ProjectReward.find(params[:donation][:project_reward_id])
       render :new, alert: "Không thành công. Vui lòng thử lại."

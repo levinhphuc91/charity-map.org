@@ -10,6 +10,8 @@
     .row
       .alert.alert-info= notice || alert
 
+  = render("projects/fundraising_project_suggestions", source: "DonationIndex") if @donation
+
   #chart-details
     / .comment-header.centered
     /   %h1= @project.title
@@ -86,7 +88,7 @@
                     Sửa
                     / %span.glyphicon.glyphicon-pencil
 
-  = render "projects/fundraising_project_suggestions", source: "DonationIndex"
+  = render "projects/fundraising_project_suggestions", source: "DonationIndex" if !@donation
     
 - if current_user && @project.authorized_edit_for?(current_user)
   #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
@@ -157,3 +159,15 @@
   $(".collection_time").click(function(){
     $(".collection_time").datepicker();
   });
+
+- if user_signed_in? && @donation && Rails.env.production?
+  = content_for :footer do
+    :javascript
+      ga('require', 'ecommerce', 'ecommerce.js');
+      ga('ecommerce:addTransaction', {
+        'id': '#{@donation.euid}',
+        'affiliation': '#{@project.title}',
+        'revenue': '#{@donation.amount}',
+        'currency': 'VND'
+      });
+      ga('ecommerce:send');

@@ -141,7 +141,7 @@
   :javascript
     setTimeout(function(){$('#signupFormUsingToken').modal({show: true})}, 1500);
 
-- if user_signed_in? && @donation
+- if user_signed_in? && @donation && Rails.env.production?
   = content_for :footer do
     :javascript
       ga('require', 'ecommerce', 'ecommerce.js');

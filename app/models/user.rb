@@ -33,6 +33,9 @@
 #  facebook_friends       :hstore
 #  api_token              :string(255)
 #  website                :string(255)
+#  notify_via_email       :boolean
+#  notify_via_sms         :boolean
+#  notify_via_facebook    :boolean
 #
 
 require 'fb_graph'
@@ -56,7 +59,8 @@ class User < ActiveRecord::Base
   attr_accessible :id, :email, :password, :password_confirmation,
     :full_name, :address, :city, :bio, :phone, :avatar, :avatar_cache,
     :website, :provider, :uid, :facebook_credentials, :facebook_friends,
-    :api_token, :verified_by_phone, :org, :figures, :latitude, :longitude
+    :api_token, :verified_by_phone, :org, :figures, :latitude, :longitude,
+    :notify_via_email, :notify_via_sms, :notify_via_facebook
 
   # before_validation :fetch_api_token
 
@@ -77,7 +81,8 @@ class User < ActiveRecord::Base
   has_many :managements
   has_many :gift_cards
   
-  has_defaults staff: false, verified_by_phone: false, org: false
+  has_defaults staff: false, verified_by_phone: false, org: false,
+    notify_via_email: true, notify_via_sms: true, notify_via_facebook: true
 
   geocoded_by :address
   after_validation :geocode,

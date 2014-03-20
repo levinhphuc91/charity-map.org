@@ -33,6 +33,9 @@
 #  facebook_friends       :hstore
 #  api_token              :string(255)
 #  website                :string(255)
+#  notify_via_email       :boolean
+#  notify_via_sms         :boolean
+#  notify_via_facebook    :boolean
 #
 
 require 'spec_helper'

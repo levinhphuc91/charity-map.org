@@ -275,3 +275,34 @@ Feature: User
     When I follow "Push The World" in the email
     Then I should see "Push The World"
     And the URL should contain "projects/push-the-world"
+
+  # Scenario: Not to receive updates via email and Facebook
+  #   Given the date is 2013-09-11
+  #     And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
+  #     And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-13" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" with the user above
+  #     And there is a project reward with the value "12340" the description "reward description" with the project above
+  #     And there is a user with the email "donor@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nguoi Ung Ho" and the address "HCM" and the city "HCM" and the phone "123456" and the notify via facebook "false" and the notify via email "false"
+  #   Given the date is "2013-09-12"
+  #   When I login as "donor@man.net"
+  #     And I go to the project page of "Push The World"
+  #     And I follow "ủng hộ dự án"
+  #     And I fill in "donation_amount" with "12345"
+  #     And I fill in "donation_note" with "Nothing"
+  #     And I select "Chuyển khoản ngân hàng" from "donation_collection_method"
+  #     And I press "Ủng Hộ Push The World"
+  #   Then "donor@man.net" should receive an email
+  #   When I open the email
+  #     And I follow "đường dẫn này" in the email
+  #   When I am not authenticated
+  #     And I login as "testing@man.net"
+  #     And "testing@man.net" should receive an email
+  #     And I open the email
+  #     And I follow "đường dẫn này" in the email
+  #     And I follow "Xác nhận ủng hộ"
+  #   Then I should see "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
+  #     And no email should have been sent with:
+  #       """
+  #       From: team@charity-map.org
+  #       To: donor@man.net
+  #       Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
+  #       """

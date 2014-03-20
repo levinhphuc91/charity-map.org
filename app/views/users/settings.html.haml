@@ -37,8 +37,6 @@
 				.row-fluid
 					.span8.offset3.hint= render "layouts/markdown"
 				.clearfix
-				
-				
 				= f.input :avatar, as: :file, label: "Ảnh đại diện"
 				= f.hidden_field :avatar_cache 
 				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
@@ -46,6 +44,17 @@
 				%p 
 					= f.check_box :org
 					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
+				- if !@user.org
+					%hr/ 
+					%p
+						= f.check_box :notify_via_email
+						Nhận tin qua email
+						%br/ 
+						= f.check_box :notify_via_sms
+						Nhận tin qua SMS
+						%br/ 
+						= f.check_box :notify_via_facebook
+						Nhận tin qua Facebook notification
 				%hr/
 				.pull-right{style: "margin-top: 20px;"}
 					= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
@@ -69,5 +78,6 @@
 			= f.input :password, label: "Mật khẩu mới", :autocomplete => "off", :required => false
 			= f.input :password_confirmation, :required => false, label: "Điền lại mật khẩu mới"
 			= f.input :current_password, label: "Mật khẩu cũ để thay đổi mật khẩu", :required => true
-		.form-actions
+		%hr/ 
+		.pull-left
 			= f.button :submit, "Thay đổi mật khẩu", class: "submit"

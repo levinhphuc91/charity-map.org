@@ -12,11 +12,7 @@ module Monitored
     begin
       CreateSend::Subscriber.add auth, '76dc691d424ceab2f5d1ea2f68da79972', self.email, '', [], true
     rescue CreateSend::BadRequest => br
-      @message = %Q{\
-        [#{Time.zone.now}][User#add_new_subscriber_to_list] \n \
-        Affected user: #{self.try(:id)} \n \
-        API response: #{br}}
-      AdminMailer.delay.report_error('User#add_new_subscriber_to_list', @message)
+      Honeybadger.notify(br)
     end
   end
 

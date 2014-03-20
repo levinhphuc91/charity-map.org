@@ -94,40 +94,41 @@ class DonationsController < InheritedResources::Base
     if (@donation.project.authorized_edit_for?(current_user) && @donation.status != "SUCCESSFUL")
       if @donation.confirm!
         @token = RedirectToken.create(redirect_class_name: "Donation", redirect_class_id: @donation.id)
+        @donor = @donation.user
         if (@donation.collection_method == "BANK_TRANSFER")
-          UserMailer.delay.bank_transfer_confirm_donation(@donation)
+          UserMailer.delay.bank_transfer_confirm_donation(@donation) if @donor.notify_via_email
           SMS.send(
-            to: phone_striped(@donation.user.phone), 
+            to: phone_striped(@donor.phone), 
             text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
-          ) if (@donation.user.phone)
+          ) if (!@donor.phone.blank? && @donor.notify_via_sms)
           # SendMessage.fb({
           #   :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
           #   :name => "#{@donation.project.title}",
           #   :picture => "#{@donation.project.photo_url(:banner)}",
           #   :description => "#{@donation.project.brief}",
-          #   :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-          # ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
-          SendMessage.notif(uid: @donation.user.uid,
+          #   :message => "#{@donor.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donor
+          # ) if (@donor.facebook_access_granted? && Rails.env.production?)
+          SendMessage.notif(uid: @donor.uid,
             href: "/fbnotif/#{@token.value}",
             template: "Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận."
-          ) if @donation.user.facebook_access_granted?
+          ) if (@donor.facebook_access_granted? && @donor.notify_via_facebook)
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
           SMS.send(
-            :to => phone_striped(@donation.user.phone),
+            :to => phone_striped(@donor.phone),
             :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
-          ) if (@donation.user.phone)
+          ) if (!@donor.phone.blank? && @donor.notify_via_sms)
           # SendMessage.fb({
           #   :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
           #   :name => "#{@donation.project.title}",
           #   :description => "#{@donation.project.brief}",
           #   :picture => "#{@donation.project.photo_url(:banner)}",
-          #   :message => "#{@donation.user.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donation.user
-          # ) if (@donation.user.facebook_access_granted? && Rails.env.production?)
-          SendMessage.notif(uid: @donation.user.uid,
+          #   :message => "#{@donor.name} vừa ủng hộ #{@donation.amount.to_i}đ cho dự án #{@donation.project.title}"}, @donor
+          # ) if (@donor.facebook_access_granted? && Rails.env.production?)
+          SendMessage.notif(uid: @donor.uid,
             href: "/fbnotif/#{@token.value}",
             template: "Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận."
-          ) if @donation.user.facebook_access_granted?
+          ) if (@donor.facebook_access_granted? && @donor.notify_via_facebook)
         end
         redirect_to project_donations_path(@donation.project), notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
       else

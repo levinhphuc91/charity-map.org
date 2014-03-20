@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319042840) do
+ActiveRecord::Schema.define(version: 20140320094548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -377,6 +377,9 @@ ActiveRecord::Schema.define(version: 20140319042840) do
     t.hstore   "facebook_friends"
     t.string   "api_token"
     t.string   "website"
+    t.boolean  "notify_via_email"
+    t.boolean  "notify_via_sms"
+    t.boolean  "notify_via_facebook"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

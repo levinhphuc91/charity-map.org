@@ -15,6 +15,7 @@
 #  updated_at              :datetime
 #  project_reward_quantity :integer
 #  anon                    :boolean
+#  admin_note              :string(255)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

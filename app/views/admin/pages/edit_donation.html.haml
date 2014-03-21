@@ -1,0 +1,14 @@
+.body-container--plain-row
+  .body-container--content
+    = render "admin/pages/navigation"
+    %h1 Edit Donation
+    = simple_form_for @donation, url: admin_pages_update_donation_path, method: :post do |f|
+      .row
+        - if @donation.errors.any?
+          #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
+            %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+            - @donation.errors.full_messages.each do |msg|
+              &sdot; #{msg}<br/>
+      = hidden_field_tag :id, @donation.id
+      = f.text_area :admin_note
+      = f.submit "Edit", class: "btn btn-success btn-lg"

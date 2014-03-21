@@ -19,6 +19,19 @@ class Admin::PagesController < ApplicationController
     @updates = ProjectUpdate.all
   end
 
+  def edit_donation
+    @donation = Donation.find params[:id]
+  end
+
+  def update_donation
+    @donation = Donation.find params[:id]
+    if @donation.update_attributes! params[:donation]
+      redirect_to admin_pages_donations_path, notice: "Update successful."
+    else
+      redirect_to admin_pages_edit_donation_path, notice: "Update unsuccessful."
+    end
+  end
+
   protected
 
   def http_authenticate

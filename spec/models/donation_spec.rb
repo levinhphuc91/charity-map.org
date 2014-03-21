@@ -15,6 +15,7 @@
 #  updated_at              :datetime
 #  project_reward_quantity :integer
 #  anon                    :boolean
+#  admin_note              :string(255)
 #
 
 require 'spec_helper'

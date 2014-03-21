@@ -19,9 +19,19 @@
             %td= human_donation_status donation
             %th= human_currency donation.amount
             %td= human_donation_type donation.collection_method
-            %td= human_time donation.created_at
+            %td
+              = human_time donation.created_at
+              %br/ 
+              - if !donation.admin_note.blank?
+                #{link_to "Edit Note", admin_pages_edit_donation_path(id: donation.id)}
+              - else
+                #{link_to "Add Note", admin_pages_edit_donation_path(id: donation.id)}
           %tr 
-            %td{:colspan => 6, style: "color: #ccc;"}= donation.note.html_safe
+            %td{:colspan => 6, style: "color: #ccc;"}
+              = donation.note.html_safe
+              - if !donation.admin_note.blank?
+                %br/ 
+                <strong>ADMIN NOTE</strong>: #{donation.admin_note}
 
 .body-container--plain-row
   .body-container--content

@@ -15,6 +15,7 @@
 #  updated_at              :datetime
 #  project_reward_quantity :integer
 #  anon                    :boolean
+#  admin_note              :string(255)
 #
 
 class Donation < ActiveRecord::Base
@@ -25,7 +26,7 @@ class Donation < ActiveRecord::Base
   attr_accessible :euid, :status, :user_id, :amount, :note,
     :anon, :collection_method, :project_id, :token_id,
     :project_reward_id, :project_reward_quantity,
-    :created_at
+    :admin_note, :created_at
 
   belongs_to :user
   belongs_to :project

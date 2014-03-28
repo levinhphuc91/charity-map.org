@@ -19,6 +19,7 @@
     = render "layouts/analytics"
     = render "layouts/item-based/footer"
     = yield :footer
+    = render "layouts/olark"
 
   - unless (params[:controller] == "donations" && params[:action] == "new")
     :javascript

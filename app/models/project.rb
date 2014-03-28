@@ -48,7 +48,7 @@ class Project < ActiveRecord::Base
   has_many :invites
   has_many :project_rewards
   has_many :project_updates, dependent: :destroy
-  has_many :project_comments
+  has_many :project_comments, dependent: :destroy
   has_many :donations
   has_many :ext_donations
   has_many :users, through: :donations
@@ -116,7 +116,7 @@ class Project < ActiveRecord::Base
   end
 
   def success?
-    donations_sum > funding_goal
+    donations_sum > (funding_goal*75/100)
   end
 
   def belongs_to?(target_user)

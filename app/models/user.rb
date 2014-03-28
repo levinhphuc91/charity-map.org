@@ -66,14 +66,14 @@ class User < ActiveRecord::Base
 
   validates :phone, :uniqueness => true, :allow_blank => true, :allow_nil => true
   # validates :api_token, presence: true
-  has_many :project_comments
+  has_many :project_comments, dependent: :destroy
   has_many :donations
   # has_many :projects, through: :donations
   has_many :projects # admin relationship
   has_many :ext_projects
-  has_many :recommendations
+  has_many :recommendations, dependent: :destroy
   has_one  :verification
-  has_many :project_follows
+  has_many :project_follows, dependent: :destroy
   has_many :relationships, :foreign_key => "follower_id", dependent: :destroy
   has_many :following, :through => :relationships, :source => :followed
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship"

@@ -20,7 +20,7 @@ class ProjectsController < InheritedResources::Base
     @project = Project.new
     if current_user.blank_contact?
       store_location_with_path(new_project_path)
-      redirect_to users_settings_path, notice: "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
+      redirect_to users_settings_path, notice: t('controller.projects.blank_name_notice')
     else 
       new!
     end
@@ -37,7 +37,7 @@ class ProjectsController < InheritedResources::Base
     @project_follow = ProjectFollow.new
     if @project.status == "DRAFT" || @project.status == "PENDING"
       if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)) && (!current_user.staff))
-        redirect_to(pages_home_path, alert: "Permission denied.") and return
+        redirect_to(pages_home_path, alert: t('common.permission_denied')) and return
       end
     end
     render layout: "layouts/item-based"
@@ -48,20 +48,20 @@ class ProjectsController < InheritedResources::Base
     if @project.belongs_to?(current_user)
       edit!
     else
-      redirect_to :dashboard, alert: "Permission denied."
+      redirect_to :dashboard, alert: t('common.permission_denied')
     end
   end
 
   def update
-    update!(notice: "Cập nhật dự án thành công.") { params[:href] if params[:href] }
+    update!(notice: t('controller.projects.update_successfully')) { params[:href] if params[:href] }
   end
 
   def submit
     if @project.project_rewards.empty?
-      redirect_to project_project_rewards_path(@project), alert: "Phải có ít nhất một Đề mục đóng góp (project reward)."
+      redirect_to project_project_rewards_path(@project), alert: t('controller.projects.at_least_one_reward')
     else
       if @project.update_attributes(status: "REVIEWED")
-        redirect_to @project, notice: "Dự án chuyển sang trạng thái gây quỹ."
+        redirect_to @project, notice: t('controller.projects.funding_period')
         AdminMailer.delay.new_pending_project(@project) if @project.status == "REVIEWED"
       end
     end
@@ -94,6 +94,6 @@ class ProjectsController < InheritedResources::Base
   private
     def restricted_access
       @project = Project.find(params[:id])
-      redirect_to :root, alert: "Permission denied." if !signed_in? || !@project.authorized_edit_for?(current_user)
+      redirect_to :root, alert: t('common.permission_denied') if !signed_in? || !@project.authorized_edit_for?(current_user)
     end
 end

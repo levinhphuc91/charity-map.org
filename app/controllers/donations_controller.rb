@@ -29,16 +29,16 @@ class DonationsController < InheritedResources::Base
     @project = Project.find(params[:project_id])
     if current_user.blank_contact?
       store_location_with_path(params[:project_reward_id].blank? ? new_project_donation_path(@project) : new_project_donation_path(@project, project_reward_id: params[:project_reward_id]))
-      redirect_to users_settings_path, notice: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án #{@project.title} (họ và tên, địa chỉ, số điện thoại)."
+      redirect_to users_settings_path, notice: t("controller.donations.blank_contact_notice", :project_title => @project.title)
     else
       if @project.accepting_donations?
         if @project.item_based
           @project_reward = ProjectReward.find(params[:project_reward_id])
-          redirect_to @project, alert: "Bạn phải chọn một trong những tặng phẩm bên dưới." if !@project_reward
+          redirect_to @project, alert: t('controller.donations.at_least_one_reward') if !@project_reward
         end
         @donation = Donation.new
       else
-        redirect_to @project, alert: "Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau."
+        redirect_to @project, alert: t('controller.donations.not_funding_project')
       end
     end
   end
@@ -49,21 +49,21 @@ class DonationsController < InheritedResources::Base
     if @donation.save
       if @donation.sent_via?("BANK_TRANSFER")
         UserMailer.delay.bank_account_info(@donation)
-        @notice = "Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản."
+        @notice = t('controller.donations.bank_transfer_confirm')
       elsif @donation.sent_via?("COD")
-        @notice = "Cảm ơn bạn đã ủng hộ dự án! Chúng tôi sẽ liên hệ trong 3 ngày làm việc."
+        @notice = t('controller.donations.cod_confirm')
       elsif @donation.sent_via?("CM_CREDIT")
         if @donation.confirm!
           UserMailer.delay.confirm_cm_credit_donation(@donation)
-          @notice = "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
+          @notice = t('controller.donations.credit_cofirm')
         else
-          @notice = "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
+          @notice = t('controller.donations.credit_error')
         end
       end
       redirect_to project_donations_path(@project, cid: @donation.id), notice: @notice
     else
       @project_reward = ProjectReward.find(params[:donation][:project_reward_id])
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      render :new, alert: t('common.failed_and_try_again')
     end
   end
 
@@ -71,9 +71,9 @@ class DonationsController < InheritedResources::Base
     @donation = Donation.new(params[:donation])
     if @donation.sent_via?("CM_CREDIT") && (@donation.amount > balance(current_user))
       if @donation.project.item_based
-        redirect_to project_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+        redirect_to project_path(@donation.project), alert: t('controller.donations.not_enough_balance')
       else
-        redirect_to new_project_donation_path(@donation.project), alert: "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
+        redirect_to new_project_donation_path(@donation.project), alert: t('controller.donations.not_enough_balance')
       end
     end
   end
@@ -83,9 +83,9 @@ class DonationsController < InheritedResources::Base
     if @donation && @donation.belongs_to?(current_user) && @donation.status == "PENDING" && @donation.collection_method == "BANK_TRANSFER"
       @donation.update status: "REQUEST_VERIFICATION"
       UserMailer.delay.bank_transfer_request_verification(@donation)
-      redirect_to :dashboard, notice: "Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất."
+      redirect_to :dashboard, notice: t('controller.donations.request_verification')
     else
-      redirect_to :dashboard, alert: "Permission denied."
+      redirect_to :dashboard, alert: t('common.permission_denied')
     end
   end
 
@@ -130,9 +130,9 @@ class DonationsController < InheritedResources::Base
             template: "Ủng hộ số #{@donation.euid} cho dự án #{@donation.project.title} vừa được xác nhận."
           ) if (@donor.facebook_access_granted? && @donor.notify_via_facebook)
         end
-        redirect_to project_donations_path(@donation.project), notice: "Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền."
+        redirect_to project_donations_path(@donation.project), notice: t('controller.donations.succefful_verification')
       else
-        redirect_to project_donations_path(@donation.project), notice: "Không thành công. Vui lòng thử lại."
+        redirect_to project_donations_path(@donation.project), notice: t('common.failed_and_try_again')
       end
     else
       redirect_to dashboard_path

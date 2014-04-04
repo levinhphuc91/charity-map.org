@@ -226,4 +226,23 @@ vi:
       not_enough_balance: Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ.
       request_verification: Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất.
       succefful_verification: Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền.
-
+    ext_donations:
+      create_successfully: Thêm ủng hộ ngoài hệ thống thành công.
+      update_successfully: Sửa ủng hộ ngoài hệ thống thành công.
+      delete_successfully: Đã xoá ủng hộ ngoài hệ thống.
+    invites:
+      create_successfully: Thêm liên lạc thành công.
+      not_enough_content: Nội dung thư mời chưa đầy đủ.
+      delivered_invite: Thư mời đã được gửi đi.
+    project_follows:
+      register_successfully: Đăng ký nhận cập nhật từ dự án thành công.
+    project_rewards:
+      create_successfully: Vừa thêm Đề mục đóng góp mới.
+      delete_successfully: Xóa đề mục đóng góp thành công.
+    project_updates:
+      create_successfully: Vừa thêm Cập nhật dự án mới.
+    recommendations:
+      verify_by_mobile: Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án %{project_title}.
+      create_successfully: Lời giới thiệu đã được lưu.
+    registrations:
+      invalid_gift_card: Mã không hợp lệ.

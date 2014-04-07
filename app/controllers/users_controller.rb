@@ -25,9 +25,9 @@ class UsersController < ApplicationController
   def follow
     @followed = User.find(params[:followed])
     if current_user.follow!(@followed)
-      redirect_to user_profile_path(@followed), notice: "Liked."
+      redirect_to user_profile_path(@followed), notice: t("controller.users.follow_successfully")
     else
-      redirect_to user_profile_path(@followed), alert: "Unsuccessful."
+      redirect_to user_profile_path(@followed), alert: t("controller.users.follow_unsuccessfully")
     end
   end
 
@@ -53,21 +53,21 @@ class UsersController < ApplicationController
       else
         redirect_to users_settings_path
       end
-      flash[:notice] = "Cập nhật thành công."
+      flash[:notice] = t("controller.users.update_successfully")
   	else
-  		render :action => :settings, alert: "Cập nhật không thành công. #{@user.errors.full_messages.join}"
+  		render :action => :settings, alert: t("controller.users.update_failed_with_errors", :errors => @user.errors.full_messages.join)
   	end
   end
 
   def add_figure_to_portfolio
     if params[:key].blank? || params[:value].blank?
-      redirect_to users_profile_path, alert: "Cập nhật không thành công."
+      redirect_to users_profile_path, alert: t("controller.users.update_failed")
     else
       figures = (current_user.figures || {}).merge({"#{params[:key].html_safe}" => "#{params[:value].html_safe}"})
       if current_user.update_attributes :figures => figures
-        redirect_to users_profile_path, notice: "Cập nhật thành công."
+        redirect_to users_profile_path, notice: t("controller.users.update_successfully")
       else
-        redirect_to users_profile_path, alert: "Cập nhật không thành công."
+        redirect_to users_profile_path, alert: t("controller.users.update_failed")
       end
     end
   end
@@ -81,25 +81,25 @@ class UsersController < ApplicationController
         format.js
       end
     else
-      redirect_to users_profile_path, alert: "Cập nhật không thành công."
+      redirect_to users_profile_path, alert: t("controller.users.update_failed")
     end
   end
 
   def add_ext_project_to_portfolio
     @ext_project = ExtProject.new(params[:ext_project])
     if @ext_project.save
-      redirect_to users_profile_path, notice: "Cập nhật thành công."
+      redirect_to users_profile_path, notice: t("controller.users.update_successfully")
     else
-      redirect_to users_profile_path, alert: "Cập nhật không thành công."
+      redirect_to users_profile_path, alert: t("controller.users.update_failed")
     end
   end
 
   def delete_ext_project_from_portfolio
     @ext_project = ExtProject.find(params[:ext_project])
     if (@ext_project.user == current_user) && @ext_project.destroy!
-      redirect_to users_profile_path, notice: "Xoá dự án trước đây thành công."
+      redirect_to users_profile_path, notice: t("controller.users.delete_project_successfully")
     else
-      redirect_to users_profile_path, alert: "Xoá dự án trước đây không thành công."
+      redirect_to users_profile_path, alert: t("controller.users.delete_project_failed")
     end
   end
 
@@ -108,21 +108,21 @@ class UsersController < ApplicationController
       @phone_number = params[:phone_number].gsub(/\D/, '').to_i.to_s
       @verification = Verification.new(user_id: current_user.id)
       if @verification.save
-        sms = SMS.send(to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") if Rails.env.production?
+        sms = SMS.send(to: @phone_number, text: t("controller.users.verification_code", :code => @verification.code)) if Rails.env.production?
         @verification.update status: sms
         current_user.update(phone: @phone_number) if current_user.phone.blank?  
-        redirect_to users_verify_path, notice: "Mã xác nhận vừa được gửi tới số +84#{@phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+        redirect_to users_verify_path, notice: t("controller.users.enter_verification_code", :phone_number => @phone_number)
       else
-        redirect_to users_verify_path, alert: "Không thành công. Vui lòng thử lại."
+        redirect_to users_verify_path, alert: t("common.failed_and_try_again")
       end
     elsif params[:phone_code]
       @verification = current_user.verification
       unless current_user.verified_by_phone
         current_user.update verified_by_phone: true
         @verification.update status: "USED"
-        redirect_to users_verify_path, notice: "Xác nhận danh tính bằng số điện thoại hoàn tất."
+        redirect_to users_verify_path, notice: t("controller.users.verify_completely")
       else
-        redirect_to users_verify_path, alert: "Permission denied."
+        redirect_to users_verify_path, alert: t("common.permission_denied")
       end
     end
   end
@@ -131,10 +131,10 @@ class UsersController < ApplicationController
     @phone_number = current_user.phone.gsub(/\D/, '').to_i.to_s
     @verification = current_user.verification
     if @verification.status == "UNUSED"
-      @sms = SMS.send(to: @phone_number, text: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: #{@verification.code}") # if Rails.env.production?
+      @sms = SMS.send(to: @phone_number, text: t("controller.users.verification_code", :code => @verification.code)) # if Rails.env.production?
       @verification.update status: @sms
     end
-    redirect_to users_verify_path, notice: "Mã xác nhận đã được gửi đi tới số 0#{@phone_number}."
+    redirect_to users_verify_path, notice: t("controller.users.enter_verification_code", :phone_number => @phone_number)
   end
 
   def verification_delivery_receipt
@@ -167,7 +167,7 @@ class UsersController < ApplicationController
     @id = params[:acts_as_messageable_message][:receiver]
     @receiver = User.find(@id)
     current_user.send_message(@receiver, params[:acts_as_messageable_message][:body])
-    redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
+    redirect_to :dashboard, notice: t("controller.users.delivered_message")
   end
 
   def new_reply_message
@@ -181,7 +181,7 @@ class UsersController < ApplicationController
     @message = current_user.messages.with_id(params[:acts_as_messageable_message][:parent_message_id].to_i)
     @message.first.reply(params[:acts_as_messageable_message][:body])
     # redirect_to :back, notice: "Tin nhắn đã được gửi đi"
-    redirect_to :dashboard, notice: "Tin nhắn đã được gửi đi."
+    redirect_to :dashboard, notice: t("controller.users.delivered_message")
   end
   
   def fbnotif
@@ -196,12 +196,12 @@ class UsersController < ApplicationController
     @gift_card = GiftCard.find_by(token: params[:card_token].upcase) if params[:card_token]
     if @gift_card
       if @gift_card.redeem(@user)
-        redirect_to users_gift_cards_path, notice: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm #{@gift_card.amount}."
+        redirect_to users_gift_cards_path, notice: t("controller.users.gift_card_redeem", :amount => @gift_card.amount)
       else
-        redirect_to gifts_path, alert: "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
+        redirect_to gifts_path, alert: t("controller.users.error_gift_card")
       end
     else
-      redirect_to gifts_path, alert: "Mã không hợp lệ."
+      redirect_to gifts_path, alert: t("controller.users.invalid_gift_card")
     end
   end
 
@@ -209,7 +209,7 @@ class UsersController < ApplicationController
     def signed_in_user
       unless signed_in?
         store_location
-        redirect_to new_user_session_path, alert: "Bạn cần đăng nhập để tiếp tục."
+        redirect_to new_user_session_path, alert: t("controller.users.login_to_continue")
       end
     end
 
@@ -225,7 +225,7 @@ class UsersController < ApplicationController
           if @workoff.ok?
             @user.update_attribute :api_token, @workoff.response["auth_token"]
           else
-            redirect_to dashboard_path, alert: "API call not going through."
+            redirect_to dashboard_path, alert: t("controller.users.api_failed")
             Honeybadger.notify(error_message: %Q{\
               [#{Time.zone.now}][User#connect_backend_api Charitio.create_user] \
                 Affected user: #{@user.id} / Truncated email: #{@user.email.split('@').first} \

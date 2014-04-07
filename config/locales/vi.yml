@@ -246,3 +246,22 @@ vi:
       create_successfully: Lời giới thiệu đã được lưu.
     registrations:
       invalid_gift_card: Mã không hợp lệ.
+    users:
+      follow_successfully: Đã theo đuôi.
+      follow_unsuccessfuly: Không thành công.
+      update_successfully: Cập nhật thành công.
+      update_failed_with_errors: Cập nhật không thành công. %{errors}
+      update_failed: Cập nhật không thành công.
+      delete_project_successfully: Xoá dự án trước đây thành công.
+      delete_project_failed: Xoá dự án trước đây không thành công.
+      verification_code: Ma so danh cho viec xac nhan danh tinh tai charity-map.org: %{code}
+      enter_verification_code: Mã xác nhận vừa được gửi tới số +84%{phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận.
+      verify_completely: Xác nhận danh tính bằng số điện thoại hoàn tất.
+      delivered_message: Tin nhắn đã được gửi đi.
+      gift_card_redeem: Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm %{amount}.
+      error_gift_card: Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo.
+      invalid_gift_card: Mã không hợp lệ.
+      login_to_continue: Bạn cần đăng nhập để tiếp tục.
+      api_failed: API call not going through.
+  homepage:
+    introduce: Giới Thiệu

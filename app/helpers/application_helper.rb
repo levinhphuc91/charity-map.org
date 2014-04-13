@@ -83,9 +83,9 @@ module ApplicationHelper
 
   def site_title
     if @project && @project.title
-      "#{@project.title} &sdot; #{Configuration[:site_name]}".html_safe
+      "#{@project.title} - #{Configuration[:site_name]}".html_safe
     elsif @user && @user.name
-      "#{@user.name} &sdot; #{Configuration[:site_name]}".html_safe
+      "#{@user.name} - #{Configuration[:site_name]}".html_safe
     else
       "#{Configuration[:site_name]}"
     end

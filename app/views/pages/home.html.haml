@@ -148,7 +148,7 @@
             .partner-name
               Công Bằng Y Tế
 
-- cache("stats_homepage", :expires_in => 1.hour) do
+- cache("stats_homepage", :expires_in => 1.day) do
   %section.stats-number
     .stats-number-content
       .section
@@ -196,7 +196,7 @@
       .col-md-3
         = link_to "Đăng Kí và Ủng Hộ", new_user_registration_path, class: "action-button purple"
 
-- cache("hp_footer", :expires_in => 1.week) do
+- cache("hp_footer", :expires_in => 1.month) do
   .col-md-12.cm-footer
     .col-md-6
       %p
@@ -229,103 +229,6 @@
         = link_to "Quy Định Bảo Mật", Configuration[:privacy_url], target: "_blank"
         %br/ 
         = link_to "Liên Hệ", Configuration[:contact_url], target: "_blank"
-
-/ .body-container--plain-row
-/   .body-container--content
-/     .row-fluid
-/       .span6{style: "padding-top: 40px;"}
-/         .headline Ủng hộ từ thiện chưa bao giờ <br/>dễ dàng đến thế!
-/         %p 
-/         = link_to pages_about_path do
-/           .bttn.bttn-green Đọc Thêm
-/       .span6
-/         = image_tag "ph_homepage-banner.jpg"
-
-/ - unless current_user
-/   .body-container--dark-row
-/     .body-container--content
-/       .row-fluid{style: "margin-top: 10px;"}
-/         .span6
-/           %p{style: "margin-top: 10px;"}
-/             = image_tag "misc/email-icon.png", class: "pull-left", style: "padding-right: 10px;"
-/             %b Chỉ tốn 1 phút
-/             %br/ 
-/             để đăng ký và bắt đầu ủng hộ
-/         = form_tag(new_user_registration_path, :method => :get) do
-/           .span4
-/             = text_field_tag 'email', nil, placeholder: 'email@example.com', class: 'homepage--email-box'
-/           .span2
-/             .pull-right
-/               #homepage-registration-by-email.bttn.bttn-green
-/                 %i.icon-anchor
-/                 &nbsp;Đăng Ký
-/ - else
-/   %hr/ 
-
-/ .body-container--plain-row
-/   .body-container--content
-/     .row-fluid{style: "text-align: center;"}
-/       = image_tag "misc/closed-beta-msg.jpg"
-
-/ .body-container--plain-row
-/   .body-container--content
-/     .project-search
-/       = form_tag search_projects_path, method: :get do
-/         .row-fluid
-/           .span8
-/             = text_field_tag :query, params[:query], class: "span12 input-box", id: "project_search", autocomplete: "off", placeholder: "Tìm Dự Án"
-/           .span4
-/             = submit_tag "Tìm", class: "submit"
-
-/ %hr/ 
-/ .body-container--plain-row
-/   .body-container--content
-/     .row-fluid
-/       %p.centered
-/         Generously seed funded through a <br/>
-/         = link_to "http://piaweb.princeton.edu" do
-/           %b Princeton in Asia Carrie Gordon Fellowship<br/><br/>
-/           = image_tag "about/pia.jpg"
-
-// :javascript
-//   $('#project_search').typeahead({
-//     name: "project",
-//     prefetch: "/projects/autocomplete"
-//   });
-
-/ .body-container--plain-row
-/   .body-container--content
-/     .row-fluid
-/       .pull-left.headline Các Dự Án Đang Gây Quỹ
-/       .pull-right
-/         = link_to projects_path(:filter => "funding") do
-/           .more
-/             %i.icon-list-alt 
-/             Xem tất cả  
-/     %p 
-/     .row-fluid
-/       - if Project.funding.count > 0
-/         - cache("funding_projects", :expires_in => 12.hours) do
-/           - Project.funding.each do |project|
-/             = render "projects/box_display", :project => project
-/       - else
-/         Hiện chưa có dự án nào đang gây quỹ.
-
-/ - if Project.finished.count > 0
-/   .body-container--plain-row
-/     .body-container--content
-/       .row-fluid
-/         .pull-left.headline Các Dự Án Đã Hoàn Thành
-/         .pull-right
-/           = link_to projects_path(:filter => "finished") do
-/             .bttn.bttn-green
-/               %i.icon-list-alt
-/               Xem tất cả
-/       %p 
-/       .row-fluid
-/         - cache("finished_projects", :expires_in => 1.day) do
-/           - Project.finished.each do |project|
-/             = render "projects/box_display", :project => project
 
 :javascript
   $('.funding-project-slider').unslider({delay: 5000});

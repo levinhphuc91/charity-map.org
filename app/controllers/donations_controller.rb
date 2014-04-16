@@ -63,7 +63,8 @@ class DonationsController < InheritedResources::Base
       redirect_to project_donations_path(@project, cid: @donation.id), notice: @notice
     else
       puts "===== #{@donation.errors} ====="
-      @project_reward = ProjectReward.find(params[:donation][:project_reward_id]) if params[:donation][:project_reward_id]
+      @project_reward = ProjectReward.find(params[:donation][:project_reward_id]) unless
+        params[:donation][:project_reward_id].blank?
       render :new, alert: "Không thành công. Vui lòng thử lại."
     end
   end

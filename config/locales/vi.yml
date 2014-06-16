@@ -6,6 +6,12 @@ vi:
       carrierwave_download_error: "Không tải được ảnh."
       extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
       extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+      unknown_error: "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
+      login_required: "Bạn cần đăng nhập để tiếp tục."
+      wrong_code: "Mã không hợp lệ."
+      verification_required: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án %{project_title}."
+      unsuccessful_try_again: "Không thành công. Vui lòng thử lại."
+      permission_denied: "Không có quyền truy cập"
   date:
     abbr_day_names:
     - Chủ nhật
@@ -208,12 +214,29 @@ vi:
         taken: "đã có"
   controller:
     donation: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại)."
-    update_successful: "Cập nhật thành công."
-    update_unsuccessful: "Cập nhật không thành công."
-    update_user_unsuccessful: "Cập nhật không thành công. %{error_message}"
-    follow_notice: "Liked."
-    error_notice: "Unsuccessful."
-    add_figure_to_portfolio_update_unsuccessful: "Cập nhật không thành công."
+    user:
+      update_successful: "Cập nhật thành công."
+      update_unsuccessful: "Cập nhật không thành công."
+      update_user_unsuccessful: "Cập nhật không thành công. %{error_message}"
+      follow_notice: "Liked."
+      error_notice: "Unsuccessful."
+      add_figure_to_portfolio_update_unsuccessful: "Cập nhật không thành công."
+      delete_project_successful: "Xoá dự án trước đây thành công."
+      delete_project_unsuccessful: "Xoá dự án trước đây không thành công."
+      sent_sms_successful: "Mã xác nhận vừa được gửi tới số +84%{phone_number}. Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận."
+      sent_sms_unsuccessful: "Không thành công. Vui lòng thử lại."
+      verify_successful: "Xác nhận danh tính bằng số điện thoại hoàn tất."
+      
+      sms_message: "Ma so danh cho viec xac nhan danh tinh tai charity-map.org: %{verification_code}")
+      sms_sent: "Tin nhắn đã được gửi đi."
+      gift_card_verified: "Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm %{
+        }."
+      
+    recommendation:
+      save_successful: "Lời giới thiệu đã được lưu." 
+
+    project:
+      user_blank_contact: "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
 
   models:
     user:

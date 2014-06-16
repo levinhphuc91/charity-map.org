@@ -13,11 +13,11 @@ class ProjectUpdatesController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)))
-      redirect_to @project, alert: "Permission denied."
+      redirect_to @project, alert: I18n.t('permission_denied', :scope => ['errors','messages'])
     elsif @project.status == "FINISHED" || @project.status == "REVIEWED"
       new!
     else # outdated projects
-      redirect_to edit_project_path(@project), alert: "Permission denied."
+      redirect_to edit_project_path(@project), alert: I18n.t('permission_denied', :scope => ['errors','messages'])
     end
   end
 
@@ -43,10 +43,10 @@ class ProjectUpdatesController < InheritedResources::Base
       @project.ext_donations.each {|donation| UserMailer.delay.send_updates_to_project_followers(@project_update, donation) if !donation.email.blank?}
       respond_to do |format|
         format.json { render :json => @project_update }
-        format.html { redirect_to project_project_updates_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
+        format.html { redirect_to project_project_updates_path(@project), notice: I18n.t('recently_updated_project', :scope => ['controller','project']) }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      render :new, alert: I18n.t('unsuccessful_try_again', :scope => ['errors','messages'])
     end
   end
 

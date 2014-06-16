@@ -122,7 +122,7 @@ class UsersController < ApplicationController
         @verification.update status: "USED"
         redirect_to users_verify_path, notice: I18n.t('verify_successful', :scope => ['controller','user'])
       else
-        redirect_to users_verify_path, alert: I18n.t('permission_denied', :scope => ['controller','user'])
+        redirect_to users_verify_path, alert: I18n.t('permission_denied', :scope => ['errors','messages'])
       end
     end
   end
@@ -201,7 +201,7 @@ class UsersController < ApplicationController
         redirect_to gifts_path, alert: I18n.t('unknown_error', :scope => ['errors','messages'])
       end
     else
-      redirect_to gifts_path, alert: I18n.t('wrong_gift_card', :scope => ['controller','user'])
+      redirect_to gifts_path, alert: I18n.t('wrong_code', :scope => ['errors','messages'])
     end
   end
 

@@ -43,7 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
     def validate_gift_card_token
       if params[:card_token] && !(@gift_card = GiftCard.find_by(token: params[:card_token].upcase))
-        redirect_to gifts_path, alert: "Mã không hợp lệ."
+        redirect_to gifts_path, alert: I18n.t('wrong_code', :scope => ['errors','messages'])
       end
     end
 end

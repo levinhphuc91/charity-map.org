@@ -206,3 +206,16 @@ vi:
       messages:
         record_invalid: "Lỗi xác nhận: %{errors}"
         taken: "đã có"
+  controller:
+    donation: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại)."
+    update_successful: "Cập nhật thành công."
+    update_unsuccessful: "Cập nhật không thành công."
+    update_user_unsuccessful: "Cập nhật không thành công. %{error_message}"
+    follow_notice: "Liked."
+    error_notice: "Unsuccessful."
+    add_figure_to_portfolio_update_unsuccessful: "Cập nhật không thành công."
+
+  models:
+    user:
+
+  views:

@@ -7,3 +7,10 @@ en:
       carrierwave_download_error: "Không tải được ảnh."
       extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
       extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+    controller:
+      donation: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại)."
+      user:
+    models:
+      user:
+
+    views:

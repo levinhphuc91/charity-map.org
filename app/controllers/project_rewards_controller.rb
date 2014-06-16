@@ -20,7 +20,7 @@ class ProjectRewardsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
+      success.html { redirect_to project_project_rewards_path(@project), notice:  "Vừa thêm Đề mục đóng góp mới." }
       failure.html { redirect_to project_project_rewards_path(@project), alert: "Lỗi: #{@project_reward.errors.full_messages.join(', ')}" }
     end
   end

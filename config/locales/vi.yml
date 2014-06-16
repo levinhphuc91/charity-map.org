@@ -237,6 +237,11 @@ vi:
 
     project:
       user_blank_contact: "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
+      update_successful: "Cập nhật dự án thành công."
+      update_unsuccessful: "Cập nhật dự án không thành công."
+      title_required: "Phải có ít nhất một Đề mục đóng góp %(project_reward)."
+      funding_state_project: "Dự án chuyển sang trạng thái gây quỹ."
+      recently_updated_project: "Vừa thêm Cập nhật dự án mới."
 
   models:
     user:

@@ -1,15 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b= t('.name')
   = @invite.name
 %p
-  %b Email:
+  %b= t('.email')
   = @invite.email
 %p
-  %b Phone:
+  %b= t('.phone')
   = @invite.phone
 
-= link_to 'Edit', edit_invite_path(@invite)
-\|
-= link_to 'Back', invites_path
+= link_to t('.edit'), edit_invite_path(@invite)
+= \t('.')
+= link_to t('.back'), invites_path

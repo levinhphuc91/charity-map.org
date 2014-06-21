@@ -2,7 +2,7 @@
   .row-fluid
     - if @project_reward.errors.any?
       #error_explanation
-        %h2= "#{pluralize(@project_reward.errors.count, "error")} prohibited this project from being saved:"
+        %h2= t('.pluralizeproject_rewarderrorsc', :pluralizeproject_rewarderrorsc => (pluralize(@project_reward.errors.count, "error")))
         %ul
           - @project_reward.errors.full_messages.each do |msg|
             %li= msg
@@ -10,32 +10,32 @@
     .row-fluid
       .span4
         = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
-        .sub-headline Tên<br/>
+        .sub-headline= t('.tênbr')
         = f.input :name, label: false, :input_html => {:class => "span12"}
       .span4
-        .sub-headline Mức (VNĐ) <br/>
+        .sub-headline= t('.mức_vnĐ_br')
         = f.input :value, label: false, :input_html => {:class => "span12"}
       .span4
-        .sub-headline Số Lượng (Cái) <br/>
+        .sub-headline= t('.số_lượng_cái_br')
         = f.input :quantity, label: false, :input_html => {:class => "span12"}
     .row-fluid
       .span12
-        .sub-headline Thông Tin / Điều Khoản / Quyền Lợi Thêm <br/>
+        .sub-headline= t('.thông_tin_Điều_khoản_quyền_lợi')
         / TODO: Add examples
         = f.input :description, label: false, :input_html => {:class => "span12"}
     .row-fluid
       .span12
-        .sub-headline Ảnh (175 x 175px)
+        .sub-headline= t('.Ảnh_175_x_175px')
         = f.file_field :photo
-        = f.hidden_field :photo_cache 
+        = f.hidden_field :photo_cache
   - else
     .row-fluid
       .span12
-        .sub-headline Mức (VNĐ) <br/>
+        .sub-headline= t('.mức_vnĐ_br')
         = f.input :value, label: false, :input_html => {:class => "span12"}
     .row-fluid
       .span12
-        .sub-headline Thông Tin / Điều Khoản / Quyền Lợi Thêm <br/>
+        .sub-headline= t('.thông_tin_Điều_khoản_quyền_lợi')
         / TODO: Add examples
         = f.input :description, label: false, :input_html => {:class => "span12"}
   .row-fluid

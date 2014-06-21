@@ -4,7 +4,7 @@
   = render 'layouts/conversion_tracking/new_donation_page'
 
 / = render "layouts/item-based/cover.html.haml", project: @project
-  
+
 .row
   .col-md-10.col-md-offset-1
     - if notice || alert
@@ -14,7 +14,7 @@
     %h1= link_to @project.title, project_path(@project)
     %span.glyphicon.glyphicon-user
     = link_to @project.user.name, user_profile_path(@project.user)
-    &sdot;
+    = t('.sdot')
     %span.glyphicon.glyphicon-map-marker
     = @project.location
     %hr
@@ -26,22 +26,22 @@
 
 .row
   .col-md-6.col-md-offset-3{style: "text-align: center;"}
-    %h1 Các Câu Hỏi Thường Gặp
+    %h1= t('.các_câu_hỏi_thường_gặp')
     %hr
 .row
   .list-group.col-md-8.col-md-offset-2
     %a.list-group-item{href: "#", style: "padding-top: 20px;"}
-      %h4.list-group-item-heading Ủng hộ bằng cách nào?
+      %h4.list-group-item-heading= t('.Ủng_hộ_bằng_cách_nào')
       %p.list-group-item-text Dự án gây quỹ trên Charity Map có thể nhận ủng hộ qua hai kênh: <strong>thu tiền tận nơi</strong> (tình nguyện viên của chúng tôi sẽ liên hệ bạn để tiếp nhận ủng hộ) và <strong>chuyển khoản qua ngân hàng</strong> (thông tin tài khoản ngân hàng của dự án sẽ được email tới <strong>#{current_user.email}</strong> sau khi bạn hoàn tất các bước trên đây). Ngoài ra mạnh thường quân có tài khoản Paypal có thể gửi tiền về charitymap.vn@gmail.com.
     %a.list-group-item{href: "#", style: "padding-top: 20px;"}
-      %h4.list-group-item-heading Tôi có phải trả thêm phí?
-      %p.list-group-item-text Charity Map <strong>không thu phí xử lý giao dịch</strong>. Tuy nhiên, bạn có thể phải trả một khoản phí khi tiến hành chuyển khoản qua ngân hàng (tùy theo ngân hàng, số tiền này ngân hàng thu).
+      %h4.list-group-item-heading= t('.tôi_có_phải_trả_thêm_phí')
+      %p.list-group-item-text= t('.charity_map_strongkhông_thu_ph')
     %a.list-group-item{href: "#", style: "padding-top: 20px;"}
-      %h4.list-group-item-heading Bao giờ ủng hộ của tôi đến được với người nhận?
+      %h4.list-group-item-heading= t('.bao_giờ_ủng_hộ_của_tôi_đến_đượ')
       %p.list-group-item-text Một tuần sau khi thời gian gây quỹ của dự án kết thúc. <strong>#{@project.title}</strong> sẽ kết thúc việc gây quỹ vào ngày <strong>#{human_time @project.end_date}</strong>.
     %a.list-group-item{href: "#", style: "padding-top: 20px;"}
-      %h4.list-group-item-heading Tại sao Charity Map không thu bất kỳ khoản phí nào? 
-      %p.list-group-item-text Charity Map hoạt động với tiêu chí: 100% số tiền ủng hộ cho từ thiện nên được chuyển đến tay những người cần. Trung bình để xử lý một giao dịch, chi phí phải bỏ ra là 5% (so với giá trị của số tiền ủng hộ, dành cho hệ thống, nhân lực, đối tác thứ 3). Chúng tôi rất may mắn được các doanh nghiệp, mạnh thường quân quan tâm và hỗ trợ khoản này. Nếu bạn có nhã ý đóng góp riêng cho phần chi phí này, vui lòng liên hệ với chúng tôi tại team@charity-map.org hoặc số ĐT 0908 230 591. Charity Map chân thành cảm ơn.
+      %h4.list-group-item-heading= t('.tại_sao_charity_map_không_thu_')
+      %p.list-group-item-text= t('.charity_map_hoạt_động_với_tiêu')
 .clearfix
 
 :javascript

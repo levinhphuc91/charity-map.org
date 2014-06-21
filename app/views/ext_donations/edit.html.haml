@@ -1,46 +1,46 @@
 - if current_user && @project.authorized_edit_for?(current_user)
-  %hr/ 
+  %hr/
   .devider
-    .item Thêm Ủng Hộ Ngoài Hệ Thống
+    .item= t('.thêm_Ủng_hộ_ngoài_hệ_thống')
     .note Dự án: #{link_to @project.title, @project}
   = form_for [@project, @ext_donation] do |f|
     = f.hidden_field :project_id, value: @project.id
     .row-fluid
       .span4
-        .sub-headline Người Ủng Hộ *
+        .sub-headline= t('.người_Ủng_hộ')
         = f.text_field :donor, required: true, class: "span12"
-        .hint Họ & Tên
+        .hint= t('.họ_tên')
       .span4
-        .sub-headline Số Tiền *
+        .sub-headline= t('.số_tiền')
         = f.text_field :amount, required: true, class: "span12"
-        .hint bằng VNĐ
+        .hint= t('.bằng_vnĐ')
       .span4
-        .sub-headline Phương Thức Ủng Hộ
+        .sub-headline= t('.phương_thức_Ủng_hộ')
         = f.select :collection_method, [["Chuyển Khoản Ngân Hàng", "BANK_TRANSFER"], ["Thu Tiền Tận Nơi", "COD"]]
         / = f.text_field :collection_method, class: "span12"
-        .hint Chuyển Khoản NH / Thu Tiền Tận Nơi
+        .hint= t('.chuyển_khoản_nh_thu_tiền_tận_n')
     .row-fluid
       .span4
-        .sub-headline Email
+        .sub-headline= t('.email')
         = f.text_field :email, class: "span12"
       .span4
-        .sub-headline Số ĐT
+        .sub-headline= t('.số_Đt')
         = f.text_field :phone, class: "span12"
       .span4
-        .sub-headline Ngày Ghi Nhận *
+        .sub-headline= t('.ngày_ghi_nhận')
         = f.text_field :collection_time, required: true, class: "span12 collection_time"
     .row-fluid
       .span8
-        .sub-headline Ghi Chú
+        .sub-headline= t('.ghi_chú')
         = f.text_area :note, class: "span12"
       .span4
         .row-fluid
           .span6
-            .sub-headline Ẩn Danh?
+            .sub-headline= t('.Ẩn_danh')
             = f.check_box :anon
           .span6.righted
-            %p 
-            = f.submit "Thêm", class: "submit"
+            %p
+            = f.submit t('.thêm'), class: "submit"
 
 :javascript
   $(".collection_time").datepicker({

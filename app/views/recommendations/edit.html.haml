@@ -1,7 +1,7 @@
-%h1 Editing recommendation
+%h1= t('.editing_recommendation')
 
 = render 'form'
 
-= link_to 'Show', @recommendation
-\|
-= link_to 'Back', recommendations_path
+= link_to t('.show'), @recommendation
+= \t('.')
+= link_to t('.back'), recommendations_path

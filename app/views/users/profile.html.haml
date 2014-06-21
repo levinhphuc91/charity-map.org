@@ -7,28 +7,28 @@
         - if (current_user) && (current_user == @user)
           .chunk
             .line.heading
-              %i.icon-user 
-              Cá Nhân
-            .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
-            .line #{link_to "Tin Nhắn", messages_path}
-            .line= link_to "Đóng Góp", users_donations_path
+              %i.icon-user
+              = t('.cá_nhân')
+            .line= link_to t('.chỉnh_sửa_thông_tin'), users_settings_path
+            .line #{link_to= t('.tin_nhắn', ), messages_path}
+            .line= link_to t('.Đóng_góp'), users_donations_path
         .chunk
           .line.heading
             %i.icon-link
-            Đường Dẫn
-          .line= link_to "Trang Chủ", root_path
-          .line= link_to "Danh Sách Dự Án", projects_path
+            = t('.Đường_dẫn')
+          .line= link_to t('.trang_chủ'), root_path
+          .line= link_to t('.danh_sách_dự_Án'), projects_path
         .chunk
           .line.heading
-            %i.icon-gears 
-            Hệ Thống
-          .line Tin Tức, Cập Nhật
-          .line.disabled Gửi Góp Ý
+            %i.icon-gears
+            = t('.hệ_thống')
+          .line= t('.tin_tức_cập_nhật')
+          .line.disabled= t('.gửi_góp_Ý')
       .dashboard--main
         .row-fluid.centered
-          %th 
-            - if @user.avatar? 
-              = image_tag(@user.avatar_url(:medium)) 
+          %th
+            - if @user.avatar?
+              = image_tag(@user.avatar_url(:medium))
             - else
               = image_tag("default_avatar.png", size: "50x50")
         .row-fluid.centered
@@ -36,15 +36,15 @@
           - if(@user != current_user)
             %p
               %i.icon-comments
-              = link_to "Gửi Tin Nhắn", new_message_users_path(:receiver => @user.id)
+              = link_to t('.gửi_tin_nhắn'), new_message_users_path(:receiver => @user.id)
 
-        %hr/ 
+        %hr/
 
         .row-fluid
           .devider
-            .item Dự Án Của Bạn
+            .item= t('.dự_Án_của_bạn')
         - if @user.projects.public_view.empty?
-          Người dùng chưa tạo dự án trên hệ thống.
+          = t('.người_dùng_chưa_tạo_dự_án_trên')
         - else
           .row-fluid
             - @user.projects.public_view.each do |project|
@@ -53,9 +53,9 @@
         %hr/
         .row-fluid
           .devider
-            .item Đóng Góp Của Bạn
+            .item= t('.Đóng_góp_của_bạn')
         - if @user.donations.successful.empty?
-          Chưa có đóng góp nào được ghi nhận trên hệ thống.
+          = t('.chưa_có_đóng_góp_nào_được_ghi_')
         - else
           - @user.donations.successful.each do |donation|
             - unless donation.anon

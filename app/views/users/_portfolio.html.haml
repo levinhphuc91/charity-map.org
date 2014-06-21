@@ -1,29 +1,29 @@
 = content_for :head do
   %link{href: "//fonts.googleapis.com/css?family=Roboto+Slab:100&subset=latin,%vietnamese ", rel: "stylesheet", type: "text/css"}/
 
-  %style 
-    body {background-color: #e2e7e8}
+  %style
+    = t('.body_backgroundcolor_e2e7e8')
 
 .body-container--plain-row
   #header-box.body-container--content.dark-container
-    .logo 
-      - if @user.avatar? 
+    .logo
+      - if @user.avatar?
         = image_tag(user.avatar_url(:medium), size: "80x80")
       - else
         = image_tag("portfolio/default_avatars/4.jpg", size: "80x80")
     .group-info
       .title= limit_display user.name, 40
       .slogan
-        = link_to "Thông Tin ", "#about-us"
-        &sdot;
-        = link_to "Dự Án", "#our-projects"
-        &sdot;
-        = link_to "Những Con Số", "#our-figures"
-        &sdot;
-        = link_to "Thành Viên", "#our-members"
-        &sdot;
-        = link_to "Liên Hệ", "#contact-us"
-      
+        = link_to t('.thông_tin'), "#about-us"
+        = t('.sdot')
+        = link_to t('.dự_Án'), "#our-projects"
+        = t('.sdot')
+        = link_to t('.những_con_số'), "#our-figures"
+        = t('.sdot')
+        = link_to t('.thành_viên'), "#our-members"
+        = t('.sdot')
+        = link_to t('.liên_hệ'), "#contact-us"
+
     / - if (current_user) && (!current_user.following?(user))
     /   .follow-button.disabled #{pluralize user.followers.count, "like"}
     / - else
@@ -32,9 +32,9 @@
   .body-container--content.light-container
     .clearfix
     #about-us.text-container.row-fluid= markdown user.bio
-  
+
   #our-projects.body-container--content.light-container
-    #sub-header-box Dự Án Của Chúng Tôi
+    #sub-header-box= t('.dự_Án_của_chúng_tôi')
 
   .body-container--content.light-container
     .portfolio-projects.row-fluid{style: "padding-top: 20px; padding-bottom: 20px;"}
@@ -46,7 +46,7 @@
                 - if project.accepting_donations?
                   .status
                     %i.icon-rocket
-                    Đang Gây Quỹ
+                    = t('.Đang_gây_quỹ')
                 .info
                   .title= project.title
                   .location
@@ -55,25 +55,25 @@
                   = image_tag project.photo_url(:portfolio), size: "450x160"
                 - else
                   = image_tag "portfolio/1009408_10201157689293186_167515360_o.jpg", size: "450x160"
-              
+
             .bottom-stats
               .stat-box.donations
-                .text Quỹ 
+                .text= t('.quỹ')
                 .number= human_currency project.donations_sum
               .stat-box.donors
-                .text Tiến Độ
+                .text= t('.tiến_Độ')
                 .number= number_to_percentage(project.donations_sum / project.funding_goal * 100, precision: 0)
               .stat-box.reviews
-                .text Ngày
+                .text= t('.ngày')
                 .number= human_time project.start_date
       - if user.ext_projects
         - user.ext_projects.each do |project|
           = render "projects/ext_project", project: project
       - if (current_user) && (current_user == user)
-        = link_to "#new_ext_project" do
+        = link_to t('.new_ext_project') do
           #new_ext_project_button.blank-project-bar
             %i.icon-plus
-            &nbsp; Dự Án Trước Đây
+            = t('.nbsp_dự_Án_trước_Đây')
         .clearfix
         #new_ext_project.figures{style: "display: none;"}
           .order
@@ -82,36 +82,36 @@
             = form_for @ext_project, url: users_add_ext_project_to_portfolio_path do |f|
               = f.hidden_field :user_id, value: user.id
               .row-fluid
-                .sub-headline Tiêu Đề
+                .sub-headline= t('.tiêu_Đề')
                 = f.text_field :title, class: "span12"
               .row-fluid
-                .sub-headline Địa Điểm
+                .sub-headline= t('.Địa_Điểm')
                 = f.text_field :location, class: "span12"
               .row-fluid
                 .sub-headline
-                  Diễn Giải
+                  = t('.diễn_giải')
                 = f.text_area :description, class: "span12"
               .row-fluid
-                .span4.sub-headline Quỹ
-                .span4.sub-headline MTQ
-                .span4.sub-headline Ngày
+                .span4.sub-headline= t('.quỹ')
+                .span4.sub-headline= t('.mtq')
+                .span4.sub-headline= t('.ngày')
               .row-fluid
                 .span4= f.text_field :funding_goal
                 .span4= f.text_field :number_of_donors
                 .span4= f.text_field :executed_at
               .row-fluid
-                .span6.sub-headline Ảnh Dự Án
-                .span6.sub-headline Lưu ý
+                .span6.sub-headline= t('.Ảnh_dự_Án')
+                .span6.sub-headline= t('.lưu_ý')
               .row-fluid
                 .span6= f.file_field :photo
-                .span6.hint Hiện BĐTT chưa hỗ trợ chỉnh sửa thông tin dự án trước đây một khi đã gửi về hệ thống. Bạn vui lòng kiểm tra kỹ thông tin trước khi ấn gửi. Bạn có thể xoá dự án sau khi đã gửi.
+                .span6.hint= t('.hiện_bĐtt_chưa_hỗ_trợ_chỉnh_sử')
               .pull-right
-                = f.submit "Submit", class: "submit"
-  
+                = f.submit t('.submit'), class: "submit"
+
   - if user.figures
     #our-figures.body-container--content.light-container
       #sub-header-box
-        Những Con Số
+        = t('.những_con_số')
     .body-container--content.light-container
       .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
         - index = 1
@@ -122,10 +122,10 @@
               .figure= key
               = value
               - if current_user == user
-                %br/ 
+                %br/
                 = link_to users_delete_figure_from_portfolio_path(key: key, index: index), remote: true do
                   %i.icon-minus
-                  Delete
+                  = t('.delete')
 
             .margined
           - index += 1
@@ -137,19 +137,19 @@
             = form_tag(users_add_figure_to_portfolio_path, method: :post) do
               .row-fluid
                 .sub-headline
-                  Tiêu Đề
+                  = t('.tiêu_Đề')
                 = text_field_tag :key, nil, class: "span12"
               .row-fluid
                 .sub-headline
-                  Diễn Giải
+                  = t('.diễn_giải')
                 = text_area_tag :value, nil, class: "span12"
-              %hr/ 
+              %hr/
               .pull-right
                 = submit_tag "Submit", class: "submit"
   - elsif (current_user) && (user == current_user)
     #our-figures.body-container--content.light-container
       #sub-header-box
-        Những Con Số
+        = t('.những_con_số')
     .body-container--content.light-container
       .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
         .figures
@@ -159,13 +159,13 @@
             = form_tag(users_add_figure_to_portfolio_path, method: :post) do
               .row-fluid
                 .sub-headline
-                  Tiêu Đề
+                  = t('.tiêu_Đề')
                 = text_field_tag :key, nil, class: "span12"
               .row-fluid
                 .sub-headline
-                  Diễn Giải
+                  = t('.diễn_giải')
                 = text_area_tag :value, nil, class: "span12"
-              %hr/ 
+              %hr/
               .pull-right
                 = submit_tag "Submit", class: "submit"
       / .figures
@@ -189,7 +189,7 @@
 
   / #our-members.body-container--content.light-container
   /   #sub-header-box Thành Viên
-  
+
   / .body-container--content.light-container
   /   .row-fluid{style: "padding-top: 20px; padding-bottom: 50px;"}
   /     - (1..9).each do |i|
@@ -198,7 +198,7 @@
   /         .info Hoang Minh Tu
 
   #contact-us.body-container--content.light-container
-    #sub-header-box Liên Hệ
+    #sub-header-box= t('.liên_hệ')
   .body-container--content.light-container
     .row-fluid.text-container{style: "padding-top: 20px; padding-bottom: 20px;"}= markdown user.try(:address)
 

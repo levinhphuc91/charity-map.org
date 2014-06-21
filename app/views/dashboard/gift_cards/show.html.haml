@@ -1,15 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Recipient email:
+  %b= t('.recipient_email')
   = @gift_card.recipient_email
 %p
-  %b Amount:
+  %b= t('.amount')
   = @gift_card.amount
 %p
-  %b References:
+  %b= t('.references')
   = @gift_card.references
 
-= link_to 'Edit', edit_dashboard_gift_card_path(@gift_card)
-\|
-= link_to 'Back', dashboard_gift_cards_path
+= link_to t('.edit'), edit_dashboard_gift_card_path(@gift_card)
+= \t('.')
+= link_to t('.back'), dashboard_gift_cards_path

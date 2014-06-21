@@ -1,43 +1,43 @@
 .devider
-  .item Đề Mục Đóng Góp
+  .item= t('.Đề_mục_Đóng_góp')
   .note Dự án: #{link_to @project.title, project_path(@project)}
 
 - unless @project.project_rewards.empty?
   .row-fluid
     #chart{style: "height: 250px;"}
 - else
-  %p Hiện chưa có đề mục đóng góp nào được ghi nhận.
+  %p= t('.hiện_chưa_có_đề_mục_đóng_góp_n')
 
-%hr/ 
+%hr/
 
 - if @project.item_based
   - @project_rewards.each do |reward|
     .row-fluid
       .pull-right
-        .more      
+        .more
           = link_to edit_project_project_reward_path(@project, reward) do
             %i.icon-edit
-            Sửa
+            = t('.sửa')
       %h3= reward.name
-      %h4 #{human_currency reward.value} &sdot; SL: #{reward.quantity}
+      %h4= t('.human_currency_rewardvalue_sdo', :human_currency_rewardvalue => (human_currency reward.value), :rewardquantity => (reward.quantity))
       %p= markdown reward.description
       %hr/
 - else
   - @project_rewards.each do |reward|
     .row-fluid
       .pull-right
-        .more      
+        .more
           = link_to edit_project_project_reward_path(@project, reward) do
             %i.icon-edit
-            Sửa
-      %h4 #{human_currency reward.value} 
+            = t('.sửa')
+      %h4= t('.human_currency_rewardvalue', :human_currency_rewardvalue => (human_currency reward.value))
       %p= markdown reward.description
 
 .devider
   .item
-    %i.icon-money 
-    Thêm Đề Mục Đóng Góp
-  .note &sdot; thấp nhất 10.000đ
+    %i.icon-money
+    = t('.thêm_Đề_mục_Đóng_góp')
+  .note= t('.sdot_thấp_nhất_10000đ')
 = render "form"
 
 = render "popularity"

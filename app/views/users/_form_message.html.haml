@@ -2,4 +2,4 @@
   .row-fluid
     = f.input :receiver, :as => :hidden, :input_html => {value: @id}
     = f.input :body, :label => false, :input_html => {class: "span12", :rows => 10}
-    = f.submit "Gửi tin nhắn", class: "submit"
+    = f.submit t('.gửi_tin_nhắn'), class: "submit"

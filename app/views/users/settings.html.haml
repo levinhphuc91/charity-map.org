@@ -5,16 +5,16 @@
 
 .devider
 	.item
-		%i.icon-edit-sign 
-		Chỉnh Sửa Thông Tin
+		%i.icon-edit-sign
+		= t('.chỉnh_sửa_thông_tin')
 
 .row-fluid
 	.span12
 		.error_messages
 			%p
 				- if @user.errors.full_messages
-					- @user.errors.full_messages.each do |error_message| 
-						= error_message 
+					- @user.errors.full_messages.each do |error_message|
+						= error_message
 						%br/
 
 		.update-user-profile
@@ -23,7 +23,7 @@
 				= f.inputs :email, disabled: (current_user.projects.portfolio_view.count > 0 ? true : false)
 				- if current_user.projects.portfolio_view.count == 0
 					.row-fluid
-						.span8.offset3.hint Bạn không thể sửa email khi đã tạo dự án. Điều này để đảm bảo các ủng hộ được gửi về đúng tài khoản.
+						.span8.offset3.hint= t('.bạn_không_thể_sửa_email_khi_đã')
 					.clearfix
 				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
@@ -31,44 +31,44 @@
 				= f.input  :address, label: "Địa chỉ*", as: :text, :input_html => {:rows => 5}
 				- unless @user.coordinated?
 					.row-fluid
-						.span8.offset3.hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
+						.span8.offset3.hint= t('.vị_trí_không_xác_định_được_trê')
 					.clearfix
 				= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
 				.row-fluid
 					.span8.offset3.hint= render "layouts/markdown"
 				.clearfix
 				= f.input :avatar, as: :file, label: "Ảnh đại diện"
-				= f.hidden_field :avatar_cache 
-				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+				= f.hidden_field :avatar_cache
+				= image_tag(@user.avatar_url(:medium)) if @user.avatar?
 				%hr/
-				%p 
+				%p
 					= f.check_box :org
-					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
+					= t('.trang_profile_dạng_tổ_chức_cli')
 				- if !@user.org
-					%hr/ 
+					%hr/
 					%p
 						= f.check_box :notify_via_email
-						Nhận tin qua email
-						%br/ 
+						= t('.nhận_tin_qua_email')
+						%br/
 						= f.check_box :notify_via_sms
-						Nhận tin qua SMS
-						%br/ 
+						= t('.nhận_tin_qua_sms')
+						%br/
 						= f.check_box :notify_via_facebook
-						Nhận tin qua Facebook notification
+						= t('.nhận_tin_qua_facebook_notifica')
 				%hr/
 				.pull-right{style: "margin-top: 20px;"}
-					= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
-					&sdot; TK: #{human_currency balance(@user)}
+					= link_to t('.xem_trang_của_bạn'), user_profile_path(current_user)
+					= t('.sdot_tk_human_currency_balance', :human_currency_balanceuser => (human_currency balance(@user)))
 					- unless @user.facebook_access_granted?
-						&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
+						= &sdot; #{link_to t('.kết_nối_tk_facebook', ), "/users/auth/facebook"}
 				.pull-left
-					= f.submit "Cập nhật Thông Tin", class: "submit"
+					= f.submit t('.cập_nhật_thông_tin'), class: "submit"
 
 .clearfix
 .devider
 	.item
-		%i.icon-edit-sign 
-		Đổi Mật Mã
+		%i.icon-edit-sign
+		= t('.Đổi_mật_mã')
 
 .row-fluid
 	= simple_form_for(current_user, :url => registration_path(current_user), :html => { :method => :put }) do |f|
@@ -78,6 +78,6 @@
 			= f.input :password, label: "Mật khẩu mới", :autocomplete => "off", :required => false
 			= f.input :password_confirmation, :required => false, label: "Điền lại mật khẩu mới"
 			= f.input :current_password, label: "Mật khẩu cũ để thay đổi mật khẩu", :required => true
-		%hr/ 
+		%hr/
 		.pull-left
 			= f.button :submit, "Thay đổi mật khẩu", class: "submit"

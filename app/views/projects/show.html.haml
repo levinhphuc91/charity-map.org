@@ -6,8 +6,8 @@
   / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   / WARNING: Respond.js doesn't work if you view the page via file://
   /[if lt IE 9]
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    = t('.script_srchttpsossmaxcdncomlib')
+    = t('.script_srchttpsossmaxcdncomlib')
 
 .overlay.proj-cover{style: "background-image: url('#{@project.photo_url(:banner)}')"}
   .overlay
@@ -18,18 +18,18 @@
       / .row
       /   .col-md-6{style: "text-align: right;"}
       /     %span
-      /     - if @user.avatar? 
+      /     - if @user.avatar?
       /       = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
       /     - else
       /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
       /   .col-md-6{style: "text-align: left;"}
       /     #{link_to @user.name, user_profile_path(@user)}
-      /     %br/ 
+      /     %br/
       /     %span.glyphicon.glyphicon-map-marker
       /     = @project.location
       / .group-details
       /   %span
-      /     - if @user.avatar? 
+      /     - if @user.avatar?
       /       = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
       /     - else
       /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
@@ -38,20 +38,20 @@
     %nav.navbar.proj-details{role: "navigation"}
       .row.col-md-12.clearfix
         %ul.nav.navbar-nav.project-links
-          %li= link_to "Thông Tin", project_path(@project), class: "active"
+          %li= link_to t('.thông_tin'), project_path(@project), class: "active"
           %li
             = link_to project_project_updates_path(@project) do
-              Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
+              = Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
           %li
             = link_to project_donations_path(@project) do
-              Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
+              = Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
           %li
             = link_to project_project_comments_path(@project) do
-              Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+              = Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
           - if current_user && @project.authorized_edit_for?(current_user)
-            %li= link_to "Chỉnh Sửa", edit_project_path(@project), style: "color: #3498db !important;"
+            %li= link_to t('.chỉnh_sửa'), edit_project_path(@project), style: "color: #3498db !important;"
             - if @project.status == "DRAFT"
-              %li= link_to "Tiến Hành Gây Quỹ", submit_project_path(@project), style: "color: #5cb85c !important;"
+              %li= link_to t('.tiến_hành_gây_quỹ'), submit_project_path(@project), style: "color: #5cb85c !important;"
   %section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px;"}
     - if notice || alert
       .row
@@ -60,7 +60,7 @@
       .col-md-2.text-center
         = link_to user_profile_path(@user) do
           %span
-            - if @user.avatar? 
+            - if @user.avatar?
               = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
             - else
               = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
@@ -70,7 +70,7 @@
     = render "projects/side_bar/metrics_box", project: @project
     #project-info
       = markdown @project.description
-    
+
     - if @project.item_based
       / %hr/
       #project-rewards.products.row
@@ -104,9 +104,9 @@
             = image_tag(@project.user.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
           - else
             = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
-        <br/><br/>
+        = t('.brbr')
         %div <strong>#{link_to @project.user.name, user_profile_path(@project.user)}</strong>
-        Quản Lý Dự Án
+        = t('.quản_lý_dự_Án')
       - if !@project.managements.empty?
         - @project.editors.each do |editor|
           .col-md-3.text-center
@@ -115,9 +115,9 @@
                 = image_tag(editor.avatar_url(:large), class: "img-circle group-ava", size: "110x110")
               - else
                 = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava", size: "110x110")
-            <br/><br/>
+            = t('.brbr')
             %div <strong>#{link_to editor.name, user_profile_path(editor)}</strong>
-            Thành Viên Dự Án
+            = t('.thành_viên_dự_Án')
 
     - if @project.coordinated?
       .row{style: "margin-top: 50px; margin-bottom: 20px;"}
@@ -134,7 +134,7 @@
     .modal-dialog
       .modal-content
         .modal-header
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}= t('.×')
           %h4#myModalLabel.modal-title Cảm ơn <b>#{@ext_donation.name if @ext_donation}</b>
         .modal-body
           = render "devise/registrations/form"

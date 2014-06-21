@@ -2,29 +2,29 @@
 
 %p Bạn vừa đăng ký ủng hộ dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b> (do <b>#{@project.user.full_name}</b> khởi tạo) bằng hình thức <b>#{human_donation_type @donation.collection_method}</b>.
 
-%p Sau đây là những thông tin bạn cần để tiến hành giao dịch chuyển khoản ngân hàng (bank transfer):
+%p= t('.sau_đây_là_những_thông_tin_bạn')
 
-%blockquote 
+%blockquote
   - if @project.bank_info.blank?
-    %p 
-      \== Ngân hàng:     TMCP Vietcombank (Bank for Foreign Trade of Vietnam)
-      %br/ 
-      \== Chi nhánh:     Tp. Hồ Chí Minh (Ho Chi Minh City)
-      %br/ 
-      \== Địa chỉ:       29 Bến Chương Dương, Quận 1, TP. Hồ Chí Minh, Việt Nam
-      %br/ 
-      \== SWIFT CODE:    BFTVVNVX007
+    %p
+      = \t('.ngân_hàng_tmcp_vietcombank_ban')
+      %br/
+      = \t('.chi_nhánh_tp_hồ_chí_minh_ho_ch')
+      %br/
+      = \t('.Địa_chỉ_29_bến_chương_dương_qu')
+      %br/
+      = \t('.swift_code_bftvvnvx007')
 
-    %p 
-      \== Chủ tài khoản: Hoàng Minh Tú
-      %br/ 
-      \== Số tài khoản:  0071000707388
+    %p
+      = \t('.chủ_tài_khoản_hoàng_minh_tú')
+      %br/
+      = \t('.số_tài_khoản_0071000707388')
   - else
     = h(@project.bank_info).gsub(/\n/, '<br/>').html_safe
 
-%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản: <b>#{@donation.euid}</b>. Khi bạn đã chuyển khoản, vui lòng click vào #{link_to "đường dẫn này", request_verification_url(euid: @donation.euid, utm_campaign: "EmailBankTranferVerification", utm_source: "email", utm_medium: "link")} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map.
+%p Khi chuyển, vui lòng ghi mã số đặc biệt sau trong phần ghi chú để chúng tôi tiện tra sát hệ thống khi nhận được chuyển khoản: <b>#{@donation.euid}</b>. Khi bạn đã chuyển khoản, vui lòng click vào #{link_to= t('.đường_dẫn_này', ), request_verification_url(euid: @donation.euid, utm_campaign: "EmailBankTranferVerification", utm_source: "email", utm_medium: "link")} này và chúng tôi sẽ xác nhận giao dịch chuyển khoản trên hệ thống Charity Map.
 
-%p 
-  Cảm ơn bạn đã sử dụng Charity Map,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+%p
+  = t('.cảm_ơn_bạn_đã_sử_dụng_charity_')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')

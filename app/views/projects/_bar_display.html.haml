@@ -2,10 +2,10 @@
   .top-bar
     = link_to project_path(project) do
       .project-title.pull-left
-        %i.icon-star 
-        #{project.title}   &sdot; 
+        %i.icon-star
+        = t('.projecttitle_sdot', :projecttitle => (project.title))
         %i.icon-user
-        #{project.user.name}
+        = t('.projectusername', :projectusername => (project.user.name))
     .project-location.pull-left.righted
       %i.icon-map-marker
       = project.location
@@ -13,32 +13,32 @@
     .square-box.pull-left
       .upper-part.centered= human_currency project.donations_sum
       .lower-part.centered
-        %i.icon-signout 
-        được ủng hộ
+        %i.icon-signout
+        = t('.được_ủng_hộ')
     .square-box.pull-left
       .upper-part.centered= number_to_percentage project.donations_sum / project.funding_goal * 100, precision: 0
       .lower-part.centered
-        %i.icon-signal 
-        hoàn thành
+        %i.icon-signal
+        = t('.hoàn_thành')
     .square-box.pull-left
       .upper-part.centered= project.donations_count
       .lower-part.centered
         %i.icon-group
-        mạnh thường quân
+        = t('.mạnh_thường_quân')
     .square-box.pull-left
       .upper-part.centered= project.recommendations.count
       .lower-part.centered
         %i.icon-thumbs-up
-        giới thiệu
+        = t('.giới_thiệu')
     .rectangle-box.pull-left
       .upper-part.centered.show-chart= image_tag "ph_donation-bar.jpg"
       .lower-part.centered.show-chart
-        %i.icon-retweet 
-        thống kê ủng hộ          
+        %i.icon-retweet
+        = t('.thống_kê_ủng_hộ')
   .bottom-bar.righted
     = human_project_status(project).html_safe
     - if project.status == "DRAFT"
-      = link_to "— Chỉnh Sửa", edit_project_path(project)
+      = link_to t('.—_chỉnh_sửa'), edit_project_path(project)
     - else
-      = link_to "— Đến Trang Dự Án", project_path(project)
+      = link_to t('.—_Đến_trang_dự_Án'), project_path(project)
   .hover-black-box= project.brief

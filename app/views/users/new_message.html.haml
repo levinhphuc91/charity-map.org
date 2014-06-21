@@ -1,5 +1,5 @@
 .devider
-  .item Tin Nhắn Mới
+  .item= t('.tin_nhắn_mới')
   .note Người nhận: #{link_to @user.name, user_profile_path(@user.id)}
 .row-fluid
   = render 'form_message'

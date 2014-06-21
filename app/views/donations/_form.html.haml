@@ -2,33 +2,33 @@
   .col-md-6.col-md-offset-3
     - if @donation.errors.any?
       #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
-        %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+        %h2= t('.có_pluralizedonationerrorscoun', :pluralizedonationerrorscount_l => (pluralize(@donation.errors.count, "lỗi")))
         - @donation.errors.full_messages.each do |msg|
-          &sdot; #{msg}<br/>
+          = t('.sdot_msgbr', :msg => (msg))
   = f.hidden_field :project_reward_id, value: params[:project_reward_id]
   .money-donation-form.col-md-12
     .col-md-6
       = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
       = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-      %span.money-icon VNĐ
-      %label{for: "Số Lượng"} Hãy nhập số tiền bạn muốn ủng hộ
+      %span.money-icon= t('.vnĐ')
+      %label{for: "Số Lượng"}= t('.hãy_nhập_số_tiền_bạn_muốn_ủng_')
       = f.input :amount, :label => false, :input_html => {value: params[:amount] || nil, :class => "form-control money", type: "text"}
     .col-md-6
       .donation-form
-        %label{for: "Phương Thức Đóng Góp"} Phương Thức Đóng Góp
+        %label{for:= t('.phương_thức_Đóng_góp')} Phương Thức Đóng Góp
         - if balance(current_user) > 0
           = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"], ["Tài khoản charity-map.org (còn #{human_currency balance(current_user)})", "CM_CREDIT"]], include_blank: false, :input_html => {:class => "span12 form-control"}
         - else
           = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12 form-control"}
 
-      %label{for: "Ghi Chú"} Thông Tin Liên Lạc, Ghi Chú
+      %label{for: "Ghi Chú"}= t('.thông_tin_liên_lạc_ghi_chú')
       = f.input :note, :label => false, :input_html => {value: "#{current_user.name} / #{current_user.address} / #{current_user.phone}",:class => "form-control", :size => "20x5"}
       %p
       .donation-form
-        %label Ẩn danh?
+        %label= t('.Ẩn_danh')
         = f.input :anon, label: false, :input_html => {class: "check"}
-      
-      = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
+
+      = f.submit t('.Ủng_hộ_projecttitle', :projecttitle => (@project.title)), class: "btn btn-success btn-lg"
 
 
 :javascript

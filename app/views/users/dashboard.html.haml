@@ -1,9 +1,9 @@
 .row-fluid
   .devider
-    .item Dự Án Của Bạn
+    .item= t('.dự_Án_của_bạn')
   .row-fluid
     - if current_user.projects.empty?
-      %p Hiện bạn chưa có dự án nào. #{link_to "Tạo dự án đầu tiên!", new_project_path}
+      %p Hiện bạn chưa có dự án nào. #{link_to= t('.tạo_dự_án_đầu_tiên', ), new_project_path}
     - else
       - current_user.projects.each do |project|
         = render "projects/bar_display", :project => project, :donations_list => donation_data_in_7_days(project)

@@ -1,7 +1,7 @@
 - if Project.suggested_fundraising.count > 0
   - cache("fundraising_project_suggestions", :expires_in => 1.day) do
     .row{style: "margin-top: 30px; margin-bottom: 20px;"}
-      .medium-title Các Dự Án Đang Gây Quỹ
+      .medium-title= t('.các_dự_Án_Đang_gây_quỹ')
     %hr/
     .row{style: "margin-bottom: 20px;"}
       - Project.suggested_fundraising.each do |project|

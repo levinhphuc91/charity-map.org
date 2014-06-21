@@ -1,10 +1,10 @@
 %h4 Chào #{@follower.name.split.last},
 
-%p Dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b> vừa đăng tải một cập nhật mới: <strong>#{@project_update.title}</strong> (ngày cập nhật: #{human_time(@project_update.created_at)} / click vào #{link_to "đường dẫn này", project_project_update_url(@project, @project_update, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} để đọc thêm thông tin)
+%p Dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b> vừa đăng tải một cập nhật mới: <strong>#{@project_update.title}</strong> (ngày cập nhật: #{human_time(@project_update.created_at)} / click vào #{link_to= t('.đường_dẫn_này', ), project_project_update_url(@project, @project_update, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} để đọc thêm thông tin)
 
-%p 
-  Thân,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+%p
+  = t('.thân')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')
 
 %p <b>Ghi chú</b>: <i>Bạn nhận được email này vì bạn đã theo đuôi hoặc đã từng ủng hộ cho dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b>.</i>

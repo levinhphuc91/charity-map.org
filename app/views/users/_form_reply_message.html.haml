@@ -3,4 +3,4 @@
     = f.input :parent_message_id, :as => :hidden, :input_html => {value: @parent_message.id}
     = f.input :receiver, :as => :hidden, :input_html => {value: @message.sent_messageable_id}
     = f.input :body, label: false, :input_html => {class: "span12", :rows => 10}
-    = f.submit "Trả lời tin nhắn", class: "submit"
+    = f.submit t('.trả_lời_tin_nhắn'), class: "submit"

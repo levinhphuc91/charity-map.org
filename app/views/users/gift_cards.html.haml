@@ -1,22 +1,22 @@
 .row-fluid
   .devider
-    .item Thẻ Quà Tặng Của Bạn
+    .item= t('.thẻ_quà_tặng_của_bạn')
 .row-fluid
   - if @gift_cards.empty?
-    %p Hiện bạn chưa có thẻ quà tặng nào.
+    %p= t('.hiện_bạn_chưa_có_thẻ_quà_tặng_')
   - else
     %table.table.table-striped
-      %tr 
-        %th Ngày
-        %th Người Tặng
-        %th Trị Giá
-        %th Trạng Thái
+      %tr
+        %th= t('.ngày')
+        %th= t('.người_tặng')
+        %th= t('.trị_giá')
+        %th= t('.trạng_thái')
       - @gift_cards.each do |card|
-        %tr 
+        %tr
           %td= human_time card.created_at
           %td= link_to card.user.name, (card.user.website.blank? ? user_profile_path(card.user) : card.user.website)
           %td= human_currency card.amount
           %td
-            #{card.human_status}
+            = t('.cardhuman_status', :cardhuman_status => (card.human_status))
             - if card.redeemable?
-              &sdot; #{link_to "Redeem", gifts_path(token: card.token)}
+              = &sdot; #{link_to t('.redeem', ), gifts_path(token: card.token)}

@@ -1,8 +1,8 @@
 .devider
-  .item Sửa Đề Mục Đóng Góp
+  .item= t('.sửa_Đề_mục_Đóng_góp')
   .note Dự án: #{link_to @project.title, project_path(@project)}
 
 .row-fluid
   = render 'form'
 
-= link_to "Xóa", project_project_reward_path(@project, @project_reward), method: :delete
+= link_to t('.xóa'), project_project_reward_path(@project, @project_reward), method: :delete

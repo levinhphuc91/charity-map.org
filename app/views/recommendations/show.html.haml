@@ -1,15 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Project:
+  %b= t('.project')
   = @recommendation.project
 %p
-  %b User:
+  %b= t('.user')
   = @recommendation.user
 %p
-  %b Content:
+  %b= t('.content')
   = @recommendation.content
 
-= link_to 'Edit', edit_recommendation_path(@recommendation)
-\|
-= link_to 'Back', recommendations_path
+= link_to t('.edit'), edit_recommendation_path(@recommendation)
+= \t('.')
+= link_to t('.back'), recommendations_path

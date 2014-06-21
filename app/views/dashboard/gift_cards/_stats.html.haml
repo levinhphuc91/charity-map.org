@@ -2,22 +2,22 @@
   .row.stats-row
     #total-cards.col-md-3.col-sm-3.stat
       .data
-        %span.number #{@gift_cards.active.count}
-        cards
+        %span.number= t('.gift_cardsactivecount', :gift_cardsactivecount => (@gift_cards.active.count))
+        = t('.cards')
       %span.date được sử dụng #{human_time current_user.created_at}
     #total-value.col-md-3.col-sm-3.stat
       .data
-        %span.number #{number_with_precision @gift_cards.active.sum(:amount), precision: 0, delimiter: ","}
-        đồng
-      %span.date tổng giá trị
+        %span.number= t('.number_with_precision_gift_car', :number_with_precision_gift_car => (number_with_precision @gift_cards.active.sum(:amount), precision: 0, delimiter: ","))
+        = t('.đồng')
+      %span.date= t('.tổng_giá_trị')
     - cache("stats#{current_user.api_token[0..5]}", :expires_in => 1.hour) do
       #pending-clerance-credits.col-md-3.col-sm-3.stat
         .data
-          %span.number #{pending_clearance_credits_amount(@charitio, current_user.email)}
-          đồng
-        %span.date chuyển khoản tháng này
+          %span.number= t('.pending_clearance_credits_amou', :pending_clearance_credits_amou => (pending_clearance_credits_amount(@charitio, current_user.email)))
+          = t('.đồng')
+        %span.date= t('.chuyển_khoản_tháng_này')
       #cleared-credits.col-md-3.col-sm-3.stat.last
         .data
-          %span.number #{cleared_credits_amount(@charitio, current_user.email)}
-          đồng
-        %span.date đã chuyển khoản
+          %span.number= t('.cleared_credits_amountcharitio', :cleared_credits_amountcharitio => (cleared_credits_amount(@charitio, current_user.email)))
+          = t('.đồng')
+        %span.date= t('.đã_chuyển_khoản')

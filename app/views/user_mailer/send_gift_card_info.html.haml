@@ -5,14 +5,14 @@
 
 %h4 Chào #{@gift_card.references["recipient_name"]},
 
-%p Bạn vừa nhận được một thẻ quà tặng từ #{link_to @gift_card.user.name, (@gift_card.user.website.blank? ? user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link") : "#{@gift_card.user.website}")}. Mời bạn click vào nút ấn phía dưới hoặc #{link_to "đường dẫn này", gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và bắt đầu sử dụng. Từ giờ bạn có thể ủng hộ cho hơn 100 tổ chức và dự án xã hội đang gây quỹ trên #{link_to "www.charity-map.org", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}.
+%p Bạn vừa nhận được một thẻ quà tặng từ #{link_to @gift_card.user.name, (@gift_card.user.website.blank? ? user_profile_url(@gift_card.user, utm_campaign: "ProfileLinkInEmail", utm_source: "email", utm_medium: "link") : "#{@gift_card.user.website}")}. Mời bạn click vào nút ấn phía dưới hoặc #{link_to= t('.đường_dẫn_này', ), gifts_url(token: @gift_card.token, utm_campaign: "GiftCardLinkInEmail", utm_source: "email", utm_medium: "link")} và bắt đầu sử dụng. Từ giờ bạn có thể ủng hộ cho hơn 100 tổ chức và dự án xã hội đang gây quỹ trên #{link_to "www.charity-map.org", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}.
 
-%table 
+%table
   %tr
     %td{align: "right", height: "120", width: "261"}
       %div{style: "font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1em;color:#666666"}
-        <span style="font-weight:bold;font-size:13px;margin-bottom:0px;">CLAIM CODE</span><br/><br/> #{@gift_card.token}
-      %div{style: "font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#666666;line-height:1em"} #{human_currency @gift_card.amount}
+        = <span style="font-weight:bold;font-size:13px;margin-bottom:0px;">CLAIM CODE</span><br/><br/> #{@gift_card.token}
+      %div{style: "font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#666666;line-height:1em"}= t('.human_currency_gift_cardamount', :human_currency_gift_cardamount => (human_currency @gift_card.amount))
     / %td{height: "120", width: "30"}
     %td{bgcolor: "#fff", height: "120", style: "font-size:1px", width: "1px"}
     / %td{height: "120", width: "30"}
@@ -23,7 +23,7 @@
         - else
           = image_tag "http://www.charity-map.org/email-cta.png", border: 0
 
-%p 
-  Thân,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+%p
+  = t('.thân')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')

@@ -1,14 +1,14 @@
-%p Chào mừng bạn đến với <strong>#{link_to "Bản Đồ Từ Thiện (charity-map.org)", "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}</strong>, cộng đồng những nhà hảo tâm và các dự án xã hội tại Việt Nam. Hiện có các dự án sau đang gây quỹ, mong nhận được sự quan tâm của bạn:
+%p Chào mừng bạn đến với <strong>#{link_to= t('.bản_Đồ_từ_thiện_charitymaporg', ), "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"}</strong>, cộng đồng những nhà hảo tâm và các dự án xã hội tại Việt Nam. Hiện có các dự án sau đang gây quỹ, mong nhận được sự quan tâm của bạn:
 
 - @projects.each do |project|
   .project{style: "margin-top: 20px; margin-bottom: 10px; background-color: #eee; padding: 10px; border-radius: 5px;"}
     %h2= link_to project.title, project_url(project, utm_campaign: "SuggestedProjs4NewUser", utm_source: "email", utm_medium: "link")
-    %p 
-      Thực hiện: <strong>#{project.user.name}</strong> &sdot; Địa điểm: <strong>#{project.location}</strong>
+    %p
+      = Thực hiện: <strong>#{project.user.name}</strong> &sdot; Địa điểm: <strong>#{project.location}</strong>
       %br/
-      <i>#{project.brief.html_safe}</i> (&#8594; #{link_to "Xem thêm thông tin", project_url(project, utm_campaign: "SuggestedProjs4NewUser", utm_source: "email", utm_medium: "link")})
+      = <i>#{project.brief.html_safe}</i> (&#8594; #{link_to t('.xem_thêm_thông_tin', ), project_url(project, utm_campaign: "SuggestedProjs4NewUser", utm_source: "email", utm_medium: "link")})
 
-%p 
-  Thân,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+%p
+  = t('.thân')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')

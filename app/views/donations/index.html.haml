@@ -4,7 +4,7 @@
   = stylesheet_link_tag    "jquery.ui.datepicker", media: "all", "data-turbolinks-track" => true
 
 = render "layouts/item-based/cover.html.haml", project: @project
-  
+
 %section.row.col-md-8.col-md-offset-2
   - if notice || alert
     .row
@@ -25,17 +25,17 @@
       %ul
         %li.col-md-3
           %strong= @project.donations_count
-          %span Mạnh Thường Quân
+          %span= t('.mạnh_thường_quân')
         %li.col-md-3
-          %strong #{number_with_precision @project.donations_sum * 100/ @project.funding_goal, precision: 0}%
-          %span Mục Tiêu Cần Đạt
+          %strong= t('.number_with_precision_projectd', :number_with_precision_projectd => (number_with_precision @project.donations_sum * 100/ @project.funding_goal, precision: 0))
+          %span= t('.mục_tiêu_cần_Đạt')
         %li.col-md-3
           - if @project.start_date < Date.today && @project.end_date > Date.today
-            %strong #{(TimeDifference.between(Time.now, @project.end_date).in_days).to_i}
-            %span Thời Gian Còn Lại (Ngày)
+            %strong= t('.timedifferencebetweentimenow_p', :timedifferencebetweentimenow_p => ((TimeDifference.between(Time.now, @project.end_date).in_days).to_i))
+            %span= t('.thời_gian_còn_lại_ngày')
           - else
             %strong= @project.end_date.strftime("%d/%m")
-            %span Kết Thúc Gây Quỹ
+            %span= t('.kết_thúc_gây_quỹ')
         - if current_user && @project.authorized_edit_for?(current_user)
           %li.col-md-3.donate{"data-target" => "#myModal", "data-toggle" => "modal"}
             %strong
@@ -52,22 +52,22 @@
                   %i.glyphicon.glyphicon-heart
     - if !@donations.empty? || !@ext_donations.empty?
       #list-donations
-        %h4 Danh Sách Đóng Góp
+        %h4= t('.danh_sách_Đóng_góp')
         / .dates
         /   .ago 2 ngày trước
         /   .date Thứ 5, ngày 2 tháng 1
-        
+
         - @donations.each do |donation|
           = render "layouts/donation_display", donation: donation
 
         - @ext_donations.order("collection_time DESC").each do |donation|
           .donation-item
             .item-desc
-              #{human_time donation.collection_time} &sdot;
+              = t('.human_time_donationcollection_', :human_time_donationcollection_ => (human_time donation.collection_time))
               %a{href: ""}
                 .avatar= image_tag "default_avatar.png"
               %strong #{ donation.anon ? "Ẩn Danh" : donation.donor }
-              ủng hộ #{human_currency donation.amount}
+              = ủng hộ #{human_currency donation.amount}
 
               - if donation.collection_method == "COD"
                 %a.action{href: ""}
@@ -77,29 +77,29 @@
                 %a.action{href: ""}
                   .links-right
                     %span.glyphicon.glyphicon-credit-card
-              
+
               - if current_user && @project.authorized_edit_for?(current_user)
                 = link_to project_ext_donation_path(@project, donation), class: "action", :method => :delete, :data => { :confirm => 'Bạn có chắc xoá ủng hộ ngoài hệ thống này không?'} do
                   .links-right
-                    Xoá
+                    = t('.xoá')
                     / %span.glyphicon.glyphicon-trash
                 = link_to edit_project_ext_donation_path(@project, donation), class: "action" do
                   .links-right
-                    Sửa
+                    = t('.sửa')
                     / %span.glyphicon.glyphicon-pencil
 
   = render "projects/fundraising_project_suggestions", source: "DonationIndex" if !@donation
-    
+
 - if current_user && @project.authorized_edit_for?(current_user)
   #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog
       .modal-content
         .modal-header
-          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-          %h4#myModalLabel.modal-title Thêm Ủng Hộ Ngoài Hệ Thống
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"}= t('.×')
+          %h4#myModalLabel.modal-title= t('.thêm_Ủng_hộ_ngoài_hệ_thống')
         .modal-body
           .note Dự án: #{link_to @project.title, @project}
-          = render "ext_donations/form" 
+          = render "ext_donations/form"
         / .modal-footer
         /   %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
         /   %button.btn.btn-primary{type: "button"} Save changes
@@ -126,11 +126,11 @@
 /         %hr
 /     - when "collection_method"
 /       - @donations.each do |key, donation_arr|
-/         .donation_type 
+/         .donation_type
 /           .devider
 /             .item= human_donation_type(key)
 /           = render "layouts/donation_display", donations: donation_arr
-/         %hr/ 
+/         %hr/
 /     - else
 /       = render "layouts/donation_display", donations: @donations
 /   .clearfix
@@ -142,7 +142,7 @@
 /     %th Ghi Chú
 /     - if current_user && @project.authorized_edit_for?(current_user)
 /       %th Lệnh
-/ %tr 
+/ %tr
 /   %td= human_time donation.collection_time
 /   %td= donation.anon ? "Ẩn Danh" : donation.donor
 /   %td #{human_currency donation.amount} #{"(#{human_donation_type donation.collection_method})" unless donation.collection_method.blank?}

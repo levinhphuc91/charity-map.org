@@ -322,7 +322,7 @@ en:
       báo_chí: Press
       tỔ_chỨc_xÃ_hỘi: SOCIAL ORGANIZATIONS
       hướng_dẫn_sử_dụng: Usage Guide
-      chiến_dịch_gây_quỹ: Funding strategies
+      chiến_dịch_gây_quỹ: Funding projects
       câu_hỏi: Q&As
       mẠnh_thƯỜng_quÂn: DONORS
       phương_thức_Ủng_hộ: Donation Methods
@@ -375,3 +375,78 @@ en:
     guidelines:
       pagesguidelines: Pages#guidelines
       find_me_in_appviewspagesguidel: Find me in app/views/pages/guidelines.html.haml
+  layouts:
+    footer:
+      copy_bẢn_ĐỒ_tỪ_thiỆn_2013: 'CHARITY MAP 2014'
+      bản_Đồ_từ_thiện_charity_map_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      về_chúng_tôi: ABOUT US 
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      những_con_số: Figures
+      tổ_chức_xã_hội: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide 
+      chiến_dịch_gây_quỹ: Funding projects 
+      câu_hỏi: Q&As
+      mạnh_thường_quân: Donors
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
+    header:
+      giới_thiệu: About us
+      Đăng_nhập: Signin
+      Đăng_ký: Signup
+      quản_lý: DASHBOARD
+      hồ_sơ: SETTINGS
+      Đăng_xuất: SIGNOUT
+      vn: VN
+      en: EN
+    donation_display:
+      human_time_donationcreated_at_: '"%{human_time_donationcreated_at} &sdot;"'
+      Ẩn_danh: Anonymous
+      u1ee7ng_hu1ed9_human_currency_: '"\u{1ee7}ng h\u{1ed9} %{human_currency_donationamount}"'
+      xác_nhận_ủng_hộ: Confirm Donate
+    infowindow:
+      limit_display_projectlocation_: '"%{limit_display_projectlocation_}"'
+      sdot: '&sdot;'
+      hoàn_thành: Complelted
+      cần_kêu_gọi: Goal
+      Đã_kêu_gọi: Progress
+      ngày_còn_lại: DAYS LEFT
+      projectend_datestrftimedmy: '"%{projectend_datestrftimedmy}"'
+      kết_thúc: Completed
+    markdown:
+      bôi_đậm_tiêu_đề_sdot_btiêu_đềb: 'Bôi đậm: **Tiêu đề** &sdot; <b>Tiêu đề</b>'
+      in_nghiêng_ghi_chú_sdot_ighi_c: 'In nghiêng: *Ghi chú* &sdot; <i>Ghi chú</i>'
+      tiêu_đề_thông_báo_sdot_font_si: 'Tiêu đề: ### Thông báo &sdot; <font size="2em">Thông
+        báo</font>'
+      chèn_ảnh_ghi_chú_ảnhlink_ảnh: 'Chèn ảnh: ![Ghi chú ảnh](link_ảnh)'
+      chèn_link_báo_chíhttpgooglecom: 'Chèn link: [Báo chí](http://google.com) &sdot;
+        <a href="http://google.com">Báo chí</a>'
+    verify_code_via_phone:
+      hoàn_tất_xác_nhận_danh_tính: Verification Completed
+      u110iu1ec1n_vue0o_uf4_buean_du: '"\u{110}i\u{1ec1}n v\u{e0}o \u{f4} b\u{ea}n
+        d\u{1b0}\u{1edb}i \u{111}o\u{1ea1}n m\u{e3} 6 ch\u{1eef} s\u{1ed1} \u{111}\u{e3}
+        \u{111}\u{1b0}\u{1ee3}c g\u{1eed}i \u{111}\u{1ebf}n s\u{1ed1} 0%{current_userphone}
+        c\u{1ee7}a b\u{1ea1}n:"'
+      gửi_lại: Send Again
+    dashboard:
+      chỉnh_sửa: Edit
+      thư_mời: Invitation
+      thống_kê_Đóng_góp: Statistic
+      Đề_mục_Đóng_góp: Title 
+      cập_nhật: Update
+      thành_viên: Member
+      dự_Án_của_bạn: YOUR PROJECTS
+      tạo_dự_Án_mới: New Project
+      cá_nhân: SETTINGS
+      Đóng_góp: Donation
+      thẻ_quà_tặng: Gift Card
+      current_userreceived_gift_card: '"(%{current_userreceived_gift_card})"'
+      chỉnh_sửa_thông_tin: Edit Profile
+      xác_nhận_tài_khoản: Account Verification
+      trang_cá_nhân: My Profile
+      hệ_thống: Platform
+      tin_tức_cập_nhật: News, Updates
+      gửi_góp_Ý: Feedback
+    dashboard2:
+      script_srchttphtml5shimgooglec: <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

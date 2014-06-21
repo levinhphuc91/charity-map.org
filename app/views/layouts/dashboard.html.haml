@@ -28,58 +28,58 @@
                 .line.heading
                   %i.icon-location-arrow
                   = limit_display @project.title, 15
-                .line= link_to "Chỉnh Sửa", edit_project_path(@project)
-                .line #{link_to "Thư Mời", project_invites_path(@project)}
-                .line #{link_to "Thống Kê Đóng Góp", project_donations_path(@project)} (#{@project.donations_count})
-                .line #{link_to "Đề Mục Đóng Góp", project_project_rewards_path(@project)} (#{@project.project_rewards.count})
-                .line #{link_to "Cập Nhật", new_project_project_update_path(@project)} (#{@project.project_updates.count})
-                .line #{link_to "Thành Viên", members_dashboard_project_path(@project)}
+                .line= link_to t('.chỉnh_sửa'), edit_project_path(@project)
+                .line #{link_to= t('.thư_mời', ), project_invites_path(@project)}
+                .line #{link_to= t('.thống_kê_Đóng_góp', ), project_donations_path(@project)} (#{@project.donations_count})
+                .line #{link_to= t('.Đề_mục_Đóng_góp', ), project_project_rewards_path(@project)} (#{@project.project_rewards.count})
+                .line #{link_to= t('.cập_nhật', ), new_project_project_update_path(@project)} (#{@project.project_updates.count})
+                .line #{link_to= t('.thành_viên', ), members_dashboard_project_path(@project)}
                 / .line #{link_to "Giới Thiệu", project_recommendations_path(@project)} (#{@project.recommendations.count})
               .chunk
                 .line.heading
                   %i.icon-tasks
-                  Dự Án Của Bạn
+                  = t('.dự_Án_của_bạn')
                 - if !current_user.projects.empty?
                   - current_user.projects.each do |project|
                     .line.active= link_to limit_display(project.title, 20), dashboard_project_path(project)
                 - if !current_user.managements.empty?
                   - current_user.managements.each do |management|
                     .line.active= link_to limit_display(management.project.title, 20), dashboard_project_path(management.project)
-                .line= link_to "Tạo Dự Án Mới", new_project_path, class: "active"
+                .line= link_to t('.tạo_dự_Án_mới'), new_project_path, class: "active"
             - else
               .chunk
                 .line.heading
                   %i.icon-tasks
-                  Dự Án Của Bạn
+                  = t('.dự_Án_của_bạn')
                 - if !current_user.projects.empty?
                   - current_user.projects.each do |project|
                     .line.active= link_to limit_display(project.title, 20), dashboard_project_path(project)
                 - if !current_user.managements.empty?
                   - current_user.managements.each do |management|
                     .line.active= link_to limit_display(management.project.title, 20), dashboard_project_path(management.project)
-                .line= link_to "Tạo Dự Án Mới", new_project_path
+                .line= link_to t('.tạo_dự_Án_mới'), new_project_path
 
             .chunk
               .line.heading
-                %i.icon-user 
-                Cá Nhân
-              .line #{link_to "Đóng Góp", users_donations_path} (#{current_user.donations.successful.count})
+                %i.icon-user
+                = t('.cá_nhân')
+              .line #{link_to= t('.Đóng_góp', ), users_donations_path} (#{current_user.donations.successful.count})
               - if !GiftCard.where(recipient_email: current_user.email).empty?
                 .line
-                  #{link_to "Thẻ Quà Tặng", users_gift_cards_path}
+                  = #{link_to t('.thẻ_quà_tặng', ), users_gift_cards_path}
                   - if !current_user.gift_cards.inactive.empty?
-                    (#{current_user.received_gift_cards.inactive.count})
+                    = t('.current_userreceived_gift_card', :current_userreceived_gift_card => (current_user.received_gift_cards.inactive.count))
               / .line #{link_to "Tin Nhắn", messages_path} (#{current_user.messages.unreaded.count})
-              .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
-              .line= link_to "Xác Nhận Tài Khoản", users_verify_path
-              .line= link_to "Trang Cá Nhân", user_profile_path( current_user)
+              .line= link_to t('.chỉnh_sửa_thông_tin'), users_settings_path
+              .line= link_to t('.xác_nhận_tài_khoản'), users_verify_path
+              .line= link_to t('.trang_cá_nhân'), user_profile_path( current_user)
 
             .chunk
               .line.heading
-                %i.icon-gears 
-                Hệ Thống
-              .line Tin Tức, Cập Nhật
-              .line.disabled Gửi Góp Ý
+                %i.icon-gears
+                = t('.hệ_thống')
+              .line= t('.tin_tức_cập_nhật')
+              .line.disabled= t('.gửi_góp_Ý')
           .dashboard--main
             = yield
     = render "layouts/footer"

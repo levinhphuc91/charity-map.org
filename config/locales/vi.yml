@@ -380,3 +380,81 @@ vi:
     guidelines:
       pagesguidelines: Pages#guidelines
       find_me_in_appviewspagesguidel: Find me in app/views/pages/guidelines.html.haml
+  layouts:
+    footer:
+      copy_bẢn_ĐỒ_tỪ_thiỆn_2013: '&copy; BẢN ĐỒ TỪ THIỆN 2013'
+      bản_Đồ_từ_thiện_charity_map_là: Bản Đồ Từ Thiện (Charity Map) là trang web gây
+        quỹ cộng đồng dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh
+        bạch và sự tín nhiệm làm tiêu chí hoạt động.
+      về_chúng_tôi: Về Chúng Tôi
+      Đội_ngũ: Đội Ngũ
+      báo_chí: Báo Chí
+      những_con_số: Những Con Số
+      tổ_chức_xã_hội: Tổ Chức Xã Hội
+      hướng_dẫn_sử_dụng: Hướng Dẫn Sử Dụng
+      chiến_dịch_gây_quỹ: Chiến Dịch Gây Quỹ
+      câu_hỏi: Câu Hỏi
+      mạnh_thường_quân: Mạnh Thường Quân
+      phương_thức_Ủng_hộ: Phương Thức Ủng Hộ
+      quy_Định_bảo_mật: Quy Định Bảo Mật
+      liên_hệ: Liên Hệ
+    header:
+      giới_thiệu: Giới Thiệu
+      Đăng_nhập: Đăng Nhập
+      Đăng_ký: Đăng Ký
+      quản_lý: Quản Lý
+      hồ_sơ: Hồ Sơ
+      Đăng_xuất: Đăng Xuất
+      vn: VN
+      nbsp: '&nbsp;/'
+      en: EN
+    donation_display:
+      human_time_donationcreated_at_: '"%{human_time_donationcreated_at} &sdot;"'
+      Ẩn_danh: Ẩn Danh
+      u1ee7ng_hu1ed9_human_currency_: '"\u{1ee7}ng h\u{1ed9} %{human_currency_donationamount}"'
+      xác_nhận_ủng_hộ: Xác nhận ủng hộ
+    infowindow:
+      limit_display_projectlocation_: '"%{limit_display_projectlocation_}"'
+      sdot: '&sdot;'
+      hoàn_thành: Hoàn Thành
+      cần_kêu_gọi: Cần Kêu Gọi
+      Đã_kêu_gọi: Đã Kêu Gọi
+      ngày_còn_lại: Ngày Còn Lại
+      projectend_datestrftimedmy: '"%{projectend_datestrftimedmy}"'
+      kết_thúc: Kết Thúc
+    markdown:
+      bôi_đậm_tiêu_đề_sdot_btiêu_đềb: 'Bôi đậm: **Tiêu đề** &sdot; <b>Tiêu đề</b>'
+      in_nghiêng_ghi_chú_sdot_ighi_c: 'In nghiêng: *Ghi chú* &sdot; <i>Ghi chú</i>'
+      tiêu_đề_thông_báo_sdot_font_si: 'Tiêu đề: ### Thông báo &sdot; <font size="2em">Thông
+        báo</font>'
+      chèn_ảnh_ghi_chú_ảnhlink_ảnh: 'Chèn ảnh: ![Ghi chú ảnh](link_ảnh)'
+      chèn_link_báo_chíhttpgooglecom: 'Chèn link: [Báo chí](http://google.com) &sdot;
+        <a href="http://google.com">Báo chí</a>'
+    verify_code_via_phone:
+      hoàn_tất_xác_nhận_danh_tính: Hoàn tất xác nhận danh tính
+      u110iu1ec1n_vue0o_uf4_buean_du: '"\u{110}i\u{1ec1}n v\u{e0}o \u{f4} b\u{ea}n
+        d\u{1b0}\u{1edb}i \u{111}o\u{1ea1}n m\u{e3} 6 ch\u{1eef} s\u{1ed1} \u{111}\u{e3}
+        \u{111}\u{1b0}\u{1ee3}c g\u{1eed}i \u{111}\u{1ebf}n s\u{1ed1} 0%{current_userphone}
+        c\u{1ee7}a b\u{1ea1}n:"'
+      gửi_lại: Gửi lại
+    dashboard:
+      chỉnh_sửa: Chỉnh Sửa
+      thư_mời: Thư Mời
+      thống_kê_Đóng_góp: Thống Kê Đóng Góp
+      Đề_mục_Đóng_góp: Đề Mục Đóng Góp
+      cập_nhật: Cập Nhật
+      thành_viên: Thành Viên
+      dự_Án_của_bạn: Dự Án Của Bạn
+      tạo_dự_Án_mới: Tạo Dự Án Mới
+      cá_nhân: Cá Nhân
+      Đóng_góp: Đóng Góp
+      thẻ_quà_tặng: Thẻ Quà Tặng
+      current_userreceived_gift_card: '"(%{current_userreceived_gift_card})"'
+      chỉnh_sửa_thông_tin: Chỉnh Sửa Thông Tin
+      xác_nhận_tài_khoản: Xác Nhận Tài Khoản
+      trang_cá_nhân: Trang Cá Nhân
+      hệ_thống: Hệ Thống
+      tin_tức_cập_nhật: Tin Tức, Cập Nhật
+      gửi_góp_Ý: Gửi Góp Ý
+    dashboard2:
+      script_srchttphtml5shimgooglec: <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

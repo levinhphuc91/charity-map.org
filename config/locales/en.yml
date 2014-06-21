@@ -1,9 +1,377 @@
+---
 en:
-  hello: "Hello world"
   errors:
-    messages:
-      carrierwave_processing_error: "Chỉnh sửa ảnh chưa hoàn tất."
-      carrierwave_integrity_error: "Không phải ảnh hợp lệ."
-      carrierwave_download_error: "Không tải được ảnh."
-      extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
-      extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+    format: '%{attribute} %{message}'
+    messages: &1
+      accepted: phải được đồng ý
+      blank: không thể để trắng
+      confirmation: không khớp với xác nhận
+      empty: không thể rỗng
+      equal_to: phải bằng %{count}
+      even: phải là số chẵn
+      exclusion: đã được giành trước
+      greater_than: phải lớn hơn %{count}
+      greater_than_or_equal_to: phải lớn hơn hoặc bằng %{count}
+      inclusion: không có trong danh sách
+      invalid: không hợp lệ
+      less_than: phải nhỏ hơn %{count}
+      less_than_or_equal_to: phải nhỏ hơn hoặc bằng %{count}
+      not_a_number: không phải là số
+      not_an_integer: phải là một số nguyên
+      odd: phải là số lẻ
+      taken: đã có
+      too_long: quá dài (tối đa %{count} ký tự)
+      too_short: quá ngắn (tối thiểu %{count} ký tự)
+      wrong_length: độ dài không đúng (phải là %{count} ký tự)
+    template: &2
+      body: 'Có lỗi với các mục sau:'
+      header:
+        one: 1 lỗi ngăn không cho lưu %{model} này
+        other: '%{count} lỗi ngăn không cho lưu %{model} này'
+  date:
+    abbr_day_names:
+    - Chủ nhật
+    - Thứ hai
+    - Thứ ba
+    - Thứ tư
+    - Thứ năm
+    - Thứ sáu
+    - Thứ bảy
+    abbr_month_names:
+    - 
+    - Tháng một
+    - Tháng hai
+    - Tháng ba
+    - Tháng tư
+    - Tháng năm
+    - Tháng sáu
+    - Tháng bảy
+    - Tháng tám
+    - Tháng chín
+    - Tháng mười
+    - Tháng mười một
+    - Tháng mười hai
+    day_names:
+    - Chủ nhật
+    - Thứ hai
+    - Thứ ba
+    - Thứ tư
+    - Thứ năm
+    - Thứ sáu
+    - Thứ bảy
+    formats:
+      default: '%d-%m-%Y'
+      long: '%d %B, %Y'
+      short: '%d %b'
+    month_names:
+    - 
+    - Tháng một
+    - Tháng hai
+    - Tháng ba
+    - Tháng tư
+    - Tháng năm
+    - Tháng sáu
+    - Tháng bảy
+    - Tháng tám
+    - Tháng chín
+    - Tháng mười
+    - Tháng mười một
+    - Tháng mười hai
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: khoảng 1 giờ
+        other: khoảng %{count} giờ
+      about_x_months:
+        one: khoảng 1 tháng
+        other: khoảng %{count} tháng
+      about_x_years:
+        one: khoảng 1 năm
+        other: khoảng %{count} năm
+      almost_x_years:
+        one: gần 1 năm
+        other: gần %{count} năm
+      half_a_minute: 30 giây
+      less_than_x_minutes:
+        one: chưa tới 1 phút
+        other: chưa tới %{count} phút
+      less_than_x_seconds:
+        one: chưa tới 1 giây
+        other: chưa tới %{count} giây
+      over_x_years:
+        one: hơn 1 năm
+        other: hơn %{count} năm
+      x_days:
+        one: 1 ngày
+        other: '%{count} ngày'
+      x_minutes:
+        one: 1 phút
+        other: '%{count} phút'
+      x_months:
+        one: 1 tháng
+        other: '%{count} tháng'
+      x_seconds:
+        one: 1 giây
+        other: '%{count} giây'
+    prompts:
+      day: Ngày
+      hour: Giờ
+      minute: Phút
+      month: Tháng
+      second: Giây
+      year: Năm
+  helpers:
+    select:
+      prompt: Vui lòng chọn
+    submit:
+      create: Tạo %{model}
+      submit: Lưu %{model}
+      update: Cập nhật %{model}
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: '%n %u'
+        precision: 2
+        separator: ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: đồng
+    format:
+      delimiter: .
+      precision: 3
+      separator: ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          unit: ''
+          billion: Tỷ
+          million: Triệu
+          quadrillion: Triệu tỷ
+          thousand: Nghìn
+          trillion: Nghìn tỷ
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Byte
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ', và '
+      two_words_connector: ' và '
+      words_connector: ', '
+  time:
+    am: sáng
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%d %B, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: chiều
+  activemodel:
+    errors:
+      format: '%{attribute} %{message}'
+      messages: *1
+      template: *2
+  activerecord:
+    errors:
+      format: '%{attribute} %{message}'
+      messages:
+        record_invalid: 'Lỗi xác nhận: %{errors}'
+        taken: đã có
+      template: *2
+  common:
+    failed_and_try_again: Không thành công. Vui lòng thử lại.
+    permission_denied: Không có quyền truy cập.
+  controller:
+    projects:
+      blank_name_notice: Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo
+        dự án.
+      update_successfully: Cập nhật dự án thành công.
+      at_least_one_reward: Phải có ít nhất một Đề mục đóng góp (project reward).
+      funding_period: Dự án chuyển sang trạng thái gây quỹ.
+    donations:
+      blank_contact_notice: Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án
+        %{project_title} (họ và tên, địa chỉ, số điện thoại).
+      at_least_one_reward: Bạn phải chọn một trong những tặng phẩm bên dưới.
+      not_funding_project: Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau.
+      bank_transfer_confirm: Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận
+        thông tin tài khoản ngân hàng để tiến hành chuyển khoản.
+      cod_confirm: Cảm ơn bạn đã ủng hộ dự án! Chúng tôi sẽ liên hệ trong 3 ngày làm
+        việc.
+      credit_cofirm: Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận
+        email xác nhận.
+      credit_error: Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo.
+      not_enough_balance: Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng
+        hộ.
+      request_verification: Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên
+        lạc trong thời gian sớm nhất.
+      succefful_verification: Xác nhận thành công. Email vừa được gửi tới mạnh thường
+        quân thông báo bạn đã nhận được tiền.
+    ext_donations:
+      create_successfully: Thêm ủng hộ ngoài hệ thống thành công.
+      update_successfully: Sửa ủng hộ ngoài hệ thống thành công.
+      delete_successfully: Đã xoá ủng hộ ngoài hệ thống.
+    invites:
+      create_successfully: Thêm liên lạc thành công.
+      not_enough_content: Nội dung thư mời chưa đầy đủ.
+      delivered_invite: Thư mời đã được gửi đi.
+    project_follows:
+      register_successfully: Đăng ký nhận cập nhật từ dự án thành công.
+    project_rewards:
+      create_successfully: Vừa thêm Đề mục đóng góp mới.
+      delete_successfully: Xóa đề mục đóng góp thành công.
+    project_updates:
+      create_successfully: Vừa thêm Cập nhật dự án mới.
+    recommendations:
+      verify_by_mobile: Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi
+        viết giới thiệu cho dự án %{project_title}.
+      create_successfully: Lời giới thiệu đã được lưu.
+    registrations:
+      invalid_gift_card: Mã không hợp lệ.
+    users:
+      follow_successfully: Đã theo đuôi.
+      follow_unsuccessfuly: Không thành công.
+      update_successfully: Cập nhật thành công.
+      update_failed_with_errors: Cập nhật không thành công. %{errors}
+      update_failed: Cập nhật không thành công.
+      delete_project_successfully: Xoá dự án trước đây thành công.
+      delete_project_failed: Xoá dự án trước đây không thành công.
+      verification_code: Ma so danh cho viec xac nhan danh tinh tai charity-map.org
+        %{code}
+      enter_verification_code: Mã xác nhận vừa được gửi tới số +84%{phone_number}.
+        Mời bạn điền mã vào ô dưới để hoàn tất quá trình xác nhận.
+      verify_completely: Xác nhận danh tính bằng số điện thoại hoàn tất.
+      delivered_message: Tin nhắn đã được gửi đi.
+      gift_card_redeem: Thẻ quà tặng được xác nhận. Tài khoản bạn được cộng thêm %{amount}.
+      error_gift_card: Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo.
+      invalid_gift_card: Mã không hợp lệ.
+      login_to_continue: Bạn cần đăng nhập để tiếp tục.
+      api_failed: API call not going through.
+  homepage:
+    introduce: Giới Thiệu
+  pages:
+    home:
+      body_paddingtop_0_important: 'body {padding-top: 0 !important}'
+      về_chúng_tôi: About us
+      blog: Blog
+      Đăng_xuất: Log out
+      Đăng_kí: Signup
+      Ủng_hộ_từ_thiện_chưa_bao_giờ_d: Giving has never been this easy.
+      Đến_trang_quản_lý: Go to Dashboard
+      Đăng_nhập_bằng_facebook: Signin with Facebook
+      hoặc_đăng_nhập: or signin
+      bằng_email: with email
+      dự_án_đang_gây_quỹ: Fundraising projects
+      hiện_chưa_có_dự_án_nào: There is no any running project.
+      cuf2n_timedifferencebetweentim: '"C\u{f2}n %{timedifferencebetweentimenow_p}
+        ng\u{e0}y"'
+      mỤc_tiÊu: TARGET
+      dự_án_tiêu_biểu: Notable projects 
+      human_time_projectend_date: '"%{human_time_projectend_date}"'
+      ĐÃ_gÂy_quỸ: RAISED
+      các_tổ_chức_tin_dùng_charityma: Partner organizations
+      vì_sao_bạn_nên_gây_quỹ_trên_ch: Why should you fundraise your next charity project in Viet Nam on charity-map.org?
+      httpwwwcharitymaporguser38: http://www.charity-map.org/user/38
+      chia_sẻ_yêu_thương: Sharing Love
+      httpwwwcharitymaporguser54: http://www.charity-map.org/user/54
+      cầu_vai_xanh: Cầu Vai Xanh
+      httpwwwcharitymaporguser78: http://www.charity-map.org/user/78
+      bàn_tay_nhỏ: Bàn Tay Nhỏ
+      link_to_do: '#'
+      công_bằng_y_tế: Công Bằng Y Tế
+      những_con_số: Figures
+      tổng_quan: Overview
+      dự_án: project
+      mạnh_thường_quân: donors
+      đồng_được_đóng_góp: VND raised 
+      chi_tiết: Details
+      cập_nhật: updates
+      báo_cáo_qua_email: reports via email
+      báo_cáo_qua_sms: reports via SMS
+      tặng_phẩm_được_gửi_đi: rewards sent
+      minh_bạch_100: 100% Transparent
+      mỗi_ủng_hộ_được_gửi_về_dự_án_q: Donations via the charity-map.org platform, big or small, are stored, tracked and updated regularly and comprehensively
+      Đăng_kí_và_Ủng_hộ: Signup Now
+      copy_charity_map_2014: 'CHARITY MAP 2014'
+      charity_map_bản_Đồ_từ_thiện_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      about_us: ABOUT US
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      tỔ_chỨc_xÃ_hỘi: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide
+      chiến_dịch_gây_quỹ: Funding strategies
+      câu_hỏi: Q&As
+      mẠnh_thƯỜng_quÂn: DONORS
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
+    about:
+      thực_trạng: Thực Trạng
+      Ước_tính_có_đến_24_triệu_người: 'Ước tính có đến 24 triệu người (28% dân số)
+        ở Việt Nam thuộc diện đối tượng cần hỗ trợ, bao gồm: hộ nghèo và cận nghèo,
+        người khuyết tật, trẻ em có hoàn cảnh đặc biệt, người mãn hạn tù, người bị
+        nhiễm HIV/AIDS, người già neo đơn, đồng bào ở các vùng thiên tai bão lũ. Bên
+        cạnh đó là hàng loạt các vấn đề khác như bạo lực xã hội, quá tải giáo dục
+        và y tế, an toàn thực phẩm, tiết kiệm năng lượng, bảo tồn văn hoá.'
+      bản_Đồ_từ_thiện: Bản Đồ Từ Thiện
+      được_xây_dựng_nhằm_mục_đích_hỗ: được xây dựng nhằm mục đích hỗ trợ các dự án
+        xã hội tại Việt Nam gây quỹ từ cộng đồng hiệu quả và minh bạch hơn, nhằm giải
+        quyết các vấn đề xã hội trên. Mỗi ủng hộ được gửi về dự án qua hệ thống của
+        BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan
+        một cách đầy đủ và trực quan nhất.
+      các_dự_Án_Đăng_trên_bĐtt: Các Dự Án Đăng Trên BĐTT
+      được_khởi_tạo_bổ_sung_thông_ti: được khởi tạo, bổ sung thông tin và tiến hành
+        gây quỹ một cách độc lập. Các cá nhân / tổ chức làm dự án có toàn quyền quyết
+        định về chiến dịch gây quỹ của mình.
+      chúng_tôi_cung_cấp_một: Chúng tôi cung cấp một
+      bức_tranh_toàn_cảnh: Bức Tranh Toàn Cảnh
+      về_tổ_chức_nhóm_hoạt_động_xã_h: 'về tổ chức / nhóm hoạt động xã hội: mục tiêu,
+        sức mệnh hoạt động, các dự án đã và đang làm, thành viên, v.v'
+      về_dự_án_kế_hoạch_tình_hình_tà: 'về dự án: kế hoạch, tình hình tài chính, nhân
+        sự, cập nhật, báo cáo, v.v'
+      tích_hợp_chặt_chẽ: Tích Hợp Chặt Chẽ
+      với_email_mạng_xã_hội_và_sms_b: 'với email, mạng xã hội và SMS. <b>Chức năng
+        tuỳ chọn</b>:'
+      sdot_các_thông_báo_quan_trọng_: '&sdot; Các thông báo quan trọng về dự án mà
+        bạn đã ủng hộ (đạt mục tiêu gây quỹ, giải ngân, cập nhật hoạt động, v.v) đều
+        được gửi email và SMS.<br/>'
+      sdot_bản_tin_hằng_tháng_cập_nh: '&sdot; Bản tin hằng tháng cập nhật các dự án
+        mới trên hệ thống và các dự án mà bạn bè trên Facebook của bạn đã ủng hộ.'
+      generously_seed_funded_through: Generously seed funded through a <br/>
+      httppiawebprincetonedu: http://piaweb.princeton.edu
+      princeton_in_asia_carrie_gordo: Princeton in Asia Carrie Gordon Fellowship<br/><br/>
+    faqs:
+      pagesfaqs: Pages#faqs
+      find_me_in_appviewspagesfaqsht: Find me in app/views/pages/faqs.html.haml
+    gifts:
+      xin_chúc_mừng: Xin Chúc Mừng
+      sử_dụng_thẻ_quà_tặng_bạn_có_th: Sử dụng thẻ quà tặng, bạn có thể ủng hộ cho
+        hơn 100 dự án và tổ chức đang gây quỹ trên charity-map.org. Hãy điền mã số
+        bạn được cấp (qua email, SMS, hoặc từ các đơn vị hợp tác) vào ô bên dưới và
+        bắt đầu sử dụng.
+    guidelines:
+      pagesguidelines: Pages#guidelines
+      find_me_in_appviewspagesguidel: Find me in app/views/pages/guidelines.html.haml

@@ -6,65 +6,65 @@
     .row-fluid
       .span8.offset2
         .about-us
-          .headline Thực Trạng
-          %p Ước tính có đến 24 triệu người (28% dân số) ở Việt Nam thuộc diện đối tượng cần hỗ trợ, bao gồm: hộ nghèo và cận nghèo, người khuyết tật, trẻ em có hoàn cảnh đặc biệt, người mãn hạn tù, người bị nhiễm HIV/AIDS, người già neo đơn, đồng bào ở các vùng thiên tai bão lũ. Bên cạnh đó là hàng loạt các vấn đề khác như bạo lực xã hội, quá tải giáo dục và y tế, an toàn thực phẩm, tiết kiệm năng lượng, bảo tồn văn hoá.
+          .headline= t('.thực_trạng')
+          %p= t('.Ước_tính_có_đến_24_triệu_người')
     .row-fluid
       .span8.offset2
         .about-us
-          .headline Bản Đồ Từ Thiện
-          %p được xây dựng nhằm mục đích hỗ trợ các dự án xã hội tại Việt Nam gây quỹ từ cộng đồng hiệu quả và minh bạch hơn, nhằm giải quyết các vấn đề xã hội trên. Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.
+          .headline= t('.bản_Đồ_từ_thiện')
+          %p= t('.được_xây_dựng_nhằm_mục_đích_hỗ')
           / %p Ủng hộ một dự án trên BĐTT mang ý nghĩa nhiều hơn hẳn việc bạn đang gửi tiền cho một ai / nhóm nào đó. Bạn đang tham gia vào một cộng đồng của những công dân quan tâm tới các vấn đề mà xã hội Việt Nam đang phải đối đầu. Bất kể dự án thuộc về giáo dục, thiên tai và con người, trẻ em, hay dịch bệnh, bạn đang là một phần của một cuộc vận động mà nhiều người đang bước đi chung.
-  %hr/ 
+  %hr/
   .body-container--content
     .row-fluid
       .span8.offset2
         .about-us
-          .headline Các Dự Án Đăng Trên BĐTT
-          %p được khởi tạo, bổ sung thông tin và tiến hành gây quỹ một cách độc lập. Các cá nhân / tổ chức làm dự án có toàn quyền quyết định về chiến dịch gây quỹ của mình.
- 
+          .headline= t('.các_dự_Án_Đăng_trên_bĐtt')
+          %p= t('.được_khởi_tạo_bổ_sung_thông_ti')
+
 .body-container--dark-row{style: "background-color: #31373A; margin-bottom: 0; padding-bottom: 0;"}
   .body-container--content
     .row-fluid
       .span8.offset2
         .about-us
-          %p{style: "color: #969ba2; margin-bottom: 0px; padding-bottom: 10px;"} Chúng tôi cung cấp một
-          .headline{style: "color: #fff;"} Bức Tranh Toàn Cảnh
-          %p{style: "color: #969ba2;"} về tổ chức / nhóm hoạt động xã hội: mục tiêu, sức mệnh hoạt động, các dự án đã và đang làm, thành viên, v.v
+          %p{style: "color: #969ba2; margin-bottom: 0px; padding-bottom: 10px;"}= t('.chúng_tôi_cung_cấp_một')
+          .headline{style: "color: #fff;"}= t('.bức_tranh_toàn_cảnh')
+          %p{style: "color: #969ba2;"}= t('.về_tổ_chức_nhóm_hoạt_động_xã_h')
       .span10.offset1
         %p= image_tag "about/screenshot-1.jpg"
-      
-    
+
+
     .row-fluid{style: "margin-top: 30px;"}
       .span8.offset2
         .about-us
-          %p{style: "color: #969ba2;"} về dự án: kế hoạch, tình hình tài chính, nhân sự, cập nhật, báo cáo, v.v
+          %p{style: "color: #969ba2;"}= t('.về_dự_án_kế_hoạch_tình_hình_tà')
       .span10.offset1
-        %p{style: "padding-bottom: 0; margin-bottom: -3px;"}= image_tag "about/screenshot-2.jpg" 
+        %p{style: "padding-bottom: 0; margin-bottom: -3px;"}= image_tag "about/screenshot-2.jpg"
 
 .body-container--plain-row
   .body-container--content
     .row-fluid
       .span8.offset2
         .about-us
-          .headline Tích Hợp Chặt Chẽ
-          %p với email, mạng xã hội và SMS. <b>Chức năng tuỳ chọn</b>:
-          %p{style: "margin-top: 10px; font-size: 15px;"} 
-            &sdot; Các thông báo quan trọng về dự án mà bạn đã ủng hộ (đạt mục tiêu gây quỹ, giải ngân, cập nhật hoạt động, v.v) đều được gửi email và SMS.<br/>
-            &sdot; Bản tin hằng tháng cập nhật các dự án mới trên hệ thống và các dự án mà bạn bè trên Facebook của bạn đã ủng hộ.
+          .headline= t('.tích_hợp_chặt_chẽ')
+          %p= t('.với_email_mạng_xã_hội_và_sms_b')
+          %p{style: "margin-top: 10px; font-size: 15px;"}
+            = t('.sdot_các_thông_báo_quan_trọng_')
+            = t('.sdot_bản_tin_hằng_tháng_cập_nh')
     .row-fluid
       .span10.offset1
         .row-fluid
           .span8= image_tag "about/fb.png"
           .span4= image_tag "about/sms.png"
 
-%hr/ 
+%hr/
 .body-container--plain-row
   .body-container--content
     .row-fluid
       %p.centered
-        Generously seed funded through a <br/>
-        = link_to "http://piaweb.princeton.edu" do
-          %b Princeton in Asia Carrie Gordon Fellowship<br/><br/>
+        = t('.generously_seed_funded_through')
+        = link_to t('.httppiawebprincetonedu') do
+          %b= t('.princeton_in_asia_carrie_gordo')
           = image_tag "about/pia.jpg"
 
 / .row-fluid{:style => "margin-top: 50px;"}
@@ -72,7 +72,7 @@
 /     %span.medium-content{:align => "center"}
 /     .span12{:align => "center"}
 /       %strong What need does Charity Map address?
-/     %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence. 
+/     %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence.
 /   .span4{:align => "center"}
 /     %br/
 
@@ -91,7 +91,7 @@
 /             %span.medium-content{:align => "center"}
 /             .span12{:align => "center"}
 /               %strong What need does Charity Map address?
-/             %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence. 
+/             %p Current donation networks for social organizations in Ho Chi Minh City and Vietnam in general are small and constratined by the often limited resources that social organizations have to target and approach donors. For donors, many are unaware of the numerous social organizations in need for donations. This is exacerbated by many social organizations being in inconvenient/hard-to-find locations for donors that are aware of the need. Charity Map provides a convenient way to clearly view pertinent information about a social organization and donate easily and with greater confidence.
 /           .span4{:align => "center"}
 /             %br/
 / .body-container--plain-row
@@ -103,14 +103,14 @@
 /             %strong What is the difference between a public platform and a private crowdfunding page on Charity Map?
 /         .row-fluid
 /           %p Charity Map operates two types of crowdfunding pages. The private page allows individuals and organizations to set up a page for a social organization that can only be viewed by sharing the link. It is not listed on our homepage. The benefit for this type of page is that Charity Map increases the ease of information and payment process for existing donor networks. A public page is listed on our homepage and allows anyone to view the cause and donate to it, this is the preferred option for most crowdfunders since it allows both existing donor networks to view the page but also attracts additional potential donors.
-/       %hr/ 
+/       %hr/
 /       .message-box
 /         .row-fluid
 /           .span12{:align => "center"}
 /             %strong How does Charity Map ensure that donations are used for the intended target?
 /         .row-fluid
 /           %p Charity Map screen all social organizations that list on the platform through a multi-stage screening process. During and after the crowdfunding campaign, the team conducts regular visits to the social organization to ensure that donor money is being transferred as efficiently as possible.
-/       %hr/ 
+/       %hr/
 /       .message-box
 /         .row-fluid
 /           .span12{:align => "center"}

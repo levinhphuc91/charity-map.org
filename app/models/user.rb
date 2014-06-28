@@ -172,6 +172,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def upgrade_to_apis_organization_account
+    fetch_api_token if api_token.blank?
+    @charitio = Charitio.new(email, "")
+    @workoff = @charitio.update_user(email: email, category: "ORGANIZATION")
+    if @workoff.ok?
+      return true
+    else
+      Honeybadger.notify(error_message: %Q{\
+        [#{Time.zone.now}][User#upgrade_to_apis_organization_account Charitio.update_user] \
+        Affected user: Truncated email: #{email.split('@').first} \
+        API response: #{@workoff.response} \
+      })
+      return false
+    end
+  end
+
   def facebook_access_granted?
     !facebook_credentials.nil?
   end

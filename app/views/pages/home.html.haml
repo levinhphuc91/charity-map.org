@@ -1,6 +1,7 @@
 = content_for :head do
   = stylesheet_link_tag    "homepage/animate", media: "all", "data-turbolinks-track" => true
   = stylesheet_link_tag    "homepage/home", media: "all", "data-turbolinks-track" => true
+  = stylesheet_link_tag    "homepage_projects_display_box", media: "all", "data-turbolinks-track" => true
   %style 
     body {padding-top: 0 !important}
   - if user_signed_in?
@@ -31,94 +32,69 @@
           hoặc đăng nhập 
           = link_to "bằng email", new_user_session_path, class: "mail"
 
-%section.projects
-  .project-content.section.col-md-12{style: "height: 525px;"}
-    %h2
-      Dự án đang gây quỹ
-      / %a{href: ""} tiêu biểu
-    - if @funding_projects.empty?
-      %p Hiện chưa có dự án nào.
-    - else
-      .funding-project-slider
-        %ul 
-          - @funding_projects.each do |project|
-            %li 
-              .project-details
-                .col-md-2
-                  = link_to user_profile_path(project.user) do
-                    - if project.user.avatar?
-                      %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
-                    - else
-                      %span= image_tag "default_avatar.png", class: "img-circle group-ava"
-                .col-md-10
-                  %strong= link_to project.title, project_path(project)
-                  %ul
-                    %li
-                      %i.glyphicon.glyphicon-user
-                      %span= link_to project.user.name, user_profile_path(project.user)
-                    %li
-                      %i.glyphicon.glyphicon-map-marker
-                      %span= project.location
-                    %li
-                      %i.glyphicon.glyphicon-calendar
-                      %span Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i + 1} ngày
-                  .donation-funded-wrap
-                    .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
-              .project-goal.col-md-10.col-md-offset-2
-                .col-md-6.mota-ngan
-                  %span= project.brief.html_safe
-                .col-md-4
-                  .goal
-                    %strong
-                      %span= human_currency project.funding_goal
-                    .hint MỤC TIÊU
+- cache("funding_projects", :expires_in => 1.hour) do
+  %section.projects
+    .project-content.section.col-md-12{style: "margin-bottom: 10px;"}
+      %h2
+        Dự án đang gây quỹ
+    
+    .body-container--plain-row
+      .body-container--content
+        .row-fluid
+          - if @funding_projects.empty?
+            %p Hiện chưa có dự án nào.
+          - else
+            - @funding_projects.each do |project|
+              = render "projects/box_display_for_homepage", :project => project
+    .clearfix
 
 - unless @markers.nil?
   %section
     = render "layouts/map", height: "500px", markers: @markers
 
-%section.projects
-  .project-content.section.col-md-12{style: "height: 525px;"}
-    %h2
-      Dự án tiêu biểu
-      / %a{href: ""} tiêu biểu
-    - if @finished_projects.empty?
-      %p Hiện chưa có dự án nào.
-    - else
-      .finished-project-slider
-        %ul 
-          - @finished_projects.each do |project|
-            - if project.success?
-              %li
-                .project-details
-                  .col-md-2
-                    = link_to user_profile_path(project.user) do
-                      - if project.user.avatar?
-                        %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
-                      - else
-                        %span= image_tag "default_avatar.png", class: "img-circle group-ava"
-                  .col-md-10
-                    %strong= link_to project.title, project_path(project)
-                    %ul
-                      %li
-                        %i.glyphicon.glyphicon-user
-                        %span= link_to project.user.name, user_profile_path(project.user)
-                      %li
-                        %i.glyphicon.glyphicon-map-marker
-                        %span= project.location
-                      %li
-                        %i.glyphicon.glyphicon-calendar
-                        %span #{human_time project.end_date}
-                    .donation-funded-wrap
-                      .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
-                .project-goal.col-md-10.col-md-offset-2
-                  .col-md-6.mota-ngan
-                    %span= project.brief.html_safe
-                  .col-md-4
-                    .goal
-                      %strong
-                        %span= human_currency project.funding_goal
-                      .hint ĐÃ GÂY QUỸ
+- cache("finished_projects", :expires_in => 1.day) do
+  %section.projects
+    .project-content.section.col-md-12{style: "height: 525px;"}
+      %h2
+        Dự án tiêu biểu
+        / %a{href: ""} tiêu biểu
+      - if @finished_projects.empty?
+        %p Hiện chưa có dự án nào.
+      - else
+        .finished-project-slider
+          %ul 
+            - @finished_projects.each do |project|
+              - if project.success?
+                %li
+                  .project-details
+                    .col-md-2
+                      = link_to user_profile_path(project.user) do
+                        - if project.user.avatar?
+                          %span= image_tag project.user.avatar_url(:large), class: "img-circle group-ava"
+                        - else
+                          %span= image_tag "default_avatar.png", class: "img-circle group-ava"
+                    .col-md-10
+                      %strong= link_to project.title, project_path(project)
+                      %ul
+                        %li
+                          %i.glyphicon.glyphicon-user
+                          %span= link_to project.user.name, user_profile_path(project.user)
+                        %li
+                          %i.glyphicon.glyphicon-map-marker
+                          %span= project.location
+                        %li
+                          %i.glyphicon.glyphicon-calendar
+                          %span #{human_time project.end_date}
+                      .donation-funded-wrap
+                        .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
+                  .project-goal.col-md-10.col-md-offset-2
+                    .col-md-6.mota-ngan
+                      %span= project.brief.html_safe
+                    .col-md-4
+                      .goal
+                        %strong
+                          %span= human_currency project.funding_goal
+                        .hint ĐÃ GÂY QUỸ
 
 %section.partners
   .partners-content.section

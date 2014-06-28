@@ -16,5 +16,30 @@
     - if notice || alert
       %section.home-notice= notice || alert
     = yield
-    = render "layouts/analytics"
-    = render "layouts/olark"
+    - cache("analytics", :expires_in => 1.week) do
+      = render "layouts/analytics"
+      = render "layouts/olark"
+
+    :javascript
+      $(document).ready(function() {
+        // var editor = new MediumEditor('.editable');
+        $(".show-chart").click(function() {
+          var bar_display, donation_chart;
+          bar_display = $(this).parents(".bar-display");
+          donation_chart = $(".chart", bar_display);
+          return donation_chart.toggle();
+        });
+        
+        var percentage_obj_list;
+        percentage_obj_list = $(".project-progressbar .project-progressbar--green");
+        return percentage_obj_list.each(function(index) {
+          var percentage_value, real_percentage_value;
+          percentage_value = $(this).attr("data_percentage");
+          if (percentage_value > 100) {
+            real_percentage_value = 260;
+          } else {
+            real_percentage_value = percentage_value * 260 / 100;
+          }
+          return $(this).css("width", real_percentage_value);
+        });
+      });

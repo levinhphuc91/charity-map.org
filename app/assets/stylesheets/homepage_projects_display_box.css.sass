@@ -1,0 +1,94 @@
+$green: #27ae60
+$blue: #3498db
+$light_grey: #ecf0f1
+$grey: #bdc3c7
+$darker_grey: darken(#bdc3c7, 20%)
+$black: #333333
+$red: #e74c3c
+$white: #fff
+
+.body-container--plain-row
+  margin: 0
+  width: 100%
+  height: auto
+  padding: 20px 0 20px 0
+  &:first-child
+    padding-top: 70px
+.body-container--dark-row
+  margin: 0
+  width: 100%
+  height: auto
+  background-color: $light_grey
+  padding: 20px 0 20px 0
+  &:first-child
+    padding-top: 70px
+.body-container--content
+  width: 960px
+  margin: 0 auto
+
+#homepage--project-container
+  i 
+    padding-right: 3px !important
+  text-align: left !important
+  font-family: Helvetica Neue, Arial, sans-serif
+  float: left
+  width: 286px
+  height: 390px
+  max-height: 390px
+  overflow: hidden
+  padding: 10px
+  border: 3px solid $light_grey
+  background-color: $white
+  margin: auto 50px 30px auto
+  position: relative
+  &:nth-child(3n)
+    margin: auto 0px 30px auto !important
+  .project-title
+    font-size: 18px
+    color: $blue
+    font-weight: bold
+  .project-info
+    font-size: 12px
+    line-height: 18px
+    color: $grey
+  .project-description
+    line-height: 20px
+    font-size: 14px
+    height: 150px
+    word-wrap: break-word
+  .project-footer-bar
+    position: absolute
+    height: 55px
+    bottom: 0
+  .project-progressbar
+    margin-top: 5px
+    width: 260px
+    border-radius: 5px
+    height: 10px
+    float: left 
+    background-color: $light_grey
+    overflow: hidden
+  .project-progressbar--green
+    z-index: 5
+    font-size: 2px
+    height: 10px
+    width: 100px
+    display: block
+    float: left
+    border-radius: 5px
+    background-color: $green
+  .project-progressbar--red
+    display: block
+    float: left
+    border-radius: 5px
+    background-color: $red
+
+  .project-metric
+    font-weight: bold
+    font-size: 14px
+    color: $black
+  .project-metric--description
+    font-size: 9px
+    text-transform: uppercase
+    color: $grey
+    font-weight: bold

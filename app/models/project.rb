@@ -102,8 +102,7 @@ class Project < ActiveRecord::Base
   end
 
   def donations_sum
-    sum = self.donations.successful.sum(:amount) + self.ext_donations.sum(:amount)
-    return sum
+    donations.successful.sum(:amount) + ext_donations.sum(:amount)
   end
 
   def donations_average

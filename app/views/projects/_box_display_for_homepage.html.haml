@@ -21,21 +21,22 @@
       = limit_display project.brief.html_safe, 150
     - else
       = project.brief.html_safe
+  - @donations_sum, @funding_goal = project.donations_sum, project.funding_goal
   .project-footer-bar
     .row-fluid.giving-space
       .project-progressbar
-        .project-progressbar--green{:data_percentage => "#{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}"}
+        .project-progressbar--green{:data_percentage => "#{number_with_precision @donations_sum * 100/ @funding_goal, precision: 0}"}
     .row-fluid.giving-space
       .pull-left{style: "width: 80px;"}
-        .project-metric= number_to_percentage project.donations_sum * 100 / project.funding_goal, precision: 0
+        .project-metric= number_to_percentage @donations_sum * 100 / @funding_goal, precision: 0
         .project-metric--description Hoàn Thành
-      - if project.donations_sum * 100/ project.funding_goal < 0.15
+      - if @donations_sum * 100/ @funding_goal < 0.15
         .pull-left{style: "width: 110px;"}
-          .project-metric= human_currency project.funding_goal - project.donations_sum
+          .project-metric= human_currency @funding_goal - @donations_sum
           .project-metric--description Cần Kêu Gọi
       - else
         .pull-left{style: "width: 110px;"}
-          .project-metric= human_currency project.donations_sum
+          .project-metric= human_currency @donations_sum
           .project-metric--description Đã Kêu Gọi
       .pull-left{style: "width: 70px;"}
         - if project.end_date > Time.now

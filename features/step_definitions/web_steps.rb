@@ -46,6 +46,7 @@ When /^I create an item based project named "(.+?)"$/ do |name|
     And I fill in "project_location" with "227 Nguyen Van Cu"
     And I press "Lưu"
   }
+  Project.last.update_attribute(:unlisted, false)
 end
 
 When /^I start fundraising for project "(.+?)"$/ do |name|

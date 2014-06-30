@@ -201,7 +201,7 @@ Feature: Gift Card
     Then I should see "TK: 100.000 VNĐ"
     Given the date is "2013-09-10"
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nhom Lam Du An"
-      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the bank info "Techcombank" with the user above
+      And there is a project with the title "Push The World" and the description "test slug" and the unlisted "false" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the bank info "Techcombank" with the user above
       And there is a project reward with the value "10000" and the description "reward description" with the project above
     Given the date is "2013-09-13"
       And I clear my emails

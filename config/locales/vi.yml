@@ -28,6 +28,17 @@ vi:
       header:
         one: 1 lỗi ngăn không cho lưu %{model} này
         other: '%{count} lỗi ngăn không cho lưu %{model} này'
+      carrierwave_processing_error: "Chỉnh sửa ảnh chưa hoàn tất."
+      carrierwave_integrity_error: "Không phải ảnh hợp lệ."
+      carrierwave_download_error: "Không tải được ảnh."
+      extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
+      extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+      unknown_error: "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
+      login_required: "Bạn cần đăng nhập để tiếp tục."
+      wrong_code: "Mã không hợp lệ."
+      verification_required: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án %{project_title}."
+      unsuccessful_try_again: "Không thành công. Vui lòng thử lại."
+      permission_denied: "Không có quyền truy cập"
   date:
     abbr_day_names:
     - Chủ nhật
@@ -1047,8 +1058,6 @@ vi:
     dashboard:
       dự_Án_của_bạn: Dự Án Của Bạn
       tạo_dự_án_đầu_tiên: Tạo dự án đầu tiên!
-    delete_figure_from_portfolio.js.erb:
-      figure_paramsindex_slidetoggle: $("#figure-<%= params[:index] %>").slideToggle(500);
     donations:
       Đóng_góp_của_bạn: Đóng Góp Của Bạn
       hiện_chưa_có_thống_kê_về_những: Hiện chưa có thống kê về những khoản tài trợ
@@ -1117,3 +1126,4 @@ vi:
         xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo
         mẫu: 0908123456, không thêm mã quốc gia vào.'
       tài_khoản_đã_được_xác_nhận: Tài khoản đã được xác nhận.
+

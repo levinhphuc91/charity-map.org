@@ -6,7 +6,7 @@
         - @donation.errors.full_messages.each do |msg|
           = t('.sdot_msgbr', :msg => (msg))
   = f.hidden_field :project_reward_id, value: params[:project_reward_id]
-  .money-donation-form.col-md-12
+ .money-donation-form.col-md-12
     .col-md-6
       = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
       = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}

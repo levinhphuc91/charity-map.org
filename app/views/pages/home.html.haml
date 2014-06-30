@@ -148,7 +148,7 @@
             .partner-name
               = t('.công_bằng_y_tế')
 
-- cache("stats_homepage", :expires_in => 1.hour) do
+- cache("stats_homepage", :expires_in => 1.day) do
   %section.stats-number
     .stats-number-content
       .section
@@ -196,7 +196,7 @@
       .col-md-3
         = link_to t('.Đăng_kí_và_Ủng_hộ'), new_user_registration_path, class: "action-button purple"
 
-- cache("hp_footer", :expires_in => 1.week) do
+- cache("hp_footer", :expires_in => 1.month) do
   .col-md-12.cm-footer
     .col-md-6
       %p

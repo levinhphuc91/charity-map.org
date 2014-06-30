@@ -31,7 +31,7 @@ Before '@api-call' do
     :body => File.new("#{Rails.root}/features/support/json/update_user.json"),
     :content_type => 'application/json',
     :status => "200")
-  FakeWeb.register_uri(:post, 'https://' + ENV['CAMPAIGN_MONITOR_API_KEY'] + ':x@api.createsend.com/api/v3/subscribers/76dc691d424ceab2f5d1ea2f68da79972.json',
+  FakeWeb.register_uri(:post, 'https://' + ENV['CAMPAIGN_MONITOR_API_KEY'] + ':x@api.createsend.com/api/v3/subscribers/2b0bc2d32f4bab37be1dcdf67fed88e6.json',
     :body => File.new("#{Rails.root}/features/support/json/campaign_monitor_new_subscriber.json"),
     :content_type => 'application/json',
     :status => "200")

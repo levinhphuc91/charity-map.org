@@ -60,7 +60,7 @@
 					= link_to t('.xem_trang_của_bạn'), user_profile_path(current_user)
 					= t('.sdot_tk_human_currency_balance', :human_currency_balanceuser => (human_currency balance(@user)))
 					- unless @user.facebook_access_granted?
-						= &sdot; #{link_to t('.kết_nối_tk_facebook', ), "/users/auth/facebook"}
+						&sdot; #{link_to t('.kết_nối_tk_facebook', ), "/users/auth/facebook"}
 				.pull-left
 					= f.submit t('.cập_nhật_thông_tin'), class: "submit"
 

@@ -62,7 +62,9 @@ class DonationsController < InheritedResources::Base
       end
       redirect_to project_donations_path(@project, cid: @donation.id), notice: @notice
     else
-      @project_reward = ProjectReward.find(params[:donation][:project_reward_id])
+      puts "===== #{@donation.errors} ====="
+      @project_reward = ProjectReward.find(params[:donation][:project_reward_id]) unless
+        params[:donation][:project_reward_id].blank?
       render :new, alert: t('common.failed_and_try_again')
     end
   end

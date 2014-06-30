@@ -41,13 +41,13 @@
           %li= link_to t('.thông_tin'), project_path(@project), class: "active"
           %li
             = link_to project_project_updates_path(@project) do
-              = Cập Nhật #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
+              I18n.t('updates', :scope => ['controller','user']) #{"(#{@project.project_updates.count})" if @project.project_updates.count > 0}
           %li
             = link_to project_donations_path(@project) do
-              = Mạnh Thường Quân #{"(#{@project.donations_count})" if @project.donations_count > 0}
+              I18n.t('donors', :scope => ['controller','user'])  #{"(#{@project.donations_count})" if @project.donations_count > 0}
           %li
             = link_to project_project_comments_path(@project) do
-              = Bình Luận #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
+              I18n.t('updates', :scope => ['controller','user']) #{"(#{@project.project_comments.count})" if @project.project_comments.count > 0}
           - if current_user && @project.authorized_edit_for?(current_user)
             %li= link_to t('.chỉnh_sửa'), edit_project_path(@project), style: "color: #3498db !important;"
             - if @project.status == "DRAFT"

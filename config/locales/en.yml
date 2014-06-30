@@ -995,8 +995,6 @@ en:
     dashboard:
       dự_Án_của_bạn: Your Projects
       tạo_dự_án_đầu_tiên: Create the First Project!
-    delete_figure_from_portfolio.js.erb:
-      figure_paramsindex_slidetoggle: $("#figure-<%= params[:index] %>").slideToggle(500);
     donations:
       Đóng_góp_của_bạn: Your Donation(s)
       hiện_chưa_có_thống_kê_về_những: You have not made any donation.
@@ -1062,3 +1060,13 @@ en:
       Để_tạo_hoặc_giới_thiệu_một_dự_: 'To create or recommend a project, you have to verify by mobile. 
       Please enter your number without country code: 0908123456.'
       tài_khoản_đã_được_xác_nhận: Account verified.
+      carrierwave_processing_error: "Chỉnh sửa ảnh chưa hoàn tất."
+      carrierwave_integrity_error: "Không phải ảnh hợp lệ."
+      carrierwave_download_error: "Không tải được ảnh."
+      extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
+      extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+    controller:
+      donation: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại)."
+      update: Cập nhật
+      donors: Mạnh Thường Quân
+      comments: Bình luận

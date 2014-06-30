@@ -1,4 +1,4 @@
-= content_for :head do 
+= content_for :head do
   = stylesheet_link_tag "wrapdashboard/optional/index.css", media: "all", "data-turbolinks-track" => true
 
 = render "stats"
@@ -8,7 +8,7 @@
     .row.head
       .col-md-12
         %h4
-          Danh sách Gift Cards
+          = t('.danh_sách_gift_cards')
           %small gửi đi từ #{human_time current_user.created_at}
     .row.filter-block
       .col-md-7.col-md-offset-5.text-right
@@ -16,7 +16,7 @@
         /   .ui-select
         /     = select_tag "order", options_for_select([["Sắp xếp: theo ngày", "created_at"], ["Sắp xếp: theo trạng thái", "status"], ["Sắp xếp: theo giá trị", "amount"]]), class: "order_option"
         / %input.search{type: "text", placeholder: "Search email hoặc card ID"}/
-        = link_to "+ Tạo gift card", new_dashboard_gift_card_path, class: "btn-flat new-product"
+        = link_to t('.+_tạo_gift_card'), new_dashboard_gift_card_path, class: "btn-flat new-product"
 
     .row
       %table.table.table-hover
@@ -24,20 +24,20 @@
           %tr
             %th.col-md-4
               / %input{type: "checkbox"}/
-              Người Nhận
+              = t('.người_nhận')
             %th.col-md-2
               %span.line>
-              Giá Trị
+              = t('.giá_trị')
             %th.col-md-3
               %span.line>
-              Thông Tin Thêm 
+              = t('.thông_tin_thêm')
             %th.col-md-3
               %span.line>
-              Trạng Thái
+              = t('.trạng_thái')
         %tbody
           - if @gift_cards.empty?
-            %tr 
-              %td{colspan: 4} Hiện bạn chưa tạo gift card nào. Hãy thử #{link_to "tạo mới", new_dashboard_gift_card_path}.
+            %tr
+              %td{colspan: 4} Hiện bạn chưa tạo gift card nào. Hãy thử #{link_to= t('.tạo_mới', ), new_dashboard_gift_card_path}.
           - else
             - @gift_cards = @gift_cards.order(params["order"].to_sym) if params["order"] && ["created_at", "amount", "status"].index(params["order"]) != nil
             - @gift_cards.each do |card|
@@ -47,21 +47,21 @@
                   .img
                     = image_tag "dashboard/table-img.png"
                   - if card.references["recipient_name"].blank?
-                    <b>#{card.recipient_email}</b>
+                    = t('.bcardrecipient_emailb', :cardrecipient_email => (card.recipient_email))
                   - else
-                    <b>#{card.references["recipient_name"]}</b> (#{card.recipient_email})
-                  %br/ 
-                  #{card.references["campaign_name"]}
+                    = t('.bcardreferencesrecipient_nameb', :cardreferencesrecipient_name => (card.references["recipient_name"]), :cardrecipient_email => (card.recipient_email))
+                  %br/
+                  = t('.cardreferencescampaign_name', :cardreferencescampaign_name => (card.references["campaign_name"]))
                 %td.description
-                  #{human_currency card.amount}
+                  = t('.human_currency_cardamount', :human_currency_cardamount => (human_currency card.amount))
                 %td
-                  <b>Ngày</b>: #{human_time card.created_at}
-                  %br/ 
-                  #{card.references["extra_info"]}
+                  = <b>Ngày</b>: #{human_time card.created_at}
+                  %br/
+                  = t('.cardreferencesextra_info', :cardreferencesextra_info => (card.references["extra_info"]))
                 %td
-                  %span.label.label-success #{card.human_status}
-                  &nbsp; #{link_to "Edit", edit_dashboard_gift_card_path(card)}
-                  &sdot; #{link_to "Disable", dashboard_gift_card_path(card), :method => :delete, :data => { :confirm => 'Mark as inactive?' }}
+                  %span.label.label-success= t('.cardhuman_status', :cardhuman_status => (card.human_status))
+                  = &nbsp; #{link_to t('.edit', ), edit_dashboard_gift_card_path(card)}
+                  = &sdot; #{link_to t('.disable', ), dashboard_gift_card_path(card), :method => :delete, :data => { :confirm => 'Mark as inactive?' }}
 
 // :javascript
 //   $(document).ready(function(){

@@ -1,29 +1,29 @@
 %tr
   %td
     = human_time invite.created_at
-    %br/ 
+    %br/
     - if invite.status == "SENT"
-      Đã Mời
+      = t('.Đã_mời')
     - else
-      Mới
-  %td 
-    %p <strong>#{invite.name}</strong>
-  %td 
+      = t('.mới')
+  %td
+    %p= t('.stronginvitenamestrong', :invitename => (invite.name))
+  %td
     %p
-      P: #{invite.phone}<br/>
-      E: #{invite.email}
-  %td 
-    %p 
+      = t('.p_invitephonebr', :invitephone => (invite.phone))
+      = t('.e_inviteemail', :inviteemail => (invite.email))
+  %td
+    %p
       - if invite.status == "NEW"
-        = link_to 'Sửa', edit_project_invite_path(invite.project, invite)
-        &sdot;
-        = link_to 'Xoá', project_invite_path(invite.project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
+        = link_to t('.sửa'), edit_project_invite_path(invite.project, invite)
+        = t('.sdot')
+        = link_to t('.xoá'), project_invite_path(invite.project, invite), :method => :delete, :data => { :confirm => 'Bạn có chắc xoá contact này không?' }
         %br/
-        %b= link_to 'Gửi Thư Mời', send_out_project_invites_path(invite_id: invite.id)
+        %b= link_to t('.gửi_thư_mời'), send_out_project_invites_path(invite_id: invite.id)
   / .span2
   /   %p
   /     = human_time invite.created_at
-  /     %br/ 
+  /     %br/
   /     - if invite.status == "SENT"
   /       Đã Mời
   /     - else
@@ -35,7 +35,7 @@
   /     P: #{invite.phone}<br/>
   /     E: #{invite.email}
   / .span2
-  /   %p 
+  /   %p
   /     - if invite.status != "SENT"
   /       = link_to 'Sửa', edit_project_invite_path(@project, invite)
   /       &sdot;

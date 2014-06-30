@@ -1,8 +1,8 @@
 .row-fluid
   .devider
-    .item Tin Nhắn
+    .item= t('.tin_nhắn')
     .note Người gửi: #{link_to full_name_by_id(@message.sent_messageable_id), users_profile_path(:id => @message.sent_messageable_id)} &sdot; Ngày gửi: #{human_time(@message.updated_at)}
 .row-fluid
   %p= @message.body.html_safe
 %hr/
-%p= link_to "Trả lời", new_reply_message_users_path(current_user, :message_id => @message.id)
+%p= link_to t('.trả_lời'), new_reply_message_users_path(current_user, :message_id => @message.id)

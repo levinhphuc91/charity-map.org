@@ -4,40 +4,40 @@
       - if (current_user)
         .chunk
           .line.heading
-            %i.icon-user 
-            Cá Nhân
-          .line= link_to "Chỉnh Sửa Thông Tin", users_settings_path
-          .line #{link_to "Tin Nhắn", messages_path}
-          .line= link_to "Đóng Góp", users_donations_path
+            %i.icon-user
+            = t('.cá_nhân')
+          .line= link_to t('.chỉnh_sửa_thông_tin'), users_settings_path
+          .line #{link_to= t('.tin_nhắn', ), messages_path}
+          .line= link_to t('.Đóng_góp'), users_donations_path
       .chunk
         .line.heading
           %i.icon-link
-          Đường Dẫn
-        .line= link_to "Trang Chủ", root_path
-        .line= link_to "Danh Sách Dự Án", projects_path
+          = t('.Đường_dẫn')
+        .line= link_to t('.trang_chủ'), root_path
+        .line= link_to t('.danh_sách_dự_Án'), projects_path
       .chunk
         .line.heading
-          %i.icon-gears 
-          Hệ Thống
-        .line Tin Tức, Cập Nhật
-        .line.disabled Gửi Góp Ý
+          %i.icon-gears
+          = t('.hệ_thống')
+        .line= t('.tin_tức_cập_nhật')
+        .line.disabled= t('.gửi_góp_Ý')
     .dashboard--main
       .devider
-        .item Giới Thiệu
-        .note Dự án: #{link_to limit_display(@project.title, 30), @project} &sdot; #{link_to 'Viết Giới Thiệu', new_project_recommendation_path(@project)}
+        .item= t('.giới_thiệu')
+        .note Dự án: #{link_to limit_display(@project.title, 30), @project} &sdot; #{link_to= t('.viết_giới_thiệu', ), new_project_recommendation_path(@project)}
       - @recommendations.each do |rec|
         .row-fluid
           .span4
             .user-profile
               .avatar
-                - if rec.user.avatar? 
+                - if rec.user.avatar?
                   = image_tag(rec.user.avatar_url(:small), size: "30x30")
                 - else
                   = image_tag("default_avatar.png", size: "30x30")
               .user-info
                 .name= link_to rec.user.name, user_profile_path(rec.user)
-                .des-1 #{human_time rec.updated_at}
+                .des-1= t('.human_time_recupdated_at', :human_time_recupdated_at => (human_time rec.updated_at))
           .span8
-            %p 
+            %p
               = rec.content
         %hr/

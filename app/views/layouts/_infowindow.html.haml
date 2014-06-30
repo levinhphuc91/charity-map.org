@@ -2,13 +2,13 @@
   .giving-space
     .project-title= link_to project.title, project_path(project)
     .project-info
-      %i.icon-user 
+      %i.icon-user
       = project.user.name
       %br/
-      %i.icon-map-marker 
-      #{limit_display project.location, 20}
+      %i.icon-map-marker
+      = t('.limit_display_projectlocation_', :limit_display_projectlocation_ => (limit_display project.location, 20))
       - if project.recommendations.count > 0
-        &sdot;
+        = t('.sdot')
         %i.icon-thumbs-up
         = project.recommendations.count
   .project-description.giving-space
@@ -23,19 +23,19 @@
     .row-fluid.giving-space
       .pull-left{style: "width: 80px;"}
         .project-metric= number_to_percentage project.donations_sum * 100 / project.funding_goal, precision: 0
-        .project-metric--description Hoàn Thành
+        .project-metric--description= t('.hoàn_thành')
       - if project.donations.successful.sum(:amount) * 100/ project.funding_goal < 0.15
         .pull-left{style: "width: 110px;"}
           .project-metric= human_currency project.funding_goal - project.donations_sum
-          .project-metric--description Cần Kêu Gọi
+          .project-metric--description= t('.cần_kêu_gọi')
       - else
         .pull-left{style: "width: 110px;"}
           .project-metric= human_currency project.donations_sum
-          .project-metric--description Đã Kêu Gọi
+          .project-metric--description= t('.Đã_kêu_gọi')
       .pull-left{style: "width: 70px;"}
         - if project.end_date > Time.now
           .project-metric= (TimeDifference.between(Time.now, project.end_date).in_days).to_i
-          .project-metric--description Ngày Còn Lại
+          .project-metric--description= t('.ngày_còn_lại')
         - else
-          .project-metric #{project.end_date.strftime("%d/%m/%Y")}
-          .project-metric--description Kết Thúc
+          .project-metric= t('.projectend_datestrftimedmy', :projectend_datestrftimedmy => (project.end_date.strftime("%d/%m/%Y")))
+          .project-metric--description= t('.kết_thúc')

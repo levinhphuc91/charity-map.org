@@ -1,9 +1,9 @@
 .row-fluid
   .devider
-    .item Đóng Góp Của Bạn
+    .item= t('.Đóng_góp_của_bạn')
 .row-fluid
   - if current_user.donations.empty?
-    %p Hiện chưa có thống kê về những khoản tài trợ bạn đã đóng góp.
+    %p= t('.hiện_chưa_có_thống_kê_về_những')
   - else
     - current_user.donations.each do |donation|
       = render "layouts/donation_display", donation: donation

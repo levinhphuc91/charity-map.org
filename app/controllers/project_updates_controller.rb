@@ -13,7 +13,7 @@ class ProjectUpdatesController < InheritedResources::Base
   def new
     @project = Project.find(params[:project_id])
     if (!signed_in?) || ((current_user) && (!@project.belongs_to?(current_user)))
-      redirect_to @project, alert: "Permission denied."
+      redirect_to @project, alert: I18n.t('permission_denied', :scope => ['errors','messages'])
     elsif @project.status == "FINISHED" || @project.status == "REVIEWED"
       new!
     else # outdated projects
@@ -47,7 +47,7 @@ class ProjectUpdatesController < InheritedResources::Base
       end
     else
       render :new, alert: t('common.failed_and_try_again')
-    end
+   end
   end
 
   def show

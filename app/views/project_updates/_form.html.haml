@@ -1,7 +1,7 @@
 = simple_form_for [@project, @project_update] do |f|
   - if @project_update.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@project_update.errors.count, "error")} prohibited this project from being saved:"
+      %h2= t('.pluralizeproject_updateerrorsc', :pluralizeproject_updateerrorsc => (pluralize(@project_update.errors.count, "error")))
       %ul
         - @project_update.errors.full_messages.each do |msg|
           %li= msg
@@ -9,8 +9,8 @@
   .row-fluid
     = f.file_field :photo
     = f.hidden_field :photo_cache
-    %hr/ 
+    %hr/
     = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
     = f.input :title, :label => "Tên cập nhật", :input_html => {class: "span12"}
     = f.input :content, :label => "Nội dung cập nhật", :input_html => {class: "span12", :rows => 10}
-    = f.submit "Cập Nhật", class: "submit"
+    = f.submit t('.cập_nhật'), class: "submit"

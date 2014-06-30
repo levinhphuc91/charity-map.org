@@ -8,9 +8,9 @@
     .col-md-6.text-right= image_tag "gift-box-opened.png"
     .col-md-6.text-left
       %p{style: "line-height: 30px;"}
-        %span.gifts-page-title Xin Chúc Mừng
-        %br/ 
-        Sử dụng thẻ quà tặng, bạn có thể ủng hộ cho hơn 100 dự án và tổ chức đang gây quỹ trên charity-map.org. Hãy điền mã số bạn được cấp (qua email, SMS, hoặc từ các đơn vị hợp tác) vào ô bên dưới và bắt đầu sử dụng.
+        %span.gifts-page-title= t('.xin_chúc_mừng')
+        %br/
+        = t('.sử_dụng_thẻ_quà_tặng_bạn_có_th')
   .row
     - if user_signed_in?
       = form_tag users_redeem_gift_card_path do

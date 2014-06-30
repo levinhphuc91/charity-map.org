@@ -5,38 +5,38 @@
         = image_tag "logo.png"
     .pull-right
       / = link_to projects_path do
-      /   .navigation-box 
+      /   .navigation-box
       /     .navigation-text Các Dự Án
       - unless signed_in?
         = link_to pages_about_path do
-          .navigation-box 
-            .navigation-text Giới Thiệu
+          .navigation-box
+            .navigation-text= t('.giới_thiệu')
         = link_to new_user_session_path(card_token: (params[:card_token].upcase if params[:card_token])) do
-          .navigation-box 
-            .navigation-text Đăng Nhập
+          .navigation-box
+            .navigation-text= t('.Đăng_nhập')
         = link_to new_user_registration_path(card_token: (params[:card_token].upcase if params[:card_token])) do
-          .navigation-box 
-            .navigation-text Đăng Ký
+          .navigation-box
+            .navigation-text= t('.Đăng_ký')
       - else
         = link_to dashboard_path do
-          .navigation-box 
-            .navigation-text Quản Lý
+          .navigation-box
+            .navigation-text= t('.quản_lý')
         = link_to users_settings_path do
-          .navigation-box 
-            .navigation-text Hồ Sơ
+          .navigation-box
+            .navigation-text= t('.hồ_sơ')
         = link_to destroy_user_session_path do
-          .navigation-box 
-            .navigation-text Đăng Xuất
+          .navigation-box
+            .navigation-text= t('.Đăng_xuất')
       .language-bar
         .language-bar--text
           - if params[:locale] == "en"
-            %span.active= link_to "VN", locale: "vi"
+            %span.active= link_to t('.vn'), locale: "vi"
             &nbsp;/
-            EN
+            = t('.en')
           - else
             / %span.active= link_to "EN", locale: "en"
             / &nbsp;/
             / VN
-            %span.inactive{:"data-toggle" => "tooltip", :title => "first tooltip"} EN
+            %span.inactive{:"data-toggle" => "tooltip", :title => "first tooltip"}= t('.en')
             &nbsp;/
-            VN
+            = t('.vn')

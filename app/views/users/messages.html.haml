@@ -3,18 +3,18 @@
     .item Tin Nhắn Của Bạn (#{@count_unreaded_messages})
 .row-fluid
   - if @messages.empty?
-    %p Bạn không có tin nhắn nào mới.
+    %p= t('.bạn_không_có_tin_nhắn_nào_mới')
   - else
     %table.table.table-bordered
-      %tr 
-        %th Nội dung
-        %th Người gửi
-        %th Thời gian gửi
+      %tr
+        %th= t('.nội_dung')
+        %th= t('.người_gửi')
+        %th= t('.thời_gian_gửi')
       - @messages.each do |message|
-        %tr 
+        %tr
           %td #{link_to limit_display(message.body, 200), show_message_users_path(:message_id => message.id), :class => (message.opened == false ? "unreaded_message": "")}
           %td #{link_to full_name_by_id(message.sent_messageable_id), user_profile_path(message.sent_messageable_id)}
           %td
             = human_time(message.updated_at)
-            %br/ 
-            = link_to "Trả lời", new_reply_message_users_path(current_user, :message_id => message.id)
+            %br/
+            = link_to t('.trả_lời'), new_reply_message_users_path(current_user, :message_id => message.id)

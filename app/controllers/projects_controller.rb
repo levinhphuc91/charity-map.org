@@ -62,7 +62,7 @@ class ProjectsController < InheritedResources::Base
     else
       if @project.update_attributes(status: "REVIEWED")
         redirect_to @project, notice: t('controller.projects.funding_period')
-        AdminMailer.delay.new_pending_project(@project) if @project.status == "REVIEWED"
+       AdminMailer.delay.new_pending_project(@project) if @project.status == "REVIEWED"
       end
     end
   end
@@ -95,5 +95,5 @@ class ProjectsController < InheritedResources::Base
     def restricted_access
       @project = Project.find(params[:id])
       redirect_to :root, alert: t('common.permission_denied') if !signed_in? || !@project.authorized_edit_for?(current_user)
-    end
+   end
 end

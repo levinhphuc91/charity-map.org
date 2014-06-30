@@ -1,5 +1,5 @@
 ---
-vi:
+en:
   errors:
     format: '%{attribute} %{message}'
     messages: &1
@@ -28,17 +28,6 @@ vi:
       header:
         one: 1 lỗi ngăn không cho lưu %{model} này
         other: '%{count} lỗi ngăn không cho lưu %{model} này'
-      carrierwave_processing_error: "Chỉnh sửa ảnh chưa hoàn tất."
-      carrierwave_integrity_error: "Không phải ảnh hợp lệ."
-      carrierwave_download_error: "Không tải được ảnh."
-      extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
-      extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
-      unknown_error: "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
-      login_required: "Bạn cần đăng nhập để tiếp tục."
-      wrong_code: "Mã không hợp lệ."
-      verification_required: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án %{project_title}."
-      unsuccessful_try_again: "Không thành công. Vui lòng thử lại."
-      permission_denied: "Không có quyền truy cập"
   date:
     abbr_day_names:
     - Chủ nhật
@@ -286,64 +275,59 @@ vi:
   pages:
     home:
       body_paddingtop_0_important: 'body {padding-top: 0 !important}'
-      về_chúng_tôi: Về chúng tôi
+      về_chúng_tôi: About us
       blog: Blog
-      Đăng_xuất: Đăng Xuất
-      Đăng_kí: Đăng Kí
-      Ủng_hộ_từ_thiện_chưa_bao_giờ_d: Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
-      Đến_trang_quản_lý: Đến Trang Quản Lý
-      Đăng_nhập_bằng_facebook: Đăng nhập bằng Facebook
-      hoặc_đăng_nhập: hoặc đăng nhập
-      bằng_email: bằng email
-      dự_án_đang_gây_quỹ: Dự án đang gây quỹ
-      hiện_chưa_có_dự_án_nào: Hiện chưa có dự án nào.
+      Đăng_xuất: Log out
+      Đăng_kí: Signup
+      Ủng_hộ_từ_thiện_chưa_bao_giờ_d: Giving has never been this easy.
+      Đến_trang_quản_lý: Go to Dashboard
+      Đăng_nhập_bằng_facebook: Signin with Facebook
+      hoặc_đăng_nhập: or signin
+      bằng_email: with email
+      dự_án_đang_gây_quỹ: Fundraising projects
+      hiện_chưa_có_dự_án_nào: There is no any running project.
       cuf2n_timedifferencebetweentim: '"C\u{f2}n %{timedifferencebetweentimenow_p}
         ng\u{e0}y"'
-      mỤc_tiÊu: MỤC TIÊU
-      dự_án_tiêu_biểu: Dự án tiêu biểu
+      mỤc_tiÊu: TARGET
+      dự_án_tiêu_biểu: Notable projects 
       human_time_projectend_date: '"%{human_time_projectend_date}"'
-      ĐÃ_gÂy_quỸ: ĐÃ GÂY QUỸ
-      các_tổ_chức_tin_dùng_charityma: Các tổ chức tin dùng charity-map.org
-      vì_sao_bạn_nên_gây_quỹ_trên_ch: Vì sao bạn nên gây quỹ trên charity-map.org?
+      ĐÃ_gÂy_quỸ: RAISED
+      các_tổ_chức_tin_dùng_charityma: Partner organizations
+      vì_sao_bạn_nên_gây_quỹ_trên_ch: Why should you fundraise your next charity project in Viet Nam on charity-map.org?
       httpwwwcharitymaporguser38: http://www.charity-map.org/user/38
-      chia_sẻ_yêu_thương: Chia Sẻ Yêu Thương
+      chia_sẻ_yêu_thương: Sharing Love
       httpwwwcharitymaporguser54: http://www.charity-map.org/user/54
       cầu_vai_xanh: Cầu Vai Xanh
       httpwwwcharitymaporguser78: http://www.charity-map.org/user/78
       bàn_tay_nhỏ: Bàn Tay Nhỏ
       link_to_do: '#'
       công_bằng_y_tế: Công Bằng Y Tế
-      những_con_số: Những Con Số
-      tổng_quan: Tổng Quan
-      dự_án: dự án
-      mạnh_thường_quân: mạnh thường quân
-      đồng_được_đóng_góp: đồng được đóng góp
-      chi_tiết: Chi Tiết
-      cập_nhật: cập nhật
-      báo_cáo_qua_email: báo cáo qua email
-      báo_cáo_qua_sms: báo cáo qua sms
-      tặng_phẩm_được_gửi_đi: tặng phẩm được gửi đi
-      minh_bạch_100: Minh Bạch 100%
-      mỗi_ủng_hộ_được_gửi_về_dự_án_q: Mỗi ủng hộ được gửi về dự án qua hệ thống của
-        BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan
-        một cách đầy đủ và trực quan nhất.
-      Đăng_kí_và_Ủng_hộ: Đăng Kí và Ủng Hộ
-      copy_charity_map_2014: '&copy; CHARITY MAP 2014'
-      charity_map_bản_Đồ_từ_thiện_là: Charity Map (Bản Đồ Từ Thiện) là trang web gây
-        quỹ cộng đồng, quản lý quỹ và liên lạc với mạnh thường quân dành cho các dự
-        án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu
-        chí hoạt động.
-      about_us: VỀ CHÚNG TÔI
-      Đội_ngũ: Đội Ngũ
-      báo_chí: Báo Chí
-      tỔ_chỨc_xÃ_hỘi: TỔ CHỨC XÃ HỘI
-      hướng_dẫn_sử_dụng: Hướng Dẫn Sử Dụng
-      chiến_dịch_gây_quỹ: Chiến Dịch Gây Quỹ
-      câu_hỏi: Câu Hỏi
-      mẠnh_thƯỜng_quÂn: MẠNH THƯỜNG QUÂN
-      phương_thức_Ủng_hộ: Phương Thức Ủng Hộ
-      quy_Định_bảo_mật: Quy Định Bảo Mật
-      liên_hệ: Liên Hệ
+      những_con_số: Figures
+      tổng_quan: Overview
+      dự_án: project
+      mạnh_thường_quân: donors
+      đồng_được_đóng_góp: VND raised 
+      chi_tiết: Details
+      cập_nhật: updates
+      báo_cáo_qua_email: reports via email
+      báo_cáo_qua_sms: reports via SMS
+      tặng_phẩm_được_gửi_đi: rewards sent
+      minh_bạch_100: 100% Transparent
+      mỗi_ủng_hộ_được_gửi_về_dự_án_q: Donations via the charity-map.org platform, big or small, are stored, tracked and updated regularly and comprehensively
+      Đăng_kí_và_Ủng_hộ: Signup Now
+      copy_charity_map_2014: 'CHARITY MAP 2014'
+      charity_map_bản_Đồ_từ_thiện_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      about_us: ABOUT US
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      tỔ_chỨc_xÃ_hỘi: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide
+      chiến_dịch_gây_quỹ: Funding projects
+      câu_hỏi: Q&As
+      mẠnh_thƯỜng_quÂn: DONORS
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
     about:
       thực_trạng: Thực Trạng
       Ước_tính_có_đến_24_triệu_người: 'Ước tính có đến 24 triệu người (28% dân số)
@@ -393,46 +377,43 @@ vi:
       find_me_in_appviewspagesguidel: Find me in app/views/pages/guidelines.html.haml
   layouts:
     footer:
-      copy_bẢn_ĐỒ_tỪ_thiỆn_2013: '&copy; BẢN ĐỒ TỪ THIỆN 2013'
-      bản_Đồ_từ_thiện_charity_map_là: Bản Đồ Từ Thiện (Charity Map) là trang web gây
-        quỹ cộng đồng dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh
-        bạch và sự tín nhiệm làm tiêu chí hoạt động.
-      về_chúng_tôi: Về Chúng Tôi
-      Đội_ngũ: Đội Ngũ
-      báo_chí: Báo Chí
-      những_con_số: Những Con Số
-      tổ_chức_xã_hội: Tổ Chức Xã Hội
-      hướng_dẫn_sử_dụng: Hướng Dẫn Sử Dụng
-      chiến_dịch_gây_quỹ: Chiến Dịch Gây Quỹ
-      câu_hỏi: Câu Hỏi
-      mạnh_thường_quân: Mạnh Thường Quân
-      phương_thức_Ủng_hộ: Phương Thức Ủng Hộ
-      quy_Định_bảo_mật: Quy Định Bảo Mật
-      liên_hệ: Liên Hệ
+      copy_bẢn_ĐỒ_tỪ_thiỆn_2013: 'CHARITY MAP 2014'
+      bản_Đồ_từ_thiện_charity_map_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      về_chúng_tôi: ABOUT US 
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      những_con_số: Figures
+      tổ_chức_xã_hội: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide 
+      chiến_dịch_gây_quỹ: Funding projects 
+      câu_hỏi: Q&As
+      mạnh_thường_quân: Donors
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
     header:
-      giới_thiệu: Giới Thiệu
-      Đăng_nhập: Đăng Nhập
-      Đăng_ký: Đăng Ký
-      quản_lý: Quản Lý
-      hồ_sơ: Hồ Sơ
-      Đăng_xuất: Đăng Xuất
+      giới_thiệu: About us
+      Đăng_nhập: Signin
+      Đăng_ký: Signup
+      quản_lý: DASHBOARD
+      hồ_sơ: SETTINGS
+      Đăng_xuất: SIGNOUT
       vn: VN
-      nbsp: '&nbsp;/'
       en: EN
     donation_display:
       human_time_donationcreated_at_: '"%{human_time_donationcreated_at} &sdot;"'
-      Ẩn_danh: Ẩn Danh
+      Ẩn_danh: Anonymous
       u1ee7ng_hu1ed9_human_currency_: '"\u{1ee7}ng h\u{1ed9} %{human_currency_donationamount}"'
-      xác_nhận_ủng_hộ: Xác nhận ủng hộ
+      xác_nhận_ủng_hộ: Confirm Donate
     infowindow:
       limit_display_projectlocation_: '"%{limit_display_projectlocation_}"'
       sdot: '&sdot;'
-      hoàn_thành: Hoàn Thành
-      cần_kêu_gọi: Cần Kêu Gọi
-      Đã_kêu_gọi: Đã Kêu Gọi
-      ngày_còn_lại: Ngày Còn Lại
+      hoàn_thành: Complelted
+      cần_kêu_gọi: Goal
+      Đã_kêu_gọi: Progress
+      ngày_còn_lại: DAYS LEFT
       projectend_datestrftimedmy: '"%{projectend_datestrftimedmy}"'
-      kết_thúc: Kết Thúc
+      kết_thúc: Completed
     markdown:
       bôi_đậm_tiêu_đề_sdot_btiêu_đềb: 'Bôi đậm: **Tiêu đề** &sdot; <b>Tiêu đề</b>'
       in_nghiêng_ghi_chú_sdot_ighi_c: 'In nghiêng: *Ghi chú* &sdot; <i>Ghi chú</i>'
@@ -442,31 +423,31 @@ vi:
       chèn_link_báo_chíhttpgooglecom: 'Chèn link: [Báo chí](http://google.com) &sdot;
         <a href="http://google.com">Báo chí</a>'
     verify_code_via_phone:
-      hoàn_tất_xác_nhận_danh_tính: Hoàn tất xác nhận danh tính
+      hoàn_tất_xác_nhận_danh_tính: Verification Completed
       u110iu1ec1n_vue0o_uf4_buean_du: '"\u{110}i\u{1ec1}n v\u{e0}o \u{f4} b\u{ea}n
         d\u{1b0}\u{1edb}i \u{111}o\u{1ea1}n m\u{e3} 6 ch\u{1eef} s\u{1ed1} \u{111}\u{e3}
         \u{111}\u{1b0}\u{1ee3}c g\u{1eed}i \u{111}\u{1ebf}n s\u{1ed1} 0%{current_userphone}
         c\u{1ee7}a b\u{1ea1}n:"'
-      gửi_lại: Gửi lại
+      gửi_lại: Send Again
     dashboard:
-      chỉnh_sửa: Chỉnh Sửa
-      thư_mời: Thư Mời
-      thống_kê_Đóng_góp: Thống Kê Đóng Góp
-      Đề_mục_Đóng_góp: Đề Mục Đóng Góp
-      cập_nhật: Cập Nhật
-      thành_viên: Thành Viên
-      dự_Án_của_bạn: Dự Án Của Bạn
-      tạo_dự_Án_mới: Tạo Dự Án Mới
-      cá_nhân: Cá Nhân
-      Đóng_góp: Đóng Góp
-      thẻ_quà_tặng: Thẻ Quà Tặng
+      chỉnh_sửa: Edit
+      thư_mời: Invitation
+      thống_kê_Đóng_góp: Statistic
+      Đề_mục_Đóng_góp: Title 
+      cập_nhật: Update
+      thành_viên: Member
+      dự_Án_của_bạn: YOUR PROJECTS
+      tạo_dự_Án_mới: New Project
+      cá_nhân: SETTINGS
+      Đóng_góp: Donation
+      thẻ_quà_tặng: Gift Card
       current_userreceived_gift_card: '"(%{current_userreceived_gift_card})"'
-      chỉnh_sửa_thông_tin: Chỉnh Sửa Thông Tin
-      xác_nhận_tài_khoản: Xác Nhận Tài Khoản
-      trang_cá_nhân: Trang Cá Nhân
-      hệ_thống: Hệ Thống
-      tin_tức_cập_nhật: Tin Tức, Cập Nhật
-      gửi_góp_Ý: Gửi Góp Ý
+      chỉnh_sửa_thông_tin: Edit Profile
+      xác_nhận_tài_khoản: Account Verification
+      trang_cá_nhân: My Profile
+      hệ_thống: Platform
+      tin_tức_cập_nhật: News, Updates
+      gửi_góp_Ý: Feedback
     dashboard2:
       script_srchttphtml5shimgooglec: <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   dashboard:
@@ -1058,6 +1039,8 @@ vi:
     dashboard:
       dự_Án_của_bạn: Dự Án Của Bạn
       tạo_dự_án_đầu_tiên: Tạo dự án đầu tiên!
+    delete_figure_from_portfolio.js.erb:
+      figure_paramsindex_slidetoggle: $("#figure-<%= params[:index] %>").slideToggle(500);
     donations:
       Đóng_góp_của_bạn: Đóng Góp Của Bạn
       hiện_chưa_có_thống_kê_về_những: Hiện chưa có thống kê về những khoản tài trợ
@@ -1126,4 +1109,3 @@ vi:
         xác nhận tài khoản của mình bằng điện thoại. Vui lòng điền vào khung theo
         mẫu: 0908123456, không thêm mã quốc gia vào.'
       tài_khoản_đã_được_xác_nhận: Tài khoản đã được xác nhận.
-

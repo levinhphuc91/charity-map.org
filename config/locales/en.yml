@@ -1,9 +1,1072 @@
+---
 en:
-  hello: "Hello world"
   errors:
+    format: '%{attribute} %{message}'
+    messages: &1
+      accepted: acceptence required
+      blank: cannot be left blank
+      confirmation: confirmation unmatched
+      empty: cannot be left empty
+      equal_to: must be equal to %{count}
+      even: must be even number
+      exclusion: not available
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: not listed
+      invalid: invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: not a number
+      not_an_integer: not an integer
+      odd: must be odd number
+      taken: taken
+      too_long: too long (maximum %{count} characters)
+      too_short: too short (minimum %{count} characters)
+      wrong_length: wrong length (must be %{count} characters)
+    template: &2
+      body: 'Error(s) with the following:'
+      header:
+        one: one error preventing saving the %{model} 
+        other: '%{count} errors preventing saving the %{model}'
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tues
+    - Wed
+    - Thur
+    - Fri
+    - Sat
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: '%d-%m-%Y'
+      long: '%d %B, %Y'
+      short: '%d %b'
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: 30 seconds
+      less_than_x_minutes:
+        one: less than 1 minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: '%{count} days'
+      x_minutes:
+        one: 1 minute
+        other: '%{count} minutes'
+      x_months:
+        one: 1 month
+        other: '%{count} months'
+      x_seconds:
+        one: 1 second
+        other: '%{count} seconds'
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Second
+      year: Year
+  helpers:
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Submit %{model}
+      update: Update %{model}
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: '%n %u'
+        precision: 2
+        separator: ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: đồng
+    format:
+      delimiter: .
+      precision: 3
+      separator: ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          unit: ''
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Byte
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ', and '
+      two_words_connector: ' and '
+      words_connector: ', '
+  time:
+    am: am
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%d %B, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: pm
+  activemodel:
+    errors:
+      format: '%{attribute} %{message}'
+      messages: *1
+      template: *2
+  activerecord:
+    errors:
+      format: '%{attribute} %{message}'
+      messages:
+        record_invalid: 'Record invalid: %{errors}'
+        taken: taken
+      template: *2
+  common:
+    failed_and_try_again: Attempt failed. Please try again.
+    permission_denied: Permission denied.
+  controller:
+    projects:
+      blank_name_notice: Please provide your name to create the
+        project.
+      update_successfully: Update successfully.
+      at_least_one_reward: There must be at least one project reward.
+      funding_period: Project is fundraising.
+    donations:
+      blank_contact_notice: Please provide contact information to donate to 
+        %{project_title} (Name, address, phone number).
+      at_least_one_reward: Please choose at least one reward.
+      not_funding_project: This project is not fundraising at the moment. Please try again later.
+      bank_transfer_confirm: Thank you for donating! Please check your email for 
+        bank information to process bank transfer.
+      cod_confirm: Thank you for your donation! We will contact within 3 working days.
+      credit_cofirm: Thank you for your donation! Please check your email for 
+        the confirmation letter.
+      credit_error: Error occurred. Our technician has been informed.
+      not_enough_balance: Your balance is not enough for the donation you'd like to make.
+      request_verification: Request verified. We will contact in the nearest time possible.
+      succefful_verification: Successfully verified. An email has been sent to the donor
+       informing your receipt of the donation.
+    ext_donations:
+      create_successfully: External donation created successfully.
+      update_successfully: External donation updated successfully.
+      delete_successfully: External donation deleted successfully.
+    invites:
+      create_successfully: Invitation created successfully.
+      not_enough_content: Not enough content.
+      delivered_invite: Invitation delivered.
+    project_follows:
+      register_successfully: Register successfully.
+    project_rewards:
+      create_successfully: Project reward created successfully.
+      delete_successfully: Project reward deleted successfully.
+    project_updates:
+      create_successfully: Project update created successfully.
+    recommendations:
+      verify_by_mobile: Verification by mobile has to be done to create recommendations for %{project_title}.
+      create_successfully: Recommendation created successfully.
+    registrations:
+      invalid_gift_card: Invalid gift card.
+    users:
+      follow_successfully: Follow successfully.
+      follow_unsuccessfuly: Follow unsuccessfully.
+      update_successfully: Update successfully.
+      update_failed_with_errors: Update failed with errors. %{errors}
+      update_failed: Update failed.
+      delete_project_successfully: Delete project successfully.
+      delete_project_failed: Delete project failed.
+      verification_code: Your verification code on charity-map.org is
+        %{code}
+      enter_verification_code: Your verification code has been sent to +84%{phone_number}.
+        Please enter the code below to complete the verification.
+      verify_completely: Verification by mobile completed.
+      delivered_message: Message delivered.
+      gift_card_redeem: Gift card redeemed. You balance has been added %{amount}.
+      error_gift_card: Error occurred. Our technician has been informed.
+      invalid_gift_card: Invalid gift card code.
+      login_to_continue: Please log in to continue.
+      api_failed: API call not going through.
+  homepage:
+    introduce: Introduction
+  pages:
+    home:
+      body_paddingtop_0_important: 'body {padding-top: 0 !important}'
+      về_chúng_tôi: About us
+      blog: Blog
+      Đăng_xuất: Log out
+      Đăng_kí: Signup
+      Ủng_hộ_từ_thiện_chưa_bao_giờ_d: Giving has never been this easy.
+      Đến_trang_quản_lý: Go to Dashboard
+      Đăng_nhập_bằng_facebook: Signin with Facebook
+      hoặc_đăng_nhập: or signin
+      bằng_email: with email
+      dự_án_đang_gây_quỹ: Fundraising projects
+      hiện_chưa_có_dự_án_nào: There is not any running project.
+      cuf2n_timedifferencebetweentim: '"C\u{f2}n %{timedifferencebetweentimenow_p}
+        ng\u{e0}y"'
+      mỤc_tiÊu: TARGET
+      dự_án_tiêu_biểu: Notable projects 
+      human_time_projectend_date: '"%{human_time_projectend_date}"'
+      ĐÃ_gÂy_quỸ: RAISED
+      các_tổ_chức_tin_dùng_charityma: Partner organizations
+      vì_sao_bạn_nên_gây_quỹ_trên_ch: Why should you fundraise your next charity project in Viet Nam on charity-map.org?
+      httpwwwcharitymaporguser38: http://www.charity-map.org/user/38
+      chia_sẻ_yêu_thương: Sharing Love
+      httpwwwcharitymaporguser54: http://www.charity-map.org/user/54
+      cầu_vai_xanh: Cầu Vai Xanh
+      httpwwwcharitymaporguser78: http://www.charity-map.org/user/78
+      bàn_tay_nhỏ: Bàn Tay Nhỏ
+      link_to_do: '#'
+      công_bằng_y_tế: Công Bằng Y Tế
+      những_con_số: Figures
+      tổng_quan: Overview
+      dự_án: project
+      mạnh_thường_quân: donors
+      đồng_được_đóng_góp: VND raised 
+      chi_tiết: Details
+      cập_nhật: updates
+      báo_cáo_qua_email: reports via email
+      báo_cáo_qua_sms: reports via SMS
+      tặng_phẩm_được_gửi_đi: rewards sent
+      minh_bạch_100: 100% Transparent
+      mỗi_ủng_hộ_được_gửi_về_dự_án_q: Donations via the charity-map.org platform, big or small, are stored, tracked and updated regularly and comprehensively
+      Đăng_kí_và_Ủng_hộ: Signup Now
+      copy_charity_map_2014: 'CHARITY MAP 2014'
+      charity_map_bản_Đồ_từ_thiện_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      about_us: ABOUT US
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      tỔ_chỨc_xÃ_hỘi: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide
+      chiến_dịch_gây_quỹ: Funding projects
+      câu_hỏi: Q&As
+      mẠnh_thƯỜng_quÂn: DONORS
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
+    about:
+      thực_trạng: Background
+      Ước_tính_có_đến_24_triệu_người: 'In estimation, up to 24 million people (28% the population)
+        of Vietnam are in groups needing assistance, including the poor and near poor, 
+         people with disabilities, children with special needs, people released from prison, people with 
+         HIV / AIDS, the elderly, people in the typhoon, disaster areas. Moreover, other issues such as
+ social violence, overloading in education and health, food safety, energy saving, cultural preservation.'
+      bản_Đồ_từ_thiện: Charity Map
+      được_xây_dựng_nhằm_mục_đích_hỗ: 'is built to assist social projects in Vietnam 
+              crowd-fundraising more efficiently and transparently, to address the abovementioned social issues. 
+              Donations via the charity-map.org platform, big or small, are stored, 
+              tracked and updated regularly and comprehensively.'
+      các_dự_Án_Đăng_trên_bĐtt: Projects on Charity Map
+      được_khởi_tạo_bổ_sung_thông_ti: 'are created, edited, and fundraised independently. 
+        The individuals or organizations have full control power and decisions of their own projects.'
+      chúng_tôi_cung_cấp_một: We provide
+      bức_tranh_toàn_cảnh: A Multi-perspective Picture
+      về_tổ_chức_nhóm_hoạt_động_xã_h: "of the social groups' and organizations' goals, missions, past and present projects, members, and so on."
+      về_dự_án_kế_hoạch_tình_hình_tà: 'and of the project plans, financial statuses, human resources, updates, reports, and more.'
+      tích_hợp_chặt_chẽ: Fully Integrated
+      với_email_mạng_xã_hội_và_sms_b: 'with emails, social networks and SMS. <b>Optional functions:</b>:'
+      sdot_các_thông_báo_quan_trọng_: '&sdot; Important notifications about the projects you donated 
+        (reach fundraising target, updates on project activities, etc.) are sent through emails and SMS.<br/>'
+      sdot_bản_tin_hằng_tháng_cập_nh: '&sdot; Monthly newsletters with information of new projects
+        and projects supported by your Facebook friends.'
+      generously_seed_funded_through: Generously seed funded through a <br/>
+      httppiawebprincetonedu: http://piaweb.princeton.edu
+      princeton_in_asia_carrie_gordo: Princeton in Asia Carrie Gordon Fellowship<br/><br/>
+    faqs:
+      pagesfaqs: Pages#faqs
+      find_me_in_appviewspagesfaqsht: Find me in app/views/pages/faqs.html.haml
+    gifts:
+      xin_chúc_mừng: Congratulations!
+      sử_dụng_thẻ_quà_tặng_bạn_có_th: 'You can use the gift card to donate to any projects on 
+            charity-map.org. Enter the gift card code (from email, SMS, or our partners) below and start donating.'
+    guidelines:
+      pagesguidelines: Pages#guidelines
+      find_me_in_appviewspagesguidel: Find me in app/views/pages/guidelines.html.haml
+  layouts:
+    footer:
+      copy_bẢn_ĐỒ_tỪ_thiỆn_2013: 'CHARITY MAP 2014'
+      bản_Đồ_từ_thiện_charity_map_là: Charity Map is a social crowdfunding platform that facilitates donations for for social projects, listed by social organizations in Vietnam. The platform also serves as a donor management tool for these organizations. Increased transparency and more efficient donation allocation are key tenets of Charity Map's long-term strategy.
+      về_chúng_tôi: ABOUT US 
+      Đội_ngũ: Our Team
+      báo_chí: Press
+      những_con_số: Figures
+      tổ_chức_xã_hội: SOCIAL ORGANIZATIONS
+      hướng_dẫn_sử_dụng: Usage Guide 
+      chiến_dịch_gây_quỹ: Funding projects 
+      câu_hỏi: Q&As
+      mạnh_thường_quân: Donors
+      phương_thức_Ủng_hộ: Donation Methods
+      quy_Định_bảo_mật: Privacy Policy
+      liên_hệ: Contact Us
+    header:
+      giới_thiệu: About us
+      Đăng_nhập: Signin
+      Đăng_ký: Signup
+      quản_lý: DASHBOARD
+      hồ_sơ: SETTINGS
+      Đăng_xuất: SIGNOUT
+      vn: VN
+      en: EN
+    donation_display:
+      human_time_donationcreated_at_: '"%{human_time_donationcreated_at} &sdot;"'
+      Ẩn_danh: Anonymous
+      u1ee7ng_hu1ed9_human_currency_: '"\u{1ee7}ng h\u{1ed9} %{human_currency_donationamount}"'
+      xác_nhận_ủng_hộ: Confirm Donate
+    infowindow:
+      limit_display_projectlocation_: '"%{limit_display_projectlocation_}"'
+      sdot: '&sdot;'
+      hoàn_thành: Complelted
+      cần_kêu_gọi: Goal
+      Đã_kêu_gọi: Progress
+      ngày_còn_lại: DAYS LEFT
+      projectend_datestrftimedmy: '"%{projectend_datestrftimedmy}"'
+      kết_thúc: Completed
+    markdown:
+      bôi_đậm_tiêu_đề_sdot_btiêu_đềb: 'Bold: **Heading** &sdot; <b>Heading</b>'
+      in_nghiêng_ghi_chú_sdot_ighi_c: 'Italics: *Notes* &sdot; <i>Notes</i>'
+      tiêu_đề_thông_báo_sdot_font_si: 'Title: ### Announcement &sdot; <font size="2em">Announcement</font>'
+      chèn_ảnh_ghi_chú_ảnhlink_ảnh: 'Insert picture: ![Picture caption](picture_link)'
+      chèn_link_báo_chíhttpgooglecom: 'Insert link: [Google](http://google.com) &sdot;
+        <a href="http://google.com">Google</a>'
+    verify_code_via_phone:
+      hoàn_tất_xác_nhận_danh_tính: Verification Completed
+      u110iu1ec1n_vue0o_uf4_buean_du: '"\u{110}i\u{1ec1}n v\u{e0}o \u{f4} b\u{ea}n
+        d\u{1b0}\u{1edb}i \u{111}o\u{1ea1}n m\u{e3} 6 ch\u{1eef} s\u{1ed1} \u{111}\u{e3}
+        \u{111}\u{1b0}\u{1ee3}c g\u{1eed}i \u{111}\u{1ebf}n s\u{1ed1} 0%{current_userphone}
+        c\u{1ee7}a b\u{1ea1}n:"'
+      gửi_lại: Send Again
+    dashboard:
+      chỉnh_sửa: Edit
+      thư_mời: Invitation
+      thống_kê_Đóng_góp: Statistic
+      Đề_mục_Đóng_góp: Title 
+      cập_nhật: Update
+      thành_viên: Member
+      dự_Án_của_bạn: YOUR PROJECTS
+      tạo_dự_Án_mới: New Project
+      cá_nhân: SETTINGS
+      Đóng_góp: Donation
+      thẻ_quà_tặng: Gift Card
+      current_userreceived_gift_card: '"(%{current_userreceived_gift_card})"'
+      chỉnh_sửa_thông_tin: Edit Profile
+      xác_nhận_tài_khoản: Account Verification
+      trang_cá_nhân: My Profile
+      hệ_thống: Platform
+      tin_tức_cập_nhật: News, Updates
+      gửi_góp_Ý: Feedback
+    dashboard2:
+      script_srchttphtml5shimgooglec: <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  dashboard:
+    gift_cards:
+      form:
+        email_người_nhận: '*Email of Recipient'
+        giá_trị_vnĐ: '*Value (VNĐ)'
+        tên_người_nhận: '*Name of Recipient'
+        số_Đt_người_nhận: Name of Recipient
+        tên_chương_trình: Name of program
+        thông_tin_thêm: Additional information
+        gửi_thông_tin_qua_emailsms: Send notification through email/SMS?
+      stats:
+        gift_cardsactivecount: '"%{gift_cardsactivecount}"'
+        cards: cards
+        u111u1b0u1ee3c_su1eed_du1ee5ng: '"\u{111}\u{1b0}\u{1ee3}c s\u{1eed} d\u{1ee5}ng
+          %{human_time_current_usercreated}"'
+        number_with_precision_gift_car: '"%{number_with_precision_gift_car}"'
+        đồng: đồng
+        tổng_giá_trị: total amount
+        pending_clearance_credits_amou: '"%{pending_clearance_credits_amou}"'
+        chuyển_khoản_tháng_này: Bank transfer of this month
+        cleared_credits_amountcharitio: '"%{cleared_credits_amountcharitio}"'
+        đã_chuyển_khoản: transferred
+      edit:
+        chỉnh_sửa_thông_tin_gift_card: Edit Gift Card Information
+        trở_lại: Back
+      index:
+        danh_sách_gift_cards: List of Gift Cards
+        gu1eedi_u111i_tu1eeb_human_tim: '"g\u{1eed}i \u{111}i t\u{1eeb} %{human_time_current_usercreated}"'
+        +_tạo_gift_card: + Create gift card
+        người_nhận: Recipient
+        giá_trị: Amount
+        thông_tin_thêm: Additional Information
+        trạng_thái: Status
+        tạo_mới: create new
+        bcardrecipient_emailb: '"<b>%{cardrecipient_email}</b>"'
+        bcardreferencesrecipient_nameb: '"<b>%{cardreferencesrecipient_name}</b> (%{cardrecipient_email})"'
+        cardreferencescampaign_name: '"%{cardreferencescampaign_name}"'
+        human_currency_cardamount: '"%{human_currency_cardamount}"'
+        bngue0yb_human_time_cardcreate: '"<b>Ng\u{e0}y</b>: %{human_time_cardcreated_at}"'
+        cardreferencesextra_info: '"%{cardreferencesextra_info}"'
+        cardhuman_status: '"%{cardhuman_status}"'
+        edit: Edit
+        disable: Disable
+      new:
+        tạo_mới_gift_card: Create New Gift Card
+        trở_lại: Back
+      show:
+        recipient_email: 'Recipient email:'
+        amount: 'Amount:'
+        references: 'References:'
+        edit: Edit
+        '': '|'
+        back: Back
+    projects:
+      members:
+        thành_viên: Member
+        projectusername: '"%{projectusername}"'
+        projectuseremail: '"%{projectuseremail}"'
+        quản_lý: Management
+        managementusername: '"%{managementusername}"'
+        managementuseremail: '"%{managementuseremail}"'
+        xoá: Delete
+        thêm_thành_viên_mới: Add New Member
+        Điền_email_đã_đăng_ký_tài_khoả: Enter email (registered account) of the new member.
+        gửi_email_thông_báo: Send notification email
+  donations:
+    form:
+      có_pluralizedonationerrorscoun: '"With %{pluralizedonationerrorscount_l}:"'
+      sdot_msgbr: '"&sdot; %{msg}<br/>"'
+      vnĐ: VNĐ
+      hãy_nhập_số_tiền_bạn_muốn_ủng_: Enter the amount of donation
+      phương_thức_Đóng_góp: Mode of Donation
+      thông_tin_liên_lạc_ghi_chú: Contact Information, Notes
+      Ẩn_danh: Anonymous?
+      Ủng_hộ_projecttitle: Donate to %{projecttitle}
+    form_for_reward:
+      có_pluralizedonationerrorscoun: '"With %{pluralizedonationerrorscount_l}:"'
+      sdot_msgbr: '"&sdot; %{msg}<br/>"'
+      tặng_phẩm: Project Reward
+      vnĐ: VNĐ
+      số_tiền_ủng_hộ: Amount of donation
+      su1ed1_lu1b0u1ee3ng_cuf2n_lu1e: '"S\u{1ed1} L\u{1b0}\u{1ee3}ng (C\u{f2}n L\u{1ea1}i:
+        %{project_rewardactive_item})"'
+      phương_thức_Đóng_góp: Mode of Donation
+      Ẩn_danh: Anonymous?
+      thông_tin_liên_lạc_ghi_chú: Contact Information, Notes
+      Ủng_hộ_projecttitle: Donate to %{projecttitle}
+    index:
+      mạnh_thường_quân: Donor(s)
+      number_with_precision_projectd: '"%{number_with_precision_projectd}%"'
+      mục_tiêu_cần_Đạt: Target
+      timedifferencebetweentimenow_p: '"%{timedifferencebetweentimenow_p}"'
+      thời_gian_còn_lại_ngày: Days left
+      kết_thúc_gây_quỹ: Fundraising ended
+      danh_sách_Đóng_góp: List of Donations
+      human_time_donationcollection_: '"%{human_time_donationcollection_} &sdot;"'
+      donationanon_Ẩn_danh_donationd: '"%{donationanon_Ẩn_danh_donationd}"'
+      u1ee7ng_hu1ed9_human_currency_: '"\u{1ee7}ng h\u{1ed9} %{human_currency_donationamount}"'
+      xoá: Delete
+      sửa: Edit
+      ×: ×
+      thêm_Ủng_hộ_ngoài_hệ_thống: Add External Donations
+    new:
+      sdot: '&sdot;'
+      các_câu_hỏi_thường_gặp: Frequently Asked Questions
+      Ủng_hộ_bằng_cách_nào: How to donate?
+      du1ef1_ue1n_gue2y_quu1ef9_true: '"There are two modes of donation on Charity Map:
+        <strong>home donation</strong> (our volunteers will contact you for picking up the donation) 
+        and <strong>bank transfer</strong> (bank information will be sent to <strong>%{current_useremail}</strong> after the above steps are completed.
+        In addition, donation via Paypal can be sent to charitymap.vn@gmail.com (please clarify the recipient project)."'
+      tôi_có_phải_trả_thêm_phí: Is there a fee?
+      charity_map_strongkhông_thu_ph: 'Charity Map <strong>does not charge any fee</strong>. 
+            However, you may pay transaction fee for bank transfer (depending on the bank, the fee comes from the bank).'
+      bao_giờ_ủng_hộ_của_tôi_đến_đượ: How long does it take for the recipient to get my donation?
+      mu1ed9t_tuu1ea7n_sau_khi_thu1e: '"One week after the fundraising project ends.
+        <strong>%{projecttitle}</strong> will end on <strong>%{human_time_projectend_date}</strong>."'
+      tại_sao_charity_map_không_thu_: Why does Charity Map not charge any fee?
+      charity_map_hoạt_động_với_tiêu: 'Charity Map works on the principle of transfering 100% donations to the recipients. 
+      The average cost for transaction operation is 5% (of the donation amount, for the human resource, system, third party). 
+      We are lucky to receive support from kind donors and enterprises on this. 
+      If you would like to donate to us, please contact us via team@charity-map.org or mobile number 0908 230 591. Charity Map thank you very much.'
+    show:
+      u1ee6ng_hu1ed9_su1ed1_donation: '"Donate %{donationeuid}
+        to %{limit_displayprojecttitle_30}"'
+      về_lại_trang_dự_án: Back to project page
+      mu1ea1nh_thu1b0u1eddng_quue2n_: '"<b>%{donationusername_donationuseri}</b> donated <b>%{human_currency_donationamount}</b>
+        to <b>%{projecttitle}</b>."'
+      hệ_thống_ghi_nhận_đóng_góp_và_: Donation recorded and received.
+      09092013: 09/09/2013
+      du1ef1_ue1n_bprojecttitleb_nhu: '"Project <b>%{projecttitle}</b> nh\u{1ead}n
+        \u{111}\u{1b0}\u{1ee3}c 100% s\u{1ed1} qu\u{1ef9} m\u{1ee5}c ti\u{ea}u v\u{e0}o
+        ng\u{e0}y 09/09/2013."'
+      du1ef1_ue1n_projecttitle_ku1eb: '"D\u{1ef1} \u{e1}n %{projecttitle} k\u{1ebf}t
+        th\u{fa}c \u{111}\u{1ee3}t g\u{e2}y qu\u{1ef9} k\u{e9}o d\u{e0}i %{timedifferencebetweenprojectst}
+        ng\u{e0}y v\u{e0} nh\u{1ead}n \u{111}\u{1b0}\u{1ee3}c <b>%{human_currency_projectdonation}</b>
+        ti\u{1ec1}n \u{1ee7}ng h\u{1ed9}"'
+  ext_donations:
+    form:
+      họ_tên: Full Name*
+      ví_dụ: Example
+      nguyễn_văn_linh: John Smith
+      ngày_ghi_nhận: Date of Receipt*
+      số_tiền_vnĐ: Amount (VNĐ)*
+      phương_thức_Ủng_hộ: Mode of Donation*
+      email: Email
+      số_Điện_thoại: Phone Number
+      ghi_chú: Notes
+      đường_link_tài_khoản_facebook_: (Facebook profile link, bank receipt reference, etc.)
+      gửi_email_xác_nhận_tới_mtq: Send confirmation email to the donor.
+      nbspnbspnbspnbspnbsp: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+      Ẩn_danh: Anonymous?
+      thêm_Ủng_hộ: Add Donation
+    edit:
+      thêm_Ủng_hộ_ngoài_hệ_thống: Add External Donation
+      người_Ủng_hộ: Donor *
+      họ_tên: Full Name
+      số_tiền: Amount *
+      bằng_vnĐ: in VNĐ
+      phương_thức_Ủng_hộ: Mode of Donation
+      chuyển_khoản_nh_thu_tiền_tận_n: Bank Transfer / Home Donation
+      email: Email
+      số_Đt: Phone Number
+      ngày_ghi_nhận: Date of Receipt *
+      ghi_chú: Notes
+      Ẩn_danh: Anonymous?
+      thêm: Add
+  invites:
+    form:
+      sửa_thông_tin: Edit Information
+    invite:
+      Đã_mời: Invitation sent
+      mới: New
+      stronginvitenamestrong: '"<strong>%{invitename}</strong>"'
+      p_invitephonebr: '"P: %{invitephone}<br/>"'
+      e_inviteemail: '"E: %{inviteemail}"'
+      sửa: Edit
+      sdot: '&sdot;'
+      xoá: Delete
+      gửi_thư_mời: Send Invitation
+    edit:
+      chỉnh_sửa_liên_lạc: Edit Contact
+      về_danh_sách: About the List
+    index:
+      liên_lạc: Contact
+      thêm_liên_lạc: Add Contact
+      pluralizeinviteerrorscount_err: '"%{pluralizeinviteerrorscount_err} prohibited
+        this project from being saved:"'
+      import_danh_sách_mtq: Import Donor List
+      từ_các_dự_án_sau: from the following project(s)
+      thư_mời: Invitation
+      nội_dung_email: Email Content
+      nội_dung_sms: SMS Content
+      giới_hạn_160_ký_tự: 'Limit: 160 characters'
+      strongchufa_ufdstrong_tin_nhu1: '"<strong>Ch\u{fa} \u{fd}</strong>: Tin nh\u{1eaf}n
+        c\u{1ea7}n bao g\u{1ed3}m: t\u{ea}n d\u{1ef1} \u{e1}n, \u{111}\u{1b0}\u{1edd}ng
+        link t\u{1edb}i d\u{1ef1} \u{e1}n (<strong style=\"color: black;\">charity-map.org/%{projectshort_code}</strong>)"'
+    new:
+      new_invite: New invite
+      back: Back
+    show:
+      name: 'Name:'
+      email: 'Email:'
+      phone: 'Phone:'
+      edit: Edit
+      '': '|'
+      back: Back
+  project_comments:
+    display:
+      human_time_commentupdated_at: '"%{human_time_commentupdated_at}"'
+    index:
+      script_srchttpsossmaxcdncomlib: <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      hue3y_chia_su1ebb_buecnh_luu1e: '"Share your comments on <strong>%{projecttitle}</strong>"'
+      pluralizenew_commenterrorscoun: '"%{pluralizenew_commenterrorscoun} prohibited
+        this project from being saved:"'
+      gửi_bình_luận: send comment
+  project_follows:
+    following_button:
+      nbspđang_nhận_cập_nhật: '&nbsp;following'
+  project_rewards:
+    form:
+      pluralizeproject_rewarderrorsc: '"%{pluralizeproject_rewarderrorsc} prohibited
+        this project from being saved:"'
+      tênbr: Name<br/>
+      mức_vnĐ_br: Amount (VNĐ) <br/>
+      số_lượng_cái_br: Amount (Items) <br/>
+      thông_tin_Điều_khoản_quyền_lợi: Additional information, terms, benefits <br/>
+      Ảnh_175_x_175px: Picture (175 x 175px)
+    edit:
+      sửa_Đề_mục_Đóng_góp: Edit Project Reward
+      xóa: Delete
+    index:
+      Đề_mục_Đóng_góp: Project Reward
+      hiện_chưa_có_đề_mục_đóng_góp_n: No project reward at the moment.
+      sửa: Edit
+      human_currency_rewardvalue_sdo: '"%{human_currency_rewardvalue} &sdot; Quantity: %{rewardquantity}"'
+      human_currency_rewardvalue: '"%{human_currency_rewardvalue}"'
+      thêm_Đề_mục_Đóng_góp: Add Donation Minimum (Donation lower than this limit will not be accepted.)
+      sdot_thấp_nhất_10000đ: '&sdot; Not lower than 10.000đ'
+    new:
+      new_project_reward: New project reward
+  project_updates:
+    form:
+      pluralizeproject_updateerrorsc: '"%{pluralizeproject_updateerrorsc} prohibited
+        this project from being saved:"'
+      cập_nhật: Update
+    index:
+      hiu1ec7n_du1ef1_ue1n_strongpro: '"Project <strong>%{projecttitle}</strong>
+        does not have any update at the moment."'
+      cu1eadp_nhu1eadt_index_+_1_hum: '"Update %{index_+_1} (%{human_time_updatecreated_at})"'
+      click_để_xem_thêm_thông_tin: Click to see more.
+    new:
+      cập_nhật_mới: New Update
+      blu1b0u_ufdb_cu1eadp_nhu1eadt_: '"<b>L\u{1b0}u \u{fd}:</b> c\u{1ead}p nh\u{1ead}t
+        m\u{1edb}i s\u{1ebd} \u{111}\u{1b0}\u{1ee3}c email \u{111}\u{1ebf}n c\u{e1}c
+        m\u{1ea1}nh th\u{1b0}\u{1edd}ng qu\u{e2}n. Hi\u{1ec7}n d\u{1ef1} \u{e1}n %{projecttitle}
+        \u{111}ang c\u{f3} %{projectdonations_count} m\u{1ea1}nh th\u{1b0}\u{1edd}ng
+        qu\u{e2}n."'
+  projects:
+    side_bar:
+      metrics_box:
+        mỤc_tiÊu: TARGET
+        ĐÃ_nhẬn_ĐƯỢc: RECEIVED
+        timedifferencebetweentimenow_p: '"%{timedifferencebetweentimenow_p} NG\u{c0}Y"'
+        thỜi_gian_cÒn_lẠi: DAYS LEFT
+        bẮt_ĐẦu_gÂy_quỸ: START 
+        kẾt_thÚc_gÂy_quỸ: END 
+        nbspủng_hộ_dự_án: '&nbsp;Donate'
+        nbspđang_không_gây_quỹ: '&nbsp;Not fundraising at the moment'
+        nbspnhận_cập_nhật: '&nbsp;Follow'
+      old_metrics_box:
+        mục_tiêu: Target
+        su1ed1_tiu1ec1n_nhu1eadn_u111u: '"Raised
+          (%{number_with_precision_projectd}%)"'
+        cuf2n_timedifferencebetweentim: '"%{timedifferencebetweentimenow_p}
+          days left"'
+        thời_gian_gây_quỹ: Fundraising Period
+        human_timeprojectstart_date_md: '"%{human_timeprojectstart_date} &mdash; %{human_timeprojectend_date}"'
+        Ủng_hộ_dự_Án: Donate
+        bạn_đang_theo_dõi_dự_án_này: You are following this project.
+        theo_dõi: Follow
+      reviews:
+        lời_giới_thiệu: Recommendation(s)
+        reccontent: '"%{reccontent}"'
+        edit: '[Edit]'
+        viết_lời_giới_thiệu: Write Recommendation
+    bar_display:
+      projecttitle_sdot: '"%{projecttitle}   &sdot;"'
+      projectusername: '"%{projectusername}"'
+      được_ủng_hộ: donated
+      hoàn_thành: completed
+      mạnh_thường_quân: donor(s)
+      giới_thiệu: reivew(s)
+      thống_kê_ủng_hộ: Donation Count
+      —_chỉnh_sửa: — Edit
+      —_Đến_trang_dự_Án: — Go to Project Page
+    box_display:
+      limit_display_projectusername_: '"%{limit_display_projectusername_}"'
+      sdot: '&sdot;'
+      limit_display_projectlocation_: '"%{limit_display_projectlocation_}"'
+      hoàn_thành: Finished
+      cần_kêu_gọi: Needed
+      Đã_kêu_gọi: Raised
+      ngày_còn_lại: Days left
+      projectend_datestrftimedmy: '"%{projectend_datestrftimedmy}"'
+      kết_thúc: Finished
+    ext_project:
+      xoá: Delete
+      quỹ: Fund
+      mtq: Donor(s)
+      ngày: Day
+    form:
+      pluralizeprojecterrorscount_er: '"%{pluralizeprojecterrorscount_er} prohibited
+        this project from being saved:"'
+      Ảnh_dự_Án_cỡ_tối_ưu_1200600px: 'Project Banner (ideal size: 1200*600px)'
+      tên_dự_Án: Project Name
+      link_du1ef1_ue1n_strongproject: '"Project link: <strong>%{project_urlproject}</strong>
+        will adapt when you change the project name."'
+      giới_thiệu_ngắn_gọn_giới_hạn_2: 'Brief Introduction (limit: 200 characters)'
+      mô_tả_dự_Án: Project Description
+      Điền_đầy_đủ_thông_tin: 'Please provide the following information:'
+      mục_tiêu_sứ_mệnh: Objectives - Missions
+      câu_chuyện_trường_hợp_hoàn_cản: Story, situation, case
+      mục_tiêu_gây_quỹ_thời_gian_hoà: Fundraising goal, expected time of finish.
+      kế_hoạch_tiến_hành_dự_án_sau_k: Executive plan after fundraising.
+      nhân_lực_đội_ngũ_thực_hiện_dự_: Human resource, team operating the project
+      trình_bày: Format
+      link_video_giới_thiệu: Link of Introduction Video
+      thông_tin_tài_khoản_ngân_hàng: Bank Account Information
+      tên_ngân_hàng: Bank name
+      chi_nhánh: Branch
+      Địa_chỉ_ngân_hàng: Bank address
+      swift_code: SWIFT CODE
+      chủ_tài_khoản: Account name
+      số_tài_khoản: Account number
+      Ủng_hộ_được_tặng_hiện_vật: Inkind item for each donation?
+      dành_cho_các_dự_án_có_strongtặ: 'For projects <strong>sending inkind items to donors for their donation</strong>. 
+      Notes: This function cannot be changed once you check/uncheck this option.'
+      ngày_bắt_Đầubr: Start date<br/>
+      ngày_kết_thúc_br: End date <br/>
+      số_quỹ_cần_vận_Động_vndbr: Fund Needed (VND)<br/>
+      Địa_Điểm_br: Location <br/>
+      vị_trí_không_xác_định_được_trê: Unable to identify location on the map. Please look up project location on <a href="http://maps.google.com" target="_blank">Google
+        Maps</a>.
+      lưu: Save
+    fundraising_project_suggestions:
+      các_dự_Án_Đang_gây_quỹ: Fundraising Projects
+    edit:
+      chu1ec9nh_su1eeda_thuf4ng_tin_: '"Edit Information: %{projecttitle}"'
+      Đến_trang_dự_Án: Go to Project Page
+      sdot: '&sdot;'
+      về_lại_trang_quản_lý: Back to Dashboard
+    index:
+      các_dự_Án_Đang_gây_quỹ: Fundraising Projects
+      các_dự_Án_Đã_qua_Đợt_gây_quỹ: Fundraised Projects
+      các_dự_Án_trên_hệ_thống: Projects on Platform
+      Đăng_ký_dự_Án: Register a Project
+      Đang_Đợi_xét_duyệt_admin_only: Waiting for Permission (admin only)
+    new:
+      tạo_dự_Án_mới: Create New Project
+    show:
+      script_srchttpsossmaxcdncomlib: <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      thông_tin: Information
+      cu1eadp_nhu1eadt_projectprojec: '"Updates %{projectproject_updatescount})"
+        if @project.project_updates.count > 0}"'
+      mu1ea1nh_thu1b0u1eddng_quue2n_: '"Donors
+        %{projectdonations_count})" if @project.donations_count > 0}"'
+      buecnh_luu1eadn_projectproject: '"Comments %{projectproject_commentscount})"
+        if @project.project_comments.count > 0}"'
+      chỉnh_sửa: Edit
+      tiến_hành_gây_quỹ: Start Fundraising
+      human_currency_rewardvalue_sdo: '"%{human_currency_rewardvalue} &sdot; <strong>H\u{1ebe}T</strong>"'
+      brbr: <br/><br/>
+      quản_lý_dự_Án: Project Manager
+      thành_viên_dự_Án: Project Member
+      ×: ×
+      cu1ea3m_u1a1n_bext_donationnam: '"C\u{1ea3}m \u{1a1}n <b>%{ext_donationname_if_ext_donati}</b>"'
+  recommendations:
+    edit:
+      editing_recommendation: Editing recommendation
+      show: Show
+      '': '|'
+      back: Back
+    index:
+      cá_nhân: Profile
+      chỉnh_sửa_thông_tin: Edit Information
+      tin_nhắn: Message(s)
+      Đóng_góp: Donation(s)
+      Đường_dẫn: Link
+      trang_chủ: Home
+      danh_sách_dự_Án: Projects
+      hệ_thống: Platform
+      tin_tức_cập_nhật: News, Updates
+      gửi_góp_Ý: Send Feedback
+      giới_thiệu: Recommendation(s)
+      viết_giới_thiệu: Write Recommendation
+      human_time_recupdated_at: '"%{human_time_recupdated_at}"'
+    new:
+      new_recommendation: New recommendation
+    show:
+      project: 'Project:'
+      user: 'User:'
+      content: 'Content:'
+      edit: Edit
+      '': '|'
+      back: Back
+  user_mailer:
+    add_member_to_project:
+      chue0o_busernamesplitlastb: "Hello <b>%{usernamesplitlast}</b>,"
+      đường_dẫn_này: this link
+      thân: Sincerely,
+      br: <br/>
+      wwwcharitymaporg: www.charity-map.org
+    bank_account_info:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      sau_đây_là_những_thông_tin_bạn: 'Below is the information you need to make a bank transfer donation:'
+      ngân_hàng_tmcp_vietcombank_ban: '== Bank:     TMCP Vietcombank (Bank for
+        Foreign Trade of Vietnam)'
+      chi_nhánh_tp_hồ_chí_minh_ho_ch: '== Branch:     Tp. Hồ Chí Minh (Ho Chi Minh
+        City)'
+      Địa_chỉ_29_bến_chương_dương_qu: '== Address:       29 Bến Chương Dương, Quận
+        1, TP. Hồ Chí Minh, Việt Nam'
+      swift_code_bftvvnvx007: '== SWIFT CODE:    BFTVVNVX007'
+      chủ_tài_khoản_hoàng_minh_tú: '== Account name: Hoàng Minh Tú'
+      số_tài_khoản_0071000707388: '== Account number:  0071000707388'
+      đường_dẫn_này: this link
+      cảm_ơn_bạn_đã_sử_dụng_charity_: Thank you for using Charity Map,
+      wwwcharitymaporg: www.charity-map.org
+    bank_transfer_confirm_donation:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      du1ef1_ue1n_bprojecttitleb: '"Project: <b>%{projecttitle}</b>"'
+      mue3_u1ee7ng_hu1ed9_bdonatione: '"M\u{e3} \u{1ee7}ng h\u{1ed9}: <b>%{donationeuid}</b>"'
+      su1ed1_tiu1ec1n_u1ee7ng_hu1ed9: '"S\u{1ed1} ti\u{1ec1}n \u{1ee7}ng h\u{1ed9}:
+        <b>%{human_currency_donationamount}</b>"'
+      ngue0y_u1ee7ng_hu1ed9_bhuman_t: '"Donated on: <b>%{human_time_donationcreated_at}</b>"'
+      ngue0y_xue1c_nhu1eadn_bhuman_t: '"Confirmation date: <b>%{human_time_donationupdated_at}</b>"'
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+    bank_transfer_donation_reminder:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      sau_đây_là_những_thông_tin_bạn: 'Below is the information you need to process bank transfer donation:'
+      ngân_hàng_tmcp_vietcombank_ban: '== Bank:     TMCP Vietcombank (Bank for
+        Foreign Trade of Vietnam)'
+      chi_nhánh_tp_hồ_chí_minh_ho_ch: '== Branch:     Tp. Hồ Chí Minh (Ho Chi Minh
+        City)'
+      Địa_chỉ_29_bến_chương_dương_qu: '== Address:       29 Bến Chương Dương, Quận
+        1, TP. Hồ Chí Minh, Việt Nam'
+      swift_code_bftvvnvx007: '== SWIFT CODE:    BFTVVNVX007'
+      chủ_tài_khoản_hoàng_minh_tú: '== Account name: Hoàng Minh Tú'
+      số_tài_khoản_0071000707388: '== Account number:  0071000707388'
+      đường_dẫn_này: this link
+      cảm_ơn_bạn_đã_sử_dụng_charity_: Thank you for using Charity Map,
+      wwwcharitymaporg: www.charity-map.org
+    bank_transfer_request_verification:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      hu1ec7_thu1ed1ng_vu1eeba_ghi_n: '"H\u{1ec7} th\u{1ed1}ng v\u{1eeb}a ghi nh\u{1ead}n
+        m\u{1ed9}t y\u{ea}u c\u{1ea7}u x\u{e1}c nh\u{1ead}n ti\u{1ec1}n \u{111}\u{e3}
+        \u{111}\u{1b0}\u{1ee3}c g\u{1eed}i \u{111}\u{1ebf}n t\u{e0}i kho\u{1ea3}n
+        c\u{1ee7}a d\u{1ef1} \u{e1}n %{projecttitle} v\u{e0}o ng\u{e0}y %{human_timedonationupdated_at}.
+        Th\u{f4}ng tin chi ti\u{1ebf}t nh\u{1b0} sau:"'
+      ngue0y_gu1eedi_yueau_cu1ea7u_h: '"Request sender:
+        %{human_timedonationupdated_at}"'
+      du1ef1_ue1n_projecttitle: '"Project: %{projecttitle}"'
+      mue3_u1ee7ng_hu1ed9_donationeu: '"M\u{e3} \u{1ee7}ng h\u{1ed9}: %{donationeuid}"'
+      su1ed1_tiu1ec1n_u1ee7ng_hu1ed9: '"S\u{1ed1} ti\u{1ec1}n \u{1ee7}ng h\u{1ed9}:
+        %{human_currency_donationamount}"'
+      su1ed1_u110t_ngu1b0u1eddi_u1ee: '"Phone number of donor: %{donationuserphone}"'
+      đường_dẫn_này: this link
+      wwwcharitymaporg: www.charity-map.org
+    cod_confirm_donation:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      du1ef1_ue1n_bprojecttitleb: '"Project: <b>%{projecttitle}</b>"'
+      mue3_u1ee7ng_hu1ed9_bdonatione: '"M\u{e3} \u{1ee7}ng h\u{1ed9}: <b>%{donationeuid}</b>"'
+      su1ed1_tiu1ec1n_u1ee7ng_hu1ed9: '"S\u{1ed1} ti\u{1ec1}n \u{1ee7}ng h\u{1ed9}:
+        <b>%{human_currency_donationamount}</b>"'
+      ngue0y_u1ee7ng_hu1ed9_bhuman_t: '"Donation made on: <b>%{human_time_donationcreated_at}</b>"'
+      ngue0y_xue1c_nhu1eadn_bhuman_t: '"Donation confirmed on: <b>%{human_time_donationupdated_at}</b>"'
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+    confirm_cm_credit_donation:
+      xin_chue0o_usernamesplitlast: '"Hello %{usernamesplitlast},"'
+      du1ef1_ue1n_bprojecttitleb: '"Project: <b>%{projecttitle}</b>"'
+      mue3_u1ee7ng_hu1ed9_bdonatione: '"M\u{e3} \u{1ee7}ng h\u{1ed9}: <b>%{donationeuid}</b>"'
+      su1ed1_tiu1ec1n_u1ee7ng_hu1ed9: '"S\u{1ed1} ti\u{1ec1}n \u{1ee7}ng h\u{1ed9}:
+        <b>%{human_currency_donationamount}</b>"'
+      ngue0y_u1ee7ng_hu1ed9_bhuman_t: '"Donation made on: <b>%{human_time_donationcreated_at}</b>"'
+      phu1b0u1a1ng_thu1ee9c_u1ee7ng_: '"Mode of donation: <b>%{human_donation_type_donationco}</b>"'
+      xem_chi_tiết: See more
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+    fundraising_projects_for_new_signup:
+      bản_Đồ_từ_thiện_charitymaporg: Charity Map (charity-map.org)
+      thu1ef1c_hiu1ec7n_strongprojec: '"Operator: <strong>%{projectusername}</strong>
+        &sdot; location: <strong>%{projectlocation}</strong>"'
+      xem_thêm_thông_tin: See more
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+    invite_ext_donor:
+      xin_chue0o_ext_donationdonorsp: '"Hello %{ext_donationdonorsplitlast},"'
+      su1ed1_tiu1ec1n_u1ee7ng_hu1ed9: '"Donation amount:
+        <b>%{human_currency_ext_donationamo}</b>"'
+      ngue0y_u1ee7ng_hu1ed9_bhuman_t: '"Donation made on: <b>%{human_time_ext_donationcollect}</b>"'
+      ngue0y_xue1c_nhu1eadn_bhuman_t: '"Donation confirmed on: <b>%{human_time_timenow}</b>"'
+      đường_dẫn_này: this link
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+      bghi_chúb_Ủng_hộ_này_đã_được_đ: '<b>Ghi chú</b>: This donation has been marked anonymous.'
+    prefunding_invite:
+      thông_tin_về_dự_Án: Project Information
+    remind_followers_5_days_before_end_date:
+      xin_chue0o_followernamesplitla: '"Hello %{followernamesplitlast},"'
+      bcharity_mapb_xin_thuf4ng_bue1: '"<b>Charity Map</b> would like to inform that project <b>%{projecttitle}</b> will end its fundraising campaign in the next 5 days."'
+      đường_dẫn_này: this link
+      wwwcharitymaporg: www.charity-map.org
+    send_gift_card_info:
+      chue0o_gift_cardreferencesreci: '"Hello %{gift_cardreferencesrecipient_n},"'
+      đường_dẫn_này: this link
+      span_stylefontweightboldfontsi: '"<span style=\"font-weight:bold;font-size:13px;margin-bottom:0px;\">CLAIM
+        CODE</span><br/><br/> %{gift_cardtoken}"'
+      human_currency_gift_cardamount: '"%{human_currency_gift_cardamount}"'
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+    send_updates_to_project_followers:
+      chue0o_followernamesplitlast: '"Ch\u{e0}o %{followernamesplitlast},"'
+      đường_dẫn_này: this link
+      thân: Sincerely,
+      wwwcharitymaporg: www.charity-map.org
+  users:
+    form_message:
+      gửi_tin_nhắn: Send message
+    form_reply_message:
+      trả_lời_tin_nhắn: Reply message
+    portfolio:
+      body_backgroundcolor_e2e7e8: 'body {background-color: #e2e7e8}'
+      thông_tin: 'Information '
+      sdot: '&sdot;'
+      dự_Án: Projects
+      những_con_số: Figures
+      thành_viên: Members
+      liên_hệ: Contact
+      dự_Án_của_chúng_tôi: Our Projects
+      Đang_gây_quỹ: Fundraising
+      quỹ: Fund
+      tiến_Độ: Progress
+      ngày: Day
+      new_ext_project: '#new_ext_project'
+      nbsp_dự_Án_trước_Đây: '&nbsp; Past Projects'
+      tiêu_Đề: Title
+      Địa_Điểm: Location
+      diễn_giải: Description
+      mtq: Donors
+      Ảnh_dự_Án: Project Picture
+      lưu_ý: 'Notes:'
+      hiện_bĐtt_chưa_hỗ_trợ_chỉnh_sử: 'Charity Map does not support editing the past projects after submission. 
+            Please review carefully before submiting. You can delete the project after submission. You need to fill in all fields for the past projects.'
+      submit: Submit
+      delete: Delete
+    dashboard:
+      dự_Án_của_bạn: Your Projects
+      tạo_dự_án_đầu_tiên: Create the First Project!
+    donations:
+      Đóng_góp_của_bạn: Your Donation(s)
+      hiện_chưa_có_thống_kê_về_những: You have not made any donation.
+    gift_cards:
+      thẻ_quà_tặng_của_bạn: Your Gift Card
+      hiện_bạn_chưa_có_thẻ_quà_tặng_: You do not have any gift card at the moment.
+      ngày: Date
+      người_tặng: From
+      trị_giá: Value
+      trạng_thái: Status
+      cardhuman_status: '"%{cardhuman_status}"'
+      redeem: Redeem
     messages:
+      tin_nhu1eafn_cu1ee7a_bu1ea1n_c: '"Unread Message(s) (%{count_unreaded_messages})"'
+      bạn_không_có_tin_nhắn_nào_mới: You have no new message.
+      nội_dung: Content
+      người_gửi: From
+      thời_gian_gửi: Date
+      trả_lời: Reply
+    new_message:
+      tin_nhắn_mới: New Message
+    new_reply_message:
+      trả_lời_tin_nhắn: Rely Message
+      btin_nhắn_được_trả_lờib: <b>Message replied:</b>
+      parent_messagebody: '"%{parent_messagebody}"'
+    profile:
+      cá_nhân: Profile
+      chỉnh_sửa_thông_tin: Edit Information
+      tin_nhắn: Message(s)
+      Đóng_góp: Donation(s)
+      Đường_dẫn: Link
+      trang_chủ: Home
+      danh_sách_dự_Án: Projects
+      hệ_thống: Platform
+      tin_tức_cập_nhật: News, Updates
+      gửi_góp_Ý: Send Feedback
+      gửi_tin_nhắn: Send Message
+      dự_Án_của_bạn: Your Project(s)
+      người_dùng_chưa_tạo_dự_án_trên: You have no project at the moment.
+      Đóng_góp_của_bạn: Your Donations
+      chưa_có_đóng_góp_nào_được_ghi_: You have not made any donation.
+    settings:
+      chỉnh_sửa_thông_tin: Edit Information
+      bạn_không_thể_sửa_email_khi_đã: 'You cannot change email after creating the project(s). 
+            This makes sure the donations are sent to the right account.'
+      vị_trí_không_xác_định_được_trê: "Unable to identify location on the map. 
+            Please look up project location on <a href='http://maps.google.com' target='_blank'>Google
+              Maps</a>."
+      trang_profile_dạng_tổ_chức_cli: Organization profile (check if you are representing an organization or group)
+      nhận_tin_qua_email: Get notifications through email
+      nhận_tin_qua_sms: Get notifications through SMS
+      nhận_tin_qua_facebook_notifica: Get notifications through Facebook
+      xem_trang_của_bạn: View Your Profile
+      sdot_tk_human_currency_balance: '"&sdot; TK: %{human_currency_balanceuser}"'
+      kết_nối_tk_facebook: Connect with Facebook Account
+      cập_nhật_thông_tin: Update Information
+      Đổi_mật_mã: Change Password
+    show_message:
+      tin_nhắn: Message
+      trả_lời: Reply
+    verify:
+      xác_nhận_bằng_Điện_thoại: Verify with Mobile
+      Để_tạo_hoặc_giới_thiệu_một_dự_: 'To create or recommend a project, you have to verify by mobile. 
+      Please enter your number without country code: 0908123456.'
+      tài_khoản_đã_được_xác_nhận: Account verified.
       carrierwave_processing_error: "Chỉnh sửa ảnh chưa hoàn tất."
       carrierwave_integrity_error: "Không phải ảnh hợp lệ."
       carrierwave_download_error: "Không tải được ảnh."
       extension_white_list_error: "Đuôi ảnh không hợp lệ, chấpYou are not allowed to upload %{extension} files, allowed types: %{allowed_types}"
       extension_black_list_error: "You are not allowed to upload %{extension} files, prohibited types: %{prohibited_types}"
+    controller:
+      donation: "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại)."
+      update: Cập nhật
+      donors: Mạnh Thường Quân
+      comments: Bình luận

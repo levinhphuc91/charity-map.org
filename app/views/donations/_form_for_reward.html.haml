@@ -2,13 +2,13 @@
   .col-md-6.col-md-offset-3
     - if @donation.errors.any?
       #error_explanation{style: "text-align: center; margin-bottom: 50px;"}
-        %h2= "Có #{pluralize(@donation.errors.count, "lỗi")}:"
+        %h2= t('.có_pluralizedonationerrorscoun', :pluralizedonationerrorscount_l => (pluralize(@donation.errors.count, "lỗi")))
         - @donation.errors.full_messages.each do |msg|
-          &sdot; #{msg}<br/>
+          = t('.sdot_msgbr', :msg => (msg))
   = f.hidden_field :project_reward_id, value: @project_reward.id
   .money-donation-form.col-md-12
     .col-md-6{style: "color: #b9b9b9 !important;"}
-      %label{for: "Tặng Phẩm"} Tặng Phẩm
+      %label{for:= t('.tặng_phẩm')} Tặng Phẩm
       .product
         .photo.pull-left= image_tag @project_reward.photo_url(:thumb)
         .info
@@ -17,29 +17,29 @@
       #something{style: "position: relative; clear: both;"}
         = f.input :project_id, :as => :hidden, :input_html => {:value => @project.id}
         = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-        %span.money-icon VNĐ
-        %label{for: "Số Lượng"} Số tiền ủng hộ
+        %span.money-icon= t('.vnĐ')
+        %label{for: "Số Lượng"}= t('.số_tiền_ủng_hộ')
         = f.input :amount, :label => false, :input_html => {value: @project_reward.value.to_i || nil, :class => "form-control money", type: "text", :"data-value" => @project_reward.value, readonly: true, required: true}
     .col-md-6
       .donation-form
         %label{for: "Số Lượng"} Số Lượng (Còn Lại: #{@project_reward.active_item})
         = f.input :project_reward_quantity, :label => false, :input_html => {:class => "form-control", type: "text"}
       .donation-form
-        %label{for: "Phương Thức Đóng Góp"} Phương Thức Đóng Góp
+        %label{for:= t('.phương_thức_Đóng_góp')} Phương Thức Đóng Góp
         - if balance(current_user) > 0
           = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"], ["Tài khoản charity-map.org (còn #{human_currency balance(current_user)})", "CM_CREDIT"]], include_blank: false, :input_html => {:class => "span12 form-control"}
         - else
           = f.input :collection_method, :label => false, as: :select, collection: [["Thu tiền tận nơi", "COD"], ["Chuyển khoản ngân hàng", "BANK_TRANSFER"]], include_blank: false, :input_html => {:class => "span12 form-control"}
       .donation-form
-        %label Ẩn danh?
+        %label= t('.Ẩn_danh')
         = f.input :anon, label: false, :input_html => {class: "check"}
-      %label{for: "Ghi Chú"} Thông Tin Liên Lạc, Ghi Chú
+      %label{for: "Ghi Chú"}= t('.thông_tin_liên_lạc_ghi_chú')
       = f.input :note, :label => false, :input_html => {value: "#{current_user.name} / #{current_user.address} / #{current_user.phone}",:class => "form-control", :size => "20x5"}
       %p
       - if @project_reward.shipping_fee_applied
-        = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg"
+        = f.submit t('.Ủng_hộ_projecttitle', :projecttitle => (@project.title)), class: "btn btn-success btn-lg"
       - else
-        = f.submit "Ủng Hộ #{@project.title}", class: "btn btn-success btn-lg", confirm: "Phí vận chuyển (10.000đ nội thành, 20.000đ ngoại thành TP.HCM) chưa được tính trong ủng hộ này. Đây là một khoản phí hậu cần chúng tôi không tính trong số tiền bạn ủng hộ. Bạn có chấp nhận gửi thêm phí vận chuyển khi tặng phẩm được giao?"
+        = f.submit t('.Ủng_hộ_projecttitle', :projecttitle => (@project.title)), class: "btn btn-success btn-lg", confirm: "Phí vận chuyển (10.000đ nội thành, 20.000đ ngoại thành TP.HCM) chưa được tính trong ủng hộ này. Đây là một khoản phí hậu cần chúng tôi không tính trong số tiền bạn ủng hộ. Bạn có chấp nhận gửi thêm phí vận chuyển khi tặng phẩm được giao?"
 
 :javascript
   $('.reward').on('click', function() {

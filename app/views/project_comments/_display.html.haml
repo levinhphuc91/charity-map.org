@@ -2,14 +2,14 @@
   .span4
     .user-profile
       .avatar
-        - if comment.user.avatar? 
+        - if comment.user.avatar?
           = image_tag(comment.user.avatar_url(:small), size: "30x30")
         - else
           = image_tag("default_avatar.png", size: "30x30")
       .user-info
         .name= link_to comment.user.name, user_profile_path(comment.user)
-        .des-1 #{human_time comment.updated_at}
+        .des-1= t('.human_time_commentupdated_at', :human_time_commentupdated_at => (human_time comment.updated_at))
   .span8
-    %p 
+    %p
       = comment.content
 %hr/

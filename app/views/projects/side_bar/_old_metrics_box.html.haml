@@ -2,37 +2,37 @@
   .figure.righted
     .number= human_currency project.funding_goal
     .description
-      Mục tiêu
+      = t('.mục_tiêu')
   .figure.righted
     .number= human_currency project.donations_sum
     .description
-      Số tiền nhận được (#{number_with_precision (project.donations_sum/project.funding_goal*100), precision: 0}%)
-  .figure.righted 
+      = Số tiền nhận được (#{number_with_precision (project.donations_sum/project.funding_goal*100), precision: 0}%)
+  .figure.righted
     - if project.start_date < Date.today && project.end_date > Date.today
       .number Còn #{(TimeDifference.between(Time.now, project.end_date).in_days).to_i} ngày
       .description
         %i.icon-time
-        Thời gian gây quỹ
+        = t('.thời_gian_gây_quỹ')
     - else
-      .number #{human_time(project.start_date)} &mdash; #{human_time(project.end_date)}
+      .number= t('.human_timeprojectstart_date_md', :human_timeprojectstart_date => (human_time(project.start_date)), :human_timeprojectend_date => (human_time(project.end_date)))
       .description
         %i.icon-time
-        Thời gian gây quỹ
+        = t('.thời_gian_gây_quỹ')
   .row-fluid
     = link_to new_project_donation_path(project) do
       .span12.donate-bttn
-        Ủng Hộ Dự Án
-    
+        = t('.Ủng_hộ_dự_Án')
+
   .cleared
   %hr
   #project_follow
     .row-fluid
       .sub-headline.centered
         - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
-          Bạn đang theo dõi dự án này
+          = t('.bạn_đang_theo_dõi_dự_án_này')
         - else
           = link_to initiate_project_project_follows_path(project), remote: true do
             .span12.donate-bttn
-              Theo Dõi
-  %hr/ 
+              = t('.theo_dõi')
+  %hr/
   .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}

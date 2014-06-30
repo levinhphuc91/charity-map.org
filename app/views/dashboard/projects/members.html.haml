@@ -1,24 +1,24 @@
 .devider
-  .item Thành Viên
+  .item= t('.thành_viên')
   .note Dự án: #{link_to @project.title, project_path(@project)}
 
 %table.table.table-bordered
-  %tr 
-    %th #{@project.user.name}
-    %td #{@project.user.email}
-    %td Quản Lý
+  %tr
+    %th= t('.projectusername', :projectusername => (@project.user.name))
+    %td= t('.projectuseremail', :projectuseremail => (@project.user.email))
+    %td= t('.quản_lý')
   - @managements.each do |management|
-    %tr 
-      %th #{management.user.name}
-      %td #{management.user.email}
-      %td Thành Viên (#{link_to("Xoá", remove_member_dashboard_project_path(@project, user_id: management.user.id), method: :delete) if @project.authorized_super_edit_for?(current_user)})
+    %tr
+      %th= t('.managementusername', :managementusername => (management.user.name))
+      %td= t('.managementuseremail', :managementuseremail => (management.user.email))
+      %td Thành Viên (#{link_to(=t('.xoá', ), remove_member_dashboard_project_path(@project, user_id: management.user.id), method: :delete) if @project.authorized_super_edit_for?(current_user)})
   - if @project.authorized_super_edit_for?(current_user)
     %tr
       = form_tag add_member_dashboard_project_path(@project) do
-        %th Thêm Thành Viên Mới
+        %th= t('.thêm_thành_viên_mới')
         %td
           = text_field_tag :email
-          .hint Điền email (đã đăng ký tài khoản) của thành viên mới.
+          .hint= t('.Điền_email_đã_đăng_ký_tài_khoả')
           = check_box_tag :notification, "true", checked: "checked"
-          %span.hint Gửi email thông báo
+          %span.hint= t('.gửi_email_thông_báo')
         %td= submit_tag "Thêm", class: "submit"

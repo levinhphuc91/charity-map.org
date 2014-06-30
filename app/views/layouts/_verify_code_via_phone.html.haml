@@ -1,14 +1,14 @@
 .devider
   .item
     %i.icon-male
-    Hoàn tất xác nhận danh tính
+    = t('.hoàn_tất_xác_nhận_danh_tính')
 .row-fluid
   %p Điền vào ô bên dưới đoạn mã 6 chữ số đã được gửi đến số 0#{current_user.phone} của bạn:
   = form_tag(users_verification_code_via_phone_path, :method => :post) do
-    %p 
+    %p
       = text_field_tag :phone_code
-    %p 
+    %p
       = submit_tag "Xác Nhận", class: "submit"
-%hr/ 
+%hr/
 .row-fluid
-  %p Chưa nhận được mã? #{link_to "Gửi lại", users_resend_verification_path} tới số #{current_user.phone}.
+  %p Chưa nhận được mã? #{link_to= t('.gửi_lại', ), users_resend_verification_path} tới số #{current_user.phone}.

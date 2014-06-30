@@ -3,4 +3,4 @@
 = @invite.project.invite_email_content.gsub(/\n/, '<br/><br/>').html_safe
 
 %p
-  #{link_to "Thông Tin Về Dự Án", project_url(@invite.project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} &sdot; #{link_to "Tiến Độ Gây Quỹ", project_donations_url(@invite.project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} &sdot; Về: #{link_to @invite.project.user.name, user_profile_path(@invite.project.user)}
+  = #{link_to t('.thông_tin_về_dự_Án', ), project_url(@invite.project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} &sdot; #{link_to "Tiến Độ Gây Quỹ", project_donations_url(@invite.project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")} &sdot; Về: #{link_to @invite.project.user.name, user_profile_path(@invite.project.user)}

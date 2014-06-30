@@ -54,6 +54,7 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'geocoder'
 gem 'babosa'
+gem 'oink' #memory logs
 
 group :development do
   gem 'better_errors'

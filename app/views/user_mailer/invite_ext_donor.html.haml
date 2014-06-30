@@ -7,14 +7,14 @@
   %li Ngày ủng hộ: <b>#{human_time @ext_donation.collection_time}</b>
   %li Ngày xác nhận: <b>#{human_time Time.now}</b>
 
-%p 
-  Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{link_to @project.title, project_url(@project, :token => @ext_donation.token.value, utm_campaign: "ConvertExtD2PUsers", utm_source: "email", utm_medium: "link")}</b>, vui lòng truy cập #{link_to "đường dẫn này", project_url(@project, :token => @ext_donation.token.value, utm_campaign: "ConvertExtD2PUsers", utm_source: "email", utm_medium: "link")}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án.
-  
-%p 
-  Thân,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+%p
+  = Để theo dõi thông tin liên quan tới ủng hộ của bạn cũng như cập nhật từ dự án <b>#{link_to @project.title, project_url(@project, :token => @ext_donation.token.value, utm_campaign: "ConvertExtD2PUsers", utm_source: "email", utm_medium: "link")}</b>, vui lòng truy cập #{link_to t('.đường_dẫn_này', ), project_url(@project, :token => @ext_donation.token.value, utm_campaign: "ConvertExtD2PUsers", utm_source: "email", utm_medium: "link")}. Một lần nữa, cảm ơn bạn đã ủng hộ dự án.
+
+%p
+  = t('.thân')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')
 
 
 - if @ext_donation.anon
-  %p <b>Ghi chú</b>: Ủng hộ này đã được đánh dấu Ẩn Danh.
+  %p= t('.bghi_chúb_Ủng_hộ_này_đã_được_đ')

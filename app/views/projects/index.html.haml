@@ -13,24 +13,24 @@
     .row-fluid
       .pull-left
         - if params[:filter] && params[:filter] == "funding"
-          .headline Các Dự Án Đang Gây Quỹ
+          .headline= t('.các_dự_Án_Đang_gây_quỹ')
         - elsif params[:filter] == "finished"
-          .headline Các Dự Án Đã Qua Đợt Gây Quỹ
+          .headline= t('.các_dự_Án_Đã_qua_Đợt_gây_quỹ')
         - else
-          .headline Các Dự Án Trên Hệ Thống
+          .headline= t('.các_dự_Án_trên_hệ_thống')
       .pull-right
         = link_to new_project_path do
           .more
-            %i.icon-plus 
-            Đăng Ký Dự Án
+            %i.icon-plus
+            = t('.Đăng_ký_dự_Án')
     %hr
     .row-fluid
       - @projects.each do |project|
         = render "projects/box_display", :project => project
 
     - if (current_user && current_user.staff && @pending)
-      .headline Đang Đợi Xét Duyệt (admin only)
-      %hr/ 
+      .headline= t('.Đang_Đợi_xét_duyệt_admin_only')
+      %hr/
       .row-fluid
         - @pending.each do |pending|
           .pull-left

@@ -2,12 +2,12 @@
   .body-container--content
     .devider
       .item
-        %i.icon-edit-sign 
-        Chỉnh Sửa Thông Tin: #{@project.title}
+        %i.icon-edit-sign
+        = Chỉnh Sửa Thông Tin: #{@project.title}
       .note
-        #{link_to "Đến Trang Dự Án", @project}
-        &sdot;
-        #{link_to "Về lại Trang Quản Lý", dashboard_project_path(@project)}
+        = #{link_to t('.Đến_trang_dự_Án', ), @project}
+        = t('.sdot')
+        = #{link_to t('.về_lại_trang_quản_lý', ), dashboard_project_path(@project)}
 
     = render 'form'
 
@@ -24,5 +24,5 @@
       return alert("Action failed.");
     });
 
-    
+
   });

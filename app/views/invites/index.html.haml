@@ -1,10 +1,10 @@
 = content_for :head do
-  = javascript_include_tag "//www.google.com/jsapi", "chartkick" 
+  = javascript_include_tag "//www.google.com/jsapi", "chartkick"
 
 .devider
   .item
     %i.icon-user
-    Liên Lạc
+    = t('.liên_lạc')
   .note Dự án: #{link_to @project.title, project_path(@project)} &sdot; Credit: Còn #{@project.sms_credit} tin nhắn
 
 .row-fluid
@@ -12,7 +12,7 @@
     = render "invites/chart", project: @project
 %hr/
 %table.table.table-bordered.invites
-  - unless @project.invites.empty?  
+  - unless @project.invites.empty?
     - @project.invites.each do |invite|
       = render "invites/invite", invite: invite
   / %b.pull-right= link_to "Gửi Thư Mời Đến Toàn Bộ Danh Sách", '#' #send_out_project_invites_path(@project, all: true)
@@ -21,13 +21,13 @@
 .devider
   .item
     %i.icon-plus
-    Thêm Liên Lạc
+    = t('.thêm_liên_lạc')
 
 = semantic_form_for [@project, @invite], remote: true do |f|
   .row-fluid.error
     - if @invite.errors.any?
       #error_explanation
-        %h2= "#{pluralize(@invite.errors.count, "error")} prohibited this project from being saved:"
+        %h2= t('.pluralizeinviteerrorscount_err', :pluralizeinviteerrorscount_err => (pluralize(@invite.errors.count, "error")))
         %ul
           - @invite.errors.full_messages.each do |msg|
             %li= msg
@@ -38,15 +38,15 @@
     = f.input :phone, label: "Số ĐT"
 
   = f.actions do
-    = f.submit "Thêm Liên Lạc", class: "submit", as: :button
+    = f.submit t('.thêm_liên_lạc'), class: "submit", as: :button
 
 - if @project.user.projects.count > 1
   %hr/
   = form_tag import_project_invites_path(@project) do
     .row-fluid
       .span3
-        .sub-headline Import danh sách MTQ
-        .hint từ các dự án sau
+        .sub-headline= t('.import_danh_sách_mtq')
+        .hint= t('.từ_các_dự_án_sau')
       .span9= select_tag :import_from, options_from_collection_for_select(@project.user.projects.select{|project| project != @project}, "id", "title")
 
     .row-fluid
@@ -55,17 +55,17 @@
 .devider
   .item
     %i.icon-envelope
-    Thư Mời
+    = t('.thư_mời')
   .note Dự án: #{link_to @project.title, project_path(@project)}
 
 = form_for @project do |f|
   .row-fluid
-    .span3.sub-headline Nội dung Email
+    .span3.sub-headline= t('.nội_dung_email')
     .span9= f.text_area :invite_email_content, class: "span12"
   .row-fluid
     .span3
-      .sub-headline Nội dung SMS
-      .hint giới hạn 160 ký tự
+      .sub-headline= t('.nội_dung_sms')
+      .hint= t('.giới_hạn_160_ký_tự')
       %p.hint <strong>Chú ý</strong>: Tin nhắn cần bao gồm: tên dự án, đường link tới dự án (<strong style="color: black;">charity-map.org/#{@project.short_code}</strong>)
     .span9= f.text_area :invite_sms_content, class: "span12"
   .row-fluid

@@ -7,7 +7,7 @@
   = render "projects/side_bar/metrics_box", project: @project
   %hr/
   - if @project_updates.empty?
-    Hiện dự án <strong>#{@project.title}</strong> chưa có cập nhật nào.
+    = Hiện dự án <strong>#{@project.title}</strong> chưa có cập nhật nào.
   - else
     .list-group
       - @project_updates.each_with_index do |update, index|
@@ -15,9 +15,9 @@
           %h4.list-group-item-heading
             = update.title
             %span.label.label-success.pull-right
-              Cập nhật #{index + 1} (#{human_time update.created_at})
+              = Cập nhật #{index + 1} (#{human_time update.created_at})
           %p.list-group-item-text
-            Click để xem thêm thông tin.
+            = t('.click_để_xem_thêm_thông_tin')
             / = markdown limit_display(update.content, 400)
 
   = render "projects/fundraising_project_suggestions", source: "UpdateIndex"

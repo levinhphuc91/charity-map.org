@@ -3,37 +3,37 @@
   #ext-donation-form
     / Tên Dự Án
     .form-item.col-md-6
-      %label{for: "Tên Dự Án"} Họ & Tên*
+      %label{for: "Tên Dự Án"}= t('.họ_tên')
       %span.example
-        Ví Dụ
-        %i Nguyễn Văn Linh
+        = t('.ví_dụ')
+        %i= t('.nguyễn_văn_linh')
       = f.text_field :donor, class: "form-control"
     .form-item.col-md-6
-      %label{for: "Ngày Ghi Nhận Ủng Hộ"} Ngày Ghi Nhận*
+      %label{for: "Ngày Ghi Nhận Ủng Hộ"}= t('.ngày_ghi_nhận')
       = f.text_field :collection_time, required: true, class: "form-control collection_time"
     .form-item.col-md-6
-      %label{for: "Số Tiền Ủng Hộ"} Số Tiền (VNĐ)*
+      %label{for: "Số Tiền Ủng Hộ"}= t('.số_tiền_vnĐ')
       = f.text_field :amount, required: true, class: "form-control"
     .form-item.col-md-6
-      %label{for: "Phương Thức Ủng Hộ"} Phương Thức Ủng Hộ*
+      %label{for: "Phương Thức Ủng Hộ"}= t('.phương_thức_Ủng_hộ')
       = f.select :collection_method, [["Chuyển Khoản Ngân Hàng", "BANK_TRANSFER"],["Thu Tiền Tận Nơi","COD"]], class: "form-control"
     .clearfix
     .form-item.col-md-6
-      %label{for: "Email"} Email
+      %label{for:= t('.email')} Email
       = f.text_field :email, class: "form-control"
     .form-item.col-md-6
-      %label{for: "Số Điện Thoại"} Số Điện Thoại
+      %label{for:= t('.số_Điện_thoại')} Số Điện Thoại
       = f.text_field :phone, class: "form-control"
     .form-item.col-md-12
-      %label{for: "Ghi Chú"} Ghi Chú
+      %label{for:= t('.ghi_chú')} Ghi Chú
       %span.example
-        (đường link tài khoản Facebook, số tham chiếu ngân hàng, v.v)
+        = t('.đường_link_tài_khoản_facebook_')
       = f.text_area :note, class: "form-control", row: 2
     .form-item.col-md-12
-      %label Gửi email xác nhận tới MTQ
+      %label= t('.gửi_email_xác_nhận_tới_mtq')
       = check_box_tag :notification, true, class: "check"
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      %label Ẩn Danh?
+      = t('.nbspnbspnbspnbspnbsp')
+      %label= t('.Ẩn_danh')
       = f.check_box :anon, class: "check"
 
-    = f.submit "Thêm Ủng Hộ", class: "btn btn-success"
+    = f.submit t('.thêm_Ủng_hộ'), class: "btn btn-success"

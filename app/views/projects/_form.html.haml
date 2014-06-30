@@ -3,48 +3,48 @@
     .row-fluid
       - if @project.errors.any?
         #error_explanation
-          %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+          %h2= t('.pluralizeprojecterrorscount_er', :pluralizeprojecterrorscount_er => (pluralize(@project.errors.count, "error")))
           %ul
             - @project.errors.full_messages.each do |msg|
               %li= msg
-    %p 
+    %p
     .row-fluid
       .span9.offset3= image_tag(@project.photo_url(:portfolio)) if @project.photo?
     .row-fluid
       .span4.sub-headline
-        Ảnh Dự Án (cỡ tối ưu: 1200*600px)
+        = t('.Ảnh_dự_Án_cỡ_tối_ưu_1200600px')
       .span8
         = f.file_field :photo
         = f.hidden_field :photo_cache
         - if params[:controller] == "projects" && params[:action] != "edit"
           = f.input :user_id, :as => :hidden, :input_html => {:value => current_user.id}
-    %hr/ 
+    %hr/
     .row-fluid
       .span4
-        .sub-headline Tên Dự Án
+        .sub-headline= t('.tên_dự_Án')
       .span8
         = f.input :title, label: false, :input_html => {:class => "span12"}
         - if params[:controller] == "projects" && params[:action] == "edit"
           .hint Link dự án: <strong>#{project_url(@project)}</strong> sẽ thay đổi khi bạn đổi tên dự án.
     .row-fluid
       .span4.sub-headline
-        Giới Thiệu Ngắn Gọn (giới hạn: 200 ký tự)
+        = t('.giới_thiệu_ngắn_gọn_giới_hạn_2')
       .span8
         = f.input :brief, label: false, :input_html => {:class => "span12 brief", :size => "50x5"}
         .brief-length
     .row-fluid
       .span4
-        .sub-headline Mô Tả Dự Án
+        .sub-headline= t('.mô_tả_dự_Án')
         .hint
-          Điền đầy đủ thông tin:
+          = t('.Điền_đầy_đủ_thông_tin')
           %ul
-            %li Mục tiêu / Sứ mệnh
-            %li Câu chuyện, trường hợp, hoàn cảnh
-            %li Mục tiêu gây quỹ, thời gian hoàn thành
-            %li Kế hoạch tiến hành dự án sau khi gây quỹ
-            %li Nhân lực, đội ngũ thực hiện dự án
-          %hr/ 
-        .sub-headline Trình Bày
+            %li= t('.mục_tiêu_sứ_mệnh')
+            %li= t('.câu_chuyện_trường_hợp_hoàn_cản')
+            %li= t('.mục_tiêu_gây_quỹ_thời_gian_hoà')
+            %li= t('.kế_hoạch_tiến_hành_dự_án_sau_k')
+            %li= t('.nhân_lực_đội_ngũ_thực_hiện_dự_')
+          %hr/
+        .sub-headline= t('.trình_bày')
         .hint
           = render "layouts/markdown"
 
@@ -52,49 +52,49 @@
         = f.input :description, label: false, :input_html => {:class => "span12 editable", :size => "50x20"}
     .row-fluid
       .span4.sub-headline
-        Link Video giới thiệu
+        = t('.link_video_giới_thiệu')
       .span8
         = f.input :video, label: false, :input_html => {:class => "span12"}
     .row-fluid
       .span4
-        .sub-headline Thông tin Tài khoản Ngân hàng
+        .sub-headline= t('.thông_tin_tài_khoản_ngân_hàng')
         .hint
-          Điền đầy đủ thông tin:
-          %ul 
-            %li Tên ngân hàng
-            %li Chi nhánh
-            %li Địa chỉ ngân hàng
-            %li SWIFT CODE
-            %li Chủ tài khoản
-            %li Số tài khoản
+          = t('.Điền_đầy_đủ_thông_tin')
+          %ul
+            %li= t('.tên_ngân_hàng')
+            %li= t('.chi_nhánh')
+            %li= t('.Địa_chỉ_ngân_hàng')
+            %li= t('.swift_code')
+            %li= t('.chủ_tài_khoản')
+            %li= t('.số_tài_khoản')
       .span8
         = f.input :bank_info, label: false, :input_html => {:class => "span12", size: "20x5"}
     - if params[:action] != "edit"
       .row-fluid
-        .span4.sub-headline Ủng hộ được tặng hiện vật?
+        .span4.sub-headline= t('.Ủng_hộ_được_tặng_hiện_vật')
         .span8
           = f.check_box :item_based, class: "pull-left", style: "margin-right: 10px; margin-bottom: 10px;"
-          %p Dành cho các dự án có <strong>tặng kèm hiện vật với mỗi ủng hộ</strong>. Lưu ý: một khi bạn đã chọn/không chọn chức năng này thì sẽ không thể thay đổi.
-    %hr/ 
+          %p= t('.dành_cho_các_dự_án_có_strongtặ')
+    %hr/
     .row-fluid
       .span3.sub-headline
-        Ngày Bắt Đầu<br/>
+        = t('.ngày_bắt_Đầubr')
         = f.input :start_date, label: false, :as => :string, :input_html => {:class => "start_date"}
       .span3.sub-headline
-        Ngày Kết Thúc <br/>
+        = t('.ngày_kết_thúc_br')
         = f.input :end_date, label: false,   :as => :string, :input_html => {:class => "end_date"}
       .span3.sub-headline
-        Số Quỹ Cần Vận Động (VND)<br/>
+        = t('.số_quỹ_cần_vận_Động_vndbr')
         = f.input :funding_goal, label: false
       .span3
         .sub-headline
-          Địa Điểm <br/>
+          = t('.Địa_Điểm_br')
         = f.input :location, label: false
         - if !@project.coordinated?
-          .hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của dự án trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
+          .hint= t('.vị_trí_không_xác_định_được_trê')
     .row-fluid
       .pull-right
-        = f.submit "Lưu", class: "submit"
+        = f.submit t('.lưu'), class: "submit"
 
 :javascript
   $( document ).ready(function() {

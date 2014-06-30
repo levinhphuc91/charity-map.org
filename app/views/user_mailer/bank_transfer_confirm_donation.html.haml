@@ -9,10 +9,10 @@
   %li Ngày ủng hộ: <b>#{human_time @donation.created_at}</b>
   %li Ngày xác nhận: <b>#{human_time @donation.updated_at}</b>
 
-%p 
+%p
   Cảm ơn bạn đã ủng hộ dự án đăng trên <b>Charity Map</b> và chúng tôi hy vọng bạn sẽ ghé thăm site thường xuyên để theo dõi các dự án khác cũng như tiến độ thực hiện của dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b>.
-  
-%p 
-  Thân,
-  %br/ 
-  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org
+
+%p
+  = t('.thân')
+  %br/
+  %a{:href => "http://=t('.wwwcharitymaporg')/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} t('.wwwcharitymaporg')

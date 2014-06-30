@@ -5,30 +5,30 @@
         = simple_form_for @gift_card, url: dashboard_gift_cards_path do |f|
           = f.hidden_field :user_id, value: current_user.id
           .field-box
-            %label *Email Người Nhận
+            %label= t('.email_người_nhận')
             .col-md-7
               = f.text_field :recipient_email, class: "form-control", required: true, disabled: (params[:action] == "edit" ? true : false)
           .field-box
-            %label *Giá Trị (VNĐ)
+            %label= t('.giá_trị_vnĐ')
             .col-md-7= f.text_field :amount, class: "form-control", required: true, disabled: (params[:action] == "edit" ? true : false)
           = f.simple_fields_for :references do |d|
             .field-box
-              %label *Tên Người Nhận
+              %label= t('.tên_người_nhận')
               .col-md-7= d.text_field :recipient_name, required: true, value: @gift_card.try(:references["recipient_name"]), class: "form-control"
             .field-box
-              %label Số ĐT Người Nhận
+              %label= t('.số_Đt_người_nhận')
               .col-md-7
                 = text_field_tag :recipient_phone, nil, class: "form-control"
             .field-box
-              %label Tên chương trình
+              %label= t('.tên_chương_trình')
               .col-md-7= d.text_field :campaign_name, value: @gift_card.try(:references["campaign_name"]), class: "form-control"
             .field-box
-              %label Thông Tin Thêm
+              %label= t('.thông_tin_thêm')
               .col-md-7= d.text_area :extra_info, value: @gift_card.try(:references["extra_info"]), class: "form-control"
           .field-box
-            %label Gửi thông tin qua email/SMS?
+            %label= t('.gửi_thông_tin_qua_emailsms')
             .col-md-7= check_box_tag :communication, "1", false
           .field-box
-            %label{:for => ""} 
+            %label{:for => ""}
             .col-md-7
               = f.submit :submit, :as => :input, class: "btn-glow primary btn-next"

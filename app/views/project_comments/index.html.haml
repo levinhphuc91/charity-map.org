@@ -2,8 +2,8 @@
   / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
   / WARNING: Respond.js doesn't work if you view the page via file://
   /[if lt IE 9]
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    = t('.script_srchttpsossmaxcdncomlib')
+    = t('.script_srchttpsossmaxcdncomlib')
 
 = render "layouts/item-based/cover.html.haml", project: @project
 
@@ -11,7 +11,7 @@
   - if notice || alert
     .row
       .alert.alert-info= notice || alert
-  
+
   .row
     .alert.alert-info Hãy chia sẻ bình luận của bạn về dự án <strong>#{@project.title}</strong>
   .row
@@ -27,7 +27,7 @@
             = simple_form_for [@project, @new_comment] do |f|
               - if @new_comment.errors.any?
                 #error_explanation
-                  %h2= "#{pluralize(@new_comment.errors.count, "error")} prohibited this project from being saved:"
+                  %h2= t('.pluralizenew_commenterrorscoun', :pluralizenew_commenterrorscoun => (pluralize(@new_comment.errors.count, "error")))
                   %ul
                     - @new_project.errors.full_messages.each do |msg|
                       %li= msg
@@ -39,14 +39,14 @@
                   = f.input       :user_id, :as => :hidden
                 = f.input       :content, placeholder: "Nhập bình luận của bạn", :label => false, :input_html => {:class => "form-control"}
                 %p
-                = f.submit "gửi bình luận", class: "col-md-3 btn btn-success btn-sm pull-right"              
+                = f.submit t('.gửi_bình_luận'), class: "col-md-3 btn btn-success btn-sm pull-right"
         %hr/
         %li
           - @project_comments.each do |comment|
             .media
               = link_to user_profile_path(comment.user), class: "pull-left" do
                 / TODO: resize
-                - if comment.user.avatar? 
+                - if comment.user.avatar?
                   = image_tag(comment.user.avatar_url(:medium), class: "img-circle group-ava", size: "80x80")
                 - else
                   = image_tag("logo_square.png", class: "img-circle group-ava", size: "80x80")

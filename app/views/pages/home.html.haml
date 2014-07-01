@@ -32,21 +32,20 @@
           hoặc đăng nhập 
           = link_to "bằng email", new_user_session_path, class: "mail"
 
-- cache("funding_projects", :expires_in => 1.hour) do
-  %section.projects
-    .project-content.section.col-md-12{style: "margin-bottom: 10px;"}
-      %h2
-        Dự án đang gây quỹ
-    
-    .body-container--plain-row
-      .body-container--content
-        .row-fluid
-          - if @funding_projects.empty?
-            %p Hiện chưa có dự án nào.
-          - else
-            - @funding_projects.each do |project|
-              = render "projects/box_display_for_homepage", :project => project
-    .clearfix
+%section.projects
+  .project-content.section.col-md-12{style: "margin-bottom: 10px;"}
+    %h2
+      Dự án đang gây quỹ
+  
+  .body-container--plain-row
+    .body-container--content
+      .row-fluid
+        - if @funding_projects.empty?
+          %p Hiện chưa có dự án nào.
+        - else
+          - @funding_projects.each do |project|
+            = render "projects/box_display_for_homepage", :project => project
+  .clearfix
 
 - unless @markers.nil?
   %section

@@ -83,11 +83,11 @@ module ApplicationHelper
 
   def site_title
     if @project && @project.title
-      "#{@project.title} - #{Configuration[:site_name]}".html_safe
+      "#{@project.title} - Charity Map".html_safe
     elsif @user && @user.name
-      "#{@user.name} - #{Configuration[:site_name]}".html_safe
+      "#{@user.name} - Charity Map".html_safe
     else
-      "#{Configuration[:site_name]}"
+      "Charity Map"
     end
   end
 

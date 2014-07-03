@@ -20,7 +20,7 @@ class ProjectRewardsController < InheritedResources::Base
 
   def create
     create! do |success, failure|
-      success.html { redirect_to project_project_rewards_path(@project), notice: "Vừa thêm Đề mục đóng góp mới." }
+      success.html { redirect_to project_project_rewards_path(@project), notice: t('controller.project_rewards.create_successfully') }
       failure.html { redirect_to project_project_rewards_path(@project), alert: "Lỗi: #{@project_reward.errors.full_messages.join(', ')}" }
     end
   end
@@ -32,7 +32,7 @@ class ProjectRewardsController < InheritedResources::Base
   def destroy
     @project = Project.find(params[:project_id])
     super do |format|
-      format.html { redirect_to project_project_rewards_path(@project), notice: "Xóa đề mục đóng góp thành công." }
+      format.html { redirect_to project_project_rewards_path(@project), notice: t('controller.project_rewards.delete_successfully') }
     end
   end
 
@@ -40,7 +40,7 @@ class ProjectRewardsController < InheritedResources::Base
     def limited_access
       @project = Project.find(params[:project_id])
       unless @project.belongs_to?(current_user)
-        redirect_to project_path(@project), alert: "Permission denied."
+        redirect_to project_path(@project), alert: t('common.permission_denied')
       end
     end
 end

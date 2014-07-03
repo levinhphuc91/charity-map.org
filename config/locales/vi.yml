@@ -206,3 +206,44 @@ vi:
       messages:
         record_invalid: "Lỗi xác nhận: %{errors}"
         taken: "đã có"
+        taken: "đã có"
+  common:
+    failed_and_try_again: Không thành công. Vui lòng thử lại.
+    permission_denied: Không có quyền truy cập.
+  controller:
+    projects:
+      blank_name_notice: Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án.
+      update_successfully: Cập nhật dự án thành công.
+      at_least_one_reward: Phải có ít nhất một Đề mục đóng góp (project reward).
+      funding_period: Dự án chuyển sang trạng thái gây quỹ.
+    donations:
+      blank_contact_notice: Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án %{project_title} (họ và tên, địa chỉ, số điện thoại).
+      at_least_one_reward: Bạn phải chọn một trong những tặng phẩm bên dưới.
+      not_funding_project: Dự án này hiện đang không gây quỹ. Vui lòng thử lại sau.
+      bank_transfer_confirm: Cảm ơn bạn đã ủng hộ dự án! Vui lòng check email để nhận thông tin tài khoản ngân hàng để tiến hành chuyển khoản.
+      cod_confirm: Cảm ơn bạn đã ủng hộ dự án! Chúng tôi sẽ liên hệ trong 3 ngày làm việc.
+      credit_cofirm: Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận.
+      credit_error: Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo.
+      not_enough_balance: Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ.
+      request_verification: Yêu cầu tra soát hệ thống đã được gửi. Chúng tôi sẽ liên lạc trong thời gian sớm nhất.
+      succefful_verification: Xác nhận thành công. Email vừa được gửi tới mạnh thường quân thông báo bạn đã nhận được tiền.
+    ext_donations:
+      create_successfully: Thêm ủng hộ ngoài hệ thống thành công.
+      update_successfully: Sửa ủng hộ ngoài hệ thống thành công.
+      delete_successfully: Đã xoá ủng hộ ngoài hệ thống.
+    invites:
+      create_successfully: Thêm liên lạc thành công.
+      not_enough_content: Nội dung thư mời chưa đầy đủ.
+      delivered_invite: Thư mời đã được gửi đi.
+    project_follows:
+      register_successfully: Đăng ký nhận cập nhật từ dự án thành công.
+    project_rewards:
+      create_successfully: Vừa thêm Đề mục đóng góp mới.
+      delete_successfully: Xóa đề mục đóng góp thành công.
+    project_updates:
+      create_successfully: Vừa thêm Cập nhật dự án mới.
+    recommendations:
+      verify_by_mobile: Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án %{project_title}.
+      create_successfully: Lời giới thiệu đã được lưu.
+    registrations:
+      invalid_gift_card: Mã không hợp lệ.

@@ -8,12 +8,12 @@ class ProjectFollowsController < InheritedResources::Base
     if @project_follow.save
       respond_to do |format|
         format.js
-        format.html { redirect_to project_path(@project), notice: "Đăng ký nhận cập nhật từ dự án thành công." }
+        format.html { redirect_to project_path(@project), notice: t('controller.project_follows.register_successfully')}
       end
     else
       respond_to do |format|
         format.js
-        format.html { redirect_to project_path(@project), alert: "Không thành công. Vui lòng thử lại." }
+        format.html { redirect_to project_path(@project), alert: t('common.failed_and_try_again') }
       end
     end
   end

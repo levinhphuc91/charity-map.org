@@ -41,9 +41,9 @@ class InvitesController < InheritedResources::Base
           end
         end
       end
-      redirect_to project_invites_path(@project), notice: "Thêm liên lạc thành công."
+      redirect_to project_invites_path(@project), notice: t('controller.invites.create_successfully')
     else
-      redirect_to project_invites_path(@project), alert: "Permission denied."
+      redirect_to project_invites_path(@project), alert: t('common.permission_denied')
     end
   end
 
@@ -55,7 +55,7 @@ class InvitesController < InheritedResources::Base
     @invite = Invite.find(params[:invite_id])
     if (@invite.project.invite_email_content.blank? || @invite.project.invite_sms_content.blank?)
       redirect_to action: :index
-      flash[:alert] = "Nội dung thư mời chưa đầy đủ."
+      flash[:alert] = t('controller.invites.not_enough_content')
     else
       if (!@invite.phone.blank? && @invite.new?)
         @sms = SMS.send(to: phone_striped(@invite.phone), text: @invite.project.invite_sms_content)
@@ -68,7 +68,7 @@ class InvitesController < InheritedResources::Base
       else
         @invite.update_attributes(status: "SENT")
       end
-      redirect_to project_invites_path(@invite.project), notice: "Thư mời đã được gửi đi."
+      redirect_to project_invites_path(@invite.project), notice: t('controller.invites.delivered_invite')
     end
   end
 end

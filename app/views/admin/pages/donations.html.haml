@@ -26,6 +26,7 @@
                 #{link_to "Edit Note", admin_pages_edit_donation_path(id: donation.id)}
               - else
                 #{link_to "Add Note", admin_pages_edit_donation_path(id: donation.id)}
+              &sdot; #{link_to "Filter", admin_pages_donations_path(id: donation.project.id)}
           %tr 
             %td{:colspan => 6, style: "color: #ccc;"}
               = donation.note.html_safe

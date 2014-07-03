@@ -16,7 +16,7 @@ class ProjectCommentsController < InheritedResources::Base
         format.html { redirect_to project_project_comments_path(@project), notice: "Bình luận vừa được thêm." }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      render :new, alert: t('common.failed_and_try_again')
     end
   end
 end

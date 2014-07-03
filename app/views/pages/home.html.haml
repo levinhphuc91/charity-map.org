@@ -14,34 +14,34 @@
         %nav.logo-nav
       %nav.home-nav
         %ul
-          %li= link_to "Về Chúng Tôi", pages_about_path
-          %li= link_to "Blog", "//blog.charity-map.org"
+          %li= link_to t('.về_chúng_tôi'), pages_about_path
+          %li= link_to t('.blog'), "//blog.charity-map.org"
           - if user_signed_in?
-            %li= link_to "Đăng Xuất", destroy_user_session_path, class: "dki"
+            %li= link_to t('.Đăng_xuất'), destroy_user_session_path, class: "dki"
           - else
-            %li= link_to "Đăng Kí", new_user_registration_path, class: "dki"
+            %li= link_to t('.Đăng_kí'), new_user_registration_path, class: "dki"
     .animated.fadeInDown
-      %h1 Ủng hộ từ thiện chưa bao giờ dễ dàng đến vậy.
+      %h1= t('.Ủng_hộ_từ_thiện_chưa_bao_giờ_d')
       / %p Với Charity Map bạn có thể blah blah blah & bleh bleh bleh
       - if user_signed_in?
         %span
-          = link_to "Đến Trang Quản Lý", dashboard_path, class: "dashboard"
+          = link_to t('.Đến_trang_quản_lý'), dashboard_path, class: "dashboard"
       - else
-        = link_to "Đăng nhập bằng Facebook", "/users/auth/facebook", class: "facebook"
+        = link_to t('.Đăng_nhập_bằng_facebook'), "/users/auth/facebook", class: "facebook"
         %span
-          hoặc đăng nhập 
-          = link_to "bằng email", new_user_session_path, class: "mail"
+          = t('.hoặc_đăng_nhập')
+          = link_to t('.bằng_email'), new_user_session_path, class: "mail"
 
 %section.projects
   .project-content.section.col-md-12{style: "margin-bottom: 10px;"}
     %h2
-      Dự án đang gây quỹ
-  
+      = t('.dự_án_đang_gây_quỹ')
+
   .body-container--plain-row
     .body-container--content
       .row-fluid
         - if @funding_projects.empty?
-          %p Hiện chưa có dự án nào.
+          %p= t('.hiện_chưa_có_dự_án_nào')
         - else
           - @funding_projects.each do |project|
             = render "projects/box_display_for_homepage", :project => project
@@ -55,13 +55,13 @@
   %section.projects
     .project-content.section.col-md-12{style: "height: 525px;"}
       %h2
-        Dự án tiêu biểu
+        = t('.dự_án_tiêu_biểu')
         / %a{href: ""} tiêu biểu
       - if @finished_projects.empty?
-        %p Hiện chưa có dự án nào.
+        %p= t('.hiện_chưa_có_dự_án_nào')
       - else
         .finished-project-slider
-          %ul 
+          %ul
             - @finished_projects.each do |project|
               - if project.success?
                 %li
@@ -93,117 +93,117 @@
                       .goal
                         %strong
                           %span= human_currency project.funding_goal
-                        .hint ĐÃ GÂY QUỸ
+                        .hint= t('.ĐÃ_gÂy_quỸ')
 
 %section.partners
   .partners-content.section
-    %h2 Các tổ chức tin dùng charity-map.org
+    %h2= t('.các_tổ_chức_tin_dùng_charityma')
     %p
-      = link_to "Vì sao bạn nên gây quỹ trên charity-map.org?", pages_about_path
+      = link_to t('.vì_sao_bạn_nên_gây_quỹ_trên_ch'), pages_about_path
     .partners-list
       %ul
         %li
           = link_to "http://www.charity-map.org/user/38" do
             = image_tag "hp/orgs/chiaseyeuthuong.jpg", class: "img-circle"
             .partner-name
-              Chia Sẻ Yêu Thương
+              = t('.chia_sẻ_yêu_thương')
         %li
           = link_to "http://www.charity-map.org/user/54" do
             = image_tag "hp/orgs/cauvaixanh.png", class: "img-circle"
             .partner-name
-              Cầu Vai Xanh
+              = t('.cầu_vai_xanh')
         %li
           = link_to "http://www.charity-map.org/user/78" do
             = image_tag "hp/orgs/bantaynho.jpg", class: "img-circle"
             .partner-name
-              Bàn Tay Nhỏ
+              = t('.bàn_tay_nhỏ')
         %li
           = link_to "#" do
             = image_tag "hp/orgs/congbangyte.png", class: "img-circle"
             .partner-name
-              Công Bằng Y Tế
+              = t('.công_bằng_y_tế')
 
 - cache("stats_homepage", :expires_in => 1.day) do
   %section.stats-number
     .stats-number-content
       .section
-        %h2 Những con số
+        %h2= t('.những_con_số')
         / %p
         /   %a{href: ""} Có gì trên Charity Map?
       / %div{style: "background: #ccc; margin: 30px 0;"}
       /   = line_chart [{:name => "Tiến Độ", :data => platform_funding_progress}], height: "360px"
       %h5
-        %span Tổng Quan
+        %span= t('.tổng_quan')
       %ul
         %li
           .numbers= Project.public_view.count
-          %span.number-tag dự án
+          %span.number-tag= t('.dự_án')
         %li
           .numbers= Donation.successful.count + ExtDonation.count
-          %span.number-tag mạnh thường quân
+          %span.number-tag= t('.mạnh_thường_quân')
         %li
           .numbers= number_with_precision Donation.successful.sum(:amount) + ExtDonation.sum(:amount), precision: 0, delimiter: ","
-          %span.number-tag đồng được đóng góp
+          %span.number-tag= t('.đồng_được_đóng_góp')
       %h5
-        %span Chi Tiết
+        %span= t('.chi_tiết')
       %ul
         %li
           .numbers= ProjectUpdate.count
-          %span.number-tag cập nhật
+          %span.number-tag= t('.cập_nhật')
         %li
           .numbers= ProjectUpdate.count * (Donation.count + ExtDonation.where("email IS NOT ?", nil).count)
-          %span.number-tag báo cáo qua email
+          %span.number-tag= t('.báo_cáo_qua_email')
         %li
           .numbers= ProjectUpdate.count * (Donation.count)
-          %span.number-tag báo cáo qua sms
+          %span.number-tag= t('.báo_cáo_qua_sms')
         %li
           - sum = 0
           - Project.where(:item_based => true).each {|project| sum += project.donations.successful.sum(:project_reward_quantity)}
           .numbers= sum
-          %span.number-tag tặng phẩm được gửi đi
+          %span.number-tag= t('.tặng_phẩm_được_gửi_đi')
 
 - if !user_signed_in?
   %section.call-action.col-md-12
     .call-action-content
       .col-md-9
-        %h2 Minh Bạch 100%
-        %p Mỗi ủng hộ được gửi về dự án qua hệ thống của BĐTT, dù lớn hay nhỏ, đều được lưu trữ thông tin cùng các báo cáo liên quan một cách đầy đủ và trực quan nhất.
+        %h2= t('.minh_bạch_100')
+        %p= t('.mỗi_ủng_hộ_được_gửi_về_dự_án_q')
       .col-md-3
-        = link_to "Đăng Kí và Ủng Hộ", new_user_registration_path, class: "action-button purple"
+        = link_to t('.Đăng_kí_và_Ủng_hộ'), new_user_registration_path, class: "action-button purple"
 
 - cache("hp_footer", :expires_in => 1.month) do
   .col-md-12.cm-footer
     .col-md-6
       %p
-        %b &copy; CHARITY MAP 2014
-      %p Charity Map (Bản Đồ Từ Thiện) là trang web gây quỹ cộng đồng, quản lý quỹ và liên lạc với mạnh thường quân dành cho các dự án xã hội tại Việt Nam. Chúng tôi đặt tính minh bạch và sự tín nhiệm làm tiêu chí hoạt động.
+        %b= t('.copy_charity_map_2014')
+      %p= t('.charity_map_bản_Đồ_từ_thiện_là')
     .col-md-2
       %p
-        %b VỀ CHÚNG TÔI
-      %p 
-        = link_to "Đội Ngũ", pages_about_path
-        %br/
-        Báo Chí
-        %br/
-        Những Con Số
-    .col-md-2
-      %p 
-        %b TỔ CHỨC XÃ HỘI
-      %p 
-        = link_to "Hướng Dẫn Sử Dụng", Configuration[:guide_url], target: "_blank"
-        %br/
-        = link_to "Chiến Dịch Gây Quỹ", Configuration[:campaign_url], target: "_blank"
-        %br/
-        = link_to "Câu Hỏi", Configuration[:faq_url], target: "_blank"
-    .col-md-2
-      %p 
-        %b MẠNH THƯỜNG QUÂN
+        %b= t('.vỀ_chÚng_tÔi')
       %p
-        = link_to "Phương Thức Ủng Hộ", Configuration[:donation_means_url], target: "_blank"
+        = link_to t('.Đội_ngũ'), pages_about_path
         %br/
-        = link_to "Quy Định Bảo Mật", Configuration[:privacy_url], target: "_blank"
-        %br/ 
-        = link_to "Liên Hệ", Configuration[:contact_url], target: "_blank"
+        = t('.báo_chí')
+        %br/
+        = t('.những_con_số')
+    .col-md-2
+      %p
+        %b= t('.tỔ_chỨc_xÃ_hỘi')
+      %p
+        = link_to t('.hướng_dẫn_sử_dụng'), Configuration[:guide_url], target: "_blank"
+        %br/
+        = link_to t('.chiến_dịch_gây_quỹ'), Configuration[:campaign_url], target: "_blank"
+        %br/
+        = link_to t('.câu_hỏi'), Configuration[:faq_url], target: "_blank"
+    .col-md-2
+      %p
+        %b= t('.mẠnh_thƯỜng_quÂn')
+      %p
+        = link_to t('.phương_thức_Ủng_hộ'), Configuration[:donation_means_url], target: "_blank"
+        %br/
+        = link_to t('.quy_Định_bảo_mật'), Configuration[:privacy_url], target: "_blank"
+        %br/
+        = link_to t('.liên_hệ'), Configuration[:contact_url], target: "_blank"
 
 :javascript
   $('.funding-project-slider').unslider({delay: 5000});

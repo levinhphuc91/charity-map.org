@@ -8,8 +8,8 @@ class Admin::PagesController < ApplicationController
 
   def donations
     if params[:id] && project = Project.find(params[:id])
-      @donations = @project.donations.order("created_at DESC")
-      @ext_donations = @project.ext_donations.order("created_at DESC")
+      @donations = project.donations.order("created_at DESC")
+      @ext_donations = project.ext_donations.order("created_at DESC")
     else
       @donations = Donation.all.order("created_at DESC")
       @ext_donations = ExtDonation.all.order("created_at DESC")

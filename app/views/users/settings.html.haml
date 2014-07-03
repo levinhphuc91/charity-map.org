@@ -28,7 +28,7 @@
 				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
 				= f.input :website, label: "Website"
-				= f.input  :address, label: "Địa chỉ*", as: :text, :input_html => {:rows => 5}
+				= f.input  :address, label: "Địa chỉ*", as: :text, input_html: {rows: 5}
 				- unless @user.coordinated?
 					.row-fluid
 						.span8.offset3.hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.

@@ -17,7 +17,7 @@ class ProjectUpdatesController < InheritedResources::Base
     elsif @project.status == "FINISHED" || @project.status == "REVIEWED"
       new!
     else # outdated projects
-      redirect_to edit_project_path(@project), alert: "Permission denied."
+      redirect_to edit_project_path(@project), alert: t('common.permission_denied')
     end
   end
 
@@ -43,10 +43,10 @@ class ProjectUpdatesController < InheritedResources::Base
       @project.ext_donations.each {|donation| UserMailer.delay.send_updates_to_project_followers(@project_update, donation) if !donation.email.blank?}
       respond_to do |format|
         format.json { render :json => @project_update }
-        format.html { redirect_to project_project_updates_path(@project), notice: "Vừa thêm Cập nhật dự án mới." }
+        format.html { redirect_to project_project_updates_path(@project), notice: t('controller.project_updates.create_successfully') }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      render :new, alert: t('common.failed_and_try_again')
     end
   end
 

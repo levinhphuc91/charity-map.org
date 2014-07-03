@@ -17,7 +17,7 @@ class RecommendationsController < InheritedResources::Base
       new!
     else
       store_location_with_path(new_project_recommendation_path(@project))
-      redirect_to users_verify_path, alert: "Bạn phải tiến hành xác nhận danh tính (bằng số ĐT) trước khi viết giới thiệu cho dự án #{@project.title}."
+      redirect_to users_verify_path, alert: t("controller.recommendations.verify_by_mobile", :project_title => @project.title)
     end
   end
 
@@ -27,10 +27,10 @@ class RecommendationsController < InheritedResources::Base
     if @recommendation.save
       respond_to do |format|
         format.json { render :json => @recommendation }
-        format.html { redirect_to @project, notice: "Lời giới thiệu đã được lưu." }
+        format.html { redirect_to @project, notice: t("controller.recommendations.create_successfully") }
       end
     else
-      render :new, alert: "Không thành công. Vui lòng thử lại."
+      render :new, alert: t("common.failed_and_try_again")
     end
   end
 
@@ -38,7 +38,7 @@ class RecommendationsController < InheritedResources::Base
     def limited_access
       @project = Project.find(params[:project_id])
       if @project.belongs_to?(current_user)
-        redirect_to project_path(@project), alert: "Permission denied."
+        redirect_to project_path(@project), alert: t("common.permission_denied")
       end
     end
 

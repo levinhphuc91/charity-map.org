@@ -128,7 +128,7 @@ Feature: Project
       And I go to the edit page of the project "Push The World"
       And I follow "Về lại Trang Quản Lý"
       And I follow "Cập Nhật"
-    Then I should see "Permission denied."
+    Then I should see "Không có quyền truy cập."
 
   Scenario: Add new reward on dashboard/project page
     Given the date is 2013-09-11

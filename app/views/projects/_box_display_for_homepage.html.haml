@@ -27,11 +27,11 @@
       .project-progressbar
         .project-progressbar--green{:data_percentage => "#{number_with_precision @donations_sum * 100/ @funding_goal, precision: 0}"}
     .row-fluid.giving-space
-      .pull-left{style: "width: 80px;"}
+      .pull-left{style: "width: 60px;"}
         .project-metric= number_to_percentage @donations_sum * 100 / @funding_goal, precision: 0
-        .project-metric--description Hoàn Thành
+        .project-metric--description Hoàn Tất
       - if @donations_sum * 100/ @funding_goal < 0.15
-        .pull-left{style: "width: 110px;"}
+        .pull-left{style: "width: 130px;"}
           .project-metric= human_currency @funding_goal - @donations_sum
           .project-metric--description Cần Kêu Gọi
       - else

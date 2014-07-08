@@ -4,7 +4,11 @@ module ApplicationHelper
   end
 
   def human_currency(amount)
-    number_to_currency amount, delimiter: ".", precision: 0, unit: "VNĐ"
+    if amount < 100000000
+      "#{number_with_precision amount, delimiter: '.', precision: 0}đ"
+    else
+      "#{number_with_precision amount/100000000, delimiter: ',', precision: 0}tr đ"
+    end
   end
 
   def human_project_status(project)

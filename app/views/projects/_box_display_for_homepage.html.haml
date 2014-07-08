@@ -14,7 +14,9 @@
         %i.icon-user
         = project.user.name || project.user.email.split("@").first
         &sdot;
-        %i.icon-map-marker= project.location
+        %i.icon-map-marker
+        &nbsp;
+        = project.location
       - if project.recommendations.count > 0
         &sdot;
         %i.icon-thumbs-up

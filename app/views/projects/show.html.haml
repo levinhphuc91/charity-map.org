@@ -15,26 +15,6 @@
   .proj-header.col-md-8.col-md-offset-2{style: "padding-left: 0; padding-right: 0;"}
     .proj-title
       .text-shadow= @project.title
-      / .row
-      /   .col-md-6{style: "text-align: right;"}
-      /     %span
-      /     - if @user.avatar? 
-      /       = image_tag(@user.avatar_url(:medium), class: "img-circle group-ava")
-      /     - else
-      /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
-      /   .col-md-6{style: "text-align: left;"}
-      /     #{link_to @user.name, user_profile_path(@user)}
-      /     %br/ 
-      /     %span.glyphicon.glyphicon-map-marker
-      /     = @project.location
-      / .group-details
-      /   %span
-      /     - if @user.avatar? 
-      /       = image_tag(@user.avatar_url(:large), class: "img-circle group-ava")
-      /     - else
-      /       = image_tag("ph_project-thumbnail-bht.jpg", class: "img-circle group-ava")
-      /   %h1 #{link_to @user.name, user_profile_path(@user)}
-      /   %span.quote "#{@project.brief}"
     %nav.navbar.proj-details{role: "navigation"}
       .row.col-md-12.clearfix
         %ul.nav.navbar-nav.project-links
@@ -56,7 +36,7 @@
     - if notice || alert
       .row
         .alert.alert-info= notice || alert
-    .row.group-details
+    .row.group-details{style: "margin-bottom: 20px;"}
       .col-md-2.text-center
         = link_to user_profile_path(@user) do
           %span
@@ -67,9 +47,11 @@
       .col-md-10
         %span.quote= @project.brief
 
-    = render "projects/side_bar/metrics_box", project: @project
-    #project-info
-      = markdown @project.description
+    .row
+      = render "projects/side_bar/metrics_box", project: @project
+      .col-md-8
+        #project-info
+          = markdown @project.description
     
     - if @project.item_based
       / %hr/

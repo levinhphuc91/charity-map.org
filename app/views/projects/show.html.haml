@@ -52,7 +52,7 @@
             %li= link_to "Chỉnh Sửa", edit_project_path(@project), style: "color: #3498db !important;"
             - if @project.status == "DRAFT"
               %li= link_to "Tiến Hành Gây Quỹ", submit_project_path(@project), style: "color: #5cb85c !important;"
-  %section.content.row.col-md-8.col-md-offset-2{style: "margin-top: 30px;"}
+  %section.content.row.col-md-8.col-md-offset-2
     - if notice || alert
       .row
         .alert.alert-info= notice || alert

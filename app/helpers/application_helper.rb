@@ -7,7 +7,7 @@ module ApplicationHelper
     if amount < 100000000
       "#{number_with_precision amount, delimiter: '.', precision: 0}đ"
     else
-      "#{number_with_precision amount/1000000, delimiter: ',', precision: 0}tr đ"
+      "#{number_with_precision amount/1000000, delimiter: ',', precision: 0}tr đồng"
     end
   end
 

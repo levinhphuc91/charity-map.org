@@ -214,6 +214,7 @@ Feature: Project
     When I login as "follower@man.net"
       And I go to the project page of "Push The World"
       And I follow "nhận cập nhật"
+      And I wait for two seconds
     Then I should see "đang nhận cập nhật"
 
   Scenario: Send project update to followers via email

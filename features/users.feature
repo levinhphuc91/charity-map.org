@@ -64,7 +64,7 @@ Feature: User
       And I press "Đăng Nhập"
       And I follow "Đến Trang Quản Lý"
     Then I should see "Books from Heart"
-      And I should see "500.000 VNĐ được ủng hộ"
+      And I should see "500.000đ được ủng hộ"
       And I should see "0% hoàn thành"
       And I should see "2 mạnh thường quân"
       And I should see "0 giới thiệu"

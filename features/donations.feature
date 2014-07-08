@@ -97,8 +97,8 @@ Feature: Donation
 	  	And there is a donation with the amount "10000" and the status "SUCCESSFUL" and the collection method "BANK_TRANSFER" with the user above and the project above and the project reward above
 	 		And there is a donation with the amount "12666" and the status "PENDING" and the collection method "COD" with the user above and the project above and the project reward above
 	 	When I go to the donation page of the project "Push The World"
- 		Then I should see "testing ủng hộ 10.000 VNĐ"
-	 		And I should not see "12.666 VNĐ"
+ 		Then I should see "testing ủng hộ 10.000đ"
+	 		And I should not see "12.666đ"
 
 	Scenario: Donation list for project creator
 		Given the date is 2013-09-11
@@ -113,16 +113,16 @@ Feature: Donation
 	 	When I login as "testing@man.net"
 	 	Then I go to the donation page of the project "Push The World"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "10.000 VNĐ"
+	 		And I should see "10.000đ"
 	 		# And I should see "Thành Công"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "11.000 VNĐ"
+	 		And I should see "11.000đ"
 	 		# And I should see "Chờ CK"
-	 		And I should see "12.666 VNĐ"
+	 		And I should see "12.666đ"
 	 		# And I should see "Đợi Xác Nhận"
 	 		And I should see "Xác nhận ủng hộ"
 	 		And I should see "Thu Tiền Tận Nơi"
-	 		And I should see "12.666 VNĐ"
+	 		And I should see "12.666đ"
 	 		# And I should see "Đợi Liên Hệ"
 	 		
 	Scenario: Donation list for CM staff
@@ -137,10 +137,10 @@ Feature: Donation
 	 	When I login as "staff@man.net"
 	 	Then I go to the donation page of the project "Push The World"
 	 		And I should see "Chuyển Khoản Ngân Hàng"
-	 		And I should see "10.000 VNĐ"
+	 		And I should see "10.000đ"
 	 		# And I should see "Thành Công"
 	 		And I should see "Thu Tiền Tận Nơi"
-	 		And I should see "12.666 VNĐ"
+	 		And I should see "12.666đ"
 	 		# And I should see "Đợi Liên Hệ"
 	 		And I should see "Xác nhận ủng hộ"
 	 		# And I should not see "Chờ CK"
@@ -225,7 +225,7 @@ Feature: Donation
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
     	And I follow "Quản Lý"
     	And I follow "Trang Cá Nhân"
-    Then I should see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    Then I should see "ủng hộ 100.000đ (Chuyển Khoản Ngân Hàng)"
     # Case: Token being used for more than one time
     When I am not authenticated
     And I open the email
@@ -240,7 +240,7 @@ Feature: Donation
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
       And I follow "Quản Lý"
       And I follow "Trang Cá Nhân"
-    Then I should not see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    Then I should not see "ủng hộ 100.000đ (Chuyển Khoản Ngân Hàng)"
 
   Scenario: Convert ExtDonation to Donation (logging via Facebook)
     Given the date is 2013-09-11
@@ -257,7 +257,7 @@ Feature: Donation
       And I fill in "ext_donation_email" with "user@man.net"
       And I press "Thêm"
     Then I should see "Thêm ủng hộ ngoài hệ thống thành công."
-    And I should see "Tu Hoang ủng hộ 100.000 VNĐ"
+    And I should see "Tu Hoang ủng hộ 100.000đ"
     Then an email should have been sent with:
       """
       From: team@charity-map.org
@@ -276,12 +276,12 @@ Feature: Donation
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
       And I follow "Quản Lý"
       And I follow "Trang Cá Nhân"
-    Then I should see "ủng hộ 100.000 VNĐ (Chuyển Khoản Ngân Hàng)"
+    Then I should see "ủng hộ 100.000đ (Chuyển Khoản Ngân Hàng)"
     Given I am not authenticated
     When I login as "testing@man.net"
     When I go to the dashboard of the project "Push The World"
       And I follow "Thống Kê Đóng Góp"
-    Then I should not see "Tu Hoang ủng hộ 100.000 VNĐ"
+    Then I should not see "Tu Hoang ủng hộ 100.000đ"
 
 	Scenario: Add ExtDonation 
 		Given the date is 2013-09-11
@@ -304,11 +304,11 @@ Feature: Donation
         To: donor@mail.net
         Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
         """
-    	And I should see "Tu Hoang ủng hộ 100.000 VNĐ"
+    	And I should see "Tu Hoang ủng hộ 100.000đ"
     When I follow "Sửa"
     	And I fill in "ext_donation_amount" with "200000"
     	And I press "Thêm"
-    Then I should see "Tu Hoang ủng hộ 200.000 VNĐ"
+    Then I should see "Tu Hoang ủng hộ 200.000đ"
 
   Scenario: Add ExtDonation (without sending notification)
     Given the date is 2013-09-11

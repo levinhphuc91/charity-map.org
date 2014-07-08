@@ -53,7 +53,7 @@ Feature: Gift Card
     Then I should see "Xin chào! Bạn đã đăng ký thành công."
       And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
-    Then I should see "TK: 100.000 VNĐ"
+    Then I should see "TK: 100.000đ"
     # Card giver to see cards redeemed on the dashboard
     And I am not authenticated
     When I login as "mixup@gmail.com"
@@ -99,7 +99,7 @@ Feature: Gift Card
       And I press "Đăng Nhập"
       And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
-    Then I should see "TK: 100.000 VNĐ"
+    Then I should see "TK: 100.000đ"
     # Card giver to see cards redeemed on the dashboard
     And I am not authenticated
     When I login as "mixup@gmail.com"
@@ -136,7 +136,7 @@ Feature: Gift Card
       And I press "Đăng Ký"
       And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
-    Then I should see "TK: 100.000 VNĐ"
+    Then I should see "TK: 100.000đ"
     And I am not authenticated
     When I login as "mixup@gmail.com"
     And I go to the gift cards dashboard
@@ -171,7 +171,7 @@ Feature: Gift Card
     Then I should see "Đăng nhập thành công bằng tài khoản Facebook."
     And I follow "Đến Trang Quản Lý"
     And I follow "Hồ Sơ"
-    Then I should see "TK: 100.000 VNĐ"
+    Then I should see "TK: 100.000đ"
     And I am not authenticated
     When I login as "mixup@gmail.com"
     And I go to the gift cards dashboard
@@ -198,7 +198,7 @@ Feature: Gift Card
       And I press "Đăng Ký"
       And I follow "Đến Trang Quản Lý"
       And I follow "Hồ Sơ"
-    Then I should see "TK: 100.000 VNĐ"
+    Then I should see "TK: 100.000đ"
     Given the date is "2013-09-10"
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass" and the full name "Nhom Lam Du An"
       And there is a project with the title "Push The World" and the description "test slug" and the unlisted "false" and the start date "2013-09-11" and the end date "2013-09-14" and the funding goal "234234" and the location "HCM" and the status "REVIEWED" and the bank info "Techcombank" with the user above
@@ -212,11 +212,11 @@ Feature: Gift Card
       And I fill in "user_phone" with "0903011591"
       And I press "Cập nhật Thông Tin"
       And I fill in "donation_amount" with "101000"
-      And I select "Tài khoản charity-map.org (còn 100.000 VNĐ)" from "donation_collection_method"
+      And I select "Tài khoản charity-map.org (còn 100.000đ)" from "donation_collection_method"
       And I press "Ủng Hộ Push The World"
     Then I should see "Hiện tài khoản của bạn không đủ số tiền mà bạn muốn ủng hộ."
     And I fill in "donation_amount" with "100000"
-      And I select "Tài khoản charity-map.org (còn 100.000 VNĐ)" from "donation_collection_method"
+      And I select "Tài khoản charity-map.org (còn 100.000đ)" from "donation_collection_method"
       And I press "Ủng Hộ Push The World"
     Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
     And an email should have been sent with:
@@ -230,4 +230,4 @@ Feature: Gift Card
       And I open the email
       And I follow "Xem chi tiết" in the email
     Then the URL should contain "projects/push-the-world/donations"
-      And I should see "Nguoi Ung Ho ủng hộ 100.000 VNĐ"
+      And I should see "Nguoi Ung Ho ủng hộ 100.000đ"

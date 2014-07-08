@@ -1,18 +1,18 @@
-.row.donation-stats
+.row.donation-stats.pull-right{style: "width: 250px;"}
   .donation-funded-wrap
     .donation-funded{style: "width: #{number_with_precision project.donations_sum * 100/ project.funding_goal, precision: 0}%"}
-  .donation-stats.row
-    .col-md-4
+  .donation-stats
+    .row.text-right
       .funded
         %strong
           %span= human_currency project.funding_goal
         .hint MỤC TIÊU
-    .col-md-4
+    .row.text-right
       .raised
         %strong
           %span= human_currency project.donations_sum
         .hint ĐÃ NHẬN ĐƯỢC
-    .col-md-4
+    .row.text-right
       .deadline
         - if project.start_date < Time.now && project.end_date > Time.now
           %strong
@@ -27,27 +27,40 @@
             %span= human_time(project.end_date - 1)
           .hint KẾT THÚC GÂY QUỸ
   .row.text-center.action-box
-    - if @project.accepting_donations?
-      - if @project.item_based
-        = link_to project_path(@project, anchor: "project-rewards") do
-          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
-            %span.glyphicon.glyphicon-gift
-            &nbsp;ủng hộ dự án
+    .row{style: "margin-bottom: 10px;"}
+      - if @project.accepting_donations?
+        - if @project.item_based
+          = link_to project_path(@project, anchor: "project-rewards") do
+            %button.col-md-12.btn.btn-success.pull-right.btn-lg{type: "button"}
+              %span.glyphicon.glyphicon-gift
+              &nbsp;ủng hộ dự án
+        - else
+          = link_to new_project_donation_path(@project) do
+            %button.col-md-12.btn.btn-success.pull-right.btn-lg{type: "button"}
+              %span.glyphicon.glyphicon-gift
+              &nbsp;ủng hộ dự án
       - else
-        = link_to new_project_donation_path(@project) do
-          %button.col-md-3.btn.btn-success.btn-lg{type: "button"}
-            %span.glyphicon.glyphicon-gift
-            &nbsp;ủng hộ dự án
-    - else
-      %button.col-md-3.btn.btn-success.disabled.btn-lg{type: "button"}
-        %span.glyphicon.glyphicon-gift
-        &nbsp;đang không gây quỹ
-    - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
-      = render "project_follows/following_button"
-    - else
-      = link_to initiate_project_project_follows_path(project), remote: true do
-        %button#project_follow.col-md-offset-1.col-md-3.btn.btn-default.btn-lg{type: "button"}
-          %span.glyphicon.glyphicon-list-alt
-          &nbsp;nhận cập nhật
-    .col-md-2.btn.col-md-offset-1
-      .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}
+        %button.col-md-12.btn.btn-success.pull-right.disabled.btn-lg{type: "button"}
+          %span.glyphicon.glyphicon-gift
+          &nbsp;đang không gây quỹ
+
+    .row{style: "margin-bottom: 10px;"}
+      - if current_user && !project.project_follows.where(user_id: current_user.id).empty?
+        = render "project_follows/following_button"
+      - else
+        = link_to initiate_project_project_follows_path(project), remote: true do
+          %button#project_follow.col-md-offset-1.col-md-12.btn.btn-default.pull-right.btn-lg{type: "button"}
+            %span.glyphicon.glyphicon-list-alt
+            &nbsp;nhận cập nhật
+
+    .row
+      .col-md-11.btn.col-md-offset-1
+        .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-height" => "The pixel height of the plugin", "data-href" => "#{Configuration[:site_url]}/projects/#{project.slug}", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "The pixel width of the plugin"}
+
+:javascript
+  $(document).ready(function(){
+    $(".donation-stats").sticky({
+      topSpacing:80,
+      bottomSpacing: 900
+    });
+  });

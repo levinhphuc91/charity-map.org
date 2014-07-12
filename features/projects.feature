@@ -48,6 +48,7 @@ Feature: Project
       And I fill in "project_end_date" with "24/09/2013"
       And I fill in "project_funding_goal" with "9999999"
       And I fill in "project_location" with "227 Nguyen Van Cu"
+      And I check "project[terms_of_service]"
       And I press "Lưu"
     Then  I should see "Push the world"
       And I should see page title as "Push the world"
@@ -67,7 +68,7 @@ Feature: Project
   Scenario: To be given an updated slug after edit
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
+      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" and the terms of service "true" with the user above
     When I go to the login page
       And I fill in "user_email" with "testing@man.net"
       And I fill in "user_password" with "secretpass"

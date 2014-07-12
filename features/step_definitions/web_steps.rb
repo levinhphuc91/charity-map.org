@@ -44,6 +44,7 @@ When /^I create an item based project named "(.+?)"$/ do |name|
     And I fill in "project_end_date" with "24/09/2013"
     And I fill in "project_funding_goal" with "9999999"
     And I fill in "project_location" with "227 Nguyen Van Cu"
+    And I check "project[terms_of_service]"
     And I press "Lưu"
   }
   Project.last.update_attribute(:unlisted, false)

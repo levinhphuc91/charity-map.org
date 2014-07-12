@@ -16,6 +16,25 @@ Feature: Project
     When I go to the new project page
       Then I should see "Phiền bạn cập nhật đầy đủ tên họ và địa chỉ trước khi tạo dự án."
 
+  Scenario: TOS needs to be confirmed on Project#new
+    Given the date is 2013-09-10
+      And there is a user with the email "vumanhcuong01@gmail.com" and the password "secretpass" and the password confirmation "secretpass" and the full name "Vu Manh Cuong" and the address "HCM" and the city "HCM" and the phone "123456"
+    When I login as "vumanhcuong01@gmail.com"
+      And I go to the new project page
+      And I fill in "project_title" with "Push the world"
+      And I fill in "project_brief" with "This is a short brief"
+      And I fill in "project_description" with "Here comes a description"
+      And I fill in "project_start_date" with "10/09/2013"
+      And I fill in "project_end_date" with "24/09/2013"
+      And I fill in "project_funding_goal" with "9999999"
+      And I fill in "project_location" with "227 Nguyen Van Cu"
+      And I press "Lưu"
+    Then  I should see "Điều khoản sử dụng phải được đồng ý"
+      And I should see "Tôi đã xem qua và đồng ý với các điều kiện và điều khoản chung dành cho các đối tượng người dùng của charity-map.org tại đường dẫn này."
+      And I check "project[terms_of_service]"
+      And I press "Lưu"
+    And I should see page title as "Push the world"
+
   @javascript
   Scenario: To be created successfully
     Given the date is 2013-09-10
@@ -29,6 +48,7 @@ Feature: Project
       And I fill in "project_end_date" with "24/09/2013"
       And I fill in "project_funding_goal" with "9999999"
       And I fill in "project_location" with "227 Nguyen Van Cu"
+      And I check "project[terms_of_service]"
       And I press "Lưu"
     Then  I should see "Push the world"
       And I should see page title as "Push the world"
@@ -48,7 +68,7 @@ Feature: Project
   Scenario: To be given an updated slug after edit
     Given the date is 2013-09-11
       And there is a user with the email "testing@man.net" and the password "secretpass" and the password confirmation "secretpass"
-      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" with the user above
+      And there is a project with the title "Push The World" and the description "test slug" and the start date "2013-09-11" and the end date "2013-09-12" and the funding goal "234234" and the location "HCM" and the terms of service "true" with the user above
     When I go to the login page
       And I fill in "user_email" with "testing@man.net"
       And I fill in "user_password" with "secretpass"

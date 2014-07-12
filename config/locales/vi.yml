@@ -201,6 +201,9 @@ vi:
     errors:
       <<: *errors
   activerecord:
+    attributes:
+      project:
+        terms_of_service: "Điều khoản sử dụng"
     errors:
       <<: *errors
       messages:

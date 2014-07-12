@@ -92,8 +92,10 @@
         = f.input :location, label: false
         - if !@project.coordinated?
           .hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của dự án trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
-    .row-fluid
-      = f.check_box :terms_of_service
+    .row-fluid{style: "background-color: #eee; padding: 15px; max-widht: 100%; padding-bottom: 5px; box-sizing: border-box;"}
+      %p
+        = f.check_box :terms_of_service
+        Tôi đã xem qua và đồng ý với các điều kiện và điều khoản chung dành cho các đối tượng người dùng của charity-map.org tại <a href="https://docs.google.com/document/d/1UcIETWNUA3VCZSfhVwcqppzpr9FuRlNAanqA68WHCVE/edit?usp=sharing">đường dẫn này</a>.
     .row-fluid
       .pull-right
         = f.submit "Lưu", class: "submit"

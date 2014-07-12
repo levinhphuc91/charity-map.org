@@ -30,6 +30,7 @@ Feature: Project
       And I fill in "project_location" with "227 Nguyen Van Cu"
       And I press "Lưu"
     Then  I should see "Điều khoản sử dụng phải được đồng ý"
+      And I should see "Tôi đã xem qua và đồng ý với các điều kiện và điều khoản chung dành cho các đối tượng người dùng của charity-map.org tại đường dẫn này."
       And I check "project[terms_of_service]"
       And I press "Lưu"
     And I should see page title as "Push the world"

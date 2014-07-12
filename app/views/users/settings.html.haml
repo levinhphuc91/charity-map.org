@@ -3,81 +3,128 @@
 / 		%p #{inactive.id} #{inactive.amount} #{inactive.token}
 / TODO: activate gift card on dashboard
 
-.devider
-	.item
-		%i.icon-edit-sign 
-		Chỉnh Sửa Thông Tin
+- unless params[:new_donation] && params[:new_donation] == "true"
+	.devider
+		.item
+			%i.icon-edit-sign 
+			Chỉnh Sửa Thông Tin
 
-.row-fluid
-	.span12
-		.error_messages
-			%p
-				- if @user.errors.full_messages
-					- @user.errors.full_messages.each do |error_message| 
-						= error_message 
-						%br/
+	.row-fluid
+		.span12
+			.error_messages
+				%p
+					- if @user.errors.full_messages
+						- @user.errors.full_messages.each do |error_message| 
+							= error_message 
+							%br/
 
-		.update-user-profile
-			= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
-				= f.hidden_field :id
-				= f.inputs :email, disabled: (current_user.projects.portfolio_view.count > 0 ? true : false)
-				- if current_user.projects.portfolio_view.count == 0
+			.update-user-profile
+				= semantic_form_for @user,:method => :post,  url: users_update_settings_path  do |f|
+					= f.hidden_field :id
+					= f.inputs :email, disabled: (current_user.projects.portfolio_view.count > 0 ? true : false)
+					- if current_user.projects.portfolio_view.count > 0
+						.row-fluid
+							.span8.offset3.hint Bạn không thể sửa email khi đã tạo dự án. Điều này để đảm bảo các ủng hộ được gửi về đúng tài khoản.
+						.clearfix
+					= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
+					= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
+					= f.input :website, label: "Website"
+					= f.input  :address, label: "Địa chỉ*", as: :text, input_html: {rows: 5}
+					- unless @user.coordinated?
+						.row-fluid
+							.span8.offset3.hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
+						.clearfix
+					= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
 					.row-fluid
-						.span8.offset3.hint Bạn không thể sửa email khi đã tạo dự án. Điều này để đảm bảo các ủng hộ được gửi về đúng tài khoản.
+						.span8.offset3.hint= render "layouts/markdown"
 					.clearfix
-				= f.input  :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
-				= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
-				= f.input :website, label: "Website"
-				= f.input  :address, label: "Địa chỉ*", as: :text, input_html: {rows: 5}
-				- unless @user.coordinated?
-					.row-fluid
-						.span8.offset3.hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của bạn trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
+					= f.input :avatar, as: :file, label: "Ảnh đại diện"
+					= f.hidden_field :avatar_cache 
+					= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
+					%hr/
+					%p 
+						= f.check_box :org
+						Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
+					- if !@user.org
+						%hr/ 
+						%p
+							= f.check_box :notify_via_email
+							Nhận tin qua email
+							%br/ 
+							= f.check_box :notify_via_sms
+							Nhận tin qua SMS
+							%br/ 
+							= f.check_box :notify_via_facebook
+							Nhận tin qua Facebook notification
+					%hr/
+					.pull-right{style: "margin-top: 20px;"}
+						= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
+						&sdot; TK: #{human_currency balance(@user)}
+						- unless @user.facebook_access_granted?
+							&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
+					.pull-left
+						= f.submit "Cập nhật Thông Tin", class: "submit"
+
+	.clearfix
+	.devider
+		.item
+			%i.icon-edit-sign 
+			Đổi Mật Mã
+
+	.row-fluid
+		= simple_form_for(current_user, :url => registration_path(current_user), :html => { :method => :put }) do |f|
+			= f.error_notification
+			.form-inputs
+				= f.hidden_field :email, value: current_user.email, :required => true
+				= f.input :password, label: "Mật khẩu mới", :autocomplete => "off", :required => false
+				= f.input :password_confirmation, :required => false, label: "Điền lại mật khẩu mới"
+				= f.input :current_password, label: "Mật khẩu cũ để thay đổi mật khẩu", :required => true
+			%hr/ 
+			.pull-left
+				= f.button :submit, "Thay đổi mật khẩu", class: "submit"
+
+- else # being redirected from Donation#new
+	.devider
+		.item
+			%i.icon-edit-sign 
+			Chỉnh Sửa Thông Tin
+
+	.row-fluid
+		.span12
+			.error_messages
+				%p
+					%strong Những ô có dấu sao (*) là bắt buộc. Thông tin cá nhân của bạn được bảo mật và chỉ cung cấp cho các dự án mà bạn đã ủng hộ. Với những ủng hộ Ẩn Danh, chúng tôi không cung cấp thông tin cho các dự án.
+				%p
+					- if @user.errors.full_messages
+						- @user.errors.full_messages.each do |error_message| 
+							= error_message 
+							%br/
+				%hr/
+
+			.update-user-profile
+				= semantic_form_for @user, method: :post,  url: users_update_settings_path  do |f|
+					= f.hidden_field :id
+					= f.inputs :email, disabled: (current_user.projects.portfolio_view.count > 0 ? true : false)
+					= f.input :full_name, label: "Họ và Tên*" #, input_html: { disabled: true } unless current_user.phone.blank?
+					= f.input :phone, label: "Số ĐT*" #, input_html: { disabled: true } unless current_user.phone.blank?
+					= f.input :address, label: "Địa chỉ*", as: :text, input_html: {rows: 3}
 					.clearfix
-				= f.input :bio, label: "Giới Thiệu", :input_html => { :cols => 100, :rows => 15 }
-				.row-fluid
-					.span8.offset3.hint= render "layouts/markdown"
-				.clearfix
-				= f.input :avatar, as: :file, label: "Ảnh đại diện"
-				= f.hidden_field :avatar_cache 
-				= image_tag(@user.avatar_url(:medium)) if @user.avatar? 
-				%hr/
-				%p 
-					= f.check_box :org
-					Trang profile dạng tổ chức (click chọn nếu bạn là tổ chức/nhóm)
-				- if !@user.org
-					%hr/ 
-					%p
-						= f.check_box :notify_via_email
-						Nhận tin qua email
-						%br/ 
-						= f.check_box :notify_via_sms
-						Nhận tin qua SMS
-						%br/ 
-						= f.check_box :notify_via_facebook
-						Nhận tin qua Facebook notification
-				%hr/
-				.pull-right{style: "margin-top: 20px;"}
-					= link_to "Xem Trang Của Bạn", user_profile_path(current_user)
-					&sdot; TK: #{human_currency balance(@user)}
-					- unless @user.facebook_access_granted?
-						&sdot; #{link_to "Kết nối TK Facebook", "/users/auth/facebook"}
-				.pull-left
-					= f.submit "Cập nhật Thông Tin", class: "submit"
-
-.clearfix
-.devider
-	.item
-		%i.icon-edit-sign 
-		Đổi Mật Mã
-
-.row-fluid
-	= simple_form_for(current_user, :url => registration_path(current_user), :html => { :method => :put }) do |f|
-		= f.error_notification
-		.form-inputs
-			= f.hidden_field :email, value: current_user.email, :required => true
-			= f.input :password, label: "Mật khẩu mới", :autocomplete => "off", :required => false
-			= f.input :password_confirmation, :required => false, label: "Điền lại mật khẩu mới"
-			= f.input :current_password, label: "Mật khẩu cũ để thay đổi mật khẩu", :required => true
-		%hr/ 
-		.pull-left
-			= f.button :submit, "Thay đổi mật khẩu", class: "submit"
+					- if !@user.org
+						%hr/ 
+						%p
+							Nhận cập nhật về dự án mà bạn đã ủng hộ: <br/><br/>
+							.row-fluid
+								.span4
+									%p
+										= f.check_box :notify_via_email
+										Qua thư điện tử (email)
+								.span4
+									%p
+										= f.check_box :notify_via_sms
+										Qua tin nhắn điện thoại (SMS)
+								.span4
+									%p
+										= f.check_box :notify_via_facebook
+										Qua Facebook notification
+					.pull-left
+						= f.submit "Cập nhật Thông Tin", class: "submit"

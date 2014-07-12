@@ -12,6 +12,8 @@ Feature: Donation
 		 	And I go to the project page of "Push The World"
 	 		And I follow "ủng hộ dự án"
 	 	Then I should see "Vui lòng điền đầy đủ thông tin cá nhân để ủng hộ dự án Push The World (họ và tên, địa chỉ, số điện thoại)."
+      And I should see "Những ô có dấu sao (*) là bắt buộc. Thông tin cá nhân của bạn được bảo mật và chỉ cung cấp cho các dự án mà bạn đã ủng hộ. Với những ủng hộ Ẩn Danh, chúng tôi không cung cấp thông tin cho các dự án."
+      And the URL should contain "/users/settings?new_donation=true"
 	 		And I fill in "Họ và Tên*" with "Hoang Minh Tus"
 	 		And I fill in "Địa chỉ*" with "This is my address"
 	 		And I fill in "Số ĐT*" with "+123456"

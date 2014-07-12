@@ -93,6 +93,8 @@
         - if !@project.coordinated?
           .hint Vị trí không xác định được trên bản đồ. Hãy thử tìm địa chỉ của dự án trên <a href="http://maps.google.com" target="_blank">Google Maps</a> trước.
     .row-fluid
+      = f.check_box :terms_of_service
+    .row-fluid
       .pull-right
         = f.submit "Lưu", class: "submit"
 

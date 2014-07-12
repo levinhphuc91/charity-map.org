@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703120153) do
+ActiveRecord::Schema.define(version: 20140712092634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,6 +286,7 @@ ActiveRecord::Schema.define(version: 20140703120153) do
     t.string   "short_code"
     t.text     "bank_info"
     t.boolean  "item_based"
+    t.boolean  "terms_of_service"
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree

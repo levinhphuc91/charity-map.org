@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   scope :suggested_fundraising, -> { where(status: ["REVIEWED"], unlisted: false).order("created_at DESC").select {|project| project.accepting_donations? && !project.success?} }
   scope :success, -> { where(status: ["REVIEWED"], unlisted: false).order("created_at DESC").select {|project| project.success?} }
 
-  attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, 
+  attr_accessible :short_code, :title, :brief, :description, :start_date, :end_date, :terms_of_service,
     :bank_info, :funding_goal, :location, :photo, :photo_cache, :user_id, :status, :item_based,
     :video, :address, :latitude, :longitude, :slug, :invite_email_content, :invite_sms_content
 
@@ -70,9 +70,10 @@ class Project < ActiveRecord::Base
   validates_length_of :brief, :minimum => 20, :maximum => 200, :allow_blank => true
   validates :funding_goal, numericality: { greater_than_equal_to: 100000 }
   validates :user_id, numericality: { greater_than: 0 }
+  validates :terms_of_service, acceptance: { accept: true }
   validate :start_date_cannot_be_in_the_past, :funding_duration_to_be_less_than_six_months
   validate :video_url_to_be_a_valid_service_link
-  
+
   geocoded_by :location
   reverse_geocoded_by :latitude, :longitude
   after_validation :geocode,

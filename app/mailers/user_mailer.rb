@@ -46,9 +46,14 @@ class UserMailer < ActionMailer::Base
 
   def confirm_cm_credit_donation(donation)
     @donation = donation
-    @project = @donation.project
-    @user = @donation.user
+    @project, @user = @donation.project, @donation.user
     mail(to: @user.email, subject: "Cảm ơn bạn đã ủng hộ dự án #{@project.title}")
+  end
+
+  def notify_project_creator_of_confirmed_donation(donation)
+    @donation = donation
+    @project = @donation.project
+    mail(to: @donation.project.user.email, subject: "Xác nhận: Ủng hộ số #{@donation.euid} dự án #{@project.title}")
   end
 
   def send_updates_to_project_followers(project_update, follower)

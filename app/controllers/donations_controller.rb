@@ -58,6 +58,7 @@ class DonationsController < InheritedResources::Base
       elsif @donation.sent_via?("CM_CREDIT")
         if @donation.confirm!
           UserMailer.delay.confirm_cm_credit_donation(@donation)
+          UserMailer.delay.notify_project_creator_of_confirmed_donation(@donation)
           @notice = "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
         else
           @notice = "Lỗi phát sinh. Kỹ thuật viên của chúng tôi đã được thông báo."
@@ -102,6 +103,7 @@ class DonationsController < InheritedResources::Base
         @donor = @donation.user
         if (@donation.collection_method == "BANK_TRANSFER")
           UserMailer.delay.bank_transfer_confirm_donation(@donation) if @donor.notify_via_email
+          UserMailer.delay.notify_project_creator_of_confirmed_donation(@donation)
           SMS.send(
             to: phone_striped(@donor.phone), 
             text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
@@ -119,6 +121,7 @@ class DonationsController < InheritedResources::Base
           ) if (@donor.facebook_access_granted? && @donor.notify_via_facebook)
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
+          UserMailer.delay.notify_project_creator_of_confirmed_donation(@donation)
           SMS.send(
             :to => phone_striped(@donor.phone),
             :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"

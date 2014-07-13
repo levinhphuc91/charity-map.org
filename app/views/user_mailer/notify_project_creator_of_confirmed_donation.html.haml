@@ -1,0 +1,13 @@
+%p Dự án <b>#{link_to @project.title, project_url(@project, utm_campaign: "ProjectLinkInEmail", utm_source: "email", utm_medium: "link")}</b> vừa nhận được ủng hộ. Thông tin chi tiết về giao dịch trên hệ thống như sau:
+
+%ul
+  %li Mã ủng hộ: <b>#{@donation.euid}</b>
+  %li Số tiền ủng hộ: <b>#{human_currency @donation.amount}</b>
+  %li Ngày ủng hộ: <b>#{human_time @donation.created_at}</b>
+  %li Phương thức ủng hộ: <b>#{human_donation_type @donation.collection_method}</b>
+  %li Đường dẫn: #{link_to "Xem chi tiết", project_donations_url(@project, utm_campaign: "ProjectDonationsLinkInEmail", utm_source: "email", utm_medium: "link")}.
+  
+%p 
+  Thân,
+  %br/ 
+  %a{:href => "http://www.charity-map.org/?utm_campaign=EmailFooterLink&utm_medium=link&utm_source=email"} www.charity-map.org

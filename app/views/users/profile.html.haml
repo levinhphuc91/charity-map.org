@@ -33,10 +33,10 @@
               = image_tag("default_avatar.png", size: "50x50")
         .row-fluid.centered
           .sub-headline= @user.name
-          - if(@user != current_user)
-            %p
-              %i.icon-comments
-              = link_to "Gửi Tin Nhắn", new_message_users_path(:receiver => @user.id)
+          / - if(@user != current_user)
+          /   %p
+          /     %i.icon-comments
+          /     = link_to "Gửi Tin Nhắn", new_message_users_path(:receiver => @user.id)
 
         %hr/ 
 

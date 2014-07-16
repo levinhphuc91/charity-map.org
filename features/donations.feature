@@ -165,6 +165,11 @@ Feature: Donation
 			To: donor@man.net
 			Subject: Xác nhận giao dịch CKNH thành công, dự án Push The World
 			"""
+    And  an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: testing@man.net
+      """
 		When I get redirected via the last redirect token
     Then the URL should contain "/projects/push-the-world/donations?utm_campaign=NotifOnDonation"
 
@@ -186,6 +191,11 @@ Feature: Donation
 			To: donor@man.net
 			Subject: Xác nhận đã nhận tiền mặt ủng hộ dự án Push The World
 			"""
+    And  an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: testing@man.net
+      """
 		When I get redirected via the last redirect token
     Then the URL should contain "/projects/push-the-world/donations?utm_campaign=NotifOnDonation"
 

@@ -231,3 +231,8 @@ Feature: Gift Card
       And I follow "Xem chi tiết" in the email
     Then the URL should contain "projects/push-the-world/donations"
       And I should see "Nguoi Ung Ho ủng hộ 100.000đ"
+    And  an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: testing@man.net
+      """

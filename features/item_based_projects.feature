@@ -38,3 +38,15 @@ Feature: Item-based Project
       And I select "Tài khoản charity-map.org (còn 100.000đ)" from "donation_collection_method"
       And I press "Ủng Hộ Push The World"
     Then I should see "Cảm ơn bạn đã ủng hộ dự án! Vui lòng kiểm tra hòm thư để nhận email xác nhận."
+    And an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: me@individual.net
+      Subject: Cảm ơn bạn đã ủng hộ dự án Push The World
+      """
+    # Notify project creator of new donation
+    And an email should have been sent with:
+      """
+      From: team@charity-map.org
+      To: fundraising@social.org
+      """

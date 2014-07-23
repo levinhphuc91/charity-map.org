@@ -117,7 +117,7 @@ class Project < ActiveRecord::Base
   end
 
   def success?
-    donations_sum >= funding_goal
+    donations_sum >= funding_goal*90/100
   end
 
   def belongs_to?(target_user)

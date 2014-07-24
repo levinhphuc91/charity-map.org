@@ -104,10 +104,10 @@ class DonationsController < InheritedResources::Base
         if (@donation.collection_method == "BANK_TRANSFER")
           UserMailer.delay.bank_transfer_confirm_donation(@donation) if @donor.notify_via_email
           UserMailer.delay.notify_project_creator_of_confirmed_donation(@donation)
-          SMS.send(
-            to: phone_striped(@donor.phone), 
-            text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
-          ) if (!@donor.phone.blank? && @donor.notify_via_sms)
+          # SMS.send(
+          #   to: phone_striped(@donor.phone), 
+          #   text: "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
+          # ) if (!@donor.phone.blank? && @donor.notify_via_sms)
           # SendMessage.fb({
           #   :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
           #   :name => "#{@donation.project.title}",
@@ -122,10 +122,10 @@ class DonationsController < InheritedResources::Base
         elsif (@donation.collection_method == "COD")
           UserMailer.delay.cod_confirm_donation(@donation)
           UserMailer.delay.notify_project_creator_of_confirmed_donation(@donation)
-          SMS.send(
-            :to => phone_striped(@donor.phone),
-            :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
-          ) if (!@donor.phone.blank? && @donor.notify_via_sms)
+          # SMS.send(
+          #   :to => phone_striped(@donor.phone),
+          #   :text => "(Charity Map) Ung ho ma so #{params[:euid]} (VND#{@donation.amount.to_i}) vua duoc du an xac nhan. Chan thanh cam on quy MTQ. charity-map.org"
+          # ) if (!@donor.phone.blank? && @donor.notify_via_sms)
           # SendMessage.fb({
           #   :link => "http://www.charity-map.org#{project_path(@donation.project)}?utm_campaign=WallPostOnDonation",
           #   :name => "#{@donation.project.title}",

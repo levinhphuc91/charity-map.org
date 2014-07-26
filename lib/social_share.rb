@@ -5,10 +5,14 @@ class SendMessage
     def notif(params)
       app = FbGraph::Application.new(ENV["CM_FACEBOOK_OMNIAUTH_ID"], secret: ENV["CM_FACEBOOK_OMNIAUTH_SECRET"])
       user = FbGraph::User.new(params[:uid])
-      app.notify!(user,
-        :href => params[:href],
-        :template => params[:template]
-      ) if Rails.env.production?
+      begin
+        app.notify!(user,
+          :href => params[:href],
+          :template => params[:template]
+        ) if Rails.env.production?
+      rescue => e
+        Honeybadger.notify(e)
+      end
     end
 
     # WARN: can't be used until omniauth permission (initialize/devise.rb) includes 'publish_actions'

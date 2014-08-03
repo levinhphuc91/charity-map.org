@@ -97,6 +97,7 @@ CharityMap::Application.routes.draw do
       get   'metrics/donation_progress'
       get   'metrics/avg_collection_time'
       get   'metrics/avg_donation_amount'
+      resources :projects, only: :index
     end
   end
   

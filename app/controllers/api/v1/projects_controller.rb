@@ -3,10 +3,7 @@ class Api::V1::ProjectsController < ApplicationController
   respond_to :json
 
   def index
-    data = Project.public_view.limit(50).select(:title, :funding_goal, :location)
-    respond_to do |format|
-      format.json { render :json => data }
-    end
+    @projects = Project.public_view.limit(50)
   end
 
   protected

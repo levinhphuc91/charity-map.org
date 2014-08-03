@@ -10,10 +10,10 @@ describe 'API Project' do
     it 'one project' do
       Timecop.freeze('2013-05-22') do
         @project = Project.create!(
-          :title => 'Test', 
-          :brief => 'This is a brief to be put here', 
+          :title => 'Test',
+          :brief => 'This is a brief to be put here',
           :description => 'Help me to put something here',
-          start_date: Time.parse('2013-05-23'), end_date: Time.parse('2013-05-30'), 
+          start_date: Time.parse('2013-05-23'), end_date: Time.parse('2013-05-30'),
           funding_goal: 3000000, location: 'Ho Chi Minh', user_id: 1
         )
         @project.update_attribute(:status, 'REVIEWED')
@@ -21,6 +21,7 @@ describe 'API Project' do
       end
       get 'api/v1/projects'
       expect(JSON.parse(response.body)).to_not eq([])
+      expect(JSON.parse(response.body).first['title']).to eq('Test')
     end
   end
 end

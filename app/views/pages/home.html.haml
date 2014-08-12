@@ -110,10 +110,10 @@
           .numbers= Project.public_view.count
           %span.number-tag dự án
         %li
-          .numbers= Donation.successful.count + ExtDonation.count
+          .numbers= Donation.where(project_id: Project.success.map(&:id)).successful.count + ExtDonation.where(project_id: Project.success.map(&:id)).count
           %span.number-tag mạnh thường quân
         %li
-          .numbers= number_with_precision Donation.successful.sum(:amount) + ExtDonation.sum(:amount), precision: 0, delimiter: ","
+          .numbers= number_with_precision Donation.where(project_id: Project.success.map(&:id)).successful.sum(:amount) + ExtDonation.where(project_id: Project.success.map(&:id)).sum(:amount), precision: 0, delimiter: ","
           %span.number-tag đồng được đóng góp
       %h5
         %span Chi Tiết
